@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="chris">
+    <meta name="keyword" content="Monitor Dashboard">
+    <meta http-equiv="refresh" content="1800">
+    <title>携程度假-综合数据平台</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/local/bitbug_favicon.ico"/>
+    <!-- css -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/static/css/elegant-icons-style.css" rel="stylesheet"/>
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/style-responsive.css" rel="stylesheet"/>
+    <link href="/static/css/jquery-ui-1.10.0.custom.css">
+    <link href="/static/js/datepicker/skin/default/datepicker.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/static/js/DataTables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/js/DataTables/extensions/Buttons/css/buttons.dataTables.min.css">
+</head>
+<body>
+<!-- container section start -->
+<section id="container" class="">
+    <!--header start-->
+    <header class="header dark-bg">
+        <img class="logo" id="logo" src="/static/img/local/logo.jpg">
+
+        <div class="top-nav notification-row">
+            <ul class="nav pull-right top-menu">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="profile-ava">
+                             <img alt="" src="/static/img/local/user1.jpg">
+                        </span>
+                        <span class="username"><b>{{ first_name }}</b></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li>
+                            <a href="/logout"><i class="icon_key_alt"></i>退出登录</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside id="toggle">
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu">
+                <li class="">
+                    <a class="" href="/EagleEye/dashboard/">
+                        <i class="icon_house_alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_piechart"></i>
+                        <span>实时监控</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>机酒实时订单</a>
+                        </li>
+                        <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>机酒可订检查</a>
+                        </li>
+                        <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>实时流量</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_datareport_alt"></i>
+                        <span>离线分析</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" target="_blank" href="http://kpi.bi.ctripcorp.com/#default"><i
+                                class="icon_documents_alt"></i>KPI Portal</a></li>
+                        <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnel"><i
+                                class="icon_documents_alt"></i>机酒转化漏斗</a></li>
+                        <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnelpkg"><i
+                                class="icon_documents_alt"></i>团队转化漏斗</a></li>
+                        <li><a class="" href="/EagleEye/realtime/uaanalysis/"><i class="icon_documents_alt"></i>UA分析</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- alert -->
+            {#            <div class="alert alert-info alert-dismissable">#}
+            {#                注意：该数据从2015-12-17号开始，由于PV数据每天更新时间存在延迟，默认时间为T-2,正常工作日可选择T-1，谢谢！#}
+            {#                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">#}
+            {#                    &times;#}
+            {#                </button>#}
+            {#            </div>#}
+            <!-- alert end -->
+
+            <header id="pkg_header" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label>开始时间：<input id="d5221" class="Wdate" type="text" placeholder="--开始时间--"
+                                       onFocus="var d5222=$dp.$('d5222');WdatePicker({onpicked:function(){d5222.focus();},maxDate:'#F{$dp.$D(\'d5222\')}'})"/></label>&nbsp;&nbsp;
+                    <label>截止时间：<input id="d5222" class="Wdate" type="text" placeholder="--截止时间--"
+                                       onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d5221\')}'})"/></label>&nbsp;&nbsp;
+                    <button type="button" id='search' class="btn btn-info btn-xs" style=""><b><i
+                            class="icon_search"></i>&nbsp;&nbsp;查询</b>
+                    </button>&nbsp;&nbsp;
+                    <script type="application/javascript">
+                        function download() {
+                            var sdt = document.getElementById("d5221").value;
+                            var edt = document.getElementById("d5222").value;
+                            if (sdt !== '' && edt !== "") {
+                                url = '/EagleEye/download/' + sdt + '/' + edt + '/'
+                            } else {
+                                alert("请先选择时间段！");
+                                return
+                            }
+                            window.open(url);
+                        }
+                    </script>
+                      <button type="button" id='download' class="btn btn-info btn-xs"
+                              onclick=download()><b><i
+                              class="icon_download"></i>&nbsp;&nbsp;下载</b>
+                      </button>
+                </span>
+            </header>
+            <div class="panel shadow">
+                <div class="panel-heading"><i class="icon_grid-3x3"></i>自由行UA分布分析 &nbsp;
+                    <span class="icon_question_alt2" data-toggle="modal" href="#myModal"
+                          style="float:right;margin-top: 10px;margin-right: 10px"></span>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                    </button>
+                                    <h5 class="modal-title"><b>数据说明</b></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>1：初始化数据默认为昨日数据，你可重新选择时间段查看饼图分布情况,或者选择下载，下载数据文件为所选日期段内统计结果;</p>
+
+                                    <p>
+                                        2：数据ETL从2015-12-17号开始，数据源为公司ubt解析后的FactPageView表和FactSession表中涉及到自由行频道的PageID部分,每个回话统计一次UA;</p>
+
+                                    <p>3：表格数据不参与刷新,由于PV表有可能有延迟情况，故存在漏跑情况;数据质量问题，请联系：<a href="mailto:wang.zy@Ctrip.com">wang.zy@Ctrip.com</a>
+                                        ,谢谢！
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-info" type="button">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon_piechart"></i>设备分布
+                                </div>
+                                <div class="panel-body">
+                                    <div id="device"></div>
+                                </div>
+                                <table id="tb_device" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>设备名</th>
+                                        <th>占比(小数)</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="icon_piechart"></i>浏览器分布</div>
+                                <div class="panel-body">
+                                    <div id="browser"></div>
+                                </div>
+                                <table id="tb_browser" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>浏览器</th>
+                                        <th>占比(小数)</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="icon_piechart"></i>操作系统分布</div>
+                                <div class="panel-body">
+                                    <div id="operation"></div>
+                                </div>
+                                <table id="tb_operation" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>操作系统</th>
+                                        <th>占比(小数)</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="icon_piechart"></i>APP版本分布</div>
+                                <div class="panel-body">
+                                    <div id="edition"></div>
+                                </div>
+                                <table id="tb_edition" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>APP版本</th>
+                                        <th>占比(小数)</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <small>Powered By 自由行数据团队</small>
+
+                        </div>
+                        <!-- Default to the left -->
+                        <small>Version 1.0&copy;
+                            2015 <a href="http://vacations.ctrip.com/">Ctrip</a>. All rights
+                            reserved.
+                        </small>
+                    </footer>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--main content end-->
+</section>
+<!-- container section end -->
+<!-- javascripts -->
+<script src="/static/js/jquery.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/js/jquery.scrollTo.min.js" type="text/javascript"></script>
+<script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="/static/js/datepicker/WdatePicker.js"></script>
+<script src="/static/js/scripts.js" type="text/javascript"></script>
+<script src="/static/js/highstock/highstock.js" type="text/javascript"></script>
+<script src="/static/js/highcharts/themes/sand-signika.js" type="text/javascript"></script>
+<script src="/static/js/Custom/ajax-charts.js"></script>
+<script type="text/javascript" language="javascript" src="/static/js/DataTables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript"
+        src="/static/js/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="/static/js/Custom/uaanalysis.js"></script>
+<script type="text/javascript">
+    RenderUAcharts();
+</script>
+</body>
+</html>
