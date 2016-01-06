@@ -1826,14 +1826,6 @@ div[data-role="editor-toolbar"] {
 
 /* Widget white extras */
 
-.widget .nav-tabs > li a {
-
-}
-
-.widget .nav-tabs {
-    margin-bottom: 5px;
-}
-
 .widget .tab-content {
     margin-bottom: 10px;
 }
