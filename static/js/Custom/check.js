@@ -30,6 +30,11 @@ var checkcharts = function () {
             charts.append_single(chart_ratio, '/EagleEye/ajax/check2/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False', '上周失败率', '#00BFFF', false);
         }
 
+        //for testing
+        chart_test = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/False', null, 220, 5, "test", '#FF9900', null, interval);
+        chart_test1 = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/False', null, 220, 5, "test1", '#FF9900', null, interval);
+        chart_test2 = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/False', null, 220, 5, "test2", '#FF9900', null, interval);
+
         checkcharts();
         $('#product').bind('change', function (e) {
             product = $('#product').val();
@@ -60,8 +65,10 @@ var checkcharts = function () {
             charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + sysdate(-1) + '&' + sysdate(0) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/True/False', '昨日失败数', '#9400D3', false);
             charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/True/False', '上周失败数', '#00BFFF', false);
 
-        })
-        $(".selectparam").select2();
+        });
+        $(".selectparam").select2({
+            minimumResultsForSearch: Infinity
+        });
         $("[data-toggle = 'tooltip']").tooltip();
     })
 

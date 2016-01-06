@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime, timedelta
 import pandas as pd
-from EagleEye.config import sqls as SQL
+from EagleEye.config import sql_diy as SQL
 import numpy as np
 from django.db import connection
 import os

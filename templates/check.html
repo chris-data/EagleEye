@@ -115,6 +115,16 @@
                     <option value="1" label="国际">国际</option>
                     <option value="2" label="国内">国内</option>
                 </select>&nbsp;
+{#                <select id="resource" class="selectparam" multiple="multiple" name="resource" data-toggle="tooltip"#}
+                {#                        title="请选择资源类型">#}
+                {#                    <option value="0" selected label="0">全部</option>#}
+                {#                    <option value="1" label="Flight">Flight</option>#}
+                {#                    <option value="2" label="Hotel">Hotel</option>#}
+                {#                    <option value="3" label="X">X</option>#}
+                {#                    <option value="4" label="Item">Item</option>#}
+                {#                    <option value="5" label="Train">Train</option>#}
+                {#                    <option value="6" label="TTD">TTD</option>#}
+                {#                </select>&nbsp;#}
                 <select id="interval" class="selectparam" name="interval" data-toggle="tooltip" title="请选择间隔时间">
                     <option value="3" label="3min">3min</option>
                     <option value="5" label="5min">5min</option>
@@ -124,12 +134,17 @@
                     <option value="30" label="30min">30min</option>
                     <option value="60" label="60min">60min</option>
                 </select>&nbsp;
+
                 <button type="button" id="mode_change" data-toggle="tooltip" data-placement="bottom"
                         title="切换到累积模式" class="btn btn-info btn-xs">显示累积
                 </button>
                 &nbsp;
                 <button type="button" id='refresh' class="btn btn-info btn-xs" data-toggle="tooltip" title="">
-                    <i class="arrow_triangle-right_alt" style="margin-top: 3px "></i>&nbsp;显示分段
+                    显示分段
+                </button>
+                &nbsp;
+                <button type="button" id='toresource' class="btn btn-info btn-xs" data-toggle="tooltip" title="">
+                    细分资源
                 </button>
                     <span class="icon_question_alt2" data-toggle="modal" href="#myModal"
                           style="float:right;margin-top: 10px"></span>

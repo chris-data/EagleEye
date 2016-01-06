@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from EagleEye.config import sql_check as SQL
 from django.contrib.auth.decorators import login_required
-from datetime import datetime,date
+from datetime import datetime, date
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
 
@@ -17,6 +17,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
 @login_required(login_url='/login/')
 def get_check(request):
     return render(request, 'check.html', {'first_name': request.user})
+
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """
@@ -104,6 +105,7 @@ def get_CheckAvailable(request, params, history=False, whole=False, update=False
     #         item = str(pd.to_datetime(key) + gap)
     #         mapping[str(item)] = value
 
+
 def get_CheckAvailable_ratio(request, params, history=False, update=False):
     """
     :param productpattern: 产品形态，例如：DP，SDP
@@ -168,57 +170,118 @@ def get_CheckAvailable_ratio(request, params, history=False, update=False):
     return JsonResponse(mapping)
 
 
-# productTypeName
-# productType: DP/SDP
-# ChannelID:Online/Hybrid/H5/
-#
-# 'ShoppingService_FlightSearch'
-# 'ShoppingService_HotelDetail'
-# 'ShoppingService_HotelListSearch'
-# 'ShoppingService_RecommendSearch'
-# 'ShoppingService_RoomListSearch'
-# 'ShoppingService_ShoppingDetailForBook'
-# 'ShoppingService_ShoppingDetailUpdate'
-# 'ShoppingService_XSearch'
-#
-#
-# NULL
-# 'EnglishSite'
-# 'H5'
-# 'Hybrid'
-# 'None'
-# 'Offline'
-# 'Online'
+# 按资源统计可定检查失败率
 
-def get_serviceinvoke(request, interval, params):
+def get_checkresource(resquest, params, sdt=str(date.today()),
+                      edt=str(date.today() + timedelta(days=1)), interval='10', whole='False', update='False',
+                      history='False'):
     """
-    :param request:
-    :param interval:
-    :param params:
+    :param resquest:
+    :param sdt:
+    :param edt:
     :return:
-
     """
-    sdt, edt, interval, producttype, isintlflight, isintlhotel, channel = str.split(params, '&')
-
+    producttype, result, flighttype = params.split('&')
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
+    if update == 'True':
+        sdt, edt = get_updatedt_pair(int(interval))
+    cursor = connection.cursor()
     interval += 'min'
 
-    cursor = connection.cursor()
-    cursor.execute(SQL.ShoppingService_RecommendSearch_Times,
-                   {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'isintlflight': isintlflight,
-                    'isintlhotel': isintlhotel,
-                    'channel': channel})
+    cursor.execute(SQL.checkresource,
+                   {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'result': result, 'flighttype': flighttype})
     queryset = cursor.fetchall()
-    df1 = pd.DataFrame(queryset, columns=['ServiceInvokeId', 'DataChange_LastTime']).drop_duplicates(
-        'DataChange_LastTime',
-        take_last=False)  # 去除重复和为空的
-    target = pd.DataFrame({'counter': np.ones(len(df1), dtype=int)}, index=df1.DataChange_LastTime)
+    df1 = pd.DataFrame(queryset, columns=['CheckAvailableLogDetailID', 'DataCreate_LastTime']).drop_duplicates(
+        'CheckAvailableLogDetailID', take_last=False)  # 去除重复和为空的
+    target = pd.DataFrame({'counter': np.ones(len(df1), dtype=int)}, index=df1.DataCreate_LastTime)
     # results
     data_list = target.resample(interval, how='sum', closed='right', label='right').fillna(0)
     mapping = {}
-    for key, value in zip(list(data_list.index), list(data_list.counter)):
-        mapping[str(key)] = int(value)
+    if whole == 'False':
+        if history == 'False':
+            for key, value in zip(list(data_list.index), list(data_list.counter)):
+                mapping[str(key)] = int(value)
+        elif history == 'True':
+            gap = pd.to_datetime(date.today()) - pd.to_datetime(sdt)
+            for key, value in zip(list(data_list.index), list(data_list.counter)):
+                item = str(pd.to_datetime(key) + gap)
+                mapping[str(item)] = int(value)
+    elif whole == 'True':
+        total = 0
+        if history == 'False':
+            for key, value in zip(list(data_list.index), list(data_list.counter)):
+                total += int(value)
+                mapping[str(key)] = int(total)
+        elif history == 'True':
+            gap = pd.to_datetime(date.today()) - pd.to_datetime(sdt)
+            for key, value in zip(list(data_list.index), list(data_list.counter)):
+                total += int(value)
+                item = str(pd.to_datetime(key) + gap)
+                mapping[str(item)] = int(total)
+    return JsonResponse(mapping)
+
+
+def get_resource_ratio(resquest, params, sdt=str(date.today()), edt=str(date.today() + timedelta(days=1)),
+                       interval='10',history=False, update=False):
+    """
+    :param productpattern: 产品形态，例如：DP，SDP
+    :param channel:预定渠道：online,app,h5,intl
+    :param area:国内国际
+    """
+    # CheckAvailableLog
+    # CheckAvailableID	自增主键
+    # SourceType	类型	1：SDP  2：DP
+    # Result	是否成功	1：成功 0：失败
+    # ChannelID	来源	1：Online  2：Offline 3：无线  4：国际英文网站
+    # CreateDate	创建时间
+    # IsIntl	是否国际	1：国际 2：国内
+    # if update == 'True':
+    #     sdt, edt = get_updatedt_pair(interval)
+
+    producttype, result, flighttype = params.split('&')
+
+    if update == 'True':
+        sdt, edt = get_updatedt_pair(int(interval))
+    interval += 'min'
+
+    cursor = connection.cursor()
+    cursor.execute(SQL.checkresource,
+                   {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'result': -1, 'flighttype': flighttype})
+    queryset = cursor.fetchall()
+    df1 = pd.DataFrame(queryset, columns=['CheckAvailableLogDetailID', 'DataCreate_LastTime']).drop_duplicates(
+        'CheckAvailableLogDetailID', take_last=False)  # 去除重复和为空的
+    tmp = pd.DataFrame({'counter': np.ones(len(df1), dtype=int)}, index=df1.DataCreate_LastTime)
+    # results
+    totals = tmp.resample(interval, how='sum', closed='right', label='right').fillna(0)
+
+    cursor.execute(SQL.checkresource,
+                   {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'result': 0, 'flighttype': flighttype})
+
+    queryset2 = cursor.fetchall()
+    df2 = pd.DataFrame(queryset2, columns=['CheckAvailableLogDetailID', 'DataCreate_LastTime']).drop_duplicates(
+        'CheckAvailableLogDetailID', take_last=False)  # 去除重复和为空的
+    tmp2 = pd.DataFrame({'counter': np.ones(len(df2), dtype=int)}, index=df2.DataCreate_LastTime)
+    failures = tmp2.resample(interval, how='sum', closed='right', label='right').fillna(0)
+
+    # add "key" coloumn
+    totals['key'] = totals.index
+    failures['key'] = failures.index
+
+    # merge totals and failures
+    data_list = pd.merge(totals, failures, on='key', how='left')
+    data_list.fillna(0)
+    data_list['ratio'] = data_list.counter_y / data_list.counter_x * 1.0
+    data_list = data_list.fillna(0)
+    mapping = {}
+    if history == 'False':
+        for key, value in zip(list(data_list.key), list(data_list.ratio)):
+            mapping[str(key)] = float(round(value, 2))
+    elif history == 'True':
+        gap = pd.to_datetime(date.today()) - pd.to_datetime(sdt)
+        for key, value in zip(list(data_list.key), list(data_list.ratio)):
+            item = str(pd.to_datetime(key) + gap)
+            mapping[str(item)] = float(round(value, 2))
     return JsonResponse(mapping)
 
 ######可订检查历史数据接口##############

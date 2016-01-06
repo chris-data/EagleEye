@@ -1,27 +1,27 @@
 # Created by wang.zy at 2015/12/22
 
-# ¿É¶¨¼ì²é
+# å¯å®šæ£€æŸ¥
 # CheckAvailableLog
-# CheckAvailableID	×ÔÔöÖ÷¼ü
-# SourceType	ÀàĞÍ	1£ºSDP  2£ºDP
-# Result	ÊÇ·ñ³É¹¦	1£º³É¹¦ 0£ºÊ§°Ü
-# ProductID	²úÆ·ID
-# DepartCityCode	³ö·¢³ÇÊĞ
-# ArriveCityCode	µ½´ï³ÇÊĞ
-# ChannelID	À´Ô´	1£ºOnline  2£ºOffline 3£ºÎŞÏß  4£º¹ú¼ÊÓ¢ÎÄÍøÕ¾
-# State	×´Ì¬	1£ºÀÏ½Ó¿Ú 2£ºĞÂ½Ó¿Ú
-# CreateDate	´´½¨Ê±¼ä
+# CheckAvailableID	è‡ªå¢ä¸»é”®
+# SourceType	ç±»å‹	1ï¼šSDP  2ï¼šDP
+# Result	æ˜¯å¦æˆåŠŸ	1ï¼šæˆåŠŸ 0ï¼šå¤±è´¥
+# ProductID	äº§å“ID
+# DepartCityCode	å‡ºå‘åŸå¸‚
+# ArriveCityCode	åˆ°è¾¾åŸå¸‚
+# ChannelID	æ¥æº	1ï¼šOnline  2ï¼šOffline 3ï¼šæ— çº¿  4ï¼šå›½é™…è‹±æ–‡ç½‘ç«™
+# State	çŠ¶æ€	1ï¼šè€æ¥å£ 2ï¼šæ–°æ¥å£
+# CreateDate	åˆ›å»ºæ—¶é—´
 # ShoppingId	ShoppingID
-# IsIntl	ÊÇ·ñ¹ú¼Ê	1£º¹ú¼Ê 2£º¹úÄÚ
+# IsIntl	æ˜¯å¦å›½é™…	1ï¼šå›½é™… 2ï¼šå›½å†…
 
-# Î¬¶È»®·Ö£º
-# Ê±¼ä£ºCreateDate
-# ²úÆ·ĞÎÌ¬£ºSourceType
-# ¼ì²é½á¹û£ºResult
-# À´Ô´£ºChannelID
-# ÇøÓò£ºIsIntl
+# ç»´åº¦åˆ’åˆ†ï¼š
+# æ—¶é—´ï¼šCreateDate
+# äº§å“å½¢æ€ï¼šSourceType
+# æ£€æŸ¥ç»“æœï¼šResult
+# æ¥æºï¼šChannelID
+# åŒºåŸŸï¼šIsIntl
 
-# ¿É¶¨¼ì²é
+# å¯å®šæ£€æŸ¥
 base = """
 SELECT
     CheckAvailableID,
@@ -44,7 +44,7 @@ FROM
 WHERE
     CreateDate >= curdate()
         """
-# ÍÆ¼ö½Ó¿Ú-´ÎÊı
+# æ¨èæ¥å£-æ¬¡æ•°
 ShoppingService_RecommendSearch_Times = """
 SELECT
     ServiceInvokeId, DataChange_LastTime
@@ -59,7 +59,7 @@ WHERE
         and isIntlHotel = (case when isIntlHotel = -1 then isIntlHotel else %(isintlhotel) end )
         and channel = (case when channel =-1 then channel else %(channel) end);
 """
-# ÍÆ¼ö½Ó¿Ú-´ÎÊı
+# æ¨èæ¥å£-æ¬¡æ•°
 ShoppingService_RecommendSearch_Failure_Times = """
 SELECT
     ServiceInvokeId, DataChange_LastTime
@@ -77,7 +77,7 @@ WHERE
         ;
 """
 
-# ÍÆ¼ö½Ó¿Ú-ºÄÊ±
+# æ¨èæ¥å£-è€—æ—¶
 ShoppingService_RecommendSearch_Elapsed = """
 SELECT
     ServiceInvokeId,elapsedtime, DataChange_LastTime
@@ -93,8 +93,36 @@ WHERE
         and channel = (case when channel =-1 then channel else %(channel) end)
         and elapsedtime > 0;
         """
+# -- CheckAvailableLogDetail
+# -- CheckAvailableLogDetailID	è‡ªå¢ä¸»é”®
+# -- CheckAvailableID	ä¸»è¡¨Id
+# -- ProductType	èµ„æºç±»å‹	1ï¼šFlight  2ï¼šHotel  3ï¼šXèµ„æº  4ï¼šå•é€‰é¡¹
+# -- 5ï¼šç«è½¦ç¥¨ 6ï¼šTTD
+# -- Result	æ˜¯å¦æˆåŠŸ	1ï¼šæˆåŠŸ 0ï¼šå¤±è´¥
+# -- FlightNo	èˆªç­å·
+# -- RouteToken	Token
+# -- HotelID	é…’åº—ID
+# -- RoomID	æˆ¿å‹ID
+# -- ResourcesID	èµ„æºID
+# -- Message	å¤‡æ³¨
+# -- FailCodes	å¤±è´¥Code
+# -- FlightType	æœºç¥¨ç±»å‹	1ï¼šå›½é™…  2ï¼šå¤§ç³»ç»Ÿ  3åº¦å‡
 
-###¿É¶©¼ì²éÀëÏßÊı¾İsql   È«²¿/·ÖÇşµÀ
+# å¯å®šæ£€æŸ¥ä¹‹-èµ„æºè°ƒç”¨
+checkresource = """SELECT
+    CheckAvailableLogDetailID,
+    DataCreate_LastTime
+FROM
+    CheckAvailableLogDetail
+WHERE
+    DataCreate_LastTime >= %(sdt)s
+        AND DataCreate_LastTime <= %(edt)s
+        and ProductType=(case when %(producttype)s <> -1 then %(producttype)s else ProductType end)
+		and Result=(case when %(result)s <> -1 then %(result)s else Result end)
+        and FlightType=(case when %(flighttype)s <> -1 then %(flighttype)s else FlightType end)
+        """
+
+###å¯è®¢æ£€æŸ¥ç¦»çº¿æ•°æ®sql   å…¨éƒ¨/åˆ†æ¸ é“
 sql_all_checkHistory="""
       select
 date_format(createdate,'%Y-%m-%d') as vdate,
@@ -104,7 +132,7 @@ case when sourceType=1 then 'SDP'
 	 when sourceType=2 then 'DP' end as product,
 case when ChannelID=1 then 'Online'
      when ChannelID=2 then 'Offline'
-     when ChannelID=3 then 'ÎŞÏß' end as channel,
+     when ChannelID=3 then 'æ— çº¿' end as channel,
 count(1) as cnt
 from CheckAvailableLog where
 sourceType in (1,2)
@@ -120,7 +148,7 @@ case when sourceType=1 then 'SDP'
 	 when sourceType=2 then 'DP' end,
 case when ChannelID=1 then 'Online'
      when ChannelID=2 then 'Offline'
-     when ChannelID=3 then 'ÎŞÏß' end
+     when ChannelID=3 then 'æ— çº¿' end
 """
 sql_channel_checkHistory="""
 	 select
@@ -138,8 +166,8 @@ case when Result=0 then 'fail'
      when Result=1 then 'success' end as statusCode,
 case when sourceType=1 then 'SDP'
 	 when sourceType=2 then 'DP' end as product,
-case when IsIntl=1 then '¹ú¼Ê'
-	 when IsIntl=2 then '¹úÄÚ' end as deIn,
+case when IsIntl=1 then 'å›½é™…'
+	 when IsIntl=2 then 'å›½å†…' end as deIn,
 count(1) as cnt
 from CheckAvailableLog where
 sourceType in (1,2)
@@ -153,8 +181,8 @@ case when Result=0 then 'fail'
      when Result=1 then 'success' end,
 case when sourceType=1 then 'SDP'
 	 when sourceType=2 then 'DP' end,
-case when IsIntl=1 then '¹ú¼Ê'
-	 when IsIntl=2 then '¹úÄÚ' end
+case when IsIntl=1 then 'å›½é™…'
+	 when IsIntl=2 then 'å›½å†…' end
      ) b
      on a.statusCode=b.statusCode and a.deIn=b.deIn  and a.product=b.product and a.vdate=b.vdate
  order by a.vdate,a.statuscode,a.product,a.deIn
