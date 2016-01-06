@@ -220,3 +220,44 @@ def get_serviceinvoke(request, interval, params):
     for key, value in zip(list(data_list.index), list(data_list.counter)):
         mapping[str(key)] = int(value)
     return JsonResponse(mapping)
+
+######可订检查历史数据接口##############
+
+
+@login_required(login_url='/login/')
+def get_CheckPage(request):
+    return render(request, "checkAvailable.html", {'first_name': request.user})
+
+
+##离线可订检查接口 全部
+
+def get_AllCheckHistory(request, sdt=str(datetime.today() - timedelta(days=31)),edt=str(datetime.today() - timedelta(days=1))):
+    """
+    :param productpattern: 产品形态，例如：DP，SDP
+    :param channel:预定渠道：online,无线,intl
+    :param area:国内国际
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_all_checkHistory, [sdt,edt])
+    queryset = cursor.fetchall()
+    mapping = {"key":sdt,"value":queryset}
+
+    return JsonResponse(mapping)
+
+##离线可订检查接口  分渠道
+def get_channelCheckHistory(request,channel,dimsdt=str(datetime.today() - timedelta(days=31)),dimedt=str(datetime.today() - timedelta(days=1)),sdt=str(datetime.today() - timedelta(days=31)),edt=str(datetime.today() - timedelta(days=1))):
+    """
+    :param productpattern: 产品形态，例如：DP，SDP
+    :param channel:预定渠道：online,无线,intl
+    :param area:国内国际
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_channel_checkHistory, [dimsdt,dimedt,channel,sdt,edt])
+    queryset = cursor.fetchall()
+    mapping = {"key":sdt,"value":queryset}
+
+    return JsonResponse(mapping)

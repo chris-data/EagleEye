@@ -93,3 +93,71 @@ WHERE
         and channel = (case when channel =-1 then channel else %(channel) end)
         and elapsedtime > 0;
         """
+
+###可订检查离线数据sql   全部/分渠道
+sql_all_checkHistory="""
+      select
+date_format(createdate,'%Y-%m-%d') as vdate,
+case when Result=0 then 'fail'
+     when Result=1 then 'success' end as statusCode,
+case when sourceType=1 then 'SDP'
+	 when sourceType=2 then 'DP' end as product,
+case when ChannelID=1 then 'Online'
+     when ChannelID=2 then 'Offline'
+     when ChannelID=3 then '无线' end as channel,
+count(1) as cnt
+from CheckAvailableLog where
+sourceType in (1,2)
+and IsIntl in (1,2)
+and ChannelID in (1,2,3)
+and Result in (0,1)
+and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <%s
+group by
+date_format(createdate,'%Y-%m-%d'),
+case when Result=0 then 'fail'
+     when Result=1 then 'success' end,
+case when sourceType=1 then 'SDP'
+	 when sourceType=2 then 'DP' end,
+case when ChannelID=1 then 'Online'
+     when ChannelID=2 then 'Offline'
+     when ChannelID=3 then '无线' end
+"""
+sql_channel_checkHistory="""
+	 select
+a.vdate,
+a.statusCode,
+a.product,
+a.deIn,
+ifnull(a.cnt+b.cnt,0)  as cnt
+ from
+(select * from checkChannelDim where vdate>=%s and vdate<%s ) a
+left join
+ (select
+date_format(createdate,'%Y-%m-%d') as vdate,
+case when Result=0 then 'fail'
+     when Result=1 then 'success' end as statusCode,
+case when sourceType=1 then 'SDP'
+	 when sourceType=2 then 'DP' end as product,
+case when IsIntl=1 then '国际'
+	 when IsIntl=2 then '国内' end as deIn,
+count(1) as cnt
+from CheckAvailableLog where
+sourceType in (1,2)
+and IsIntl in (1,2)
+and ChannelID=%s
+and Result in (0,1)
+and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <%s
+group by
+date_format(createdate,'%Y-%m-%d'),
+case when Result=0 then 'fail'
+     when Result=1 then 'success' end,
+case when sourceType=1 then 'SDP'
+	 when sourceType=2 then 'DP' end,
+case when IsIntl=1 then '国际'
+	 when IsIntl=2 then '国内' end
+     ) b
+     on a.statusCode=b.statusCode and a.deIn=b.deIn  and a.product=b.product and a.vdate=b.vdate
+ order by a.vdate,a.statuscode,a.product,a.deIn
+     ;
+
+"""

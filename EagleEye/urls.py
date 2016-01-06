@@ -144,6 +144,10 @@ checkurl = [
     url(r'^ajax/invoke2/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}|&)+((-|[0-9]|&)+))$',
         views_check.get_CheckAvailable_ratio,
         name='CheckAvailable_ratio'),
+    ##可订检查 离线数据url  全部/分渠道
+     url(r'^ajax/allCheck/$',views_check.get_AllCheckHistory),
+     url(r'^ajax/allCheck/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_check.get_AllCheckHistory),
+     url(r'^ajax/channelCheck/(?P<channel>[0-9])$',views_check.get_channelCheckHistory),
 ]
 
 # -------------------------------------pkg end------------------------------------------------------
