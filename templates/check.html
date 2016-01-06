@@ -115,7 +115,7 @@
                     <option value="1" label="国际">国际</option>
                     <option value="2" label="国内">国内</option>
                 </select>&nbsp;
-                {#                <select id="resource" class="selectparam" multiple="multiple" name="resource" data-toggle="tooltip"#}
+{#                <select id="resource" class="selectparam" multiple="multiple" name="resource" data-toggle="tooltip"#}
                 {#                        title="请选择资源类型">#}
                 {#                    <option value="0" selected label="0">全部</option>#}
                 {#                    <option value="1" label="Flight">Flight</option>#}
@@ -173,7 +173,7 @@
                 </div>
             </header>
             <!-- charts container-->
-            <div class="panel shadow" hidden>
+            <div class="panel shadow">
                 <div class="panel-heading">
                     <i class="icon_grid-3x3"></i>
                     <label class="label label-info">失败率</label>
@@ -182,7 +182,7 @@
                     <div id="ratio"></div>
                 </div>
             </div>
-            <div class="panel shadow" style="margin-top: 10px" hidden>
+            <div class="panel shadow" style="margin-top: 10px">
                 <div class="panel-heading">
                     <i class="icon_grid-3x3"></i>
                     <label class="label label-info">失败次数</label>
@@ -191,31 +191,13 @@
                     <div id="feilures"></div>
                 </div>
             </div>
-            <div class="panel shadow" style="margin-top: 10px" hidden>
+            <div class="panel shadow" style="margin-top: 10px">
                 <div class="panel-heading">
                     <i class="icon_grid-3x3"></i>
                     <label class="label label-info">调用次数</label>
                 </div>
                 <div class="panel-body">
                     <div id="invokes"></div>
-                </div>
-
-            </div>
-
-            <div class="panel shadow" style="margin-top: 10px">
-                <ul id="myTab" class="nav nav-tabs">
-                    <li id="tab_default" class="active"><a href="#default" data-toggle="tab">全部</a></li>
-                    <li id="tab_flight"><a href="#flight" data-toggle="tab">机票</a></li>
-                    <li id="tab_hotel"><a href="#hotel" data-toggle="tab"><b>酒店</b></a></li>
-                    <li id="tab_x"><a href="#x" data-toggle="tab"><b>X资源</b></a></li>
-                    <li id="tab_item"><a href="#item" data-toggle="tab"><b>单选项</b></a></li>
-                    <li id="tab_train"><a href="#train" data-toggle="tab"><b>火车票</b></a></li>
-                    <li id="tab_TTD"><a href="#TTD" data-toggle="tab"><b>当地玩乐</b></a></li>
-                </ul>
-                <div class="panel-body">
-                    <div id="test"></div>
-                    <div id="test1"></div>
-                    <div id="test2"></div>
                 </div>
                 <div class="panel-footer">
                     <footer class="main-footer">
