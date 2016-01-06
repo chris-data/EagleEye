@@ -93,3 +93,31 @@ WHERE
         and channel = (case when channel =-1 then channel else %(channel) end)
         and elapsedtime > 0;
         """
+# -- CheckAvailableLogDetail
+# -- CheckAvailableLogDetailID	自增主键
+# -- CheckAvailableID	主表Id
+# -- ProductType	资源类型	1：Flight  2：Hotel  3：X资源  4：单选项
+# -- 5：火车票 6：TTD
+# -- Result	是否成功	1：成功 0：失败
+# -- FlightNo	航班号
+# -- RouteToken	Token
+# -- HotelID	酒店ID
+# -- RoomID	房型ID
+# -- ResourcesID	资源ID
+# -- Message	备注
+# -- FailCodes	失败Code
+# -- FlightType	机票类型	1：国际  2：大系统  3度假
+
+# 可定检查之-资源调用
+checkresource = """SELECT
+    CheckAvailableLogDetailID,
+    DataCreate_LastTime
+FROM
+    CheckAvailableLogDetail
+WHERE
+    DataCreate_LastTime >= %(sdt)s
+        AND DataCreate_LastTime <= %(edt)s
+        and ProductType=(case when %(producttype)s <> -1 then %(producttype)s else ProductType end)
+		and Result=(case when %(result)s <> -1 then %(result)s else Result end)
+        and FlightType=(case when %(flighttype)s <> -1 then %(flighttype)s else FlightType end)
+        """

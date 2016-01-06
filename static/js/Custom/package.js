@@ -17,10 +17,9 @@ var groupcharts = function () {
         var $btn_mode_change = $("#mode_change");
         var $btn_refresh = $("#refresh");
 
-        $channel.select2();
-        $product_pkg.select2();
-        $product.select2();
-        $interval.select2();
+        $(".selectparam").select2({
+            minimumResultsForSearch: Infinity
+        });
 
         pageid3 = -1000;
         pageid4 = -1005;

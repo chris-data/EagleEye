@@ -4,7 +4,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from EagleEye.models import DiyPageviewStatisticRealtime as pageview, DiyOrderRealtime as orders, BookingOrder, \
     predictedorders, systemusers as users
-from EagleEye.config import rawsql_dict as SQL
+from EagleEye.config import sql_base as SQL
 from datetime import date, datetime, timedelta
 import pandas as pd
 import numpy as np
