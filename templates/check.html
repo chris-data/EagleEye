@@ -13,13 +13,19 @@
     <link href="/static/css/select2.css" rel="stylesheet">
     <link href="/static/css/elegant-icons-style.css" rel="stylesheet"/>
     <link href="/static/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        .selectparam, .triggle {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 <!-- container section start -->
 <section id="container" class="">
     <!--header start-->
     <header class="header dark-bg">
-        <img class="logo" id="logo" onclick="toggleHidden()" src="/static/img/local/logo.jpg">
+        <img class="logo" id="logo" src="/static/img/local/logo.jpg">
 
         <div class="top-nav notification-row">
             <ul class="nav pull-right top-menu">
@@ -93,110 +99,83 @@
     <!--sidebar end-->
     <section id="main-content">
         <section class="wrapper">
-            <!-- params start-->
-            <header id="pkg_header" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+            <!-- charts container-->
+            <ul id="myTab" class="nav nav-tabs">
+                <li id="tab_default" class="active"><a href="#default" data-toggle="tab"><i class="icon_house"></i>
+                    全部</a></li>
+                <li id="tab_flight"><a href="#flight" data-toggle="tab"><i class="icon_compass"></i> 机票</a></li>
+                <li id="tab_hotel"><a href="#hotel" data-toggle="tab"><i class="icon_building_alt"></i> 酒店</a></li>
+                <li id="tab_x"><a href="#x" data-toggle="tab"><i class="icon_check_alt"></i> X资源</a></li>
+                <li id="tab_item"><a href="#item" data-toggle="tab"><i class="icon_check_alt"></i> 单选项</a></li>
+                <li id="tab_train"><a href="#train" data-toggle="tab"><i class="icon_check_alt"></i> 火车票</a></li>
+                <li id="tab_TTD"><a href="#TTD" data-toggle="tab"><i class="icon_check_alt"></i> 当地玩乐</a></li>
+            </ul>
+            <div class="panel shadow">
+                <div id="check_header" class="panel-heading" style="background-color: #EEE;padding-bottom: 8px">
+                    <i class="fa fa-refresh" id='input2'
+                       style="float:right;"></i>
+                    <select id="product" class="selectparam" name="product" data-toggle="tooltip" title="请选择产品形态">
+                        <option value="-1" selected label="all">全部</option>
+                        <option value="2" label="dp">dp</option>
+                        <option value="1" label="sdp">sdp</option>
+                    </select>&nbsp;
+                    <select id="channel" class="selectparam" name="channel" data-toggle="tooltip" title="请选择下单渠道">
+                        <option value="-1" selected label="all">全部</option>
+                        <option value="1" label="online">online</option>
+                        <option value="2" label="offline">offline</option>
+                        <option value="3" label="wireless">wireless</option>
+                        <option value="4" label="intl">国际站</option>
+                    </select>&nbsp;
+                    <select id="isintl" class="selectparam"  data-toggle="tooltip" title="请选择国内国际">
+                        <option value="-1" selected label="全部">全部</option>
+                        <option value="1" label="国际">国际</option>
+                        <option value="2" label="国内">国内</option>
+                    </select>&nbsp;
+                    <select id="interval" class="selectparam" name="interval" data-toggle="tooltip" title="请选择间隔时间">
+                        <option value="3" label="3min">3min</option>
+                        <option value="5" label="5min">5min</option>
+                        <option value="10" selected label="10min">10min</option>
+                        <option value="15" label="15min">15min</option>
+                        <option value="20" label="20min">20min</option>
+                        <option value="30" label="30min">30min</option>
+                        <option value="60" label="60min">60min</option>
+                    </select>&nbsp;
+                    <button type="button" class="btns triggle" id="" data-toggle="modal" href="#myModal"
+                            style="float:right;margin-top: 5px">说明
+                    </button>
+                    <button type="button" id="mode_change" data-toggle="tooltip" data-placement="bottom"
+                            title="切换到累积模式" class="btns triggle"
+                            style="float: right;margin-top: 5px">查看累积
+                    </button>
+                    <button type="button" id='refresh' class="btns triggle" data-toggle="tooltip"
+                            style="float: right;margin-top: 5px">查看分段
+                    </button>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                    </button>
+                                    <h5 class="modal-title"><b>数据说明</b></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>可定检查数据主要监控：失败率，失败数，总调用次数，可以按照：产品形态，渠道，国内国际来删选；</p>
 
-                <i class="fa fa-refresh" id='input2'
-                   style="float:right;"></i>
-                <select id="product" class="selectparam" name="product" data-toggle="tooltip" title="请选择产品形态">
-                    <option value="-1" selected label="all">全部</option>
-                    <option value="2" label="dp">dp</option>
-                    <option value="1" label="sdp">sdp</option>
-                </select>&nbsp;
-                <select id="channel" class="selectparam" name="channel" data-toggle="tooltip" title="请选择下单渠道">
-                    <option value="-1" selected label="all">全部</option>
-                    <option value="1" label="online">online</option>
-                    <option value="2" label="offline">offline</option>
-                    <option value="3" label="wireless">wireless</option>
-                    <option value="4" label="intl">国际站</option>
-                </select>&nbsp;
-                <select id="isintl" class="selectparam" name="selectparam" data-toggle="tooltip" title="请选择国内国际">
-                    <option value="-1" selected label="全部">全部</option>
-                    <option value="1" label="国际">国际</option>
-                    <option value="2" label="国内">国内</option>
-                </select>&nbsp;
-{#                <select id="resource" class="selectparam" multiple="multiple" name="resource" data-toggle="tooltip"#}
-                {#                        title="请选择资源类型">#}
-                {#                    <option value="0" selected label="0">全部</option>#}
-                {#                    <option value="1" label="Flight">Flight</option>#}
-                {#                    <option value="2" label="Hotel">Hotel</option>#}
-                {#                    <option value="3" label="X">X</option>#}
-                {#                    <option value="4" label="Item">Item</option>#}
-                {#                    <option value="5" label="Train">Train</option>#}
-                {#                    <option value="6" label="TTD">TTD</option>#}
-                {#                </select>&nbsp;#}
-                <select id="interval" class="selectparam" name="interval" data-toggle="tooltip" title="请选择间隔时间">
-                    <option value="3" label="3min">3min</option>
-                    <option value="5" label="5min">5min</option>
-                    <option value="10" selected label="10min">10min</option>
-                    <option value="15" label="15min">15min</option>
-                    <option value="20" label="20min">20min</option>
-                    <option value="30" label="30min">30min</option>
-                    <option value="60" label="60min">60min</option>
-                </select>&nbsp;
-
-                <button type="button" id="mode_change" data-toggle="tooltip" data-placement="bottom"
-                        title="切换到累积模式" class="btn btn-info btn-xs">显示累积
-                </button>
-                &nbsp;
-                <button type="button" id='refresh' class="btn btn-info btn-xs" data-toggle="tooltip" title="">
-                    显示分段
-                </button>
-                &nbsp;
-                <button type="button" id='toresource' class="btn btn-info btn-xs" data-toggle="tooltip" title="">
-                    细分资源
-                </button>
-                    <span class="icon_question_alt2" data-toggle="modal" href="#myModal"
-                          style="float:right;margin-top: 10px"></span>
-
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                                </button>
-                                <h5 class="modal-title"><b>数据说明</b></h5>
-                            </div>
-                            <div class="modal-body">
-                                <p>可定检查数据主要监控：失败率，失败数，总调用次数，可以按照：产品形态，渠道，国内国际来删选；</p>
-
-                                <p>有任何改进建议请发邮件到：<a href="mailto:diydata@Ctrip.com">diydata@Ctrip.com</a>
-                                    ,谢谢！
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button data-dismiss="modal" class="btn btn-info" type="button">Close</button>
+                                    <p>有任何改进建议请发邮件到：<a href="mailto:diydata@Ctrip.com">diydata@Ctrip.com</a>
+                                        ,谢谢！
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-info" type="button">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </header>
-            <!-- charts container-->
-            <div class="panel shadow">
-                <div class="panel-heading">
-                    <i class="icon_grid-3x3"></i>
-                    <label class="label label-info">失败率</label>
-                </div>
                 <div class="panel-body">
                     <div id="ratio"></div>
-                </div>
-            </div>
-            <div class="panel shadow" style="margin-top: 10px">
-                <div class="panel-heading">
-                    <i class="icon_grid-3x3"></i>
-                    <label class="label label-info">失败次数</label>
-                </div>
-                <div class="panel-body">
                     <div id="feilures"></div>
-                </div>
-            </div>
-            <div class="panel shadow" style="margin-top: 10px">
-                <div class="panel-heading">
-                    <i class="icon_grid-3x3"></i>
-                    <label class="label label-info">调用次数</label>
-                </div>
-                <div class="panel-body">
                     <div id="invokes"></div>
                 </div>
                 <div class="panel-footer">
