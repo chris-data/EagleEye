@@ -288,8 +288,8 @@ def get_resource_ratio(resquest, params, sdt=str(date.today()), edt=str(date.tod
 
 
 @login_required(login_url='/login/')
-def get_CheckPage(request):
-    return render(request, "checkAvailable.html", {'first_name': request.user})
+def get_CheckHistory(request):
+    return render(request, "checkHistory.html", {'first_name': request.user})
 
 
 ##离线可订检查接口 全部
