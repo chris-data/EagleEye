@@ -21,7 +21,7 @@ pageurl = [
     url(r'^realtime/uaanalysis/$', views_base.get_ua_analysis, name='ua_analysis'),
 
     url(r'^check/$', views_check.get_check, name='check'),
-
+    url(r'^checkhistory/$',views_check.get_CheckHistory , name='check_history'),
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
