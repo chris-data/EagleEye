@@ -111,12 +111,12 @@ WHERE
 # 可定检查之-资源调用
 checkresource = """SELECT
     CheckAvailableLogDetailID,
-    DataCreate_LastTime
+    CreateDate
 FROM
     CheckAvailableLogDetail
 WHERE
-    DataCreate_LastTime >= %(sdt)s
-        AND DataCreate_LastTime <= %(edt)s
+    CreateDate >= %(sdt)s
+        AND CreateDate <= %(edt)s
         and ProductType=(case when %(producttype)s <> -1 then %(producttype)s else ProductType end)
 		and Result=(case when %(result)s <> -1 then %(result)s else Result end)
         and FlightType=(case when %(flighttype)s <> -1 then %(flighttype)s else FlightType end)
