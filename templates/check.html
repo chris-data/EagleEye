@@ -68,11 +68,10 @@
                     <ul class="sub">
                         <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>机酒实时订单</a>
                         </li>
-                        <li><a class="" href="#"><i class="icon_documents_alt"></i>机酒可订检查</a>
+                        <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>机酒可订检查</a>
                         </li>
                         <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>实时流量</a>
                         </li>
-
                     </ul>
                 </li>
                 <li class="sub-menu">
@@ -82,16 +81,18 @@
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
-                        <li><a class="" target="_blank" href="http://kpi.bi.ctripcorp.com/#default"><i
-                                class="icon_documents_alt"></i>KPI Portal</a></li>
+
                         <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnel"><i
                                 class="icon_documents_alt"></i>机酒转化漏斗</a></li>
+                        <li><a class="" href="/EagleEye/checkhistory/"><i class="icon_documents_alt"></i>机酒可订检查</a>
+                        </li>
                         <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnelpkg"><i
                                 class="icon_documents_alt"></i>团队转化漏斗</a></li>
+                        <li><a class="" target="_blank" href="http://kpi.bi.ctripcorp.com/#default"><i
+                                class="icon_documents_alt"></i>KPI Portal</a></li>
                         <li><a class="" href="/EagleEye/realtime/uaanalysis/"><i class="icon_documents_alt"></i>UA分析</a>
                         </li>
-                         <li><a class="" href="/EagleEye/checkhistory/"><i class="icon_documents_alt"></i>机酒可订检查</a>
-                        </li>
+
                     </ul>
                 </li>
             </ul>
@@ -107,28 +108,44 @@
                     全部</a></li>
                 <li id="tab_flight"><a href="#flight" data-toggle="tab"><i class="icon_compass"></i> 机票</a></li>
                 <li id="tab_hotel"><a href="#hotel" data-toggle="tab"><i class="icon_building_alt"></i> 酒店</a></li>
-                <li id="tab_x"><a href="#x" data-toggle="tab"><i class="icon_check_alt"></i> X资源</a></li>
-                <li id="tab_item"><a href="#item" data-toggle="tab"><i class="icon_check_alt"></i> 单选项</a></li>
-                <li id="tab_train"><a href="#train" data-toggle="tab"><i class="icon_check_alt"></i> 火车票</a></li>
-                <li id="tab_TTD"><a href="#TTD" data-toggle="tab"><i class="icon_check_alt"></i> 当地玩乐</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                        <i class="arrow_carrot-2dwnn_alt"></i> 其他
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li id="tab_x"><a href="#x" data-toggle="tab"><i class="icon_ol"></i> X资源</a></li>
+                        <li id="tab_item"><a href="#item" data-toggle="tab"><i class="icon_ol"></i> 单选项</a></li>
+                        <li id="tab_train"><a href="#train" data-toggle="tab"><i class="icon_ol"></i> 火车票</a>
+                        </li>
+                        <li id="tab_TTD"><a href="#TTD" data-toggle="tab"><i class="icon_ol"></i> 当地玩乐</a></li>
+                    </ul>
+                </li>
+                <li class="pull-right" style="margin-top: 8px;">
+                    <i class="arrow_right_alt"></i>
+                    <small><a href="/EagleEye/checkhistory/" style="color: #6a6a6a">&nbsp;查看历史趋势&nbsp;</a></small>
+                </li>
             </ul>
+
             <div class="panel shadow">
                 <div id="check_header" class="panel-heading" style="background-color: #EEE;padding-bottom: 8px">
                     <i class="fa fa-refresh" id='input2'
                        style="float:right;"></i>
-                    <select id="product" class="selectparam" name="product" data-toggle="tooltip" title="请选择产品形态">
+                    <select id="product" class="selectparam param" name="product" data-toggle="tooltip" title="请选择产品形态">
                         <option value="-1" selected label="all">全部</option>
                         <option value="2" label="dp">dp</option>
                         <option value="1" label="sdp">sdp</option>
                     </select>&nbsp;
-                    <select id="channel" class="selectparam" name="channel" data-toggle="tooltip" title="请选择下单渠道">
+                    <select id="channel" class="selectparam param" name="channel" data-toggle="tooltip" title="请选择下单渠道">
                         <option value="-1" selected label="all">全部</option>
                         <option value="1" label="online">online</option>
                         <option value="2" label="offline">offline</option>
                         <option value="3" label="wireless">wireless</option>
                         <option value="4" label="intl">国际站</option>
                     </select>&nbsp;
-                    <select id="isintl" class="selectparam"  data-toggle="tooltip" title="请选择国内国际">
+                    <select id="isintl" class="selectparam param" data-toggle="tooltip" title="请选择国内国际">
                         <option value="-1" selected label="全部">全部</option>
                         <option value="1" label="国际">国际</option>
                         <option value="2" label="国内">国内</option>
@@ -153,20 +170,26 @@
                             style="float: right;margin-top: 5px">查看分段
                     </button>
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                         aria-hidden="true" style="display: none;">
+                         aria-hidden="true" style="display: none;margin-top: 150px">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
                                     </button>
-                                    <h5 class="modal-title"><b>数据说明</b></h5>
+                                    <h5 class="modal-title"><b>说明</b></h5>
                                 </div>
                                 <div class="modal-body">
-                                    <p>可定检查数据主要监控：失败率，失败数，总调用次数，可以按照：产品形态，渠道，国内国际来删选；</p>
+                                    <ul>可定检查主要监控指标为：失败率，失败数，总调用数;</ul>
 
-                                    <p>有任何改进建议请发邮件到：<a href="mailto:diydata@Ctrip.com">diydata@Ctrip.com</a>
+                                    <ul>可以按照：产品形态，渠道，国内国际来删选;</ul>
+
+                                    <ul>可以按资源级别,默认为产品级,资源分类为：机票，酒店，X资源，单选项，火车票，TTD;</ul>
+
+                                    <ul>数据自动更新，更新频率:5min/次;</ul>
+
+                                    <ul>有任何改进建议请发邮件到：<a href="mailto:diydata@Ctrip.com">diydata@Ctrip.com</a>
                                         ,谢谢！
-                                    </p>
+                                    </ul>
                                 </div>
                                 <div class="modal-footer">
                                     <button data-dismiss="modal" class="btn btn-info" type="button">Close</button>
@@ -206,7 +229,7 @@
 <script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="/static/js/scripts.js"></script>
 <script src="/static/js/highstock/highstock.js"></script>
-<script src="/static/js/highcharts/themes/sand-signika.js"></script>
+<script src="/static/js/highcharts/themes/dark-unica.js"></script>
 <script src="/static/js/Custom/ajax-charts.js"></script>
 <script src="/static/js/Custom/check.js"></script>
 <script type="application/javascript">

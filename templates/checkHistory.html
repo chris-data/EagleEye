@@ -62,7 +62,7 @@
                     <ul class="sub">
                         <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>机酒实时订单</a>
                         </li>
-                        <li><a class="" href="#"><i class="icon_documents_alt"></i>机酒可订检查</a>
+                        <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>机酒可订检查</a>
                         </li>
                         <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>实时流量</a>
                         </li>
@@ -84,7 +84,7 @@
                                 class="icon_documents_alt"></i>团队转化漏斗</a></li>
                         <li><a class="" href="/EagleEye/realtime/uaanalysis/"><i class="icon_documents_alt"></i>UA分析</a>
                         </li>
-                         <li><a class="" href="#"><i class="icon_documents_alt"></i>机酒可订检查</a></li>
+                        <li><a class="" href="#"><i class="icon_documents_alt"></i>机酒可订检查</a></li>
                     </ul>
                 </li>
             </ul>
@@ -95,10 +95,26 @@
     <section id="main-content">
         <section class="wrapper">
             <!-- params start-->
-           <div class="panel shadow">
-                <div class="panel-heading"><i class="icon_grid-3x3"></i>可订检查分析</div>
-                <p style='margin-top:10px;margin-left:60px'> 渠道：<select id='channel' name='channel' style='width:120px;height:25px;' data-toggle='tooltip' title='请选择渠道'><option value='all' label='全部'> 全部</option><option value='onlineCheck' label='Online'> Online</option><option value='wirelessCheck' label='无线'> 无线</option> <option value='offlineCheck' label='Offline'> Offline</option></select> <button type='button' style='margin-left:20px;height:25px;width:60px;' id='search' data-toggle='tooltip' data-placement='bottom' title='查询不同渠道失败率' class='btn btn-info btn-xs'  onclick='searchChannel()'>查询</button></p>
-                 <div id='checkContainer' class="panel-body" style="margin-left:50px;">
+            <div class="panel shadow">
+                <div class="panel-heading"><i class="icon_grid-3x3"></i>可订检查分析
+                    <span class="pull-right" style="vertical-align: middle">
+                        <i class="arrow_right_alt"></i>
+                        <small><a href="/EagleEye/check">查看实时趋势</a></small>
+                    </span>
+                </div>
+                <p style='margin-top:10px;margin-left:60px'> 渠道：<select id='channel' name='channel' style='width:120px;height:25px;'
+                                                                        data-toggle='tooltip' title='请选择渠道'>
+                    <option value='all' label='全部'> 全部</option>
+                    <option value='onlineCheck' label='Online'> Online</option>
+                    <option value='wirelessCheck' label='无线'> 无线</option>
+                    <option value='offlineCheck' label='Offline'> Offline</option>
+                </select>
+                    <button type='button' style='margin-left:20px;height:25px;width:60px;' id='search'
+                            data-toggle='tooltip' data-placement='bottom' title='查询不同渠道失败率' class='btn btn-info btn-xs'
+                            onclick='searchChannel()'>查询
+                    </button>
+                </p>
+                <div id='checkContainer' class="panel-body" style="margin-left:50px;">
 
                 </div>
                 <div class="panel-footer">
