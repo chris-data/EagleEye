@@ -154,7 +154,7 @@ var charts = {
         options.loading = {
             style: {
                 position: 'absolute',
-                backgroundColor: 'black',
+                backgroundColor: '#252830',
                 opacity: 0.5,
                 textAlign: 'center'
             }
@@ -296,15 +296,15 @@ var charts = {
         }];
         options.plotOptions = {
             spline: {
-                lineWidth: 3,
+                lineWidth: 2.5,
                 states: {
                     hover: {
-                        lineWidth: 3.5
+                        lineWidth: 3
                     }
                 },
                 marker: {
                     enabled: false,
-                    radius: 3.5,
+                    radius: 3,
                 },
             }
         };
