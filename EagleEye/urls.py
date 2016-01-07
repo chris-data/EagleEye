@@ -157,11 +157,11 @@ checkurl = [
     # -- FailCodes	失败Code
     # -- FlightType	机票类型	1：国际  2：大系统  3度假
     url(
-        r'^ajax/checkresource/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<params>(-|[0-9]|&)+)/(?P<history>False|True)/(?P<whole>False|True)/(?P<update>False|True)$',
+        r'^ajax/checkresource/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<params>(-|[0-9]|&)+)/(?P<interval>[0-9]+)/(?P<history>False|True)/(?P<whole>False|True)/(?P<update>False|True)$',
         views_check.get_checkresource,
         name='checkresource'),
     url(
-        r'^ajax/checkresourceratio/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<params>(-|[0-9]|&)+)/(?P<history>False|True)/(?P<update>False|True)$',
+        r'^ajax/checkresourceratio/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<params>(-|[0-9]|&)+)/(?P<interval>[0-9]+)/(?P<history>False|True)/(?P<update>False|True)$',
         views_check.get_resource_ratio,
         name='checkresourceratio'),
     ##可订检查 离线数据url  全部/分渠道

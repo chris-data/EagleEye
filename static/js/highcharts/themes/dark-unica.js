@@ -22,7 +22,7 @@ Highcharts.theme = {
         //        [1, '#3e3e40']
         //    ]
         //},
-        backgroundColor: 'black',
+        backgroundColor: "#252830",
         style: {
             fontFamily: "Microsoft Yahei"
 
