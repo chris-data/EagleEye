@@ -5,33 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="chris">
     <meta name="keyword" content="Monitor Dashboard">
-    <meta http-equiv="refresh" content="10800">
-
+    <meta http-equiv="refresh" content="1800">
     <title>携程度假-综合数据平台</title>
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/local/bitbug_favicon.ico"/>
-    <!-- Bootstrap CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <!-- bootstrap theme -->
     <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
-    <!--external css-->
     <link href="/static/css/select2.css" rel="stylesheet">
-    <!-- font icon -->
     <link href="/static/css/elegant-icons-style.css" rel="stylesheet"/>
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet"/>
-    <!-- Custom styles -->
     <link href="/static/css/style.css" rel="stylesheet">
-    <link href="/static/css/style-responsive.css" rel="stylesheet"/>
+    <style type="text/css">
+        .selectparam, .triggle {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
-
 <body>
+
 <!-- container section start -->
 <section id="container" class="">
     <!--header start-->
-
     <header class="header dark-bg">
-        <!--logo start-->
-        <img class="logo" src="/static/img/local/logo.jpg">
-        <!--logo end-->
+        <img class="logo" id="logo" src="/static/img/local/logo.jpg">
+
         <div class="top-nav notification-row">
             <ul class="nav pull-right top-menu">
                 <li class="dropdown">
@@ -75,11 +71,11 @@
                             <small>机酒实时订单</small>
                         </a>
                         </li>
-                        <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>
+                        <li><a class="" href="#"><i class="icon_documents_alt"></i>
                             <small>机酒可订检查</small>
                         </a>
                         </li>
-                        <li><a class="" href="#"><i class="icon_documents_alt"></i>
+                        <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>
                             <small>实时流量</small>
                         </a>
                         </li>
@@ -92,6 +88,7 @@
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
+
                         <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnel"><i
                                 class="icon_documents_alt"></i>
                             <small>机酒转化漏斗</small>
@@ -120,100 +117,25 @@
         </div>
     </aside>
     <!--sidebar end-->
-
-    <!--main content start-->
     <section id="main-content">
-        <section class="wrapper">
-            <!-- page start-->
-            <!--chart start -->
-            <section class="panel shadow">
-                <header class="panel-heading">
-                    <i class="icon_grid-3x3"></i><label class="label label-info">实时流量</label>
-                    <select id="pageid" name="pageid" style="min-width: 165px">
-                    </select>
-                    <select id="interval" name="interval">
-                        <option value="5" label="5min">5min</option>
-                        <option value="10" selected label="10min">10min</option>
-                        <option value="15" label="15min">15min</option>
-                        <option value="20" label="20min">20min</option>
-                        <option value="30" label="30min">30min</option>
-                        <option value="60" label="60min">60min</option>
-                    </select>
-                    <i class="fa fa-refresh" id='traffic2' style="float:right;margin-top: 10px;"></i>
-                </header>
-                <div class="panel-body">
-
-                    <div id='traffic'></div>
-                </div>
-
-                <div class="panel-footer">
-                    <footer class="main-footer">
-                        <!-- To the right -->
-                        <div class="pull-right hidden-xs">
-                            <small>Powered By 自由行数据团队</small>
-
-                        </div>
-                        <!-- Default to the left -->
-                        <small>Version 1.0&copy;
-                            2015 <a href="http://vacations.ctrip.com/">Ctrip</a>. All rights
-                            reserved.
-                        </small>
-                    </footer>
-                </div>
-            </section>
-            <!--chart end -->
-
-        </section>
+        <iframe class="wrapper" frameborder="0" src="http://www.baidu.com/" width="100%" height="900px">
+        </iframe>
     </section>
-    <!--main content end-->
 </section>
 <!-- container section end -->
 <!-- javascripts -->
-<!-- js begin -->
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/select2.min.js"></script>
-<!-- nice scroll -->
 <script src="/static/js/jquery.scrollTo.min.js"></script>
 <script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
-<!--custome script for all page-->
 <script src="/static/js/scripts.js"></script>
-
-<!-- hightchart themes -->
 <script src="/static/js/highstock/highstock.js"></script>
 <script src="/static/js/highcharts/themes/dark-unica.js"></script>
-
-<!-- local js -->
 <script src="/static/js/Custom/ajax-charts.js"></script>
-<script src="/static/js/Custom/dashboard.js"></script>
+<script src="/static/js/Custom/check.js"></script>
 <script type="application/javascript">
-    $(document).ready(function () {
-        var pageid = $('#pageid').val();
-        var interval = $('#interval').val();
-        Highcharts.setOptions({
-            global: {
-                useUTC: false
-            }
-        });
-        chart_traffic = charts.render_double('spline', 'pv', 'uv', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/10", "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/10", 300, 5, 'traffic');
-
-        $('#traffic2').bind('click', function (event) {
-            var pageid = $("#pageid").val();
-            var interval_traffic = $('#interval').val();
-            charts.removeChart(chart_traffic);
-            chart_traffic = charts.render_double('spline', 'pv', 'uv', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid + "/" + interval_traffic, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid + "/" + interval_traffic, 300, 5, 'traffic');
-        });
-        $('.fa').hover(
-                function () {
-                    $(this).css({"color": "#f5675c"});
-                },
-                function () {
-                    $(this).css({"color": "#688a7e"});
-                }
-        );
-        loadpageid();
-    })
+    checkcharts();
 </script>
-<!-- js end -->
 </body>
 </html>
