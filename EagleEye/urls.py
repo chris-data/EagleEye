@@ -175,10 +175,10 @@ checkurl = [
 ]
 
 recommend = [
-    url(
-        r'^ajax/service/(?P<sdt>' + regex_date + ')&(?P<edt>' + regex_date + ')&(?P<interval>[0-9]+)&(?P<producttype>(-|[0-9]+))&(?P<isintlflight>(-|[0-9]+))&(?P<isintlhotel>[0-9]+))&(?P<channel>Hybrid|Online|H5|EnglishSite)$',
-        views_services.get_serviceinvoke_times,
-        name='checkresource'),
+    # url(
+    #     r'^ajax/service/(?P<sdt>' + regex_date + ')&(?P<edt>' + regex_date + ')&(?P<interval>[0-9]+)&(?P<producttype>(-|[0-9]+))&(?P<isintlflight>(-|[0-9]+))&(?P<isintlhotel>[0-9]+))&(?P<channel>Hybrid|Online|H5|EnglishSite)$',
+    #     views_services.get_serviceinvoke_times,
+    #     name='checkresource'),
 ]
 
 # -------------------------------------pkg end------------------------------------------------------
