@@ -304,7 +304,7 @@ var charts = {
                 },
                 marker: {
                     enabled: false,
-                    radius: 3,
+                    radius: 2
                 },
             }
         };
