@@ -294,7 +294,7 @@ def get_CheckHistory(request):
 
 ##离线可订检查接口 全部
 
-def get_AllCheckHistory(request, sdt=str(datetime.today() - timedelta(days=31)),edt=str(datetime.today() - timedelta(days=1))):
+def get_AllCheckHistory(request, sdt,edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -310,7 +310,7 @@ def get_AllCheckHistory(request, sdt=str(datetime.today() - timedelta(days=31)),
     return JsonResponse(mapping)
 
 ##离线可订检查接口  分渠道
-def get_channelCheckHistory(request,channel,dimsdt=str(datetime.today() - timedelta(days=31)),dimedt=str(datetime.today() - timedelta(days=1)),sdt=str(datetime.today() - timedelta(days=31)),edt=str(datetime.today() - timedelta(days=1))):
+def get_channelCheckHistory(request,channel,dimsdt,dimedt,sdt,edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -320,6 +320,38 @@ def get_channelCheckHistory(request,channel,dimsdt=str(datetime.today() - timede
     edt += ' 00:00:00'
     cursor = connection.cursor()
     cursor.execute(SQL.sql_channel_checkHistory, [dimsdt,dimedt,channel,sdt,edt])
+    queryset = cursor.fetchall()
+    mapping = {"key":sdt,"value":queryset}
+
+    return JsonResponse(mapping)
+
+##离线可订检查接口  分资源-->机票
+def get_flightCheckHistory(request,sdt,edt):
+    """
+    :param productpattern: 产品形态，例如：DP，SDP
+    :param channel:预定渠道：online,无线,intl
+    :param area:国内国际
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_flightCheckHistory, [sdt,edt])
+    queryset = cursor.fetchall()
+    mapping = {"key":sdt,"value":queryset}
+
+    return JsonResponse(mapping)
+
+##离线可订检查接口  分资源-->酒店/X资源/单选项/当地玩乐
+def get_hotelCheckHistory(request,dimsdt,dimedt,sdt,edt):
+    """
+    :param productpattern: 产品形态，例如：DP，SDP
+    :param channel:预定渠道：online,无线,intl
+    :param area:国内国际
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_hotelCheckHistory, [dimsdt,dimedt,sdt,edt])
     queryset = cursor.fetchall()
     mapping = {"key":sdt,"value":queryset}
 
