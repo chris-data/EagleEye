@@ -15,10 +15,16 @@ import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
 
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
 # Create your views here.
+
+@login_required(login_url='/login/')
+def dashboard(request):
+    return render(request, "obsoleted/dashboard.html", {'first_name': request.user})
+
 
 @login_required(login_url='/login/')
 def to_dashboard(request):
@@ -55,31 +61,6 @@ def get_ua_analysis(request):
     return render(request, "useragent.html", {'first_name': request.user})
 
 
-def get_enddt(interval=10, lastdt=datetime.now()):
-    """
-    计算每次初始化图标时候的截止日志,除去毛头，原因是数据同步时间为不规则10min一次
-    :param interval: 更新间隔时间
-    :return:
-    """
-    edt = str(lastdt - timedelta(minutes=(lastdt.minute % int(interval))))[:17] + '00'  # 截断当前时间获取edt
-    return edt
-
-
-def get_updatedt_pair(interval=10, lastdt=datetime.now()):
-    """
-    计算每次更新加点时间起始和截止,数据同步时间为不规则10min一次，例如：
-    2015-12-04 15:06:49
-    2015-12-04 14:56:50
-    :param interval: 更新间隔时间
-    :return:
-    """
-    sdt = lastdt - timedelta(minutes=1 * int(interval))  # 获取查询开始时间,往前推2个间隔单元
-    sdt = sdt - timedelta(minutes=(sdt.minute % int(interval)))
-    sdt = str(sdt)[:17] + '00'  # 截断开始时间 取得sdt
-    edt = str(lastdt - timedelta(minutes=(lastdt.minute % int(interval))))[:17] + '00'  # 截断当前时间获取edt
-    return sdt, edt
-
-
 # param:sdt,edt, channel,product,interval
 def get_orders_interval(request, sdt=str(date.today()), edt=str(date.today() + timedelta(days=1)), channel='all',
                         product='all', interval='10', history=False):
@@ -91,13 +72,6 @@ def get_orders_interval(request, sdt=str(date.today()), edt=str(date.today() + t
     :param interval: 统计间隔时间：1,10
     """
     queryset = object
-    cursor = connection.cursor()
-
-    # 如果是查询实时数据，则抹去时间尾巴，和统计周期对齐
-    if history == 'False':
-        cursor.execute(SQL.sqldict["order_max_orderdate"])
-        edt = get_enddt(int(interval), cursor.fetchone()[0])
-
     interval += 'min'
 
     if product == 'all':
@@ -192,13 +166,8 @@ def get_orders_aggregate(request, sdt=str(date.today()), edt=str(date.today() + 
     :param interval: 统计间隔时间：1,10
     """
     queryset = object
-    cursor = connection.cursor()
-    # 如果是查询实时数据，则抹去时间尾巴，和统计周期对齐
-    if history == 'False':
-        cursor.execute(SQL.sqldict["order_max_orderdate"])
-        edt = get_enddt(int(interval), cursor.fetchone()[0])
-
     interval += 'min'
+
     if product == 'all':
         if channel == 'online':
             queryset = orders.objects.filter(orderdate__gte=sdt).filter(orderdate__lt=edt).exclude(status=0).filter(
@@ -272,11 +241,11 @@ def get_orders_aggregate(request, sdt=str(date.today()), edt=str(date.today() + 
 
 
 def get_append_order(request, channel='all', product='all', interval='10'):
-    # 如果是更新逻辑，则重复分配查询日期起始
-    cursor = connection.cursor()
-    cursor.execute(SQL.sqldict['order_max_orderdate'])
-    sdt, edt = get_updatedt_pair(int(interval), cursor.fetchone()[0])
-
+    realdt = datetime.now() - timedelta(minutes=2 * int(interval))  # 获取查询开始时间,往前推2个间隔单元
+    basedt = realdt - timedelta(minutes=(realdt.minute % int(interval)))
+    sdt = str(basedt)[:17] + '00'  # 截断开始时间 取得sdt
+    edt = str(datetime.now() - timedelta(minutes=(datetime.now().minute % int(interval))))[:17] + '00'  # 截断当前时间获取edt
+    print(sdt, edt)
     interval += 'min'
     queryset = object
     if product == 'all':
@@ -417,13 +386,6 @@ def get_booking_interval(request, sdt=str(date.today()), edt=str(date.today() + 
     :param history:是否取历史数据，默认否
     """
     queryset = object
-    cursor = connection.cursor()
-
-    # 如果是查询实时数据，则抹去时间尾巴，和统计周期对齐
-    if history == 'False':
-        cursor.execute(SQL.sqldict["booking_max_orderdate"])
-        edt = get_enddt(int(interval), cursor.fetchone()[0])
-
     interval += 'min'
 
     if product == 'all':
@@ -546,12 +508,6 @@ def get_booking_aggregate(request, sdt=str(date.today()), edt=str(date.today() +
     :param history:是否取历史数据，默认否
     """
     queryset = object
-    cursor = connection.cursor()
-    # 如果是查询实时数据，则抹去时间尾巴，和统计周期对齐
-    if history == 'False':
-        cursor.execute(SQL.sqldict["booking_max_orderdate"])
-        edt = get_enddt(int(interval), cursor.fetchone()[0])
-
     interval += 'min'
 
     if product == 'all':
@@ -671,11 +627,10 @@ def get_booking_aggregate(request, sdt=str(date.today()), edt=str(date.today() +
 
 
 def get_append_booking(request, channel='all', product='all', interval='10'):
-    # 如果是更新逻辑，则重复分配查询日期起始
-    cursor = connection.cursor()
-    cursor.execute(SQL.sqldict["booking_max_orderdate"])
-    sdt, edt = get_updatedt_pair(int(interval), cursor.fetchone()[0])
-
+    realdt = datetime.now() - timedelta(minutes=2 * int(interval))  # 获取查询开始时间,往前推2个间隔单元
+    basedt = realdt - timedelta(minutes=(realdt.minute % int(interval)))
+    sdt = str(basedt)[:17] + '00'  # 截断开始时间 取得sdt
+    edt = str(datetime.now() - timedelta(minutes=(datetime.now().minute % int(interval))))[:17] + '00'  # 截断当前时间获取edt
     queryset = object
     interval += 'min'
     if product == 'all':
@@ -814,15 +769,8 @@ def get_predicate_order_aggregate(request, sdt, edt, producttype):
 
 def get_commit_interval(request, sdt=str(date.today()), edt=str(date.today() + timedelta(days=1)), channel='all',
                         product='all', interval='10', history=False):
-    queryset = object
-    cursor = connection.cursor()
-
-    # 如果是查询实时数据，则抹去时间尾巴，和统计周期对齐
-    if history == 'False':
-        cursor.execute(SQL.sqldict["commit_max_orderdate"])
-        edt = get_enddt(int(interval), cursor.fetchone()[0])
-
     interval += 'min'
+    cursor = connection.cursor()
     if product == 'all':
         if channel == 'all':
             cursor.execute(SQL.sqldict["commmit_all"], [sdt, edt, None])
@@ -875,14 +823,8 @@ def get_commit_interval(request, sdt=str(date.today()), edt=str(date.today() + t
 
 def get_commit_aggregate(request, sdt=str(date.today()), edt=str(date.today() + timedelta(days=1)), channel='all',
                          product='all', interval='10', history=False):
-    queryset = object
-    cursor = connection.cursor()
-    # 如果是查询实时数据，则抹去时间尾巴，和统计周期对齐
-    if history == 'False':
-        cursor.execute(SQL.sqldict["commit_max_orderdate"])
-        edt = get_enddt(int(interval), cursor.fetchone()[0])
-
     interval += 'min'
+    cursor = connection.cursor()
     if product == 'all':
         if channel == 'all':
             cursor.execute(SQL.sqldict["commmit_all"], [sdt, edt, None])
@@ -941,11 +883,10 @@ def get_commit_aggregate(request, sdt=str(date.today()), edt=str(date.today() + 
 
 
 def get_append_commit(request, channel='all', product='all', interval='10'):
-    # 如果是更新逻辑，则重复分配查询日期起始
-    cursor = connection.cursor()
-    cursor.execute(SQL.sqldict["commit_max_orderdate"])
-    sdt, edt = get_updatedt_pair(int(interval), cursor.fetchone()[0])
-
+    realdt = datetime.now() - timedelta(minutes=2 * int(interval))  # 获取查询开始时间,往前推2个间隔单元
+    basedt = realdt - timedelta(minutes=(realdt.minute % int(interval)))
+    sdt = str(basedt)[:17] + '00'  # 截断开始时间 取得sdt
+    edt = str(datetime.now() - timedelta(minutes=(datetime.now().minute % int(interval))))[:17] + '00'  # 截断当前时间获取edt
     interval += 'min'
     cursor = connection.cursor()
     if product == 'all':

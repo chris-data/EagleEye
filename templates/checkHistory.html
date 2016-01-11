@@ -83,6 +83,15 @@
                     <ul class="sub">
 
                         <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnel"><i
+<<<<<<< HEAD
+                                class="icon_documents_alt"></i>机酒转化漏斗</a></li>
+                        <li><a class="" href="#"><i class="icon_documents_alt"></i>机酒可订检查</a></li>
+                        <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnelpkg"><i
+                                class="icon_documents_alt"></i>团队转化漏斗</a></li>
+                         <li><a class="" target="_blank" href="http://kpi.bi.ctripcorp.com/#default"><i
+                                class="icon_documents_alt"></i>KPI Portal</a></li>
+                        <li><a class="" href="/EagleEye/realtime/uaanalysis/"><i class="icon_documents_alt"></i>UA分析</a>
+=======
                                 class="icon_documents_alt"></i>
                             <small>机酒转化漏斗</small>
                         </a></li>
@@ -101,6 +110,7 @@
                         <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
                             <small>UA分析</small>
                         </a>
+>>>>>>> 0984db5b8f8659b8f94b9b4bc18d79894bbab3b8
                         </li>
 
                     </ul>
@@ -112,27 +122,47 @@
     <!--sidebar end-->
     <section id="main-content">
         <section class="wrapper">
+
+            <ul id="myTab" class="nav nav-tabs">
+                <li id="tab_default" class="active"><a href="#home" data-toggle="tab" ><i class="icon_house"></i>
+                    全部</a></li>
+                <li id="tab_flight"><a href="#checkFlight" data-toggle="tab" onClick="checkFilght()"><i class="icon_compass"></i> 机票</a></li>
+                <li id="tab_hotel"><a href="#checkHotel" data-toggle="tab" onClick="checkHotel()"><i class="icon_building_alt"></i> 酒店</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                        <i class="arrow_carrot-2dwnn_alt"></i> 其他
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li id="tab_x"><a href="#xResource" data-toggle="tab" onClick="checkX()"><i class="icon_ol"></i> X资源</a></li>
+                        <li id="tab_item"><a href="#select" data-toggle="tab" onClick="checkSelect()"><i class="icon_ol"></i> 单选项</a></li>
+                        <li id="tab_TTD"><a href="#TTD" data-toggle="tab" onClick="checkPlay()"><i class="icon_ol"></i> 当地玩乐</a></li>
+                    </ul>
+                </li>
+                <li class="pull-right" style="margin-top: 8px;">
+                    <i class="arrow_right_alt"></i>
+                    <small><a href="/EagleEye/check/" style="color: #6a6a6a">&nbsp;查看实时趋势&nbsp;</a></small>
+                </li>
+            </ul>
             <!-- params start-->
-            <div class="panel shadow">
-                <div class="panel-heading"><i class="icon_grid-3x3"></i>可订检查分析
-                    <span class="pull-right" style="vertical-align: middle">
-                        <i class="arrow_right_alt"></i>
-                        <small><a href="/EagleEye/check">查看实时趋势</a></small>
-                    </span>
-                </div>
-                <p style='margin-top:10px;margin-left:60px'> 渠道：<select id='channel' name='channel' style='width:120px;height:25px;'
+            <div id="myTabContent" class="tab-content">
+            <div id="home" class="tab-pane fade in active" >
+                <p style='margin-top:20px;margin-left:20px'> 渠道：
+                    <select id='channel' name='channel' style='width:120px;height:25px;'
                                                                         data-toggle='tooltip' title='请选择渠道'>
                     <option value='all' label='全部'> 全部</option>
                     <option value='onlineCheck' label='Online'> Online</option>
                     <option value='wirelessCheck' label='无线'> 无线</option>
                     <option value='offlineCheck' label='Offline'> Offline</option>
-                </select>
+                   </select>
                     <button type='button' style='margin-left:20px;height:25px;width:60px;' id='search'
                             data-toggle='tooltip' data-placement='bottom' title='查询不同渠道失败率' class='btn btn-info btn-xs'
                             onclick='searchChannel()'>查询
                     </button>
                 </p>
-                <div id='checkContainer' class="panel-body" style="margin-left:50px;">
+                <div id='checkContainer' class="panel-body" style="margin-left:2px;">
 
                 </div>
                 <div class="panel-footer">
@@ -147,6 +177,82 @@
                     </footer>
                 </div>
             </div>
+            <div id="checkFlight" style="margin-top:10px;" class="tab-pane fade">
+                <div id='checkFlightH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+            <div id="checkHotel" class="tab-pane fade">
+               <div id='checkHotelH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+           <div id="xResource" class="tab-pane fade">
+                 <div id='xResourceH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+           </div>
+            <div id="select" class="tab-pane fade">
+                    <div id='selectH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+            <div id="TTD" class="tab-pane fade">
+                 <div id='TTDH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+         </div>
         </section>
     </section>
 </section>

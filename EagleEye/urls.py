@@ -168,7 +168,10 @@ checkurl = [
     ##可订检查 离线数据url  全部/分渠道
     url(r'^ajax/allCheck/$', views_check.get_AllCheckHistory),
     url(r'^ajax/allCheck/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_check.get_AllCheckHistory),
-    url(r'^ajax/channelCheck/(?P<channel>[0-9])$', views_check.get_channelCheckHistory),
+     url(r'^ajax/channelCheck/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[0-9])$',views_check.get_channelCheckHistory),
+     ## 分资源
+     url(r'^ajax/fhCheckHistory/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_check.get_flightCheckHistory),##机票
+     url(r'^ajax/htCheckHistory/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_check.get_hotelCheckHistory), ##酒店及其他资源
 ]
 
 recommend = [

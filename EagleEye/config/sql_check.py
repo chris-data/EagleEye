@@ -82,7 +82,7 @@ WHERE
         and FlightType=(case when %(flighttype)s <> -1 then %(flighttype)s else FlightType end)
         """
 
-###可订检查离线数据sql   全部/分渠道
+###可订检查离线数据sql   全部
 sql_all_checkHistory="""
       select
 date_format(createdate,'%Y-%m-%d') as vdate,
@@ -99,7 +99,7 @@ sourceType in (1,2)
 and IsIntl in (1,2)
 and ChannelID in (1,2,3)
 and Result in (0,1)
-and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <%s
+and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <=%s
 group by
 date_format(createdate,'%Y-%m-%d'),
 case when Result=0 then 'fail'
@@ -118,7 +118,7 @@ a.product,
 a.deIn,
 ifnull(a.cnt+b.cnt,0)  as cnt
  from
-(select * from checkChannelDim where vdate>=%s and vdate<%s ) a
+(select * from checkChannelDim where vdate>%s and vdate<=%s ) a
 left join
  (select
 date_format(createdate,'%Y-%m-%d') as vdate,
@@ -134,7 +134,7 @@ sourceType in (1,2)
 and IsIntl in (1,2)
 and ChannelID=%s
 and Result in (0,1)
-and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <%s
+and  date_format(createdate,'%Y-%m-%d')> %s and date_format(createdate,'%Y-%m-%d') <=%s
 group by
 date_format(createdate,'%Y-%m-%d'),
 case when Result=0 then 'fail'
@@ -148,4 +148,64 @@ case when IsIntl=1 then '国际'
  order by a.vdate,a.statuscode,a.product,a.deIn
      ;
 
+"""
+###可订检查离线分资源数据sql   机票
+sql_flightCheckHistory="""
+select
+date_format(createdate,'%Y-%m-%d'),
+case when Result=0 then 'fail'
+	 when Result=1 then 'success' end as statusCode,
+case when FlightType=1 then '国际'
+     when FlightType=2 then '大系统'
+     when FlightType=3 then '度假'
+     else '其他' end as FlightType,
+count(distinct checkAvailableID)
+from CheckAvailableLogDetail
+where ProductType=1
+and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <%s
+and Result in (0,1)
+group by
+date_format(createdate,'%Y-%m-%d'),
+case when Result=0 then 'fail'
+	 when Result=1 then 'success' end,
+case when FlightType=1 then '国际'
+     when FlightType=2 then '大系统'
+     when FlightType=3 then '度假'
+     else '其他' end
+"""
+
+###  可订检查 分资源 酒店及其他资源（不含机票）
+sql_hotelCheckHistory="""
+ select
+   A.vdate as vdate,
+   A.statusCode,
+   A.productType,
+   IFNULL(A.cnt + B.cnt, 0) as cnt
+   from (select * from DimCheckResouce where vdate>%s and vdate<=%s  ) A
+   left join
+   (
+   select
+date_format(createdate,'%Y-%m-%d') as vdate,
+case when Result=0 then 'fail'
+	 when Result=1 then 'success' end as statusCode,
+case when ProductType=2 then '酒店'
+	 when ProductType=3 then 'x资源'
+	 when ProductType=4 then '单选项'
+	 when ProductType=6 then '当地玩乐' end as productType,
+count(distinct checkAvailableID) as cnt
+from CheckAvailableLogDetail
+where ProductType in (2,3,4,6)
+and date_format(createdate,'%Y-%m-%d')> %s and date_format(createdate,'%Y-%m-%d') <=%s
+and Result in (0,1)
+group by
+date_format(createdate,'%Y-%m-%d'),
+case when Result=0 then 'fail'
+	 when Result=1 then 'success' end,
+case when ProductType=2 then '酒店'
+	 when ProductType=3 then 'x资源'
+	 when ProductType=4 then '单选项'
+	 when ProductType=6 then '当地玩乐' end
+     )B
+ on A.vdate=B.vdate and A.productType=B.productType and A.statusCode=B.statusCode
+     ORDER BY vdate,statusCode,productType
 """
