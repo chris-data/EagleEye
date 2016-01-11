@@ -14,7 +14,7 @@ function checkAll() {
     $checkContainer = $("#checkContainer")
     $checkContainer.empty();//清空翻页标签
     $checkContainer.append("<div id='all' style='height:250px;width:47%;float:left;clear:left;margin-top: 2px'></div><div id='Dp' style='height:250px;width:47%;float:left;margin-left:10px;margin-top: 2px '></div><div id='Sdp' style='height:250px;width:47%;float:left;clear:left;margin-top: 2px'></div><div id='Online' style='height:250px;width:47%;float:left;margin-left:10px;margin-top:2px'></div><div id='Wireless' style='height:250px;width:47%;float:left;clear:left;margin-top: 2px'></div><div id='Offline' style='height:250px;width:47%;float:left;margin-left:10px;margin-top: 2px '></div>")
-    var url = '/EagleEye/ajax/allCheck/'+sysdate(-31)+'/'+sysdate(-1);
+    var url = '/EagleEye/ajax/allCheck/'+sysdate(-30)+'/'+sysdate(0);
     drawCurve(url, 'spline', nameArray, timeArray, 0,null)
 
 }
@@ -99,7 +99,8 @@ function getArray(retobj, k)  //k=0  全部,  k=1 dp  ,k=2sdp  ,k=3online ,k=4�
 
             fail[j] = retobj.value[8 * j][4]  //DP 国内失败
             total[j] = retobj.value[8 * j][4] + retobj.value[4 + 8 * j][4]//DP国际总数
-               var x= (fail[j] / total[j]).toFixed(4);
+            console.log('total[j]:'+total[j])
+               var x= (fail[j] / total[j]).toFixed(2);
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
         if (k == 7) {
@@ -140,7 +141,11 @@ function getArray(retobj, k)  //k=0  全部,  k=1 dp  ,k=2sdp  ,k=3online ,k=4�
         {
             fail[j] = retobj.value[i + 3 + 8 * j][3];//机票 度假 失败
             total[j] = retobj.value[i + 3 + 8 * j][3] + retobj.value[i + 7 + 8 * j][3];//机票度假总数
-           var x= (fail[j] / total[j]).toFixed(4);
+              var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j] / total[j]).toFixed(4);
+            }
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
         if(k==13)
@@ -161,28 +166,44 @@ function getArray(retobj, k)  //k=0  全部,  k=1 dp  ,k=2sdp  ,k=3online ,k=4�
         {
              fail[j] = retobj.value[i + 3 + 8 * j][3];//机票 全部 失败
             total[j] =fail[j]+ retobj.value[i + 3 + 8 * j][3] + retobj.value[i + 7+ 8 * j][3];//机票全部总数
-              var x= (fail[j] / total[j]).toFixed(4);
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j] / total[j]).toFixed(4);
+            }
             rate[j] = parseFloat(x);//失败率
         }
           if(k==16)//资源--x资源
         {
              fail[j] = retobj.value[i  + 8 * j][3];//机票 全部 失败
             total[j] =fail[j]+ retobj.value[i  + 8 * j][3] + retobj.value[i + 4+ 8 * j][3];//机票全部总数
-               var x= (fail[j] / total[j]).toFixed(4);
+              var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j] / total[j]).toFixed(4);
+            }
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
           if(k==17)//资源--单选项
         {
              fail[j] = retobj.value[i + 1 + 8 * j][3];//机票 全部 失败
             total[j] =fail[j]+ retobj.value[i + 1+ 8 * j][3] + retobj.value[i + 5+ 8 * j][3];//机票全部总数
-               var x= (fail[j] / total[j]).toFixed(4);
+              var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j] / total[j]).toFixed(4);
+            }
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
           if(k==18)//资源--当地玩乐
         {
              fail[j] = retobj.value[i + 2 + 8 * j][3];//机票 全部 失败
             total[j] =fail[j]+ retobj.value[i + 2 + 8 * j][3] + retobj.value[i + 6+ 8 * j][3];//机票全部总数
-               var x= (fail[j] / total[j]).toFixed(4);
+            var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j] / total[j]).toFixed(4);
+            }
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
 
@@ -370,6 +391,7 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType)//pageid
             var reObj = data;
 
             var dataArray1 = getArray(reObj, 6)
+            console.log('dataArray1:'+dataArray1[0])
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             data3 = dataArray1[2];
@@ -607,7 +629,7 @@ function checkChannel(channelId) {
     var timeArray = getMonth30();
     $checkContainer.empty();//清空翻页标签
     $checkContainer.append("<div id='char1' style='height:250px;width:47%;float:left;clear:left;margin-top: 2px'></div><div id='char2' style='height:250px;width:47%;float:left;margin-left:10px;margin-top: 2px '></div><div id='char3' style='height:250px;width:47%;float:left;clear:left;margin-top: 2px'></div><div id='char4' style='height:250px;width:47%;float:left;margin-left:10px;margin-top: 2px '></div>")
-    var url = '/EagleEye/ajax/channelCheck/'+sysdate(-31)+'/'+sysdate(-1) +'/'+sysdate(-31)+'/'+sysdate(-1)+'/' +channelId;
+    var url = '/EagleEye/ajax/channelCheck/'+sysdate(-31)+'/'+sysdate(0) +'/'+sysdate(-30)+'/'+sysdate(0)+'/' +channelId;
     var nameArray = [];
     nameArray[0] = 'DP 国内';
     nameArray[1] = 'DP 国际';
@@ -631,9 +653,9 @@ function checkFilght()//机票
     {
         var timeArray = getMonth30();
     $checkFlightH= $("#checkFlightH")
-    $checkFlightH.append("<div id='flight0' style='height:250px;margin-top:5px;width:82%'></div><div id='flight1' style='height:250px;float:left;clear:left;width:41%;margin-top: 5px'></div><div id='flight2' style='height:250px;float:left;clear:right;width:41%;margin-left:80px;margin-top: 5px '></div><div id='flight3' style='height:250px;float:left;clear:left;margin-top: 5px;width:41%'></div><div id='flight4' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:41% '></div>")
+    $checkFlightH.append("<div id='flight0' style='height:250px;margin-top:5px;width:88%'></div><div id='flight1' style='height:250px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='flight2' style='height:250px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='flight3' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='flight4' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div>")
 
-    var url = '/EagleEye/ajax/fhCheckHistory/'+sysdate(-31)+'/'+sysdate(-1)  ;
+    var url = '/EagleEye/ajax/fhCheckHistory/'+sysdate(-31)+'/'+sysdate(0)  ;
     var nameArray = [];
     nameArray[0] = '机票-全部';
     nameArray[1] = '机票-国际';
@@ -652,9 +674,9 @@ function checkHotel()//酒店
     {
        var timeArray = getMonth30();
         $checkHotelH= $("#checkHotelH")
-        $checkHotelH.append("<div id='hotel0' style='height:250px;margin-top:5px;width:82%'></div>")
+        $checkHotelH.append("<div id='hotel0' style='height:250px;margin-top:5px;width:88%'></div>")
 
-        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(-1)+'/'+sysdate(-31)+'/'+sysdate(-1)  ;
+        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(0)+'/'+sysdate(-30)+'/'+sysdate(0)  ;
         var nameArray = [];
         nameArray[0] = '酒店-全部';
         drawCurve(url, 'spline', nameArray, timeArray, 3,'hotel')
@@ -668,9 +690,9 @@ function checkX()//X资源
     {
        var timeArray = getMonth30();
         $xResourceH= $("#xResourceH")
-        $xResourceH.append("<div id='xResource0' style='height:250px;margin-top:5px;width:82%'></div>")
+        $xResourceH.append("<div id='xResource0' style='height:250px;margin-top:5px;width:88%'></div>")
 
-        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(-1)+'/'+sysdate(-31)+'/'+sysdate(-1)  ;
+        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(0)+'/'+sysdate(-30)+'/'+sysdate(0)  ;
         var nameArray = [];
         nameArray[0] = 'X资源-全部';
         drawCurve(url, 'spline', nameArray, timeArray, 3,'xResource')
@@ -687,9 +709,9 @@ function checkSelect()//单选项
     {
        var timeArray = getMonth30();
         $selectH= $("#selectH")
-        $selectH.append("<div id='select0' style='height:250px;margin-top:5px;width:82%'></div>")
+        $selectH.append("<div id='select0' style='height:250px;margin-top:5px;width:88%'></div>")
 
-        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(-1)+'/'+sysdate(-31)+'/'+sysdate(-1)  ;
+        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(0)+'/'+sysdate(-30)+'/'+sysdate(0)  ;
         var nameArray = [];
         nameArray[0] = '单选项-全部';
         drawCurve(url, 'spline', nameArray, timeArray, 3,'oneSelect')
@@ -705,9 +727,9 @@ function checkPlay()//当地玩乐
     {
        var timeArray = getMonth30();
         $TTDH= $("#TTDH")
-        $TTDH.append("<div id='play0' style='height:250px;margin-top:5px;width:82%'></div>")
+        $TTDH.append("<div id='play0' style='height:250px;margin-top:5px;width:88%'></div>")
 
-        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(-1)+'/'+sysdate(-31)+'/'+sysdate(-1)  ;
+        var url = '/EagleEye/ajax/htCheckHistory/'+sysdate(-31)+'/'+sysdate(0)+'/'+sysdate(-30)+'/'+sysdate(0)  ;
         var nameArray = [];
         nameArray[0] = '当地玩乐-全部';
         drawCurve(url, 'spline', nameArray, timeArray, 3,'play')

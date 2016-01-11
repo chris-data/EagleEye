@@ -1,6 +1,31 @@
 # Created by wang.zy at 2015/10/15
 
 sqldict = {
+    #获取当天最新一次预定
+    "order_max_orderdate": """
+SELECT
+    MAX(orderdate) AS orderdate
+FROM
+    v_DIY_Order
+WHERE
+    orderdate >= CURDATE()
+    """,
+        "booking_max_orderdate": """
+SELECT
+    MAX(DataChange_LastTime) AS orderdate
+FROM
+    v_DIY_Booking
+WHERE
+    DataChange_LastTime >= CURDATE()
+    """,
+        "commit_max_orderdate": """
+SELECT
+    MAX(DataChange_LastTime) AS orderdate
+FROM
+    v_DIY_Commit
+WHERE
+    DataChange_LastTime >= CURDATE()
+    """,
     # 按pageid和间隔时间来初始化pv
     "init_pv_day": '''
                    SELECT id
