@@ -99,7 +99,7 @@ sourceType in (1,2)
 and IsIntl in (1,2)
 and ChannelID in (1,2,3)
 and Result in (0,1)
-and  createdate> %s and createdate <%s
+and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <=%s
 group by
 date_format(createdate,'%Y-%m-%d'),
 case when Result=0 then 'fail'
@@ -118,7 +118,7 @@ a.product,
 a.deIn,
 ifnull(a.cnt+b.cnt,0)  as cnt
  from
-(select * from checkChannelDim where vdate>%s and vdate<%s ) a
+(select * from checkChannelDim where vdate>%s and vdate<=%s ) a
 left join
  (select
 date_format(createdate,'%Y-%m-%d') as vdate,
@@ -134,7 +134,7 @@ sourceType in (1,2)
 and IsIntl in (1,2)
 and ChannelID=%s
 and Result in (0,1)
-and  createdate> %s and createdate <%s
+and  date_format(createdate,'%Y-%m-%d')> %s and date_format(createdate,'%Y-%m-%d') <=%s
 group by
 date_format(createdate,'%Y-%m-%d'),
 case when Result=0 then 'fail'
@@ -162,7 +162,7 @@ case when FlightType=1 then '国际'
 count(distinct checkAvailableID)
 from CheckAvailableLogDetail
 where ProductType=1
-and createdate> %s and createdate<%s
+and  date_format(createdate,'%Y-%m-%d')>= %s and date_format(createdate,'%Y-%m-%d') <%s
 and Result in (0,1)
 group by
 date_format(createdate,'%Y-%m-%d'),
@@ -181,7 +181,7 @@ sql_hotelCheckHistory="""
    A.statusCode,
    A.productType,
    IFNULL(A.cnt + B.cnt, 0) as cnt
-   from (select * from DimCheckResouce where vdate>%s and vdate<%s  ) A
+   from (select * from DimCheckResouce where vdate>%s and vdate<=%s  ) A
    left join
    (
    select
@@ -195,7 +195,7 @@ case when ProductType=2 then '酒店'
 count(distinct checkAvailableID) as cnt
 from CheckAvailableLogDetail
 where ProductType in (2,3,4,6)
-and createdate> %s and createdate <%s
+and date_format(createdate,'%Y-%m-%d')> %s and date_format(createdate,'%Y-%m-%d') <=%s
 and Result in (0,1)
 group by
 date_format(createdate,'%Y-%m-%d'),
