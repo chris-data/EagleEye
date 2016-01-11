@@ -22,7 +22,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 @login_required(login_url='/login/')
 def to_dashboard(request):
-    return HttpResponseRedirect('/EagleEye/dashboard/')
+    return HttpResponseRedirect('/EagleEye/')
 
 
 @login_required(login_url='/login/')
