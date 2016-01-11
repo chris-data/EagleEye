@@ -479,7 +479,7 @@ var charts = {
             loading: {
                 style: {
                     position: 'absolute',
-                    backgroundColor: 'black',
+                    backgroundColor: '#252830',
                     opacity: 0.5,
                     textAlign: 'center'
                 }
