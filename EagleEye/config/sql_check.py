@@ -44,6 +44,14 @@ FROM
 WHERE
     CreateDate >= curdate()
         """
+max_create_source="""
+SELECT
+    max(CreateDate) as CreateDate
+FROM
+    CheckAvailableLogDetail
+WHERE
+    CreateDate >= curdate()
+"""
 
 # -- CheckAvailableLogDetail
 # -- CheckAvailableLogDetailID	自增主键
