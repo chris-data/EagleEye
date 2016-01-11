@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 import numpy as np
 import pandas as pd
-from EagleEye.config import sql_check as SQL
+from EagleEye.config import sql_services as SQL
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, date
 
@@ -33,14 +33,21 @@ from datetime import datetime, date
 # 'Offline'
 # 'Online'
 
-def get_serviceinvoke(request, interval, params):
-    """
-    :param request:
-    :param interval:
-    :param params:
-    :return:
+
+@login_required(login_url='/login/')
+def get_services_page(request):
+    return render(request, 'services.html', {'first_name': request.user})
+
+
+def get_serviceinvoke_times(request, interval, params):
 
     """
+    :param request:
+    :param interval: 间隔时间
+    :param params:参数
+    :return:
+    """
+
     sdt, edt, interval, producttype, isintlflight, isintlhotel, channel = str.split(params, '&')
 
     sdt += ' 00:00:00'

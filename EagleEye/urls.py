@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from . import views_base, views_ext, views_pkg, views_check
+from . import views_base, views_ext, views_pkg, views_check, views_services
 
 # yyyy-mm-dd
 regex_date = '[0-9]{4}-[0-9]{2}-[0-9]{2}'
@@ -8,7 +8,7 @@ pageurl = [
     # dashboard page
     # url(r'^dashboard/$', views.dashboard, name='dashboard'),
 
-    url(r'^dashboard/$', views_base.home, name='dashboard'),
+    url(r'^$', views_base.home, name='dashboard'),
 
     # url(r'^home/$', views.home, name='home'),
     # traffic page
@@ -18,10 +18,11 @@ pageurl = [
     # pageid list
     url(r'^ajax/pageid/$', views_base.get_pageid, name='pageid_list'),
 
-    url(r'^realtime/uaanalysis/$', views_base.get_ua_analysis, name='ua_analysis'),
+    url(r'^uaanalysis/$', views_base.get_ua_analysis, name='ua_analysis'),
 
     url(r'^check/$', views_check.get_check, name='check'),
-    url(r'^checkhistory/$',views_check.get_CheckHistory , name='check_history'),
+    url(r'^checkhistory/$', views_check.get_CheckHistory, name='check_history'),
+    url(r'^services/$', views_services.get_services_page, name='services'),
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -165,10 +166,17 @@ checkurl = [
         views_check.get_resource_ratio,
         name='checkresourceratio'),
     ##可订检查 离线数据url  全部/分渠道
-     url(r'^ajax/allCheck/$',views_check.get_AllCheckHistory),
-     url(r'^ajax/allCheck/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_check.get_AllCheckHistory),
-     url(r'^ajax/channelCheck/(?P<channel>[0-9])$',views_check.get_channelCheckHistory),
+    url(r'^ajax/allCheck/$', views_check.get_AllCheckHistory),
+    url(r'^ajax/allCheck/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_check.get_AllCheckHistory),
+    url(r'^ajax/channelCheck/(?P<channel>[0-9])$', views_check.get_channelCheckHistory),
+]
+
+recommend = [
+    url(
+        r'^ajax/service/(?P<sdt>' + regex_date + ')&(?P<edt>' + regex_date + ')&(?P<interval>[0-9]+)&(?P<producttype>(-|[0-9]+))&(?P<isintlflight>(-|[0-9]+))&(?P<isintlhotel>[0-9]+))&(?P<channel>Hybrid|Online|H5|EnglishSite)$',
+        views_services.get_serviceinvoke_times,
+        name='checkresource'),
 ]
 
 # -------------------------------------pkg end------------------------------------------------------
-urlpatterns = pageurl + orderurl + trafficurl + bookingurl + commiturl + cancelurl + uaurl + pkgorderurl + checkurl
+urlpatterns = pageurl + orderurl + trafficurl + bookingurl + commiturl + cancelurl + uaurl + pkgorderurl + checkurl + recommend
