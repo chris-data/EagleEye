@@ -27,7 +27,7 @@ SELECT
     CheckAvailableID,
     CreateDate
 FROM
-    CheckAvailableLog
+    CheckAvailableLog force index(idx_CreateDate,idx_SourceType,idx_Result,idx_IsIntl,idx_ChannelID)
 WHERE
     CreateDate >= %(sdt)s
         AND CreateDate <= %(edt)s
@@ -40,7 +40,7 @@ max_createdate = """
 SELECT
     max(CreateDate) as CreateDate
 FROM
-    CheckAvailableLog
+    CheckAvailableLog force index(idx_createdate)
 WHERE
     CreateDate >= curdate()
         """
@@ -48,7 +48,7 @@ max_create_source="""
 SELECT
     max(CreateDate) as CreateDate
 FROM
-    CheckAvailableLogDetail
+    CheckAvailableLogDetail force index(idx_CreateDate)
 WHERE
     CreateDate >= curdate()
 """
@@ -73,7 +73,7 @@ checkresource = """SELECT
     CheckAvailableLogDetailID,
     CreateDate
 FROM
-    CheckAvailableLogDetail
+    CheckAvailableLogDetail force index(idx_CreateDate)
 WHERE
     CreateDate >= %(sdt)s
         AND CreateDate <= %(edt)s

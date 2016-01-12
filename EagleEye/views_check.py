@@ -124,10 +124,12 @@ def get_CheckAvailable_ratio(request, params, history=False, update=False):
 
     sdt, edt, interval, sourcetype, result, isintl, channelid = str.split(params, '&')
 
-    if update == 'True':
-        sdt, edt = get_updatedt_pair(interval)
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
+
+    if update == 'True':
+        sdt, edt = get_updatedt_pair(interval)
+
     interval += 'min'
 
     cursor = connection.cursor()
