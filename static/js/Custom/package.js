@@ -8,8 +8,13 @@ Highcharts.setOptions({
     }
 });
 var groupcharts = function () {
-
     $(document).ready(function () {
+        today = sysdate(0);
+        yesterday = sysdate(-1);
+        lastweek = sysdate(-7);
+        tommorw = sysdate(1);
+        lastweekplus = sysdate(-6);
+
         var $channel = $("#channel");
         var $product_pkg = $("#product_pkg");
         var $interval = $("#interval");
@@ -700,114 +705,114 @@ var groupcharts = function () {
     });
     $("#mode_change_pkg").bind("click", function (e) {
         charts.removeChart(chart_pkgorder);
-        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", "", 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
+        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", "", 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
         charts.removeChart(chart_pkgcreate);
-        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
+        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
         charts.removeChart(chart_pkgcommit);
-        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
+        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
         charts.removeChart(chart_pkgtraffic);
-        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid3 + "/" + interval + "/False", null, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid3 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid3 + "/" + interval + "/False", null, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid3 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
         charts.removeChart(chart_pkgdetail);
-        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid4 + "/" + interval + "/False", null, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid4 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid4 + "/" + interval + "/False", null, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid4 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
         charts.removeChart(chart_pkginput);
-        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid5 + "/" + interval + "/False", null, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkginput, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid5 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid5 + "/" + interval + "/False", null, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkginput, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid5 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
 
     function renderpkg() {
-        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgorder/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
-        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
-        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
-        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid4 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid4 + "/" + interval, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B", chart_width);
-        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid5 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid5 + "/" + interval, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B", chart_width);
-        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid3 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid3 + "/" + interval, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B", chart_width);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
+        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgorder/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
+        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
+        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
+        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid4 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid4 + "/" + interval, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B", chart_width);
+        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid5 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid5 + "/" + interval, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B", chart_width);
+        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid3 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid3 + "/" + interval, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B", chart_width);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
 
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
 
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
-        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid4 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
-        charts.append_double(chart_pkginput, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid5 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
-        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid3 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
+        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid4 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        charts.append_double(chart_pkginput, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid5 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid3 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
     }
 
     $('#pkgorder2').bind('click', function (event) {
         charts.removeChart(chart_pkgorder);
-        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgorder/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
+        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgorder/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
     });
     $('#pkgorder3').bind('click', function (event) {
         charts.removeChart(chart_pkgorder);
-        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", null, 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
+        chart_pkgorder = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgorder/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", null, 210, 5, 'pkg_order', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgorder, "/EagleEye/ajax/pkgorder/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
     });
     $('#pkgbooking2').bind('click', function (event) {
         charts.removeChart(chart_pkgcreate);
-        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
+        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
     });
     $('#pkgbooking3').bind('click', function (event) {
         charts.removeChart(chart_pkgcreate);
-        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", null, 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
+        chart_pkgcreate = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcreate/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", null, 210, 5, 'pkg_create', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcreate, "/EagleEye/ajax/pkgcreate/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
     });
     $('#pkgcommit2').bind('click', function (event) {
         charts.removeChart(chart_pkgcommit);
-        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
+        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/False", "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/False/True", 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/False/False", '上周', '#027BFF', true);
     });
     $('#pkgcommit3').bind('click', function (event) {
         charts.removeChart(chart_pkgcommit);
-        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", null, 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
-        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
+        chart_pkgcommit = charts.render_single('spline', '实时', "/EagleEye/ajax/pkgcommit/" + today + "/" + tommorw + "/" + channel + "/" + product_pkg + "/" + interval + "/False/True/False", null, 210, 5, 'pkg_commit', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + yesterday + "/" + today + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '昨日', '#E42535', false);
+        charts.append_single(chart_pkgcommit, "/EagleEye/ajax/pkgcommit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product_pkg + "/" + interval + "/True/True/False", '上周', '#027BFF', true);
     });
 
     $('#pkgtraffic2').bind('click', function (event) {
         charts.removeChart(chart_pkgtraffic);
-        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid3 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid3 + "/" + interval, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid3 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid3 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid3 + "/" + interval, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid3 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
     $('#pkgtraffic3').bind('click', function (event) {
         charts.removeChart(chart_pkgtraffic);
-        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid3 + "/" + interval + "/False", null, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid3 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkgtraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid3 + "/" + interval + "/False", null, 210, 5, 'pkg_traffic', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkgtraffic, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid3 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
     $('#pkgdetail2').bind('click', function (event) {
         charts.removeChart(chart_pkgdetail);
-        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid4 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid4 + "/" + interval, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid4 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid4 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid4 + "/" + interval, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid4 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
     $('#pkgdetail3').bind('click', function (event) {
         charts.removeChart(chart_pkgdetail);
-        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid4 + "/" + interval + "/False", null, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid4 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkgdetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid4 + "/" + interval + "/False", null, 210, 5, 'pkg_detail', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkgdetail, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid4 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
     $('#pkginput2').bind('click', function (event) {
         charts.removeChart(chart_pkginput);
-        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid5 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid5 + "/" + interval, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkginput, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid5 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid5 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid5 + "/" + interval, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkginput, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid5 + "/" + interval, '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
     $('#pkginput3').bind('click', function (event) {
         charts.removeChart(chart_pkginput);
-        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid5 + "/" + interval + "/False", null, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_pkginput, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid5 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
+        chart_pkginput = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid5 + "/" + interval + "/False", null, 210, 5, 'pkg_input', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_pkginput, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid5 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", '#027BFF');
     });
     $('#tab_frt').click(function (e) {
         e.preventDefault();

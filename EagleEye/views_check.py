@@ -55,13 +55,17 @@ def get_CheckAvailable(request, params, history=False, whole=False, update=False
 
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
-    if update == 'True':
-        sdt, edt = get_updatedt_pair(interval)
+
     cursor = connection.cursor()
-    # if history == 'False':
-    #     cursor.execute(SQL.max_createdate)
-    #     edt = get_enddt(int(interval), cursor.fetchone()[0])
+    cursor.execute(SQL.max_createdate)
+    if update == 'True':
+        sdt, edt = get_updatedt_pair(interval, cursor.fetchone()[0])
+
     interval += 'min'
+    # if result == '-1':
+    #     cursor.execute(SQL.base_all,
+    #                    {'sdt': sdt, 'edt': edt, 'sourcetype': sourcetype, 'isintl': isintl, 'channelid': channelid})
+
     cursor.execute(SQL.base, {'sdt': sdt, 'edt': edt, 'sourcetype': sourcetype, 'result': result, 'isintl': isintl,
                               'channelid': channelid})
     queryset = cursor.fetchall()
@@ -70,6 +74,21 @@ def get_CheckAvailable(request, params, history=False, whole=False, update=False
     target = pd.DataFrame({'counter': np.ones(len(df1), dtype=int)}, index=df1.CreateDate)
     # results
     data_list = target.resample(interval, how='sum', closed='right', label='right').fillna(0)
+
+    # # print(data_list)
+    # # 正态分布法
+    # # data_list['isAnomaly'] = data_list > data_list.quantile(.95)
+    # threshold = 2.8
+    # # zscore算法
+    # zscore = (data_list - data_list.mean()) / data_list.std()
+    # data_list['isAnomaly'] = zscore.abs() > threshold
+    # # 增强的zscore算法
+    # # MAD = (data_list - data_list.median()).abs().median()
+    # # zscore = ((data_list - data_list.median()) * 0.6475 / MAD).abs()
+    # # data_list['isAnomaly'] = zscore > threshold
+    #
+    # print(data_list.query('isAnomaly==True'))
+
     mapping = {}
     if whole == 'False':
         if history == 'False':
@@ -127,12 +146,13 @@ def get_CheckAvailable_ratio(request, params, history=False, update=False):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
 
+    cursor = connection.cursor()
+    cursor.execute(SQL.max_createdate)
     if update == 'True':
-        sdt, edt = get_updatedt_pair(interval)
+        sdt, edt = get_updatedt_pair(interval, cursor.fetchone()[0])
 
     interval += 'min'
 
-    cursor = connection.cursor()
     cursor.execute(SQL.base, {'sdt': sdt, 'edt': edt, 'sourcetype': sourcetype, 'result': -1, 'isintl': isintl,
                               'channelid': channelid})
     queryset = cursor.fetchall()
@@ -186,11 +206,13 @@ def get_checkresource(resquest, params, sdt=str(date.today()),
     producttype, result, flighttype = params.split('&')
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
-    if update == 'True':
-        sdt, edt = get_updatedt_pair(int(interval))
-    cursor = connection.cursor()
-    interval += 'min'
 
+    cursor = connection.cursor()
+    cursor.execute(SQL.max_create_source)
+    if update == 'True':
+        sdt, edt = get_updatedt_pair(int(interval), cursor.fetchone()[0])
+
+    interval += 'min'
     cursor.execute(SQL.checkresource,
                    {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'result': result, 'flighttype': flighttype})
     queryset = cursor.fetchall()
@@ -225,7 +247,7 @@ def get_checkresource(resquest, params, sdt=str(date.today()),
 
 
 def get_resource_ratio(resquest, params, sdt=str(date.today()), edt=str(date.today() + timedelta(days=1)),
-                       interval='10',history=False, update=False):
+                       interval='10', history=False, update=False):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,app,h5,intl
@@ -243,11 +265,11 @@ def get_resource_ratio(resquest, params, sdt=str(date.today()), edt=str(date.tod
 
     producttype, result, flighttype = params.split('&')
 
-    if update == 'True':
-        sdt, edt = get_updatedt_pair(int(interval))
-    interval += 'min'
-
     cursor = connection.cursor()
+    cursor.execute(SQL.max_create_source)
+    if update == 'True':
+        sdt, edt = get_updatedt_pair(int(interval), cursor.fetchone()[0])
+    interval += 'min'
     cursor.execute(SQL.checkresource,
                    {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'result': -1, 'flighttype': flighttype})
     queryset = cursor.fetchall()
@@ -286,6 +308,7 @@ def get_resource_ratio(resquest, params, sdt=str(date.today()), edt=str(date.tod
             mapping[str(item)] = float(round(value, 2))
     return JsonResponse(mapping)
 
+
 ######可订检查历史数据接口##############
 
 
@@ -296,7 +319,7 @@ def get_CheckHistory(request):
 
 ##离线可订检查接口 全部
 
-def get_AllCheckHistory(request, sdt,edt):
+def get_AllCheckHistory(request, sdt, edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -305,14 +328,15 @@ def get_AllCheckHistory(request, sdt,edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sql_all_checkHistory, [sdt,edt])
+    cursor.execute(SQL.sql_all_checkHistory, [sdt, edt])
     queryset = cursor.fetchall()
-    mapping = {"key":sdt,"value":queryset}
+    mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
 
 ##离线可订检查接口  分渠道
-def get_channelCheckHistory(request,channel,dimsdt,dimedt,sdt,edt):
+def get_channelCheckHistory(request, channel, dimsdt, dimedt, sdt, edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -321,14 +345,15 @@ def get_channelCheckHistory(request,channel,dimsdt,dimedt,sdt,edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sql_channel_checkHistory, [dimsdt,dimedt,channel,sdt,edt])
+    cursor.execute(SQL.sql_channel_checkHistory, [dimsdt, dimedt, channel, sdt, edt])
     queryset = cursor.fetchall()
-    mapping = {"key":sdt,"value":queryset}
+    mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
 
 ##离线可订检查接口  分资源-->机票
-def get_flightCheckHistory(request,sdt,edt):
+def get_flightCheckHistory(request, sdt, edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -337,14 +362,15 @@ def get_flightCheckHistory(request,sdt,edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sql_flightCheckHistory, [sdt,edt])
+    cursor.execute(SQL.sql_flightCheckHistory, [sdt, edt])
     queryset = cursor.fetchall()
-    mapping = {"key":sdt,"value":queryset}
+    mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
 
+
 ##离线可订检查接口  分资源-->酒店/X资源/单选项/当地玩乐
-def get_hotelCheckHistory(request,dimsdt,dimedt,sdt,edt):
+def get_hotelCheckHistory(request, dimsdt, dimedt, sdt, edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -353,8 +379,8 @@ def get_hotelCheckHistory(request,dimsdt,dimedt,sdt,edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sql_hotelCheckHistory, [dimsdt,dimedt,sdt,edt])
+    cursor.execute(SQL.sql_hotelCheckHistory, [dimsdt, dimedt, sdt, edt])
     queryset = cursor.fetchall()
-    mapping = {"key":sdt,"value":queryset}
+    mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)

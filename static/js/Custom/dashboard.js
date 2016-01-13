@@ -30,6 +30,13 @@ var loadpageid = function () {
 }
 
 var renderCharts = function () {
+    var today = sysdate(0),
+        yesterday = sysdate(-1),
+        lastweek = sysdate(-7),
+        tommorw = sysdate(1),
+        lastweekplus = sysdate(-6);
+
+
     var $channel = $("#channel");
     var $product = $("#product");
     var $product_pkg = $("#product_pkg");
@@ -315,37 +322,37 @@ var renderCharts = function () {
     //渲染图
     chart_width = $("#pkg_order").width();
     // init today's data
-    chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/order2/" + channel + "/" + product + "/" + interval, 210, 10, 'order', "#E5E67B", chart_width, interval);
-    chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/" + interval, 210, 5, 'traffic', "#f45b5b", "#E5E67B", chart_width);
-    chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/booking/" + channel + "/" + product + "/" + interval, 210, 5, 'booking', "#E5E67B", chart_width, interval);
-    chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/commit/" + channel + "/" + product + "/" + interval, 210, 1, 'commit', "#E5E67B", chart_width, interval);
-    chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/" + interval, 210, 5, 'detail', "#f45b5b", "#E5E67B", chart_width);
-    chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/23/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/23/" + interval, 210, 5, 'input', "#f45b5b", "#E5E67B", chart_width);
+    chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/order2/" + channel + "/" + product + "/" + interval, 210, 10, 'order', "#E5E67B", chart_width, interval);
+    chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/0/" + interval, 210, 5, 'traffic', "#f45b5b", "#E5E67B", chart_width);
+    chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/booking/" + channel + "/" + product + "/" + interval, 210, 5, 'booking', "#E5E67B", chart_width, interval);
+    chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/commit/" + channel + "/" + product + "/" + interval, 210, 1, 'commit', "#E5E67B", chart_width, interval);
+    chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/0/" + interval, 210, 5, 'detail', "#f45b5b", "#E5E67B", chart_width);
+    chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/23/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/23/" + interval, 210, 5, 'input', "#f45b5b", "#E5E67B", chart_width);
     // add last weekday's data
-    //charts.append_single(chart_order, "/EagleEye/ajax/init/order2/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", "昨日订单");
-    charts.append_single(chart_order, "/EagleEye/ajax/init/order4/" + sysdate(0) + "/" + sysdate(1) + "/" + productpattern, "预测订单", "#34aadc", true);
-    charts.append_double(chart_traffic, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/0/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
-    charts.append_single(chart_booking, "/EagleEye/ajax/init/booking/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc", true);
-    charts.append_single(chart_commit, "/EagleEye/ajax/init/commit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc", true);
-    charts.append_double(chart_detail, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
-    charts.append_double(chart_input, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid1 + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+    //charts.append_single(chart_order, "/EagleEye/ajax/init/order2/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", "昨日订单");
+    charts.append_single(chart_order, "/EagleEye/ajax/init/order4/" + today + "/" + tommorw + "/" + productpattern, "预测订单", "#34aadc", true);
+    charts.append_double(chart_traffic, "/EagleEye/ajax/history/traffic/" + lastweek + "/0/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+    charts.append_single(chart_booking, "/EagleEye/ajax/init/booking/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc", true);
+    charts.append_single(chart_commit, "/EagleEye/ajax/init/commit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc", true);
+    charts.append_double(chart_detail, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+    charts.append_double(chart_input, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid1 + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
 
     $('#refresh').bind('click', function (event) {
         resetCharts();
     });
     $('#order2').bind('click', function (event) {
         charts.removeChart(chart_order);
-        chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/order2/" + channel + "/" + product + "/" + interval, 210, 10, 'order', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order4/" + sysdate(0) + "/" + sysdate(1) + "/" + productpattern, "预测订单", "#34aadc");
+        chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/order2/" + channel + "/" + product + "/" + interval, 210, 10, 'order', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order4/" + today + "/" + tommorw + "/" + productpattern, "预测订单", "#34aadc");
     });
     $('#order3').bind('click', function (event) {
         if (chart_order !== undefined) {
             charts.removeChart(chart_order);
         }
-        chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order5/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 10, 'order', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product + "/" + interval + "/True", "昨日订单", "#34aadc", false);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", "上周订单", "#CA171B", false);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order7/" + sysdate(0) + "/" + sysdate(1) + "/" + productpattern, "预测订单", "#34aadc", true);
+        chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order5/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 10, 'order', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + yesterday + "/" + today + "/" + channel + "/" + product + "/" + interval + "/True", "昨日订单", "#34aadc", false);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", "上周订单", "#CA171B", false);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order7/" + today + "/" + tommorw + "/" + productpattern, "预测订单", "#34aadc", true);
     });
     $('#mode_change').bind('click', function (event) {
         //$(".arrow_condense").show();
@@ -353,100 +360,106 @@ var renderCharts = function () {
         if (chart_order !== undefined) {
             charts.removeChart(chart_order);
         }
-        chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order5/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 10, 'order', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product + "/" + interval + "/True", "昨日订单", "#34aadc", false);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", "上周订单", "#CA171B", false);
-        charts.append_single(chart_order, "/EagleEye/ajax/init/order7/" + sysdate(0) + "/" + sysdate(1) + "/" + productpattern, "预测订单", "#34aadc", true);
+        chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order5/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 10, 'order', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + yesterday + "/" + today + "/" + channel + "/" + product + "/" + interval + "/True", "昨日订单", "#34aadc", false);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order5/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", "上周订单", "#CA171B", false);
+        charts.append_single(chart_order, "/EagleEye/ajax/init/order7/" + today + "/" + tommorw + "/" + productpattern, "预测订单", "#34aadc", true);
 
         charts.removeChart(chart_traffic);
-        chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/0/" + interval + "/False", null, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_traffic, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/0/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/0/" + interval + "/False", null, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_traffic, "/EagleEye/ajax/init/traffic2/" + lastweek + "/0/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
 
         charts.removeChart(chart_booking);
-        chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'booking', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc", true);
-        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Booking', "#ffffff", false);
+        chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'booking', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc", true);
+        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + yesterday + "/" + today + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Booking', "#ffffff", false);
 
         charts.removeChart(chart_commit);
-        chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'commit', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc", true);
-        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Commit', "#34aadc", false);
+        chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'commit', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc", true);
+        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + yesterday + "/" + today + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Commit', "#34aadc", false);
 
         charts.removeChart(chart_detail);
-        chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid + "/" + interval + "/False", null, 210, 5, 'detail', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_detail, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid + "/" + interval + "/False", null, 210, 5, 'detail', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_detail, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
 
         charts.removeChart(chart_input);
-        chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid1 + "/" + interval + "/False", null, 210, 5, 'input', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_input, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid1 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid1 + "/" + interval + "/False", null, 210, 5, 'input', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_input, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid1 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
 
     })
     $('#traffic2').bind('click', function (event) {
         charts.removeChart(chart_traffic);
-        chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/" + interval, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_traffic, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/0/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/0/" + interval, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_traffic, "/EagleEye/ajax/history/traffic/" + lastweek + "/0/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
     });
 
     $('#traffic3').bind('click', function (event) {
         charts.removeChart(chart_traffic);
-        chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/0/" + interval + "/False", null, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_traffic, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/0/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/0/" + interval + "/False", null, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_traffic, "/EagleEye/ajax/init/traffic2/" + lastweek + "/0/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
     });
 
     $('#booking2').bind('click', function (event) {
         charts.removeChart(chart_booking);
-        chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/booking/" + channel + "/" + product + "/" + interval, 210, 5, 'booking', "#E5E67B");
-        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc");
+        chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/booking/" + channel + "/" + product + "/" + interval, 210, 5, 'booking', "#E5E67B");
+        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc");
     });
 
     $('#booking3').bind('click', function (event) {
         charts.removeChart(chart_booking);
-        chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'booking', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc", true);
-        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Booking', "#ffffff", false);
+        chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'booking', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc", true);
+        charts.append_single(chart_booking, "/EagleEye/ajax/init/booking2/" + yesterday + "/" + today + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Booking', "#ffffff", false);
     });
 
     $('#commit2').bind('click', function (event) {
         charts.removeChart(chart_commit);
-        chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/commit/" + channel + "/" + product + "/" + interval, 210, 5, 'commit', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc");
+        chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/commit/" + channel + "/" + product + "/" + interval, 210, 5, 'commit', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc");
     });
 
     $('#commit3').bind('click', function (event) {
         charts.removeChart(chart_commit);
-        chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'commit', "#E5E67B", chart_width, interval);
-        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc", true);
-        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + sysdate(-1) + "/" + sysdate(0) + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Commit', "#34aadc", false);
+        chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", null, 210, 5, 'commit', "#E5E67B", chart_width, interval);
+        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc", true);
+        charts.append_single(chart_commit, "/EagleEye/ajax/init/commit2/" + yesterday + "/" + today + "/" + channel + "/" + product + "/" + interval + "/True", '昨日Commit', "#34aadc", false);
     });
 
     $('#detail2').bind('click', function (event) {
         charts.removeChart(chart_detail);
-        chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid + "/" + interval, 210, 5, 'detail', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_detail, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid + "/" + interval, 210, 5, 'detail', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_detail, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
     });
 
     $('#detail3').bind('click', function (event) {
         charts.removeChart(chart_detail);
-        chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid + "/" + interval + "/False", null, 210, 5, 'detail', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_detail, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid + "/" + interval + "/False", null, 210, 5, 'detail', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_detail, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
     });
 
     $('#input2').bind('click', function (event) {
         charts.removeChart(chart_input);
-        chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid1 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid1 + "/" + interval, 210, 5, 'input', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_input, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid1 + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid1 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid1 + "/" + interval, 210, 5, 'input', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_input, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid1 + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
     });
 
     $('#input3').bind('click', function (event) {
         charts.removeChart(chart_input);
-        chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + sysdate(0) + "/" + pageid1 + "/" + interval + "/False", null, 210, 5, 'input', "#f45b5b", "#E5E67B");
-        charts.append_double(chart_input, "/EagleEye/ajax/init/traffic2/" + sysdate(-7) + "/" + pageid1 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
+        chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid1 + "/" + interval + "/False", null, 210, 5, 'input', "#f45b5b", "#E5E67B");
+        charts.append_double(chart_input, "/EagleEye/ajax/init/traffic2/" + lastweek + "/" + pageid1 + "/" + interval + "/True", '上周PV', '上周UV', "#E5E67B", "#34aadc");
     });
 
     $("[data-toggle = 'tooltip']").tooltip();
 }
 
 var resetCharts = function () {
+    var today = sysdate(0),
+        yesterday = sysdate(-1),
+        lastweek = sysdate(-7),
+        tommorw = sysdate(1),
+        lastweekplus = sysdate(-6);
+
     charts.removeChart(chart_order);
     charts.removeChart(chart_traffic);
     charts.removeChart(chart_booking);
@@ -454,19 +467,19 @@ var resetCharts = function () {
     charts.removeChart(chart_detail);
     charts.removeChart(chart_input);
     // init today's data
-    chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order2/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/order2/" + channel + "/" + product + "/" + interval, 210, 10, 'order', "#E5E67B", chart_width, interval);
-    chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/" + interval, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
-    chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/booking/" + channel + "/" + product + "/" + interval, 210, 5, 'booking', "#E5E67B", chart_width, interval);
-    chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit/" + sysdate(0) + "/" + sysdate(1) + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/commit/" + channel + "/" + product + "/" + interval, 210, 5, 'commit', "#E5E67B", chart_width, interval);
-    chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid + "/" + interval, 210, 5, 'detail', "#f45b5b", "#E5E67B");
-    chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid1 + "/" + interval, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid1 + "/" + interval, 210, 5, 'input', "#f45b5b", "#E5E67B");
+    chart_order = charts.render_single('spline', '实时订单', "/EagleEye/ajax/init/order2/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/order2/" + channel + "/" + product + "/" + interval, 210, 10, 'order', "#E5E67B", chart_width, interval);
+    chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/0/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/0/" + interval, 210, 5, 'traffic', "#f45b5b", "#E5E67B");
+    chart_booking = charts.render_single('spline', '实时Booking', "/EagleEye/ajax/init/booking/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/booking/" + channel + "/" + product + "/" + interval, 210, 5, 'booking', "#E5E67B", chart_width, interval);
+    chart_commit = charts.render_single('spline', '实时Commit', "/EagleEye/ajax/init/commit/" + today + "/" + tommorw + "/" + channel + "/" + product + "/" + interval + "/False", "/EagleEye/ajax/update/commit/" + channel + "/" + product + "/" + interval, 210, 5, 'commit', "#E5E67B", chart_width, interval);
+    chart_detail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid + "/" + interval, 210, 5, 'detail', "#f45b5b", "#E5E67B");
+    chart_input = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid1 + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid1 + "/" + interval, 210, 5, 'input', "#f45b5b", "#E5E67B");
     // add last weekday's data
-    charts.append_single(chart_order, "/EagleEye/ajax/init/order4/" + sysdate(0) + "/" + sysdate(1) + "/" + productpattern, "预测订单", "#34aadc");
-    charts.append_double(chart_traffic, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/0/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
-    charts.append_single(chart_booking, "/EagleEye/ajax/init/booking/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc");
-    charts.append_single(chart_commit, "/EagleEye/ajax/init/commit/" + sysdate(-7) + "/" + sysdate(-6) + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc");
-    charts.append_double(chart_detail, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
-    charts.append_double(chart_input, "/EagleEye/ajax/history/traffic/" + sysdate(-7) + "/" + pageid1 + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+    charts.append_single(chart_order, "/EagleEye/ajax/init/order4/" + today + "/" + tommorw + "/" + productpattern, "预测订单", "#34aadc");
+    charts.append_double(chart_traffic, "/EagleEye/ajax/history/traffic/" + lastweek + "/0/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+    charts.append_single(chart_booking, "/EagleEye/ajax/init/booking/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Booking', "#34aadc");
+    charts.append_single(chart_commit, "/EagleEye/ajax/init/commit/" + lastweek + "/" + lastweekplus + "/" + channel + "/" + product + "/" + interval + "/True", '上周Commit', "#34aadc");
+    charts.append_double(chart_detail, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
+    charts.append_double(chart_input, "/EagleEye/ajax/history/traffic/" + lastweek + "/" + pageid1 + "/" + interval, '上周PV', '上周UV', "#E5E67B", "#34aadc");
 }
 
 var toggleHidden = function () {

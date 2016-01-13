@@ -36,6 +36,20 @@ WHERE
         and IsIntl=(case when %(isintl)s <> -1 then %(isintl)s else IsIntl end)
 		and ChannelID=(case when %(channelid)s <> -1 then %(channelid)s else ChannelID end)
         """
+base_all = """
+SELECT
+    CheckAvailableID,
+    CreateDate
+FROM
+    CheckAvailableLog force index(idx_CreateDate,idx_SourceType,idx_Result,idx_IsIntl,idx_ChannelID)
+WHERE
+    CreateDate >= %(sdt)s
+        AND CreateDate <= %(edt)s
+        and SourceType=(case when %(sourcetype)s <> -1 then %(sourcetype)s else SourceType end)
+        and IsIntl=(case when %(isintl)s <> -1 then %(isintl)s else IsIntl end)
+		and ChannelID=(case when %(channelid)s <> -1 then %(channelid)s else ChannelID end)
+        """
+
 max_createdate = """
 SELECT
     max(CreateDate) as CreateDate

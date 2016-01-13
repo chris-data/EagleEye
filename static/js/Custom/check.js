@@ -3,6 +3,12 @@
  */
 
 var checkcharts = function () {
+    var today = sysdate(0),
+        yesterday = sysdate(-1),
+        lastweek = sysdate(-7),
+        tommorw = sysdate(1),
+        lastweekplus = sysdate(-6);
+    
     Highcharts.setOptions({
         global: {
             useUTC: false
@@ -21,18 +27,18 @@ var checkcharts = function () {
         isintl = $isintl.val();
 
         var checkcharts = function () {
-            chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/False', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/True', 240, 5, "invokes", '#E5E67B', null, interval);
-            charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False/False', '上周调用数', '#34aadc', true);
-            charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + sysdate(-1) + '&' + sysdate(0) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False/False', '昨日调用数', '#E5E5E5', false);
+            chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/False', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False/True', 240, 5, "invokes", '#E5E67B', null, interval);
+            charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + lastweek + '&' + lastweekplus + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False/False', '上周调用数', '#34aadc', true);
+            charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + yesterday + '&' + today + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False/False', '昨日调用数', '#2775e2', false);
 
-            chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/False/False/False', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/False/False/True', 240, 5, "feilures", '#E5E67B', null, interval);
-            charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/False/False', '上周失败数', '#34aadc', true);
-            charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + sysdate(-1) + '&' + sysdate(0) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/False/False', '昨日失败数', '#E5E5E5', false);
+            chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/False/False/False', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/False/False/True', 240, 5, "feilures", '#E5E67B', null, interval);
+            charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + lastweek + '&' + lastweekplus + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/False/False', '上周失败数', '#34aadc', true);
+            charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + yesterday + '&' + today + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/False/False', '昨日失败数', '#2775e2', false);
 
 
-            chart_ratio = charts.render_singlem1('spline', '实时失败率', '/EagleEye/ajax/check2/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False', '/EagleEye/ajax/check2/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/True', 240, 5, "ratio", '#E5E67B', null, interval);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/check2/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False', '上周失败率', '#34aadc', true);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/check2/' + sysdate(-1) + '&' + sysdate(0) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False', '昨日失败率', '#E5E5E5', false);
+            chart_ratio = charts.render_singlem1('spline', '实时失败率', '/EagleEye/ajax/check2/' + today + '&' + tommorw + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/False', '/EagleEye/ajax/check2/' + today + '&' + tommorw + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/True', 240, 5, "ratio", '#E5E67B', null, interval);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/check2/' + lastweek + '&' + lastweekplus + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False', '上周失败率', '#34aadc', true);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/check2/' + yesterday + '&' + today + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/False', '昨日失败率', '#2775e2', false);
 
         };
 
@@ -70,55 +76,55 @@ var checkcharts = function () {
         $('#mode_change').bind('click', function () {
             if (tabid === 0) {
                 removecharts();
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/True/False', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/True/True', 220, 5, "invokes", '#E5E67B', null, interval);
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/check/' + sysdate(0) + '&' + sysdate(1) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/False/True/False', null, 220, 5, "feilures", '#E5E67B', null, interval);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + sysdate(-7) + '&' + sysdate(-6) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + sysdate(-1) + '&' + sysdate(0) + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/True/False', '昨日调用数', '#E5E5E5', false);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + sysdate(-1) + '&' + sysdate(0) + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/True/False', '昨日失败数', '#E5E5E5', false);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/True/False', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/False/True/True', 220, 5, "invokes", '#E5E67B', null, interval);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/check/' + today + '&' + tommorw + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/False/True/False', null, 220, 5, "feilures", '#E5E67B', null, interval);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + lastweek + '&' + lastweekplus + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + lastweek + '&' + lastweekplus + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/check/' + yesterday + '&' + today + '&' + interval + '&' + product + '&-1&' + isintl + '&' + channel + '/True/True/False', '昨日调用数', '#2775e2', false);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/check/' + yesterday + '&' + today + '&' + interval + '&' + product + '&0&' + isintl + '&' + channel + '/True/True/False', '昨日失败数', '#2775e2', false);
 
             } else if (tabid === 1) {
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/1&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/1&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/1&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/1&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/1&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/1&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/1&0&-1/' + interval + '/True/True/False', '昨日失败数', '#E5E5E5', false);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/1&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#E5E5E5', false);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/1&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/1&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/1&0&-1/' + interval + '/True/True/False', '昨日失败数', '#2775e2', false);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/1&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#2775e2', false);
             } else if (tabid === 2) {
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/2&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/2&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/2&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/2&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/2&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/2&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/2&0&-1/' + interval + '/True/True/False', '昨日失败数', '#E5E5E5', false);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/2&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#E5E5E5', false);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/2&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/2&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/2&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/2&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/2&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/2&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/2&0&-1/' + interval + '/True/True/False', '昨日失败数', '#2775e2', false);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/2&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#2775e2', false);
             } else if (tabid === 3) {
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/3&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/3&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/3&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/3&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/3&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/3&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/3&0&-1/' + interval + '/True/True/False', '昨日失败数', '#E5E5E5', false);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/3&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#E5E5E5', false);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/3&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/3&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/3&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/3&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/3&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/3&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/3&0&-1/' + interval + '/True/True/False', '昨日失败数', '#2775e2', false);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/3&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#2775e2', false);
             } else if (tabid === 4) {
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/4&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/4&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/4&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/4&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/4&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/4&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/4&0&-1/' + interval + '/True/True/False', '昨日失败数', '#E5E5E5', false);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/4&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#E5E5E5', false);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/4&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/4&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/4&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/4&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/4&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/4&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/4&0&-1/' + interval + '/True/True/False', '昨日失败数', '#2775e2', false);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/4&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#2775e2', false);
             } else if (tabid === 5) {
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/5&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/5&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/5&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/5&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/5&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/5&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/5&0&-1/' + interval + '/True/True/False', '昨日失败数', '#E5E5E5', false);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/5&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#E5E5E5', false);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/5&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/5&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/5&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/5&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/5&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/5&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/5&0&-1/' + interval + '/True/True/False', '昨日失败数', '#2775e2', false);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/5&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#2775e2', false);
             } else if (tabid === 6) {
-                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/6&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/6&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
-                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/6&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/6&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/6&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/6&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
-                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/6&0&-1/' + interval + '/True/True/False', '昨日失败数', '#E5E5E5', false);
-                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/6&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#E5E5E5', false);
+                chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/6&0&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/6&0&-1/' + interval + '/False/True/True', 240, 5, "feilures", '#E5E67B', null, interval);
+                chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/6&-1&-1/' + interval + '/False/True/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/6&-1&-1/' + interval + '/False/True/True', 240, 5, "invokes", '#E5E67B', null, interval);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/6&-1&-1/' + interval + '/True/True/False', '上周调用数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/6&0&-1/' + interval + '/True/True/False', '上周失败数', '#34aadc', true);
+                charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/6&0&-1/' + interval + '/True/True/False', '昨日失败数', '#2775e2', false);
+                charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/6&-1&-1/' + interval + '/True/True/False', '昨日调用数', '#2775e2', false);
             }
         });
 
@@ -179,17 +185,16 @@ var checkcharts = function () {
         var renderresource = function (product) {
             removecharts();
             $(".param").prop("disabled", true);
-            chart_ratio = charts.render_singlem1('spline', '实时失败率', '/EagleEye/ajax/checkresourceratio/' + sysdate(0) + '/' + sysdate(1) + '/' + product + '&-1&-1/' + interval + '/False/False', '/EagleEye/ajax/checkresourceratio/' + sysdate(0) + '/' + sysdate(1) + '/1&-1&-1/' + interval + '/False/True', 240, 5, "ratio", '#E5E67B', null, interval);
-            chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/' + product + '&0&-1/' + interval + '/False/False/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/1&0&-1/' + interval + '/False/False/True', 240, 5, "feilures", '#E5E67B', null, interval);
-            chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/' + product + '&-1&-1/' + interval + '/False/False/False', '/EagleEye/ajax/checkresource/' + sysdate(0) + '/' + sysdate(1) + '/1&-1&-1/' + interval + '/False/False/True', 240, 5, "invokes", '#E5E67B', null, interval);
-            charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/' + product + '&-1&-1/' + interval + '/True/False/False', '上周调用数', '#34aadc', true);
-            charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-7) + '/' + sysdate(-6) + '/' + product + '&0&-1/' + interval + '/True/False/False', '上周失败数', '#34aadc', true);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + sysdate(-1) + '/' + sysdate(0) + '/' + product + '&-1&-1/' + interval + '/True/False', '上周失败率', '#34aadc', true);
-            charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/' + product + '&-1&-1/' + interval + '/True/False/False', '昨日调用数', '#E5E5E5', false);
-            charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + sysdate(-1) + '/' + sysdate(0) + '/' + product + '&0&-1/' + interval + '/True/False/False', '昨日失败数', '#E5E5E5', false);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + sysdate(-7) + '/' + sysdate(-6) + '/' + product + '&-1&-1/' + interval + '/True/False', '昨日失败率', '#E5E5E5', false);
+            chart_ratio = charts.render_singlem1('spline', '实时失败率', '/EagleEye/ajax/checkresourceratio/' + today + '/' + tommorw + '/' + product + '&-1&-1/' + interval + '/False/False', '/EagleEye/ajax/checkresourceratio/' + today + '/' + tommorw + '/1&-1&-1/' + interval + '/False/True', 240, 5, "ratio", '#E5E67B', null, interval);
+            chart_feilure = charts.render_singlem1('spline', '实时失败数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/' + product + '&0&-1/' + interval + '/False/False/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&0&-1/' + interval + '/False/False/True', 240, 5, "feilures", '#E5E67B', null, interval);
+            chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/' + product + '&-1&-1/' + interval + '/False/False/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&-1&-1/' + interval + '/False/False/True', 240, 5, "invokes", '#E5E67B', null, interval);
+            charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/' + product + '&-1&-1/' + interval + '/True/False/False', '上周调用数', '#34aadc', true);
+            charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/' + product + '&0&-1/' + interval + '/True/False/False', '上周失败数', '#34aadc', true);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False', '上周失败率', '#34aadc', true);
+            charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False/False', '昨日调用数', '#2775e2', false);
+            charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/' + product + '&0&-1/' + interval + '/True/False/False', '昨日失败数', '#2775e2', false);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + lastweek + '/' + lastweekplus + '/' + product + '&-1&-1/' + interval + '/True/False', '昨日失败率', '#2775e2', false);
         }
     });
-
 
 };
