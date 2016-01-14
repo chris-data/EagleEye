@@ -382,5 +382,13 @@ WHERE
         AND statistic_date = %s
         AND MINUTE(datachange_lasttime) %%s = 0
     ORDER BY datachange_lasttime
+    """,
+    # app整体转化率
+    "appCR":"""
+    select vdate,type,cnt from APPVacationCR where
+    vdate> %s and vdate <%s
+    order by vdate,type
     """
 }
+
+

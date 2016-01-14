@@ -54,6 +54,9 @@ def get_order_detail(request):
 def get_ua_analysis(request):
     return render(request, "useragent.html", {'first_name': request.user})
 
+@login_required(login_url='/login/')
+def get_app_CR(request):
+    return render(request, "appVacationCR.html", {'first_name': request.user})
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """
@@ -992,3 +995,22 @@ def get_append_commit(request, channel='all', product='all', interval='10'):
     for key, value in zip(list(pd4.DataChange_LastTime), list(data_list.counter)):
         mapping[str(key)] = int(value)
     return JsonResponse(mapping)
+
+##  度假app整体转化率
+
+##离线可订检查接口  分资源-->酒店/X资源/单选项/当地玩乐
+def get_APPCR(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param type: 总订单  自由行订单  团队定案  流量同
+    :param cnt:订单或流量值
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["appCR"], [ sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+

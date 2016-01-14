@@ -23,6 +23,7 @@ pageurl = [
     url(r'^check/$', views_check.get_check, name='check'),
     url(r'^checkhistory/$', views_check.get_CheckHistory, name='check_history'),
     url(r'^services/$', views_services.get_services_page, name='services'),
+    url(r'^appcr/$', views_base.get_app_CR, name='appCR'),
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -39,6 +40,8 @@ orderurl = [
     url(
         r'^ajax/init/order5/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[a-z]+[0-9]?)/(?P<product>[a-z]+)/(?P<interval>[0-9]+)/(?P<history>False|True)$',
         views_base.get_orders_aggregate),
+    # 度假app转化率
+    url(r'^ajax/appvacr/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_base.get_APPCR),##机票
 
 ]
 trafficurl = [
