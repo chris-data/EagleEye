@@ -282,26 +282,19 @@ function options(divId,type,bigTitle,timeArray,smallTitle)
     var data3 = {};
     options={
             chart: {
-                //type: type,
-                animation: Highcharts.svg,
 
+                animation: Highcharts.svg,
                 renderTo: divId,
                 backgroundColor: '#FCFCFC',//黑色：#272727
                 borderColor: '#743A3A',
-
                 borderWidth: 1,
                 events: {
-                    load: function (event) {
-                        for (var i = this.series.length - 1; i > 0; i--) {
-                            this.series[i].hide();        //设置只显示第一条线，其他都不显示
-                        }
-                    }
+
                 }
             },
             title: {
                 style: {
-
-                    fontSize: '12px',
+                    fontSize: '18px',
                     fontWeight: 'bold', //刻度字体加粗
                     color: '#000000'
                 },
@@ -333,8 +326,7 @@ function options(divId,type,bigTitle,timeArray,smallTitle)
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
                     step:4,
-                    staggerLines: 1
-                    ,
+                    staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
                         fontSize: '10px' //刻度字体大小
@@ -355,39 +347,55 @@ function options(divId,type,bigTitle,timeArray,smallTitle)
             },
             tooltip: {
 
-                crosshairs: true,
-                shared: true,
-                backgroundColor: '#9D9D9D'
-
+                crosshairs: [{            // 设置准星线样式
+                            width:2,
+                            color: '#408080'
+                        }, {
+                            width: 1,
+                            color: "#006cee",
+                            dashStyle: 'longdashdot',
+                            zIndex: 100
+                            }],
+                shadow: false,
+                borderColor: '#663333',
+                backgroundColor: '#996666',
             },
             series: [{
                 tooltip: { valueSuffix: ' %' },
-                name:'<p style=" color:#FF0000 ">'+smallTitle[0]+'</p>',
+                name:'<p style=" color:#000000">'+smallTitle[0]+'</p>',
                 lineWidth: 1,
                 radius: 1,
                 data: data1,
-                color: '#FF0000',
+                color: '#FF0033',
                 visible: true,
-                shadow: true,
+                shadow: false,
                 stickyTracking: false,
             }, {
-                name:  '<p style=" color:#804040 ">'+smallTitle[1]+'</p>',
+                tooltip: { valueSuffix: ' 个' },
+                name:  '<p style=" color:#663366">'+smallTitle[1]+'</p>',
                 lineWidth: 1,
                 radius: 1,
                 data: data2,
-                color: '#804040',
+                color: '#663366',
+                visible: false,
                 shadow: true,
                 stickyTracking: false,
             },
                 {
-                    name: '<p style=" color:#FF5809 ">'+smallTitle[2]+'</p>',
+                    name: '<p style=" color:#003366">'+smallTitle[2]+'</p>',
                     lineWidth: 1,
                     radius: 1,
                     data: data3,
-                    color: '#FF5809',
+                    color: '#003366',
+                    visible: false,
                     shadow: true,
                     stickyTracking: false,
                 }],
+                legend : {
+                    //layout: 'vertical',
+                    //borderWidth: 0.5,
+                    itemHiddenStyle: {color: 'red'}
+                },
             loading: {
                 style: {
                     position: 'absolute',
