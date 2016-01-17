@@ -30,7 +30,7 @@ FROM
     CheckAvailableLog force index(idx_CreateDate,idx_SourceType,idx_Result,idx_IsIntl,idx_ChannelID)
 WHERE
     CreateDate >= %(sdt)s
-        AND CreateDate <= %(edt)s
+        AND CreateDate < %(edt)s
         and SourceType=(case when %(sourcetype)s <> -1 then %(sourcetype)s else SourceType end)
 		and Result=(case when %(result)s <> -1 then %(result)s else Result end)
         and IsIntl=(case when %(isintl)s <> -1 then %(isintl)s else IsIntl end)
@@ -44,7 +44,7 @@ FROM
     CheckAvailableLog force index(idx_CreateDate,idx_SourceType,idx_Result,idx_IsIntl,idx_ChannelID)
 WHERE
     CreateDate >= %(sdt)s
-        AND CreateDate <= %(edt)s
+        AND CreateDate < %(edt)s
         and SourceType=(case when %(sourcetype)s <> -1 then %(sourcetype)s else SourceType end)
         and IsIntl=(case when %(isintl)s <> -1 then %(isintl)s else IsIntl end)
 		and ChannelID=(case when %(channelid)s <> -1 then %(channelid)s else ChannelID end)
@@ -90,7 +90,7 @@ FROM
     CheckAvailableLogDetail force index(idx_CreateDate)
 WHERE
     CreateDate >= %(sdt)s
-        AND CreateDate <= %(edt)s
+        AND CreateDate < %(edt)s
         and ProductType=(case when %(producttype)s <> -1 then %(producttype)s else ProductType end)
 		and Result=(case when %(result)s <> -1 then %(result)s else Result end)
         and FlightType=(case when %(flighttype)s <> -1 then %(flighttype)s else FlightType end)
