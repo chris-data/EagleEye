@@ -171,7 +171,6 @@ var charts = {
                 return a.x - b.x
             });
             mychart.series[0].setData(data);
-
             mychart.hideLoading();
         });
         return mychart;
@@ -1216,6 +1215,7 @@ var charts = {
             });
             series = {
                 name: type,
+                type: 'spline',
                 data: data,
                 color: color,
                 shadow: true,
