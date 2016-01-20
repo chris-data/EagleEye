@@ -74,9 +74,12 @@
                         <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>
                             <small>机酒可订检查</small>
                         </a>
+                        <li><a class="" href="#"><i class="icon_documents_alt"></i>
+                            <small>机酒推荐查询</small>
+                        </a>
                         </li>
                         <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>
-                            <small>实时流量</small>
+                            <small>度假实时流量</small>
                         </a>
                         </li>
                     </ul>
@@ -104,24 +107,136 @@
                                 class="icon_documents_alt"></i>
                             <small>团队转化漏斗</small>
                         </a></li>
+                        <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
+                            <small>UA分布分析</small>
+                        </a>
                         <li><a class="" target="_blank" href="http://kpi.bi.ctripcorp.com/#default"><i
                                 class="icon_documents_alt"></i>
                             <small>KPI Portal</small>
                         </a></li>
-                        <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
-                            <small>UA分析</small>
-                        </a>
-
                     </ul>
                 </li>
+                {#                <li class="sub-menu">#}
+                {#                    <a href="javascript:;" class="">#}
+                {#                        <i class="icon_piechart"></i>#}
+                {#                        <span>数据管理</span>#}
+                {#                        <span class="menu-arrow arrow_carrot-right"></span>#}
+                {#                    </a>#}
+                {#                    <ul class="sub">#}
+                {#                        <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>#}
+                {#                            <small>机酒实时订单</small>#}
+                {#                        </a>#}
+                {#                    </ul>#}
+                {#                </li>#}
             </ul>
             <!-- sidebar menu end-->
         </div>
     </aside>
     <!--sidebar end-->
     <section id="main-content">
-        <iframe class="wrapper" frameborder="0" src="http://www.baidu.com/" width="100%" height="900px">
-        </iframe>
+        <section class="wrapper">
+            <!-- charts container-->
+            <ul id="myTab" class="nav nav-tabs">
+                <li id="tab_default" class="active"><a href="#default" data-toggle="tab"><i class="icon_house"></i>
+                    全部</a></li>
+                <li id="tab_flight"><a href="#flight" data-toggle="tab"><i class="icon_compass"></i>调用次数</a></li>
+                <li id="tab_hotel"><a href="#hotel" data-toggle="tab"><i class="icon_building_alt"></i>失败次数</a></li>
+                <li id="tab_hotel"><a href="#hotel" data-toggle="tab"><i class="icon_building_alt"></i>平均时长</a></li>
+                <li class="pull-right" style="margin-top: 8px;">
+                    <i class="arrow_right_alt"></i>
+                    <small><a href="/EagleEye/checkhistory/" style="color: #6a6a6a">&nbsp;查看历史趋势&nbsp;</a></small>
+                </li>
+            </ul>
+
+            <div class="panel shadow">
+                <div id="check_header" class="panel-heading" style="background-color: #EEE;padding-bottom: 8px">
+                    <i class="fa fa-refresh" id='input2'
+                       style="float:right;"></i>
+                    <select id="product" class="selectparam param" name="product" data-toggle="tooltip" title="请选择产品形态">
+                        <option value="-1" selected label="all">全部</option>
+                        <option value="2" label="dp">dp</option>
+                        <option value="1" label="sdp">sdp</option>
+                    </select>&nbsp;
+                    <select id="channel" class="selectparam param" name="channel" data-toggle="tooltip" title="请选择下单渠道">
+                        <option value="-1" selected label="all">全部</option>
+                        <option value="1" label="online">online</option>
+                        <option value="2" label="offline">offline</option>
+                        <option value="3" label="wireless">wireless</option>
+                        <option value="4" label="intl">国际站</option>
+                    </select>&nbsp;
+                    <select id="isintl" class="selectparam param" data-toggle="tooltip" title="请选择国内国际">
+                        <option value="-1" selected label="全部">全部</option>
+                        <option value="1" label="国际">国际</option>
+                        <option value="2" label="国内">国内</option>
+                    </select>&nbsp;
+                    <select id="interval" class="selectparam" name="interval" data-toggle="tooltip" title="请选择间隔时间">
+                        <option value="3" label="3min">3min</option>
+                        <option value="5" label="5min">5min</option>
+                        <option value="10" selected label="10min">10min</option>
+                        <option value="15" label="15min">15min</option>
+                        <option value="20" label="20min">20min</option>
+                        <option value="30" label="30min">30min</option>
+                        <option value="60" label="60min">60min</option>
+                    </select>&nbsp;
+                    <button type="button" class="btns triggle" id="" data-toggle="modal" href="#myModal"
+                            style="float:right;margin-top: 5px">说明
+                    </button>
+                    <button type="button" id="mode_change" data-toggle="tooltip" data-placement="bottom"
+                            title="切换到累积模式" class="btns triggle"
+                            style="float: right;margin-top: 5px">查看累积
+                    </button>
+                    <button type="button" id='refresh' class="btns triggle" data-toggle="tooltip"
+                            style="float: right;margin-top: 5px">查看分段
+                    </button>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true" style="display: none;margin-top: 150px">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                    </button>
+                                    <h5 class="modal-title"><b>说明</b></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>可定检查主要监控指标为：失败率，失败数，总调用数;</ul>
+
+                                    <ul>可以按照：产品形态，渠道，国内国际来删选;</ul>
+
+                                    <ul>可以按资源级别,默认为产品级,资源分类为：机票，酒店，X资源，单选项，火车票，TTD;</ul>
+
+                                    <ul>数据自动更新，更新频率:5min/次;</ul>
+
+                                    <ul>有任何改进建议请发邮件到：<a href="mailto:diydata@Ctrip.com">diydata@Ctrip.com</a>
+                                        ,谢谢！
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-info" type="button">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="ratio"></div>
+                    <div id="feilures"></div>
+                    <div id="invokes"></div>
+                </div>
+                <div class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <small>Powered By <a href="mailto:va_data@Ctrip.com">度假数据团队</a></small>
+                        </div>
+                        <!-- Default to the left -->
+                        <small>&copy;
+                            2016 <a href="http://vacations.ctrip.com/">Ctrip</a>. All rights
+                            reserved.
+                        </small>
+                    </footer>
+                </div>
+            </div>
+        </section>
     </section>
 </section>
 <!-- container section end -->

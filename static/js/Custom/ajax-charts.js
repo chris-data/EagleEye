@@ -378,30 +378,30 @@ var charts = {
             xAxis: {
                 type: 'datetime',
                 showFirstLabel: true,
-                showLastLabel: true,
+                showLastLabel: true
             },
             yAxis: [{ // left y axis
                 title: {
-                    text: null,
+                    text: null
                 },
                 plotLines: [{
                     value: 0,
                     width: 1,
-                    color: '#808080',
+                    color: '#808080'
                 }],
                 min: 0,
-                showLastLabel: true,
+                showLastLabel: true
             }, { // right y axis
                 title: {
-                    text: null,
+                    text: null
                 },
                 plotLines: [{
                     value: 0,
-                    width: 1,
+                    width: 1
                 }],
                 min: 0,
                 showFirstLabel: true,
-                opposite: true,
+                opposite: true
             }
             ],
             tooltip: {
@@ -435,7 +435,7 @@ var charts = {
                 itemMarginBottom: 5,
                 shadow: true,
                 x: 20,
-                y: 0,
+                y: 0
             },
             exporting: {
                 enabled: false
@@ -448,7 +448,7 @@ var charts = {
                 color: color1,
                 visible: false,
                 shadow: true,
-                stickyTracking: false,
+                stickyTracking: false
             }, {
                 name: name2,
                 type: type,
@@ -456,7 +456,7 @@ var charts = {
                 color: color2,
                 yAxis: 1,
                 shadow: true,
-                stickyTracking: false,
+                stickyTracking: false
             }],
             credits: {
                 enabled: false // 禁用版权信息
@@ -471,8 +471,8 @@ var charts = {
                     },
                     marker: {
                         enabled: false,
-                        radius: 2.5,
-                    },
+                        radius: 2.5
+                    }
                 }
             },
             loading: {
@@ -504,11 +504,11 @@ var charts = {
                         data2.push({x: dt, y: value})
                     })
                 }
-            })
-            //sort data1
-            data1.sort(function (a, b) {
-                return a.x - b.x
-            });
+            }),
+                //sort data1
+                data1.sort(function (a, b) {
+                    return a.x - b.x
+                });
             //sort data2
             data2.sort(function (a, b) {
                 return a.x - b.x
@@ -1282,7 +1282,7 @@ var charts = {
                 yAxis: 1,
                 color: color2,
                 visible: true,
-                shadow: false,
+                shadow: false
             };
             chart.addSeries(series1);
             chart.addSeries(series2);
@@ -1401,3 +1401,56 @@ var charts = {
     }
 };
 
+function removeChart(chart) {
+    if (chart) {
+        window.clearInterval(chart.intervalid);
+        //chart.destroy();
+        delete chart;
+        console.log(chart + ' is deleted');
+    }
+}
+
+// the button action
+var $showpv = $('.showpv');
+$showpv.click(function () {
+    var series1 = chart_traffic.series[0];
+
+    if (series1.visible) {
+        series1.hide();
+        $showpv.html('显示PV');
+    } else {
+        series1.show();
+        $showpv.html('隐藏PV');
+    }
+
+    var series3 = chart_traffic.series[2];
+    if (series3.visible) {
+        series3.hide();
+        $showpv.html('显示PV');
+    } else {
+        series3.show();
+        $showpv.html('隐藏PV');
+    }
+});
+
+var $showuv = $('.showuv');
+$showuv.click(function () {
+    var series1 = chart_traffic.series[1];
+
+    if (series1.visible) {
+        series1.hide();
+        $showuv.html('显示UV');
+    } else {
+        series1.show();
+        $showuv.html('隐藏UV');
+    }
+
+    var series3 = chart_traffic.series[3];
+    if (series3.visible) {
+        series3.hide();
+        $showuv.html('显示UV');
+    } else {
+        series3.show();
+        $showuv.html('隐藏UV');
+    }
+});

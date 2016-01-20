@@ -5,8 +5,8 @@ Author: GeeksLabs
 Website: http://geekslabs.com/
 */
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-@import url(line-icons.css);
+/*@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);*/
+/*@import url(line-icons.css);*/
 
 body {
     color: #51586a;
@@ -296,7 +296,7 @@ table tr th {
 /*sidebar navigation*/
 
 #sidebar {
-    width: 150px;
+    width: 140px;
     height: 100%;
     position: fixed;
     background: #394a59;
@@ -542,7 +542,7 @@ ul.sidebar-menu li.active a i {
 /*main content*/
 
 #main-content {
-    margin-left: 150px;
+    margin-left: 140px;
 }
 
 .header, .footer {
@@ -582,7 +582,10 @@ ul.sidebar-menu li.active a i {
 .wrapper {
     display: inline-block;
     margin-top: 55px;
-    padding: 15px;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
     width: 100%;
 }
 

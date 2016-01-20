@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from . import views_base, views_ext, views_pkg, views_check, views_services
+from . import views_base, views_ext, views_pkg, views_check, views_services, views_cruise
 
 # yyyy-mm-dd
 regex_date = '[0-9]{4}-[0-9]{2}-[0-9]{2}'
@@ -24,6 +24,7 @@ pageurl = [
     url(r'^checkhistory/$', views_check.get_CheckHistory, name='check_history'),
     url(r'^services/$', views_services.get_services_page, name='services'),
     url(r'^appcr/$', views_base.get_app_CR, name='appCR'),
+    url(r'^cruise/$', views_cruise.get_cruise, name='cruise'),
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -41,7 +42,7 @@ orderurl = [
         r'^ajax/init/order5/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[a-z]+[0-9]?)/(?P<product>[a-z]+)/(?P<interval>[0-9]+)/(?P<history>False|True)$',
         views_base.get_orders_aggregate),
     # 度假app转化率
-    url(r'^ajax/appvacr/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_base.get_APPCR),##机票
+    url(r'^ajax/appvacr/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPCR),  ##机票
 
 ]
 trafficurl = [
@@ -171,18 +172,37 @@ checkurl = [
     ##可订检查 离线数据url  全部/分渠道
     url(r'^ajax/allCheck/$', views_check.get_AllCheckHistory),
     url(r'^ajax/allCheck/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_check.get_AllCheckHistory),
-     url(r'^ajax/channelCheck/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[0-9])$',views_check.get_channelCheckHistory),
-     ## 分资源
-     url(r'^ajax/fhCheckHistory/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_check.get_flightCheckHistory),##机票
-     url(r'^ajax/htCheckHistory/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',views_check.get_hotelCheckHistory), ##酒店及其他资源
+    url(
+        r'^ajax/channelCheck/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[0-9])$',
+        views_check.get_channelCheckHistory),
+    ## 分资源
+    url(r'^ajax/fhCheckHistory/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
+        views_check.get_flightCheckHistory),  ##机票
+    url(
+        r'^ajax/htCheckHistory/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
+        views_check.get_hotelCheckHistory),  ##酒店及其他资源
 ]
 
 recommend = [
-    # url(
-    #     r'^ajax/service/(?P<sdt>' + regex_date + ')&(?P<edt>' + regex_date + ')&(?P<interval>[0-9]+)&(?P<producttype>(-|[0-9]+))&(?P<isintlflight>(-|[0-9]+))&(?P<isintlhotel>[0-9]+))&(?P<channel>Hybrid|Online|H5|EnglishSite)$',
-    #     views_services.get_serviceinvoke_times,
-    #     name='checkresource'),
+    url(
+        r'^ajax/service/times/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
+        views_services.get_serviceinvoke_times,
+        name='serviceinvoke_times'),
+    url(
+        r'^ajax/service/failures/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
+        views_services.get_serviceinvoke_failures,
+        name='failure_times'),
+    url(
+        r'^ajax/service/elapsed/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
+        views_services.get_serviceinvoke_elapsed,
+        name='elapsed'),
 ]
 
+cruise = [
+    url(
+        r'^ajax/cruise/order/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<interval>[0-9]+)/(?P<channel>[a-z]+[0-9]?)/(?P<history>False|True)/(?P<update>False|True)/(?P<whole>False|True)$',
+        views_cruise.get_order,
+        name='cruise_order'),
+]
 # -------------------------------------pkg end------------------------------------------------------
-urlpatterns = pageurl + orderurl + trafficurl + bookingurl + commiturl + cancelurl + uaurl + pkgorderurl + checkurl + recommend
+urlpatterns = pageurl + orderurl + trafficurl + bookingurl + commiturl + cancelurl + uaurl + pkgorderurl + checkurl + recommend + cruise
