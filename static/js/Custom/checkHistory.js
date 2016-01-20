@@ -120,7 +120,7 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
         {
             fail[j] = retobj.value[i + 1 + 8 * j][3];//机票 国际 失败
             total[j] = retobj.value[i + 1 + 8 * j][3] + retobj.value[i + 5 + 8 * j][3];//机票国际总数
-               var x= (fail[j] / total[j]).toFixed(4);
+               var x= (fail[j]*100 / total[j]).toFixed(2);
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
         if(k==11)
