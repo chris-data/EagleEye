@@ -765,7 +765,7 @@ function removecru() {
 function renderfrt() {
     if (tabid == 'pkg') {
         chart_width = $("#pkg_order").width();
-        removefrt();
+        removepkg();
     } else if (tabid == 'cru') {
         chart_width = $("#cru_order").width();
         removecru();
@@ -1150,6 +1150,7 @@ $('#tab_frt').click(function (e) {
     $("#sharedchannel").show();
     $(".param_pkg").hide();
     $(".param_cru").hide();
+    $(".pvuv").show();
     renderfrt();
 });
 $('#tab_pkg').click(function (e) {

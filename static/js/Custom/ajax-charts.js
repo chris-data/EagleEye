@@ -1414,21 +1414,34 @@ function removeChart(chart) {
 var $showpv = $('.showpv');
 $showpv.click(function () {
     var series1 = chart_traffic.series[0];
+    var series2 = chart_detail.series[0];
+    var series3 = chart_input.series[0];
 
     if (series1.visible) {
         series1.hide();
-        $showpv.html('显示PV');
-    } else {
-        series1.show();
-        $showpv.html('隐藏PV');
-    }
-
-    var series3 = chart_traffic.series[2];
-    if (series3.visible) {
+        series2.hide();
         series3.hide();
         $showpv.html('显示PV');
     } else {
+        series1.show();
+        series2.show();
         series3.show();
+        $showpv.html('隐藏PV');
+    }
+
+    var series4 = chart_traffic.series[2];
+    var series5 = chart_detail.series[2];
+    var series6 = chart_input.series[2];
+
+    if (series4.visible) {
+        series4.hide();
+        series5.hide();
+        series6.hide();
+        $showpv.html('显示PV');
+    } else {
+        series4.show();
+        series5.show();
+        series6.show();
         $showpv.html('隐藏PV');
     }
 });
@@ -1436,21 +1449,31 @@ $showpv.click(function () {
 var $showuv = $('.showuv');
 $showuv.click(function () {
     var series1 = chart_traffic.series[1];
-
+    var series2 = chart_detail.series[1];
+    var series3 = chart_input.series[1];
     if (series1.visible) {
         series1.hide();
-        $showuv.html('显示UV');
-    } else {
-        series1.show();
-        $showuv.html('隐藏UV');
-    }
-
-    var series3 = chart_traffic.series[3];
-    if (series3.visible) {
+        series2.hide();
         series3.hide();
         $showuv.html('显示UV');
     } else {
+        series1.show();
+        series2.show();
         series3.show();
+        $showuv.html('隐藏UV');
+    }
+    var series4 = chart_traffic.series[3];
+    var series5 = chart_detail.series[3];
+    var series6 = chart_input.series[3];
+    if (series4.visible) {
+        series4.hide();
+        series5.hide();
+        series6.hide();
+        $showuv.html('显示UV');
+    } else {
+        series4.show();
+        series5.show();
+        series6.show();
         $showuv.html('隐藏UV');
     }
 });
