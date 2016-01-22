@@ -1,6 +1,7 @@
 /**
  * Created by wang.zy on 2015/9/14.
  */
+var intervalarray = [];
 
 var sysdate = function (offset) {
     var now = new Date();
@@ -43,6 +44,7 @@ var charts = {
                                 });
                             });
                         }, 1000 * 60 * gap);
+                        intervalarray.push(this.intervalid);
                     }
                 },
             }
@@ -199,6 +201,7 @@ var charts = {
                                 });
                             });
                         }, 1000 * 60 * gap);
+                        intervalarray.push(this.intervalid);
                     }
                 },
             }
@@ -369,6 +372,7 @@ var charts = {
                                 })
                             })
                         }, 1000 * 60 * interval);
+                        intervalarray.push(this.intervalid);
                     }
                 }
             },
@@ -1379,7 +1383,7 @@ var charts = {
             series: [{
                 type: 'pie',
                 name: name,
-                data: data,
+                data: data
             }]
         }
         $.getJSON(url, function (json) {
@@ -1412,7 +1416,23 @@ function removeChart(chart) {
 
 // the button action
 var $showpv = $('.showpv');
+var $showuv = $('.showuv');
 $showpv.click(function () {
+    if (tabid == 'frt') {
+        frtpv()
+    } else if (tabid == 'cru') {
+        crupv();
+    }
+});
+$showuv.click(function () {
+    if (tabid == 'frt') {
+        frtuv()
+    } else if (tabid == 'cru') {
+        cruuv();
+    }
+});
+
+function frtpv() {
     var series1 = chart_traffic.series[0];
     var series2 = chart_detail.series[0];
     var series3 = chart_input.series[0];
@@ -1428,11 +1448,9 @@ $showpv.click(function () {
         series3.show();
         $showpv.html('隐藏PV');
     }
-
     var series4 = chart_traffic.series[2];
     var series5 = chart_detail.series[2];
     var series6 = chart_input.series[2];
-
     if (series4.visible) {
         series4.hide();
         series5.hide();
@@ -1444,10 +1462,8 @@ $showpv.click(function () {
         series6.show();
         $showpv.html('隐藏PV');
     }
-});
-
-var $showuv = $('.showuv');
-$showuv.click(function () {
+}
+function frtuv() {
     var series1 = chart_traffic.series[1];
     var series2 = chart_detail.series[1];
     var series3 = chart_input.series[1];
@@ -1476,4 +1492,97 @@ $showuv.click(function () {
         series6.show();
         $showuv.html('隐藏UV');
     }
-});
+}
+function crupv() {
+    var series1 = chart_crutraffic.series[0];
+    var series2 = chart_crudetail.series[0];
+    var series3 = chart_cruccabin.series[0];
+    var series4 = chart_cruitem.series[0];
+    var series5 = chart_cruwrite.series[0];
+    if (series1.visible) {
+        series1.hide();
+        series2.hide();
+        series3.hide();
+        series4.hide();
+        series5.hide();
+        $showpv.html('显示PV');
+    } else {
+        series1.show();
+        series2.show();
+        series3.show();
+        series4.show();
+        series5.show();
+        $showpv.html('隐藏PV');
+    }
+    var series6 = chart_crutraffic.series[2];
+    var series7 = chart_crudetail.series[2];
+    var series8 = chart_cruccabin.series[2];
+    var series9 = chart_cruitem.series[2];
+    var series10 = chart_cruwrite.series[2];
+    if (series6.visible) {
+        series6.hide();
+        series7.hide();
+        series8.hide();
+        series9.hide();
+        series10.hide();
+        $showpv.html('显示PV');
+    } else {
+        series6.show();
+        series7.show();
+        series8.show();
+        series9.show();
+        series10.show();
+        $showpv.html('隐藏PV');
+    }
+}
+function cruuv() {
+    var series1 = chart_crutraffic.series[1];
+    var series2 = chart_crudetail.series[1];
+    var series3 = chart_cruccabin.series[1];
+    var series4 = chart_cruitem.series[1];
+    var series5 = chart_cruwrite.series[1];
+    if (series1.visible) {
+        series1.hide();
+        series2.hide();
+        series3.hide();
+        series4.hide();
+        series5.hide();
+        $showuv.html('显示UV');
+    } else {
+        series1.show();
+        series2.show();
+        series3.show();
+        series4.show();
+        series5.show();
+        $showuv.html('隐藏UV');
+    }
+    var series6 = chart_crutraffic.series[3];
+    var series7 = chart_crudetail.series[3];
+    var series8 = chart_cruccabin.series[3];
+    var series9 = chart_cruitem.series[3];
+    var series10 = chart_cruwrite.series[3];
+    if (series6.visible) {
+        series6.hide();
+        series7.hide();
+        series8.hide();
+        series9.hide();
+        series10.hide();
+        $showuv.html('显示UV');
+    } else {
+        series6.show();
+        series7.show();
+        series8.show();
+        series9.show();
+        series10.show();
+        $showuv.html('隐藏UV');
+    }
+}
+function clearinterval() {
+    if (intervalarray.length !== 0) {
+        for (var i = 0; i < intervalarray.length; i++) {
+            window.clearinterval(intervalarray[i]);
+        }
+        intervalarray = [];
+    }
+
+}

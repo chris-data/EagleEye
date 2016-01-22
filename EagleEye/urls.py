@@ -196,6 +196,10 @@ recommend = [
         r'^ajax/service/elapsed/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
         views_services.get_serviceinvoke_elapsed,
         name='elapsed'),
+    url(
+        r'^ajax/service/ratio/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
+        views_services.get_serviceinvoke_failureratio,
+        name='failureratio'),
 ]
 
 cruise = [

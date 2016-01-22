@@ -349,13 +349,49 @@ $channel.bind('change', function () {
 });
 $cruise.bind('change', function () {
     cruise = $cruise.val();
-    pageid_all = -2001;
-    pageid_detail = -2001;
-    pageid_ccabin = -2001;
-    pageid_item = -2001;
-    pageid_write = -2001;
-    pageid_submit = -2001;
-
+    pageid_all = -2023;
+    pageid_detail = -2018;
+    pageid_ccabin = -2019;
+    pageid_item = -2020;
+    pageid_write = -2021;
+    pageid_submit = -2022;
+    //联动逻辑
+    if (cruise == 'all') {
+        pageid_all = -2023;
+        pageid_detail = -2018;
+        pageid_ccabin = -2019;
+        pageid_item = -2020;
+        pageid_write = -2021;
+        pageid_submit = -2022;
+    } else if (cruise == 'online') {
+        pageid_all = -2005;
+        pageid_detail = -2000;
+        pageid_ccabin = -2001;
+        pageid_item = -2002;
+        pageid_write = -2003;
+        pageid_submit = -2004;
+    } else if (cruise == 'app') {
+        pageid_all = -2011;
+        pageid_detail = -2006;
+        pageid_ccabin = -2007;
+        pageid_item = -2008;
+        pageid_write = -2009;
+        pageid_submit = -2010;
+    } else if (cruise == 'h5') {
+        pageid_all = -2017;
+        pageid_detail = -2012;
+        pageid_ccabin = -2013;
+        pageid_item = -2014;
+        pageid_write = -2015;
+        pageid_submit = -2016;
+    } else if (cruise == 'offline' || cruise == 'skysea') {
+        pageid_all = -10000;
+        pageid_detail = -10000;
+        pageid_ccabin = -10000;
+        pageid_item = -10000;
+        pageid_write = -10000;
+        pageid_submit = -10000;
+    }
 });
 $product_pkg.bind('change', function () {
     product_pkg = $product_pkg.val();
@@ -851,14 +887,18 @@ function rendercru() {
     }
     tabid = 'cru';
     chart_cruorder = charts.render_single('spline', '实时', "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/False/False", "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/True/False", 220, 5, "cru_order", "#E5E67B", chart_width, interval);
-    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/False", '昨日', '', false);
-    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/False", '上周', '#027BFF', true);
-    var pageid6 = -2027;
+    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/False", '昨日', '#027BFF', true);
+    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/False", '上周', '#027BFF', false);
     chart_crutraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_all + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_all + "/" + interval, 220, 5, 'cru_traffic', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crutraffic, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_all + "/" + interval, '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
     chart_crudetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_detail + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_detail + "/" + interval, 220, 5, 'cru_detail', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crudetail, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_detail + "/" + interval, '昨日PV', '昨日UV', "#f45b5b", "#027BFF");
     chart_cruccabin = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_ccabin + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_ccabin + "/" + interval, 220, 5, 'cru_ccabin', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruccabin, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_ccabin + "/" + interval, '昨日PV', '昨日UV', "#f45b5b", "#027BFF");
     chart_cruitem = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_item + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_item + "/" + interval, 220, 5, 'cru_item', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruitem, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_item + "/" + interval, '昨日PV', '昨日UV', "#f45b5b", "#027BFF");
     chart_cruwrite = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_write + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_write + "/" + interval, 220, 5, 'cru_write', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruwrite, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_write + "/" + interval, '昨日PV', '昨日UV', "#f45b5b", "#027BFF");
 }
 
 //渲染自由行累积图
@@ -939,14 +979,18 @@ function rendercru_s() {
     }
     tabid = 'cru';
     chart_cruorder = charts.render_single('spline', '实时', "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/False/True", "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/True/True", 220, 5, "cru_order", "#E5E67B", chart_width, interval);
-    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/False", '昨日', '', false);
-    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/False", '上周', '#027BFF', true);
-    //chart_traffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/0/" + interval + "/False", null, 220, 5, 'traffic', "#f45b5b", "#E5E67B");
+    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/True", '昨日', '', false);
+    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/True", '上周', '#027BFF', false);
     chart_crutraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_all + "/" + interval + "/False", null, 220, 5, 'cru_traffic', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crutraffic, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_all + "/" + interval + "/True", '昨日PV', '昨日UV', "#f45b5b", "#E5E67B");
     chart_crudetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_detail + "/" + interval + "/False", null, 220, 5, 'cru_detail', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crudetail, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_detail + "/" + interval + "/True", '昨日PV', '昨日UV', "#f45b5b", "#E5E67B");
     chart_cruccabin = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_ccabin + "/" + interval + "/False", null, 220, 5, 'cru_ccabin', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruccabin, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_ccabin + "/" + interval + "/True", '昨日PV', '昨日UV', "#f45b5b", "#E5E67B");
     chart_cruitem = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_item + "/" + interval + "/False", null, 220, 5, 'cru_item', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruitem, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_item + "/" + interval + "/True", '昨日PV', '昨日UV', "#f45b5b", "#E5E67B");
     chart_cruwrite = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_write + "/" + interval + "/False", null, 220, 5, 'cru_write', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruwrite, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_write + "/" + interval + "/True", '昨日PV', '昨日UV', "#f45b5b", "#E5E67B");
 }
 
 //点击分段趋势
@@ -1130,8 +1174,8 @@ $('#cruorder2').bind('click', function () {
     charts.removeChart(chart_cruorder);
     channel = 'online';
     chart_cruorder = charts.render_single('spline', '实时', "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/False/False", "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/True/False", 220, 5, "cru_order", "#E5E67B", chart_width, interval);
-    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/False", '昨日', '', false);
-    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/False", '上周', '#027BFF', true);
+    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/False", '昨日', '#027BFF', true);
+    charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/False", '上周', '#027BFF', false);
 });
 
 $('#cruorder3').bind('click', function () {
@@ -1144,6 +1188,7 @@ $('#cruorder3').bind('click', function () {
 
 
 $('#tab_frt').click(function (e) {
+
     e.preventDefault();
     reset();
     $(".param_frt").show();
@@ -1173,8 +1218,8 @@ $('#tab_cru').click(function (e) {
     $(".param_frt").hide();
     $(".param_pkg").hide();
     $("#sharedchannel").hide();
-    $(".pvuv").hide();
-    $("#interval").val("30").trigger("change");
+    $(".pvuv").show();
+    //$("#interval").val("15").trigger("change");
     rendercru();
 });
 

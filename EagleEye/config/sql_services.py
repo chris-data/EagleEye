@@ -73,7 +73,38 @@ WHERE
         and elapsedtime > 0;
         """
 
-ShoppingService_max_time="""
+ShoppingService_max_time = """
 
 
+"""
+
+# 推荐接口-次数
+ShoppingService_RecommendSearch_ratio = """
+SELECT
+     ServiceInvokeId,
+     case when InvokeStatus IN (2 , 3, - 1) then 1 else 0 end as InvokeStatus,
+     elapsedtime,
+     DataChange_LastTime
+FROM
+    monitor.serviceinvokelog
+WHERE
+    DataChange_LastTime >= %(sdt)s
+        AND DataChange_LastTime < %(edt)s
+        AND productTypeName = 'ShoppingService_RecommendSearch'
+        AND productType = (CASE
+        WHEN productType = - 1 THEN productType
+        ELSE %(producttype)s
+    END)
+        AND isIntlflight = (CASE
+        WHEN isIntlflight = - 1 THEN isIntlflight
+        ELSE %(isintlflight)s
+    END)
+        AND isIntlHotel = (CASE
+        WHEN isIntlHotel = - 1 THEN isIntlHotel
+        ELSE %(isintlhotel)s
+    END)
+        AND channel = (CASE
+        WHEN channel = '- 1' THEN channel
+        ELSE %(channel)s
+    END);
 """

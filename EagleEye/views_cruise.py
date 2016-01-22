@@ -18,7 +18,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
 
 @login_required(login_url='/login/')
 def get_cruise(request):
-    return render(request, 'cruise.html', {'first_name': request.user})
+    return render(request, 'home.html', {'first_name': request.user})
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """

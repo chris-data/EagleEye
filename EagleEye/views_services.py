@@ -148,6 +148,54 @@ def get_serviceinvoke_failures(request, params, history=False, whole=False, upda
     return JsonResponse(mapping)
 
 
+def get_serviceinvoke_failureratio(request, params):
+    # 分解参数
+    sdt, edt, interval, producttype, isintlflight, isintlhotel, channel = params.split('&')
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    interval += 'min'
+    cursor = connection.cursor()
+    cursor.execute(SQL.ShoppingService_RecommendSearch_ratio,
+                   {'sdt': sdt, 'edt': edt, 'producttype': producttype, 'isintlflight': isintlflight,
+                    'isintlhotel': isintlhotel, 'channel': channel})
+    # from datetime import datetime
+    # start=datetime.now()
+    queryset = cursor.fetchall()
+    # end=datetime.now()
+    # gap=end-start
+    # print(gap)
+    df1 = pd.DataFrame(queryset, columns=['ServiceInvokeId', 'InvokeStatus', 'elapsedtime',
+                                          'DataChange_LastTime']).drop_duplicates(
+        'DataChange_LastTime', take_last=False)  # 去除重复和为空的
+    # 构造时间序列
+    df1.index = df1.DataChange_LastTime
+    target = df1.InvokeStatus
+    # 时间序列downsample
+    data_list = target.resample(interval, how={'total': np.size, 'failed': np.sum, 'elapsed': np.mean}, closed='right',
+                                label='right').fillna(0)
+    data_list['ratio'] = (data_list.failed / data_list.total) * 100
+    # 失败数
+    times = {}
+    for key, value in zip(list(data_list.index), list(data_list.total)):
+        times[str(key)] = int(value)
+    # 失败数
+    failures = {}
+    for key, value in zip(list(data_list.index), list(data_list.failed)):
+        failures[str(key)] = int(value)
+    # 失败率
+    ratios = {}
+    for key, value in zip(list(data_list.index), list(data_list.ratio)):
+        ratios[str(key)] = round(value, 2)
+    # 平均耗时
+    elapsed = {}
+    for key, value in zip(list(data_list.index), list(data_list.elapsed)):
+        elapsed[str(key)] = int(value)
+
+    mapping = {'times': times, 'failures': failures, 'ratios': ratios, 'elapsed': ratios}
+
+    return JsonResponse(mapping)
+
+
 def get_serviceinvoke_elapsed(request, params, history=False, whole=False, update=False):
     """
     推荐服务接口查询次数统计
