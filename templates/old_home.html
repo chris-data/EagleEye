@@ -20,7 +20,7 @@
 <section id="container" class="">
     <!--header start-->
     <header class="header dark-bg">
-        <img class="logo" id="logo" onclick="" src="/static/img/local/logo.jpg">
+        <img class="logo" id="logo" onclick="toggleHidden()" src="/static/img/local/logo.jpg">
 
         <div class="top-nav notification-row">
             <ul class="nav pull-right top-menu">
@@ -129,18 +129,24 @@
     <!--sidebar end-->
     <section id="main-content">
         <section class="wrapper">
+            <!-- alert -->
+            {#            <div class="alert alert-info alert-dismissable">#}
+            {#                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">#}
+            {#                    &times;#}
+            {#                </button>#}
+            {#            </div>#}
+            <!-- alert end -->
             <!-- tab start-->
             <ul id="myTab" class="nav nav-tabs" style="float: right;">
-                <li id="tab_frt" class="active"><a href="#frt" data-toggle="tab">自由行</a></li>
-                <li id="tab_pkg"><a href="#pkg" data-toggle="tab">团队游</a></li>
-                <li id="tab_cru"><a href="#cru" data-toggle="tab">邮轮</a></li>
+                <li id="tab_pkg" class="active"><a href="#pkg" data-toggle="tab">团队游</a></li>
+                <li id="tab_frt"><a href="#frt" data-toggle="tab">自由行</a></li>
             </ul>
             <!-- tab end-->
             <!-- param start-->
             <header id="pkg_header" class="panel-heading shadow"><i
                     class="icon_house_alt"></i>&nbsp;Dashboard&nbsp;
                 <!--group select2-->
-                <span class="param_pkg">
+                <span id="param_pkg">
                     <select id="product_pkg" class="selectparam" name="product_pkg" data-toggle="tooltip"
                             title="请选择产品形态">
                         <option value="all" selected label="all">全部</option>
@@ -149,29 +155,17 @@
                         <option value="visa" label="visa">签证</option>
                     </select>
                 </span>&nbsp;
+
                 <!--frt select2-->
-                <span class="param_frt">
+                <span id="param_frt">
                     <select id="product" class="selectparam" name="product" data-toggle="tooltip" title="请选择产品形态">
                         <option value="all" selected label="all">全部</option>
                         <option value="dp" label="dp">dp</option>
                         <option value="sdp" label="sdp">sdp</option>
                     </select>&nbsp;
                 </span>
-                <!--cru select2-->
-                <span class="param_cru">
-                    <select id="cruise" class="selectparam" name="cruise" data-toggle="tooltip"
-                            title="点击选择渠道">
-                        <option value="all" selected label="all">全部</option>
-                        <option value="online" label="online">online</option>
-                        <option value="app" label="app">app</option>
-                        <option value="offline" label="offline">offline</option>
-                        <option value="h5" label="h5">h5</option>
-                        <option value="skysea" label="skysea">skysea</option>
-                    </select>&nbsp;
-                </span>
 
                 <!--shared select2 -->
-                <span id="sharedchannel">
                 <select id="channel" class="selectparam" name="channel" data-toggle="tooltip" title="请选择下单渠道">
                     <option value="all" selected label="all">全部</option>
                     <option value="online" label="online">online</option>
@@ -179,7 +173,6 @@
                     <option value="offline" label="offline">offline</option>
                     <option value="h5" label="h5">h5</option>
                 </select>&nbsp;
-                </span>
                 <select id="interval" class="selectparam" name="interval" data-toggle="tooltip" title="请选择间隔时间">
                     <option value="3" label="3min">3min</option>
                     <option value="5" label="5min">5min</option>
@@ -188,152 +181,31 @@
                     <option value="20" label="20min">20min</option>
                     <option value="30" label="30min">30min</option>
                     <option value="60" label="60min">60min</option>
-                </select>
-
-                <div class="btn-group" data-toggle="buttons" style="margin-left: 10px">
-                    <label class="btn btn-info btn-xs active segmented">
-                        <input type="radio" name="options" id="segmented" data-toggle="tooltip" data-placement="bottom"
-                               title="点击查看当日分段趋势">分段趋势
-                    </label>
-                    <label class="btn btn-info btn-xs accumulated">
-                        <input type="radio" name="options" id="accumulated" data-toggle="tooltip"
-                               data-placement="bottom"
-                               title="点击查看当日累积趋势">累积趋势
-                    </label>
-                </div>
-
-                <div class="btn-group pvuv" data-toggle="buttons" style="margin-left: 10px">
-                    <label class="btn btn-info btn-xs active showuv">
-                        <input type="radio" name="options" id="showuv" data-toggle="tooltip"
-                               data-placement="bottom"
-                               title="点击查看当日累积趋势">隐藏UV
-                    </label>
-                    <label class="btn btn-info btn-xs showpv">
-                        <input type="radio" name="options" id="showpv" data-toggle="tooltip" data-placement="bottom"
-                               title="点击查看当日分段趋势">查看PV
-                    </label>
-                </div>
-                <button type="reset" id="reset" class="btn btn-info btn-xs" style="margin-left: 6px">重置参数</button>
-
+                </select>&nbsp;
+                <button type="button" id="mode_change" data-toggle="tooltip" data-placement="bottom"
+                        title="切换到累积模式" class="btn btn-info btn-xs">显示累积
+                </button>
+                &nbsp;
+                <button type="button" id='refresh' class="btn btn-info btn-xs" data-toggle="tooltip"
+                        title="">
+                    <i class="arrow_triangle-right_alt" style="margin-top: 3px "></i>&nbsp;显示分段
+                </button>
+                <button type="button" id="mode_change_pkg" data-toggle="tooltip" data-placement="bottom"
+                        title="切换到累积模式" class="btn btn-info btn-xs">显示累积
+                </button>
+                &nbsp;
+                <button type="button" id='refresh_pkg' class="btn btn-info btn-xs" data-toggle="tooltip"
+                        title="">
+                    <i class="arrow_triangle-right_alt" style="margin-top: 3px "></i>&nbsp;显示分段
+                </button>
+                &nbsp;
+                <button type="reset" id="reset" class="btn btn-info btn-xs">重置参数</button>
             </header>
             <!-- param end-->
             <!-- charts container-->
             <section class="panel shadow">
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane collapse in active" id="frt">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/order/"><b>实时订单</b></a>
-                                        &nbsp;<span
-                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="实时订单：分类型，分渠道，分段统计情况"></span>
-                                        <i class="fa fa-refresh" id='order2' data-toggle="tooltip" title=""
-                                           style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='order3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="order"></div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/traffic/"><b>实时流量</b></a>
-                                        &nbsp;
-                                    <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                          title="所有详情页：整体流量情况统计情况"></span>
-                                        <i class="fa fa-refresh" id='traffic2'
-                                           style="float:right;margin-top: 10px;"></i>
-                                        <i class="arrow_condense" id='traffic3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="traffic"></div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时Commit</b></a>
-                                        &nbsp;&nbsp;<span
-                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="commit：分类型，分渠道，分段统计情况"></span>
-                                        <i class="fa fa-refresh" id='commit2'
-                                           style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='commit3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="commit"></div>
-                                    </div>
-                                </section>
-
-                            </div>
-                            <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时详情页</b></a>
-                                        &nbsp;&nbsp;<span
-                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="详情页：分类型，分渠道,分段统计情况"></span>
-                                        <i class="fa fa-refresh" id='detail2'
-                                           style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='detail3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="detail"></div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时Booking</b></a>
-                                        &nbsp;&nbsp;<span class="icon_question_alt2" data-toggle="tooltip"
-                                                          data-placement="bottom"
-                                                          title="booking：分类型，分渠道，分段统计情况"></span>
-                                        <i class="fa fa-refresh" id='booking2'
-                                           style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='booking3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="booking"></div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时填写页</b></a>
-                                        &nbsp;&nbsp;<span
-                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="填写页：分类型，分渠道，分段统计情况"></span>
-                                        <i class="fa fa-refresh" id='input2'
-                                           style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='input3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="input"></div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane collapse" id="pkg">
+                    <div class="tab-pane collapse in active" id="pkg">
                         <div class="row">
                             <div class="col-lg-6">
                                 <section class="panel panel-default">
@@ -446,23 +318,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane collapse" id="cru">
+                    <div class="tab-pane collapse" id="frt">
                         <div class="row">
                             <div class="col-lg-6">
-                                <section class="panel panel-default">
+                                <section class="panel">
                                     <header class="panel-heading">
                                         <i class="icon_grid-3x3"></i><a
-                                            href="#"><b>实时订单</b></a>
+                                            href="/EagleEye/realtime/order/"><b>实时订单</b></a>
                                         &nbsp;<span
                                             class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="邮轮全部订单"></span>
-                                        <i class="fa fa-refresh" id='cruorder2' data-toggle="tooltip" title=""
+                                            title="实时订单：分类型，分渠道，分段统计情况"></span>
+                                        <i class="fa fa-refresh" id='order2' data-toggle="tooltip" title=""
                                            style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='cruorder3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="arrow_condense" id='order3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_order"></div>
+                                        <div id="order"></div>
                                     </div>
                                 </section>
                             </div>
@@ -470,100 +342,101 @@
                                 <section class="panel">
                                     <header class="panel-heading">
                                         <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/traffic/"><b>整体流量</b></a>
+                                            href="/EagleEye/realtime/traffic/"><b>实时流量</b></a>
                                         &nbsp;
                                     <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
                                           title="所有详情页：整体流量情况统计情况"></span>
-                                        <i class="fa fa-refresh" id='pkgtraffic2'
+                                        <i class="fa fa-refresh" id='traffic2'
                                            style="float:right;margin-top: 10px;"></i>
-                                        <i class="arrow_condense" id='pkgtraffic3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="arrow_condense" id='traffic3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_traffic"></div>
+                                        <div id="traffic"></div>
                                     </div>
                                 </section>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <section class="panel panel-default">
+                                <section class="panel">
                                     <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="#"><b>详情页流量</b></a>
-                                        &nbsp;<span
+                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时Commit</b></a>
+                                        &nbsp;&nbsp;<span
                                             class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="邮轮频道详情页流量"></span>
-                                        <i class="fa fa-refresh" id='crudetail2' data-toggle="tooltip" title=""
+                                            title="commit：分类型，分渠道，分段统计情况"></span>
+                                        <i class="fa fa-refresh" id='commit2'
                                            style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='crudetail3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="arrow_condense" id='commit3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_detail"></div>
+                                        <div id="commit"></div>
                                     </div>
                                 </section>
+
                             </div>
                             <div class="col-lg-6">
                                 <section class="panel">
                                     <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/traffic/"><b>选舱页流量</b></a>
-                                        &nbsp;
-                                    <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                          title="邮轮频道选舱页流量"></span>
-                                        <i class="fa fa-refresh" id='cruccabin2'
-                                           style="float:right;margin-top: 10px;"></i>
-                                        <i class="arrow_condense" id='cruccabin3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时详情页</b></a>
+                                        &nbsp;&nbsp;<span
+                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
+                                            title="详情页：分类型，分渠道,分段统计情况"></span>
+                                        <i class="fa fa-refresh" id='detail2'
+                                           style="float:right;margin-top: 10px"></i>
+                                        <i class="arrow_condense" id='detail3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_ccabin"></div>
+                                        <div id="detail"></div>
                                     </div>
                                 </section>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <section class="panel panel-default">
+                                <section class="panel">
                                     <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="#"><b>附加页流量</b></a>
-                                        &nbsp;<span
-                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                            title="邮轮附加页流量"></span>
-                                        <i class="fa fa-refresh" id='cruitem2' data-toggle="tooltip" title=""
+                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时Booking</b></a>
+                                        &nbsp;&nbsp;<span class="icon_question_alt2" data-toggle="tooltip"
+                                                          data-placement="bottom"
+                                                          title="booking：分类型，分渠道，分段统计情况"></span>
+                                        <i class="fa fa-refresh" id='booking2'
                                            style="float:right;margin-top: 10px"></i>
-                                        <i class="arrow_condense" id='cruitem3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="arrow_condense" id='booking3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_item"></div>
+                                        <div id="booking"></div>
                                     </div>
                                 </section>
+
                             </div>
                             <div class="col-lg-6">
                                 <section class="panel">
                                     <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/traffic/"><b>填写页流量</b></a>
-                                        &nbsp;
-                                    <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                          title="邮轮填写页流量"></span>
-                                        <i class="fa fa-refresh" id='cruwrite2'
-                                           style="float:right;margin-top: 10px;"></i>
-                                        <i class="arrow_condense" id='cruwrite3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="icon_grid-3x3"></i><a href="#"><b>实时填写页</b></a>
+                                        &nbsp;&nbsp;<span
+                                            class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
+                                            title="填写页：分类型，分渠道，分段统计情况"></span>
+                                        <i class="fa fa-refresh" id='input2'
+                                           style="float:right;margin-top: 10px"></i>
+                                        <i class="arrow_condense" id='input3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_write"></div>
+                                        <div id="input"></div>
                                     </div>
                                 </section>
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane collapse" id="cru">
+                        <span></span>
+                    </div>
                 </div>
-                <div class="panel-footer">
+                 <div class="panel-footer">
                     <footer class="main-footer">
                         <!-- To the right -->
                         <div class="pull-right hidden-xs">
@@ -593,16 +466,9 @@
 <script src="/static/js/highcharts/themes/dark-unica.js"></script>
 <script src="/static/js/Custom/ajax-charts.js"></script>
 <script src="/static/js/Custom/dashboard.js"></script>
-<script src="/static/js/Custom/home.js"></script>
+<script src="/static/js/Custom/package.js"></script>
 <script type="application/javascript">
-    $(function () {
-        initenvs();
-        $(".param_pkg").hide();
-        $(".param_cru").hide();
-        $(".param_frt").show();
-        reset();
-        initcharts();
-    });
+    groupcharts();
 </script>
 </body>
 </html>
