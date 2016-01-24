@@ -1172,7 +1172,6 @@ $('#input3').bind('click', function () {
  */
 $('#cruorder2').bind('click', function () {
     charts.removeChart(chart_cruorder);
-    channel = 'online';
     chart_cruorder = charts.render_single('spline', '实时', "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/False/False", "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/True/False", 220, 5, "cru_order", "#E5E67B", chart_width, interval);
     charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/False", '昨日', '#027BFF', true);
     charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/False", '上周', '#027BFF', false);
@@ -1180,10 +1179,70 @@ $('#cruorder2').bind('click', function () {
 
 $('#cruorder3').bind('click', function () {
     charts.removeChart(chart_cruorder);
-    channel = 'online';
     chart_cruorder = charts.render_single('spline', '实时', "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/False/True", "/EagleEye/ajax/cruise/order/" + today + "/" + tommorw + "/" + interval + "/" + cruise + "/False/True/True", 220, 5, "cru_order", "#E5E67B", chart_width, interval);
     charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + yesterday + "/" + today + "/" + interval + "/" + cruise + "/True/False/True", '昨日', '', false);
     charts.append_single(chart_cruorder, "/EagleEye/ajax/cruise/order/" + lastweek + "/" + lastweekplus + "/" + interval + "/" + cruise + "/True/False/True", '上周', '#027BFF', true);
+});
+
+$('#crutraffic2').bind('click', function () {
+    charts.removeChart(chart_crutraffic);
+    chart_crutraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_all + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_all + "/" + interval, 220, 5, 'cru_traffic', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crutraffic, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_all + "/" + interval, '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
+});
+
+$('#crutraffic3').bind('click', function () {
+    charts.removeChart(chart_crutraffic);
+    chart_crutraffic = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_all + "/" + interval + "/False", null, 220, 5, 'cru_traffic', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crutraffic, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_all + "/" + interval + "/True", '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
+});
+
+$('#crudetail2').bind('click', function () {
+    charts.removeChart(chart_crudetail);
+    chart_crudetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_detail + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_detail + "/" + interval, 220, 5, 'cru_detail', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crudetail, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_detail + "/" + interval, '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
+});
+
+$('#crudetail3').bind('click', function () {
+    charts.removeChart(chart_crudetail);
+    chart_crudetail = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_detail + "/" + interval + "/False", null, 220, 5, 'cru_detail', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_crudetail, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_detail + "/" + interval + "/True", '昨日PV', '昨日UV', "#E5E67B", "#E5E67B");
+});
+
+$('#cruccabin2').bind('click', function () {
+    charts.removeChart(chart_cruccabin);
+    chart_cruccabin = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_ccabin + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_ccabin + "/" + interval, 220, 5, 'cru_ccabin', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruccabin, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_ccabin + "/" + interval, '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
+});
+
+$('#cruccabin3').bind('click', function () {
+    charts.removeChart(chart_cruccabin);
+    chart_cruccabin = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_ccabin + "/" + interval + "/False", null, 220, 5, 'cru_ccabin', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruccabin, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_ccabin + "/" + interval + "/True", '昨日PV', '昨日UV', "#E5E67B", "#E5E67B");
+});
+
+
+$('#cruitem2').bind('click', function () {
+    charts.removeChart(chart_cruitem);
+    chart_cruitem = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_item + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_item + "/" + interval, 220, 5, 'cru_item', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruitem, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_item + "/" + interval, '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
+});
+
+$('#cruitem3').bind('click', function () {
+    charts.removeChart(chart_cruitem);
+    chart_cruitem = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_item + "/" + interval + "/False", null, 220, 5, 'cru_item', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruitem, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_item + "/" + interval + "/True", '昨日PV', '昨日UV', "#E5E67B", "#E5E67B");
+});
+
+$('#cruwrite2').bind('click', function () {
+    charts.removeChart(chart_cruwrite);
+    chart_cruwrite = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic/" + today + "/" + pageid_write + "/" + interval, "/EagleEye/ajax/update/traffic/" + today + "/" + pageid_write + "/" + interval, 220, 5, 'cru_write', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruwrite, "/EagleEye/ajax/history/traffic/" + yesterday + "/" + pageid_write + "/" + interval, '昨日PV', '昨日UV', "#E5E67B", "#027BFF");
+});
+
+$('#cruwrite3').bind('click', function () {
+    charts.removeChart(chart_cruwrite);
+    chart_cruwrite = charts.render_double('spline', '实时PV', '实时UV', "/EagleEye/ajax/init/traffic2/" + today + "/" + pageid_write + "/" + interval + "/False", null, 220, 5, 'cru_write', "#f45b5b", "#E5E67B", chart_width);
+    charts.append_double(chart_cruwrite, "/EagleEye/ajax/init/traffic2/" + yesterday + "/" + pageid_write + "/" + interval + "/True", '昨日PV', '昨日UV', "#E5E67B", "#E5E67B");
 });
 
 
@@ -1195,7 +1254,7 @@ $('#tab_frt').click(function (e) {
     $("#sharedchannel").show();
     $(".param_pkg").hide();
     $(".param_cru").hide();
-    $(".pvuv").show();
+    //$(".pvuv").show();
     renderfrt();
 });
 $('#tab_pkg').click(function (e) {
@@ -1205,7 +1264,7 @@ $('#tab_pkg').click(function (e) {
     $("#sharedchannel").show();
     $(".param_cru").hide();
     $(".param_frt").hide();
-    $(".pvuv").hide();
+    //$(".pvuv").hide();
     pageid3 = -1000;
     pageid4 = -1005;
     pageid5 = -1010;
@@ -1218,7 +1277,7 @@ $('#tab_cru').click(function (e) {
     $(".param_frt").hide();
     $(".param_pkg").hide();
     $("#sharedchannel").hide();
-    $(".pvuv").show();
+    //$(".pvuv").show();
     //$("#interval").val("15").trigger("change");
     rendercru();
 });
