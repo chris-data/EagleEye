@@ -25,6 +25,7 @@ $('.fa').hover(
         $(this).css({"color": "#688a7e"});
     }
 );
+
 $('.arrow_condense').hover(
     function () {
         $(this).css({"color": "#34aadc"});
