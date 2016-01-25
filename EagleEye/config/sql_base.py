@@ -1,7 +1,7 @@
 # Created by wang.zy at 2015/10/15
 
 sqldict = {
-    #获取当天最新一次预定
+    # 获取当天最新一次预定
     "order_max_orderdate": """
 SELECT
     MAX(orderdate) AS orderdate
@@ -10,7 +10,7 @@ FROM
 WHERE
     orderdate >= CURDATE()
     """,
-        "booking_max_orderdate": """
+    "booking_max_orderdate": """
 SELECT
     MAX(DataChange_LastTime) AS orderdate
 FROM
@@ -18,7 +18,7 @@ FROM
 WHERE
     DataChange_LastTime >= CURDATE()
     """,
-        "commit_max_orderdate": """
+    "commit_max_orderdate": """
 SELECT
     MAX(DataChange_LastTime) AS orderdate
 FROM
@@ -412,12 +412,24 @@ WHERE
         AND MINUTE(datachange_lasttime) %%s = 0
     ORDER BY datachange_lasttime
     """,
+    "his_traffic_aggregate": """
+    SELECT
+        id,
+        datachange_lasttime AS dt,
+        COALESCE(pv, 0) as pv,
+        COALESCE(uv, 0) as uv
+    FROM
+        monitor.frt_pageview_statistic
+    WHERE
+         pageid = %s
+        AND statistic_date = %s
+        AND MINUTE(datachange_lasttime) %%s = 0
+    ORDER BY datachange_lasttime
+    """,
     # app整体转化率
-    "appCR":"""
+    "appCR": """
     select vdate,type,cnt from APPVacationCR where
     vdate> %s and vdate <%s
     order by vdate,type
     """
 }
-
-

@@ -361,7 +361,11 @@ def get_init_traffic(request, dt=str(date.today()), pageid=0, interval=10):
 
 
 def get_traffic_aggregate(request, dt=str(date.today()), pageid=0, interval=10, history=False):
-    query = SQL.sqldict["traffic_aggregate"]
+    query = ''
+    if dt == str(date.today()):
+        query = SQL.sqldict["traffic_aggregate"]
+    else:
+        query = SQL.sqldict["his_traffic_aggregate"]
     queryset = pageview.objects.raw(query, [pageid, dt, interval])
     data_list1 = {}
     data_list2 = {}
