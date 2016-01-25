@@ -54,9 +54,11 @@ def get_order_detail(request):
 def get_ua_analysis(request):
     return render(request, "useragent.html", {'first_name': request.user})
 
+
 @login_required(login_url='/login/')
 def get_app_CR(request):
     return render(request, "appVacationCR.html", {'first_name': request.user})
+
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """
@@ -394,14 +396,12 @@ def get_traffic_aggregate(request, dt=str(date.today()), pageid=0, interval=10, 
 #     return JsonResponse(json)
 
 def get_history_traffic(request, dt=str(date.today()), pageid=0, interval=10):
-
     query = SQL.sqldict["his_traffic"]
     queryset = pageview.objects.raw(query, [dt, pageid, interval, interval, dt, pageid, interval])[1:]
     data_list1 = {}
     data_list2 = {}
+    gap = pd.to_datetime(date.today()) - pd.to_datetime(dt)
     for item in queryset:
-        gap = pd.to_datetime(date.today()) - pd.to_datetime(dt)
-        # key = str(date.today()) + " " + str(item.dt)[11:]
         data_list1[str(pd.to_datetime(item.dt) + gap)] = item.pv
         data_list2[str(pd.to_datetime(item.dt) + gap)] = item.uv
     json = {
@@ -1013,6 +1013,7 @@ def get_append_commit(request, channel='all', product='all', interval='10'):
         mapping[str(key)] = int(value)
     return JsonResponse(mapping)
 
+
 ##  度假app整体转化率
 
 ##离线可订检查接口  分资源-->酒店/X资源/单选项/当地玩乐
@@ -1025,9 +1026,8 @@ def get_APPCR(request, sdt, edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sqldict["appCR"], [ sdt, edt])
+    cursor.execute(SQL.sqldict["appCR"], [sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
-
