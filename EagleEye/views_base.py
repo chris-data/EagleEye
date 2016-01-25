@@ -378,15 +378,32 @@ def get_traffic_aggregate(request, dt=str(date.today()), pageid=0, interval=10, 
     return JsonResponse(json)
 
 
+# def get_history_traffic(request, dt=str(date.today()), pageid=0, interval=10):
+#     query = SQL.sqldict["init_traffic"]
+#     queryset = pageview.objects.raw(query, [dt, pageid, interval, interval, dt, pageid, interval])
+#     data_list1 = {}
+#     data_list2 = {}
+#     for item in queryset:
+#         key = str(date.today()) + " " + str(item.dt)[11:]
+#         data_list1[key] = item.pv
+#         data_list2[key] = item.uv
+#     json = {
+#         "data1": data_list1,
+#         "data2": data_list2
+#     }
+#     return JsonResponse(json)
+
 def get_history_traffic(request, dt=str(date.today()), pageid=0, interval=10):
-    query = SQL.sqldict["init_traffic"]
-    queryset = pageview.objects.raw(query, [dt, pageid, interval, interval, dt, pageid, interval])
+
+    query = SQL.sqldict["his_traffic"]
+    queryset = pageview.objects.raw(query, [dt, pageid, interval, interval, dt, pageid, interval])[1:]
     data_list1 = {}
     data_list2 = {}
     for item in queryset:
-        key = str(date.today()) + " " + str(item.dt)[11:]
-        data_list1[key] = item.pv
-        data_list2[key] = item.uv
+        gap = pd.to_datetime(date.today()) - pd.to_datetime(dt)
+        # key = str(date.today()) + " " + str(item.dt)[11:]
+        data_list1[str(pd.to_datetime(item.dt) + gap)] = item.pv
+        data_list2[str(pd.to_datetime(item.dt) + gap)] = item.uv
     json = {
         "data1": data_list1,
         "data2": data_list2

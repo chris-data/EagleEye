@@ -91,6 +91,35 @@ FROM
             AND pageid = %s
             AND MINUTE(DataChange_LastTime) %%s = 0) b ON a.DataChange_LastTime = b.DataChange_LastTime
             ''',
+    "his_traffic": '''
+SELECT
+    a.id, a.DataChange_LastTime as dt, coalesce(a.pv - b.pv,0) AS pv,coalesce(a.uv-b.uv,0) as uv
+FROM
+    (SELECT
+        id,
+            SUBSTR(DataChange_LastTime, 1, 16) AS DataChange_LastTime,
+            pv,
+            uv
+    FROM
+        monitor.frt_pageview_statistic
+    WHERE
+        statistic_date = %s
+            AND pageid = %s
+            AND MINUTE(DataChange_LastTime) %%s = 0) a
+        LEFT OUTER JOIN
+    (SELECT
+        id,
+            SUBSTR(DATE_ADD(DataChange_LastTime, INTERVAL %s MINUTE), 1, 16) AS DataChange_LastTime,
+            pv,
+            uv
+    FROM
+        monitor.frt_pageview_statistic
+    WHERE
+        statistic_date = %s
+            AND pageid = %s
+            AND MINUTE(DataChange_LastTime) %%s = 0) b ON a.DataChange_LastTime = b.DataChange_LastTime
+order by 2
+            ''',
     "update_traffic": """
                      SELECT
                            a.id, a.DataChange_LastTime as dt, a.pv - b.pv AS pv,a.uv - b.uv AS uv
