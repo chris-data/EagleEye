@@ -193,7 +193,7 @@ var checkcharts = function () {
             charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False', '上周失败率', '#34aadc', true);
             charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False/False', '昨日调用数', '#2775e2', false);
             charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/' + product + '&0&-1/' + interval + '/True/False/False', '昨日失败数', '#2775e2', false);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + lastweek + '/' + lastweekplus + '/' + product + '&-1&-1/' + interval + '/True/False', '昨日失败率', '#2775e2', false);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False', '昨日失败率', '#2775e2', false);
         }
     });
 
