@@ -923,7 +923,7 @@ function appVaCR()
      var timeArray = getMonth30();
      var url = '/EagleEye/ajax/appvacr/'+sysdate(-31)+'/'+sysdate(0) ;
      var nameArray = [];
-     nameArray[0] = 'app-总体';nameArray[1] = 'app-自由行';nameArray[2] = 'app-团队游';
+     nameArray[0] = 'app-总体转化率';nameArray[1] = 'app-自由行转化率';nameArray[2] = 'app-团队游转化率';
      var smallTitle=new Array();
       smallTitle[0]='转化率';smallTitle[1]='订单';smallTitle[2]='流量(uv)'
      drawCurve(url, 'spline', nameArray, timeArray, 4,null,smallTitle)
