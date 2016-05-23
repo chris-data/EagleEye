@@ -60,7 +60,7 @@ AUTHENTICATION_BACKENDS = (
     'django_cas_ng.backends.CASBackend',
 )
 # 登录地址 https://cas.uat.qa.nt.ctripcorp.com/caso/login   https://cas.ctripcorp.com/caso/login  https://cas.ctripcorp.com/caso/login
-CAS_SERVER_URL = "https://cas.uat.qa.nt.ctripcorp.com/caso/login"
+CAS_SERVER_URL = "https://cas.ctripcorp.com/caso/login"
 
 CAS_LOGOUT_COMPLETELY = True
 CAS_CREATE_USER = True
