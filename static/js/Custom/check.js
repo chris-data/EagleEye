@@ -190,10 +190,10 @@ var checkcharts = function () {
             chart_invoke = charts.render_singlem1('spline', '实时调用数', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/' + product + '&-1&-1/' + interval + '/False/False/False', '/EagleEye/ajax/checkresource/' + today + '/' + tommorw + '/1&-1&-1/' + interval + '/False/False/True', 240, 5, "invokes", '#E5E67B', null, interval);
             charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/' + product + '&-1&-1/' + interval + '/True/False/False', '上周调用数', '#34aadc', true);
             charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + lastweek + '/' + lastweekplus + '/' + product + '&0&-1/' + interval + '/True/False/False', '上周失败数', '#34aadc', true);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + lastweek + '/' + lastweekplus + '/' + product + '&-1&-1/' + interval + '/True/False', '上周失败率', '#34aadc', true);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False', '上周失败率', '#34aadc', true);
             charts.append_single(chart_invoke, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False/False', '昨日调用数', '#2775e2', false);
             charts.append_single(chart_feilure, '/EagleEye/ajax/checkresource/' + yesterday + '/' + today + '/' + product + '&0&-1/' + interval + '/True/False/False', '昨日失败数', '#2775e2', false);
-            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + yesterday + '/' + today + '/' + product + '&-1&-1/' + interval + '/True/False', '昨日失败率', '#2775e2', false);
+            charts.append_single(chart_ratio, '/EagleEye/ajax/checkresourceratio/' + lastweek + '/' + lastweekplus + '/' + product + '&-1&-1/' + interval + '/True/False', '昨日失败率', '#2775e2', false);
         }
     });
 

@@ -25,7 +25,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 #     return HttpResponseRedirect('/EagleEye/')
 
 
-@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
 def home(request):
     return render(request, "home.html", {'first_name': request.user})
 
@@ -55,9 +55,23 @@ def get_ua_analysis(request):
     return render(request, "useragent.html", {'first_name': request.user})
 
 
-@login_required(login_url='/login/')
+#@login_required(login_url='/login/')
 def get_app_CR(request):
     return render(request, "appVacationCR.html", {'first_name': request.user})
+
+# app订单url
+def get_app_Order(request):
+    return render(request, "appvacationorders.html", {'first_name': request.user})
+#度假bookcommit失败率
+def get_vacation_bookcommit(request):
+    return render(request, "vacationbookcommit.html", {'first_name': request.user})
+#自由行查询为空
+def get_diy_serviceinvoke(request):
+    return render(request, "diyserviceinvoke.html", {'first_name': request.user})
+
+#自由行handler性能
+def get_diy_handler(request):
+    return render(request, "handler.html", {'first_name': request.user})
 
 
 def get_enddt(interval=10, lastdt=datetime.now()):
@@ -1035,3 +1049,209 @@ def get_APPCR(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+##度假app订单
+def get_VacAllOrder(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["appAllOrder"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+##度假app订单
+def get_APPOrder(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["appOrder"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##度假app订单
+def get_H5Order(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["h5Order"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+
+##度假金额
+def get_VacAmount(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["appAmount"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##度假-自由行bookcommit
+def get_diyBookCommit(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["diybookcommit"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##度假-团队游bookcommit
+def get_pkgBookCommit(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["pkgbookcommit"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+##度假-签证commit
+def get_visaBookCommit(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["visabookcommit"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##自由行查询为空
+def get_diyserviceinvoke(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["diyservicehis"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+##自由行bookcommit新
+def get_diybookcommitnew(request, dimsdt, dimedt,sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["diybookcommitnew"], [dimsdt, dimedt, sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##团队游bookcommit新
+def get_pkgbookcommitnew(request, dimsdt, dimedt,sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["pkgbookcommitnew"], [dimsdt, dimedt, sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##团队游bookcommit新
+def get_visacommitnew(request, dimsdt, dimedt,sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param channel:订单来自的平台，如android、ios
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["visacommitnew"], [dimsdt, dimedt, sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+## 页面性能
+
+def get_pageHandler(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param page: 页面名称
+    :param handlerName: handler名称
+    :param maxcnt:最大值
+    :param mincnt:最小值
+    :param avgcnt:平均值
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["pageHandler"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+

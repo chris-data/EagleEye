@@ -1,4 +1,4 @@
-# Created by wang.zy at 2015/10/15
+# Created by wang.zy at 2015/10/15 DIY_Order
 
 sqldict = {
     # 获取当天最新一次预定
@@ -431,5 +431,117 @@ WHERE
     select vdate,type,cnt from APPVacationCR where
     vdate> %s and vdate <%s
     order by vdate,type
-    """
+    """  ,
+     #度假全部订单
+    "appAllOrder":"""
+    select vdate,bu,channel,cnt from fatVdataVacationOrder where
+    vdate> %s and vdate <%s
+    and channel in ('total','online')
+    order by vdate,channel,bu
+    """,
+    #app度假订单
+    "appOrder":"""
+    select vdate,bu,channel,cnt from fatVdataVacationOrder where
+    vdate> %s and vdate <%s
+    and channel in ('android','iphone','iphone_6.16','iphone_6.15','iphone_6.14','iphone_6.13','iphone_6.12','iphone_6.11','others')
+    order by vdate,channel,bu
+    """,
+    #h5度假订单
+     "h5Order":"""
+    select vdate,bu,cnt from vdataVacationOrderH5 where
+    vdate> %s and vdate <%s
+    order by vdate,bu
+    """,
+    #度假金额
+     "appAmount":"""
+    select vdate,bu,cnt from vdateVacationAmount where
+    vdate> %s and vdate <%s
+    order by vdate,bu
+    """,
+ # 自由行bookcommit
+    "diybookcommit": """
+   select * from vacationBookCommit where
+  vdate> %s and vdate <%s   and bu='diy'
+   order by vdate,actionType,channel
+    """  ,
+# 团队游bookcommit
+    "pkgbookcommit": """
+   select * from vacationBookCommit where
+  vdate> %s and vdate <%s  and bu='pkg'
+   order by vdate,actionType,channel
+    """  ,
+# 签证 commit
+    "visabookcommit": """
+   select * from vacationBookCommit where
+  vdate> %s and vdate <%s  and bu='visa'
+   order by vdate,actionType,channel
+    """  ,
+#自由行查询为空
+   "diyservicehis": """
+   select * from serviceinvokelogResults where
+  vdate> %s and vdate <%s
+   order by vdate,type,product,channel
+    """  ,
+ # 自由行bookcommit新
+    "diybookcommitnew": """
+   select
+ O.vdate,
+ O.actionType,
+ O.channel,
+ O.rate,
+ O.bu
+ from
+   (
+   select * from vacationBookCommit where
+  vdate> %s and vdate < %s    and bu='diy'
+   union all
+  select * from vacationBookCommit where
+  vdate> %s and vdate < %s   and bu='diy'
+  )O
+ order by  O.vdate,O.actionType,O.channel
+    """  ,
+# 团队游bookcommit新
+    "pkgbookcommitnew": """
+   select
+ O.vdate,
+ O.actionType,
+ O.channel,
+ O.rate,
+ O.bu
+ from
+   (
+   select * from vacationBookCommit where
+  vdate> %s and vdate < %s    and bu='pkg'
+   union all
+  select * from vacationBookCommit where
+  vdate> %s and vdate < %s   and bu='pkg'
+  )O
+ order by  O.vdate,O.actionType,O.channel
+    """  ,
+ # 签证commit新
+    "visacommitnew": """
+   select
+ O.vdate,
+ O.actionType,
+ O.channel,
+ O.rate,
+ O.bu
+ from
+   (
+   select * from vacationBookCommit where
+  vdate> %s and vdate < %s    and bu='visa'
+   union all
+  select * from vacationBookCommit where
+  vdate> %s and vdate < %s   and bu='visa'
+  )O
+ order by  O.vdate,O.actionType,O.channel
+    """  ,
+##页面性能
+  "pageHandler": """
+   select vdate,page,handlerName,maxcnt,mincnt,avgcnt from handler
+    where vdate> %s and vdate <%s
+    order by vdate,page,handlerName,maxcnt,mincnt,avgcnt
+    """  ,
+
+
 }

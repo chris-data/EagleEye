@@ -89,13 +89,29 @@
                             <small>度假APP转化</small>
                         </a>
                         </li>
-                        <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:8001/funnelhome"><i
+                        <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:9000/funnelhome"><i
                                 class="icon_documents_alt"></i>
                             <small>度假转化漏斗</small>
                         </a></li>
                         <li><a class="" href="/EagleEye/checkhistory/"><i class="icon_documents_alt"></i>
                             <small>机酒可订检查</small>
                         </a>
+                        </li>
+                         <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:9000/pkgcanbooking"><i
+                                class="icon_documents_alt"></i>
+                            <small>团队可订检查</small>
+                        </a></li>
+                          <li><a class="" href="/EagleEye/diyserviceinvoke/"><i class="icon_documents_alt"></i>
+                            <small>机酒查询为空</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/vacationbookcommit/"><i class="icon_documents_alt"></i>
+                            <small>度假预定失败</small>
+                             </a>
+                        </li>
+                         <li><a class="" href="/EagleEye/handler/"><i class="icon_documents_alt"></i>
+                            <small>度假page性能</small>
+                             </a>
                         </li>
                         <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
                             <small>UA分布分析</small>
@@ -483,24 +499,6 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <section class="panel">
-                                    <header class="panel-heading">
-                                        <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/traffic/"><b>填写页流量</b></a>
-                                        &nbsp;
-                                    <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                          title="邮轮填写页流量"></span>
-                                        <i class="fa fa-refresh" id='cruwrite2'
-                                           style="float:right;margin-top: 10px;"></i>
-                                        <i class="arrow_condense" id='cruwrite3' data-toggle="tooltip" title="切换到累积"
-                                           style="float:right;margin-top: 10px"></i>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div id="cru_write"></div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-lg-6">
                                 <section class="panel panel-default">
                                     <header class="panel-heading">
                                         <i class="icon_grid-3x3"></i><a
@@ -515,6 +513,24 @@
                                     </header>
                                     <div class="panel-body text-center">
                                         <div id="cru_detail"></div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-lg-6">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        <i class="icon_grid-3x3"></i><a
+                                            href="/EagleEye/realtime/traffic/"><b>选舱页流量</b></a>
+                                        &nbsp;
+                                    <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
+                                          title="邮轮频道选舱页流量"></span>
+                                        <i class="fa fa-refresh" id='cruccabin2'
+                                           style="float:right;margin-top: 10px;"></i>
+                                        <i class="arrow_condense" id='cruccabin3' data-toggle="tooltip" title="切换到累积"
+                                           style="float:right;margin-top: 10px"></i>
+                                    </header>
+                                    <div class="panel-body text-center">
+                                        <div id="cru_ccabin"></div>
                                     </div>
                                 </section>
                             </div>
@@ -542,17 +558,17 @@
                                 <section class="panel">
                                     <header class="panel-heading">
                                         <i class="icon_grid-3x3"></i><a
-                                            href="/EagleEye/realtime/traffic/"><b>选舱页流量</b></a>
+                                            href="/EagleEye/realtime/traffic/"><b>填写页流量</b></a>
                                         &nbsp;
                                     <span class="icon_question_alt2" data-toggle="tooltip" data-placement="bottom"
-                                          title="邮轮频道选舱页流量"></span>
-                                        <i class="fa fa-refresh" id='cruccabin2'
+                                          title="邮轮填写页流量"></span>
+                                        <i class="fa fa-refresh" id='cruwrite2'
                                            style="float:right;margin-top: 10px;"></i>
-                                        <i class="arrow_condense" id='cruccabin3' data-toggle="tooltip" title="切换到累积"
+                                        <i class="arrow_condense" id='cruwrite3' data-toggle="tooltip" title="切换到累积"
                                            style="float:right;margin-top: 10px"></i>
                                     </header>
                                     <div class="panel-body text-center">
-                                        <div id="cru_ccabin"></div>
+                                        <div id="cru_write"></div>
                                     </div>
                                 </section>
                             </div>

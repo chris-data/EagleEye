@@ -370,7 +370,7 @@ def get_flightCheckHistory(request, sdt, edt):
 
 
 ##离线可订检查接口  分资源-->酒店/X资源/单选项/当地玩乐
-def get_hotelCheckHistory(request, dimsdt, dimedt, sdt, edt):
+def get_hotelCheckHistory(request, sdt, edt):
     """
     :param productpattern: 产品形态，例如：DP，SDP
     :param channel:预定渠道：online,无线,intl
@@ -379,7 +379,7 @@ def get_hotelCheckHistory(request, dimsdt, dimedt, sdt, edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sql_hotelCheckHistory, [dimsdt, dimedt, sdt, edt])
+    cursor.execute(SQL.sql_hotelCheckHistory, [ sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 
