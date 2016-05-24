@@ -10,15 +10,28 @@ from EagleEye.config import sql_cruise as SQL
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, date
 import os
+from EagleEye.models import authusers
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
 
 
+# judge the login is in the white list
+def judge_list(user):
+    "判断CAS认证通过的用户是否是在白名单内"
+    try:
+        authusers.objects.get(username=user)
+    except:
+        return False
+    return True
 # Create your views here.
 
 @login_required(login_url='/login/')
 def get_cruise(request):
-    return render(request, 'home.html', {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, 'home.html', {'first_name': request.user})
+    else:
+        return render(request,'forbiddened.html', {'first_name': request.user})
+
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """
