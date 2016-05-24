@@ -60,12 +60,12 @@ AUTHENTICATION_BACKENDS = (
     'django_cas_ng.backends.CASBackend',
 )
 # 登录地址 https://cas.uat.qa.nt.ctripcorp.com/caso/login   https://cas.ctripcorp.com/caso/login  https://cas.ctripcorp.com/caso/login
-CAS_SERVER_URL = "https://cas.ctripcorp.com/caso/login"
+CAS_SERVER_URL = "https://cas.uat.qa.nt.ctripcorp.com/caso/login"
 
 CAS_LOGOUT_COMPLETELY = True
 CAS_CREATE_USER = True
 CAS_IGNORE_REFERER = True
-CAS_REDIRECT_URL = "/"
+# CAS_REDIRECT_URL = "https://cas.uat.qa.nt.ctripcorp.com/caso/login"
 CAS_AUTO_CREATE_USERS = True  # 是否需要自动创建用户
 CAS_GATEWAY = False
 CAS_RETRY_LOGIN = False  # 认证失败不重试登录，不然会死循环

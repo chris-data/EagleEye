@@ -9,8 +9,7 @@ import pandas as pd
 from EagleEye.config import sql_services as SQL
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, date
-
-
+from EagleEye.models import authusers
 # productTypeName
 # productType: DP/SDP
 # ChannelID:Online/Hybrid/H5/
@@ -33,11 +32,22 @@ from datetime import datetime, date
 # 'Offline'
 # 'Online'
 
+# judge the login is in the white list
+def judge_list(user):
+    "判断CAS认证通过的用户是否是在白名单内"
+    try:
+        authusers.objects.get(username=user)
+    except:
+        return False
+    return True
+
 
 @login_required(login_url='/login/')
 def get_services_page(request):
-    return render(request, 'services.html', {'first_name': request.user})
-
+    if judge_list(request.user):
+        return render(request, 'services.html', {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """

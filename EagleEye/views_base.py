@@ -1,17 +1,22 @@
 # coding=utf8
 
-from django.http import JsonResponse, HttpResponseRedirect
+from datetime import date, datetime, timedelta
+import ssl
+import os
+
+from django.http import JsonResponse
 from django.shortcuts import render
+import pandas as pd
+import numpy as np
+
+from django.db import connection
+
+from django.contrib.auth.decorators import login_required
+
 from EagleEye.models import DiyPageviewStatisticRealtime as pageview, DiyOrderRealtime as orders, BookingOrder, \
     predictedorders, systemusers as users
 from EagleEye.config import sql_base as SQL
-from datetime import date, datetime, timedelta
-import pandas as pd
-import numpy as np
-from django.db import connection
-from django.contrib.auth.decorators import login_required
-import ssl
-import os
+from EagleEye.models import authusers
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
 
@@ -24,10 +29,21 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # def to_dashboard(request):
 #     return HttpResponseRedirect('/EagleEye/')
 
+# judge the login is in the white list
+def judge_list(user):
+    "判断CAS认证通过的用户是否是在白名单内"
+    try:
+        authusers.objects.get(username=user)
+    except:
+        return False
+    return True
 
-# @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def home(request):
-    return render(request, "home.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "home.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
 @login_required(login_url='/login/')
@@ -42,36 +58,67 @@ def get_pageid(request):
 
 @login_required(login_url='/login/')
 def get_traffic_detail(request):
-    return render(request, "traffic.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "traffic.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
 
 
 @login_required(login_url='/login/')
 def get_order_detail(request):
-    return render(request, "order.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "order.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
 @login_required(login_url='/login/')
 def get_ua_analysis(request):
-    return render(request, "useragent.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "useragent.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
-#@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
 def get_app_CR(request):
-    return render(request, "appVacationCR.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "appVacationCR.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
 
 # app订单url
 def get_app_Order(request):
-    return render(request, "appvacationorders.html", {'first_name': request.user})
-#度假bookcommit失败率
-def get_vacation_bookcommit(request):
-    return render(request, "vacationbookcommit.html", {'first_name': request.user})
-#自由行查询为空
-def get_diy_serviceinvoke(request):
-    return render(request, "diyserviceinvoke.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "appvacationorders.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
-#自由行handler性能
+
+# 度假bookcommit失败率
+def get_vacation_bookcommit(request):
+    if judge_list(request.user):
+        return render(request, "vacationbookcommit.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
+
+# 自由行查询为空
+def get_diy_serviceinvoke(request):
+    if judge_list(request.user):
+        return render(request, "diyserviceinvoke.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
+
+# 自由行handler性能
 def get_diy_handler(request):
-    return render(request, "handler.html", {'first_name': request.user})
+    if judge_list(request.user):
+        return render(request, "handler.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
 def get_enddt(interval=10, lastdt=datetime.now()):
@@ -1050,6 +1097,7 @@ def get_APPCR(request, sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ##度假app订单
 def get_VacAllOrder(request, sdt, edt):
     """
@@ -1066,6 +1114,8 @@ def get_VacAllOrder(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+
 ##度假app订单
 def get_APPOrder(request, sdt, edt):
     """
@@ -1082,6 +1132,7 @@ def get_APPOrder(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
 
 ##度假app订单
 def get_H5Order(request, sdt, edt):
@@ -1117,6 +1168,7 @@ def get_VacAmount(request, sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ##度假-自由行bookcommit
 def get_diyBookCommit(request, sdt, edt):
     """
@@ -1134,6 +1186,7 @@ def get_diyBookCommit(request, sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ##度假-团队游bookcommit
 def get_pkgBookCommit(request, sdt, edt):
     """
@@ -1150,6 +1203,8 @@ def get_pkgBookCommit(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+
 ##度假-签证commit
 def get_visaBookCommit(request, sdt, edt):
     """
@@ -1167,6 +1222,7 @@ def get_visaBookCommit(request, sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ##自由行查询为空
 def get_diyserviceinvoke(request, sdt, edt):
     """
@@ -1183,8 +1239,10 @@ def get_diyserviceinvoke(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+
 ##自由行bookcommit新
-def get_diybookcommitnew(request, dimsdt, dimedt,sdt, edt):
+def get_diybookcommitnew(request, dimsdt, dimedt, sdt, edt):
     """
     :param vdate: 日期
     :param bu: bu名称  如自由行、团队游、 邮轮
@@ -1200,8 +1258,9 @@ def get_diybookcommitnew(request, dimsdt, dimedt,sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ##团队游bookcommit新
-def get_pkgbookcommitnew(request, dimsdt, dimedt,sdt, edt):
+def get_pkgbookcommitnew(request, dimsdt, dimedt, sdt, edt):
     """
     :param vdate: 日期
     :param bu: bu名称  如自由行、团队游、 邮轮
@@ -1217,8 +1276,9 @@ def get_pkgbookcommitnew(request, dimsdt, dimedt,sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ##团队游bookcommit新
-def get_visacommitnew(request, dimsdt, dimedt,sdt, edt):
+def get_visacommitnew(request, dimsdt, dimedt, sdt, edt):
     """
     :param vdate: 日期
     :param bu: bu名称  如自由行、团队游、 邮轮
@@ -1233,6 +1293,7 @@ def get_visacommitnew(request, dimsdt, dimedt,sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
 
 ## 页面性能
 
@@ -1253,5 +1314,3 @@ def get_pageHandler(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
-
-
