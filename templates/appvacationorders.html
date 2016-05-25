@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="chris">
+    <meta name="keyword" content="Monitor Dashboard">
+    <meta http-equiv="refresh" content="1800">
+    <title>携程度假-综合数据平台</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/local/bitbug_favicon.ico"/>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/static/css/select2.css" rel="stylesheet">
+    <link href="/static/css/elegant-icons-style.css" rel="stylesheet"/>
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<!-- container section start -->
+<section id="container" class="">
+    <!--header start-->
+    <header class="header dark-bg">
+        <img class="logo" id="logo" onclick="toggleHidden()" src="/static/img/local/logo.jpg">
+
+        <div class="top-nav notification-row">
+            <ul class="nav pull-right top-menu">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="profile-ava">
+                             <img alt="" src="/static/img/local/user1.jpg">
+                        </span>
+                        <span class="username"><b>{{ first_name }}</b></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li>
+                            <a href="/logout"><i class="icon_key_alt"></i>退出登录</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside id="toggle">
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu">
+                <li class="">
+                    <a class="" href="/EagleEye/">
+                        <i class="icon_house_alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_piechart"></i>
+                        <span>实时监控</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>
+                            <small>机酒实时订单</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>
+                            <small>机酒可订检查</small>
+                        </a>
+                        <li><a class="" href="/EagleEye/services/"><i class="icon_documents_alt"></i>
+                            <small>机酒推荐查询</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>
+                            <small>度假实时流量</small>
+                        </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_datareport_alt"></i>
+                        <span>转化分析</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="/EagleEye/appcr/"><i class="icon_documents_alt"></i>
+                            <small>度假APP转化</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="http://frt.swat.ctripcorp.com:9000/funnelhome"><i
+                                class="icon_documents_alt"></i>
+                            <small>度假转化漏斗</small>
+                        </a></li>
+
+
+                        <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
+                            <small>UA分布分析</small>
+                        </a>
+                        <li><a class="" href="http://kpi.bi.ctripcorp.com/#default"><i
+                                class="icon_documents_alt"></i>
+                            <small>KPI Portal</small>
+                        </a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_puzzle"></i>
+                        <span>可订监控</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="/EagleEye/checkhistory/"><i class="icon_documents_alt"></i>
+                            <small>机酒可订检查</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="http://frt.swat.ctripcorp.com:9000/pkgcanbooking"><i
+                                class="icon_documents_alt"></i>
+                            <small>团队可订检查</small>
+                        </a></li>
+                        <li><a class="" href="/EagleEye/diyserviceinvoke/"><i class="icon_documents_alt"></i>
+                            <small>机酒查询为空</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/vacationbookcommit/"><i class="icon_documents_alt"></i>
+                            <small>度假预定失败</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/handler/"><i class="icon_documents_alt"></i>
+                            <small>度假页面性能</small>
+                        </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="/EagleEye/apporder/" class="">
+                        <i class="icon_easel"></i>
+                        <span>订单分析</span>
+                    </a>
+                    {#                    <ul class="sub">#}
+                    {#                        <li><a class="" href="#"><i class="icon_documents_alt"></i>#}
+                    {#                            <small>机酒可订检查</small>#}
+                    {#                        </a>#}
+                    {#                        </li>#}
+                    {#                    </ul>#}
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+        <!-- sidebar menu end-->
+    </aside>
+    <!--sidebar end-->
+    <section id="main-content">
+        <section class="wrapper">
+             <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+
+                </span>
+            <ul id="myTab" class="nav nav-tabs">
+                <li id="tab_default" class="active"><a href="#home" data-toggle="tab" ><i class="icon_house"></i>
+                    全部</a></li>
+                <li id="diy"><a href="#diyOrder" data-toggle="tab" onClick="diyOrder()">自由行</a></li>
+                <li id="pkg"><a href="#pkgOrder" data-toggle="tab" onClick="pkgOrder()"> 团队游</a></li>
+                 <li id="visa"><a href="#visaOrder" data-toggle="tab" onClick="visaOrder()"> 签证</a></li>
+                 <li id="cruise"><a href="#cruiseOrder" data-toggle="tab" onClick="curiseOrder()"> 邮轮</a></li>
+
+            </ul>
+            <!-- params start-->
+            <div id="myTabContent" class="tab-content">
+            <div id="home" class="tab-pane fade in active" >
+                 <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label>时间：<input id="calDate1" class="Wdate" type="text" placeholder="--选择时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                    <button type="button" id="search1" class="btn btn-info btn-xs"  onclick='Vacationsearch()'  style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
+                    </button>&nbsp;&nbsp;
+                     </span>
+                     <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px"><b>注意：此处度假总订单仅包含自由行、团队游（含周边短途）、签证，不含邮轮。渠道包含app/online/h5/offline等，此处仅列出app/online/h5.</b></p></label>
+            </header>
+                <div id='orderContainer' class="panel-body" style="margin-left:2px;">
+
+                </div>
+                <div class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+            <div id="diyOrder" style="margin-top:10px;" class="tab-pane fade">
+             <header id="acheader2" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label>时间：<input id="calDate2" class="Wdate" type="text" placeholder="--选择时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                    <button type="button" id="search2" class="btn btn-info btn-xs"  onclick='diysearch()'  style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
+                    </button>&nbsp;&nbsp;
+                     </span>
+                  <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px">
+                        <b>注意：此处自由行总订单包含下单方式为4126和6869的。渠道包含app/online/h5/offline等，此处仅列出app/online/h5.</b>
+                         </p>
+                  </label>
+            </header>
+                <div id='orderdiyH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+            <div id="pkgOrder" class="tab-pane fade">
+                <header id="acheader3" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label>时间：<input id="calDate3" class="Wdate" type="text" placeholder="--选择时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                    <button type="button" id="search3" class="btn btn-info btn-xs"  onclick='pkgsearch()'  style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
+                    </button>&nbsp;&nbsp;
+                     </span>
+                     <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px">
+                        <b>注意：此处团队游总订单仅包含产品形态为：跟团游、团队游、私家团、半自助游、当地参团、独立成团，产品类型为：国内旅游,出境旅游,境外N日游,境内一日游,境内N日游。</b>
+                         </p>
+                  </label>
+            </header>
+               <div id='orderpkgH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+           <div id="visaOrder" class="tab-pane fade">
+                <header id="acheader4" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label>时间：<input id="calDate4" class="Wdate" type="text" placeholder="--选择时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                    <button type="button" id="search4" class="btn btn-info btn-xs"  onclick='visasearch()'  style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
+                    </button>&nbsp;&nbsp;
+                     </span>
+                    <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px">
+                        <b>注意：此处签证总订单仅包含产品类型为：签证。渠道包含app/online/h5/offline等，此处仅列出app/online/h5.</b>
+                         </p>
+                  </label>
+            </header>
+                 <div id='visaH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+           </div>
+            <div id="cruiseOrder" class="tab-pane fade">
+                    <div id='cruiseH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 自由行数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2015 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+
+         </div>
+        </section>
+    </section>
+</section>
+<!-- container section end -->
+<!-- javascripts -->
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.scrollTo.min.js"></script>
+<script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="/static/js/datepicker/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript" src="/static/js/DataTables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="/static/js/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+<script src="/static/js/scripts.js"></script>
+<script src="/static/js/highstock/highstock.js"></script>
+<script src="/static/js/highcharts/themes/sand-signika.js"></script>
+<script src="/static/js/Custom/ajax-charts.js"></script>
+<script src="/static/js/Custom/appVacation.js"></script>
+<script type="application/javascript">
+    $(document).ready(function () {
+
+        function item(name, cnt) {
+            this.name = name;
+            this.cnt = cnt;
+        }
+
+        appVacation()
+
+    })
+
+</script>
+</body>
+</html>
