@@ -6,7 +6,7 @@
     <meta name="author" content="chris">
     <meta name="keyword" content="Monitor Dashboard">
     <meta http-equiv="refresh" content="1800">
-    <title>携程度假 | 综合数据平台</title>
+    <title>携程度假-综合数据平台</title>
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/local/bitbug_favicon.ico"/>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
@@ -35,7 +35,7 @@
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
                         <li>
-                            <a href="logout/"><i class="icon_key_alt"></i>退出登录</a>
+                            <a href="/logout"><i class="icon_key_alt"></i>退出登录</a>
                         </li>
                     </ul>
                 </li>
@@ -81,7 +81,7 @@
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon_datareport_alt"></i>
-                        <span>离线分析</span>
+                        <span>转化分析</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
@@ -89,54 +89,66 @@
                             <small>度假APP转化</small>
                         </a>
                         </li>
-                        <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:9000/funnelhome"><i
+                        <li><a class="" href="http://frt.swat.ctripcorp.com:9000/funnelhome"><i
                                 class="icon_documents_alt"></i>
                             <small>度假转化漏斗</small>
                         </a></li>
-                        <li><a class="" href="/EagleEye/checkhistory/"><i class="icon_documents_alt"></i>
-                            <small>机酒可订检查</small>
-                        </a>
-                        </li>
-                         <li><a class="" target="_blank" href="http://frt.swat.ctripcorp.com:9000/pkgcanbooking"><i
-                                class="icon_documents_alt"></i>
-                            <small>团队可订检查</small>
-                        </a></li>
-                          <li><a class="" href="/EagleEye/diyserviceinvoke/"><i class="icon_documents_alt"></i>
-                            <small>机酒查询为空</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="/EagleEye/vacationbookcommit/"><i class="icon_documents_alt"></i>
-                            <small>度假预定失败</small>
-                             </a>
-                        </li>
-                         <li><a class="" href="/EagleEye/handler/"><i class="icon_documents_alt"></i>
-                            <small>度假page性能</small>
-                             </a>
-                        </li>
+
+
                         <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
                             <small>UA分布分析</small>
                         </a>
-                        <li><a class="" target="_blank" href="http://kpi.bi.ctripcorp.com/#default"><i
+                        <li><a class="" href="http://kpi.bi.ctripcorp.com/#default"><i
                                 class="icon_documents_alt"></i>
                             <small>KPI Portal</small>
                         </a></li>
                     </ul>
                 </li>
-                {#                <li class="sub-menu">#}
-                {#                    <a href="javascript:;" class="">#}
-                {#                        <i class="icon_piechart"></i>#}
-                {#                        <span>数据管理</span>#}
-                {#                        <span class="menu-arrow arrow_carrot-right"></span>#}
-                {#                    </a>#}
-                {#                    <ul class="sub">#}
-                {#                        <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>#}
-                {#                            <small>机酒实时订单</small>#}
-                {#                        </a>#}
-                {#                    </ul>#}
-                {#                </li>#}
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_puzzle"></i>
+                        <span>可订监控</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="/EagleEye/checkhistory/"><i class="icon_documents_alt"></i>
+                            <small>机酒可订检查</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="http://frt.swat.ctripcorp.com:9000/pkgcanbooking"><i
+                                class="icon_documents_alt"></i>
+                            <small>团队可订检查</small>
+                        </a></li>
+                        <li><a class="" href="/EagleEye/diyserviceinvoke/"><i class="icon_documents_alt"></i>
+                            <small>机酒查询为空</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/vacationbookcommit/"><i class="icon_documents_alt"></i>
+                            <small>度假预定失败</small>
+                        </a>
+                        </li>
+                        <li><a class="" href="/EagleEye/handler/"><i class="icon_documents_alt"></i>
+                            <small>度假页面性能</small>
+                        </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="/EagleEye/apporder/" class="">
+                        <i class="icon_easel"></i>
+                        <span>订单分析</span>
+                    </a>
+                    {#                    <ul class="sub">#}
+                    {#                        <li><a class="" href="#"><i class="icon_documents_alt"></i>#}
+                    {#                            <small>机酒可订检查</small>#}
+                    {#                        </a>#}
+                    {#                        </li>#}
+                    {#                    </ul>#}
+                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>
+        <!-- sidebar menu end-->
     </aside>
     <!--sidebar end-->
     <section id="main-content">

@@ -38,6 +38,7 @@ function initializeJS() {
 
     //sidebar dropdown menu
     jQuery('#sidebar .sub-menu > a').click(function () {
+
         var last = jQuery('.sub-menu.open', jQuery('#sidebar'));
         jQuery('.menu-arrow').removeClass('arrow_carrot-right');
         jQuery('.sub', last).slideUp(200);
@@ -112,5 +113,10 @@ function initializeJS() {
 }
 
 jQuery(document).ready(function () {
+        var sub = jQuery('#sidebar .sub-menu > a').next();
+        if (!sub.is(":visible")) {
+            jQuery('.menu-arrow').addClass('arrow_carrot-down');
+            sub.slideDown(0)
+        }
     initializeJS();
 });
