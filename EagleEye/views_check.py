@@ -1,14 +1,16 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 import os
+from datetime import datetime, date
+
 from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import render
 import numpy as np
 import pandas as pd
-from EagleEye.config import sql_check as SQL
-from django.contrib.auth.decorators import login_required
-from datetime import datetime, date
 
+from django.contrib.auth.decorators import login_required
+
+from EagleEye.config import sql_check as SQL
 from EagleEye.models import authusers
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Monitor.settings")
@@ -31,7 +33,15 @@ def get_check(request):
     if judge_list(request.user):
         return render(request, 'check.html', {'first_name': request.user})
     else:
-        return render(request,'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
+
+@login_required(login_url='/login/')
+def get_CheckHistory(request):
+    if judge_list(request.user):
+        return render(request, "checkHistory.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
 def get_enddt(interval=10, lastdt=datetime.now()):
@@ -327,9 +337,6 @@ def get_resource_ratio(resquest, params, sdt=str(date.today()), edt=str(date.tod
 ######可订检查历史数据接口##############
 
 
-@login_required(login_url='/login/')
-def get_CheckHistory(request):
-    return render(request, "checkHistory.html", {'first_name': request.user})
 
 
 ##离线可订检查接口 全部
@@ -394,7 +401,7 @@ def get_hotelCheckHistory(request, sdt, edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sql_hotelCheckHistory, [ sdt, edt])
+    cursor.execute(SQL.sql_hotelCheckHistory, [sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 
