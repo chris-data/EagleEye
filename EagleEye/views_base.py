@@ -121,6 +121,13 @@ def get_diy_handler(request):
         return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
+  ##度假接口监控
+def get_vac_soa(request):
+    if judge_list(request.user):
+        return render(request, "soa.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
 def get_enddt(interval=10, lastdt=datetime.now()):
     """
     计算每次初始化图标时候的截止日志,除去毛头，原因是数据同步时间为不规则10min一次
@@ -1314,3 +1321,23 @@ def get_pageHandler(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+## 接口性能
+def get_interfacePerforms(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param operation: 接口英文
+    :param interfaceName:接口名称
+    :param maxcnt:最大值
+    :param mincnt:最小值
+    :param avgcnt:平均值
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["soaPerforms"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+

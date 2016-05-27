@@ -543,5 +543,12 @@ WHERE
     order by vdate,page,handlerName,maxcnt,mincnt,avgcnt
     """  ,
 
+##接口性能
+  "soaPerforms": """
+   select vdate,operation,interfaceName,maxcnt,mincnt,avgcnt from soarequestlatency
+    where vdate> %s and vdate <%s
+    order by vdate,operation,interfaceName,maxcnt,mincnt,avgcnt
+    """  ,
+
 
 }

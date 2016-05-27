@@ -29,6 +29,7 @@ pageurl = [
     url(r'^vacationbookcommit/$',views_base.get_vacation_bookcommit, name='vacbookcommit'),
     url(r'^diyserviceinvoke/$',views_base.get_diy_serviceinvoke, name='diyserviceinvoke'),
     url(r'^handler/$',views_base.get_diy_handler, name='diyhandler'),
+    url(r'^soa/$',views_base.get_vac_soa, name='vacsoa'),
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -148,6 +149,8 @@ uaurl = [
     url(r'^download/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_ext.download_ua_excel),
      #页面性能
     url(r'^ajax/pagehandler/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_pageHandler),
+     #接口性能
+    url(r'^ajax/soaperform/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_interfacePerforms),
 
 ]
 

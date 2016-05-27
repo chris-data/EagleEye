@@ -21,7 +21,12 @@ function handelDetail()
     DivIdArray[0]='avgDetail';DivIdArray[1]='maxDetail';DivIdArray[2]='minDetail';
     var numberArray=new Array();//编号
     numberArray[0]=1;numberArray[1]=2;numberArray[2]=3;
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,timeArray, 10)
+     //详情页
+    var smallTitle=new Array();
+    smallTitle[0]='产品预订';smallTitle[1]='产品描述信息';smallTitle[2]='产品详情页页面';smallTitle[3]='产品介绍信息';smallTitle[4]='产品地图';
+    smallTitle[5]='机票重新选择';smallTitle[6]='资源反查';smallTitle[7]='单选项资源重新选择';smallTitle[8]='日历框信息';smallTitle[9]='酒店重现选择';
+
+    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 10)
 
 }
 
@@ -41,7 +46,11 @@ function canchosepage()
     DivIdArray[0]='avgcanchose';DivIdArray[1]='maxcanchose';DivIdArray[2]='mincanchose';
     var numberArray=new Array();//编号
     numberArray[0]=4;numberArray[1]=5;numberArray[2]=6;
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,timeArray, 3)
+
+    //可选项页
+     var smallTitle=new Array();
+    smallTitle[0]='头部资源框价格框加载';smallTitle[1]='预订';smallTitle[2]='资源反查';
+    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 3)
 
 }
 function fillpage()//填写页
@@ -60,7 +69,12 @@ function fillpage()//填写页
     DivIdArray[0]='avgfill';DivIdArray[1]='maxfill';DivIdArray[2]='minfill';
     var numberArray=new Array();//编号
     numberArray[0]=7;numberArray[1]=8;numberArray[2]=9;
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,timeArray, 16)
+      //填写页
+    var smallTitleFill=new Array();
+    smallTitleFill[0]='融合页面资源框加载';smallTitleFill[1]='获取优惠信息';smallTitleFill[2]='验证优惠';smallTitleFill[3]='融合页面获取优惠';smallTitleFill[4]='融合页面优惠验证';
+    smallTitleFill[5]='发票配送';smallTitleFill[6]='保存配送地址';smallTitleFill[7]='融合页面发票信息';smallTitleFill[8]='融合页面可订检查';smallTitleFill[9]='融合页面旅客模板';
+    smallTitleFill[10]='融合页面page';smallTitleFill[11]='融合页面订单提交';smallTitleFill[12]='订单重复检查';smallTitleFill[13]='旅客信息获取';smallTitleFill[14]='page';smallTitleFill[15]='提交订单';
+    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitleFill,timeArray, 16)
 }
 
 function endpage()
@@ -79,10 +93,41 @@ function endpage()
     DivIdArray[0]='avgend';DivIdArray[1]='maxend';DivIdArray[2]='minend';
     var numberArray=new Array();//编号
     numberArray[0]=10;numberArray[1]=11;numberArray[2]=12;
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,timeArray, 5)
+
+   //完成页
+     var smallTitle=new Array();
+    smallTitle[0]='检查订单状态';smallTitle[1]='推荐信息';smallTitle[2]='page';smallTitle[3]='加载订单状态';smallTitle[4]='融合成功页';
+    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 5)
 
 }
 
+
+function vacationInterface()
+{
+    var timeArray = getMonth30(31);
+    var bigTitle=new Array();
+    bigTitle[0]='tour.touromdservice.v1.touromdservice.ordercreate（<3s）';
+    bigTitle[1]='tour.orderservice.v1.tourorderservice.orderdetailget';
+    bigTitle[2]='tour.orderservice.v1.tourorderservice.tourordermanagelist';
+    $orderContainer = $("#orderContainer");
+    $orderContainer.empty();//清空翻页标签
+    $orderContainer.append("<div id='Create' style='height:300px'></div><div id='getDetail' style='height:300px;margin-top:10px'></div><div id='manageList' style='height:300px;margin-top:10px'></div>")
+    var url='/EagleEye/ajax/soaperform/'+sysdate(-31)+'/'+sysdate(0);//总订单
+    var DivIdArray=new Array();
+    DivIdArray[0]='Create';DivIdArray[1]='getDetail';DivIdArray[2]='manageList';
+    var numberArray=new Array();//编号
+    numberArray[0]=13;numberArray[1]=14;numberArray[2]=15;
+   //接口耗时
+     var smallTitle=new Array();
+    smallTitle[0]='平均值';smallTitle[1]='最大值';smallTitle[2]='最小值';
+    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 3)
+
+
+}
+function plaseWait()//获取订单详情接口
+{
+
+}
 
 //获取过去30天日期
 function getMonth30(k) {
@@ -97,26 +142,13 @@ function getMonth30(k) {
 
 
 }
-function drawCurveForHandler(url,divIDArray,bigTitleArray,numberArray,timeArray,pageid)
+function drawCurveForHandler(url,divIDArray,bigTitleArray,numberArray,smallTitle,timeArray,pageid)
 {
     var data1 = {};var data2 = {}; var data3 = {};var data4 = {};var data5 = {};var data6 = {};var data7 = {};
     var data8 = {};var data9 = {};var data10 = {};var data11 = {};var data12 = {};var data13 = {};
     var data14 = {};var data15 = {};var data16 = {};
-    //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='产品预订';smallTitle[1]='产品描述信息';smallTitle[2]='产品详情页页面';smallTitle[3]='产品介绍信息';smallTitle[4]='产品地图';
-    smallTitle[5]='机票重新选择';smallTitle[6]='资源反查';smallTitle[7]='单选项资源重新选择';smallTitle[8]='日历框信息';smallTitle[9]='酒店重现选择';
-    //可选项页
-     var smallTitlechose=new Array();
-    smallTitlechose[0]='头部资源框价格框加载';smallTitlechose[1]='预订';smallTitlechose[2]='资源反查';
-     //填写页
-    var smallTitleFill=new Array();
-    smallTitleFill[0]='融合页面资源框加载';smallTitleFill[1]='获取优惠信息';smallTitleFill[2]='验证优惠';smallTitleFill[3]='融合页面获取优惠';smallTitleFill[4]='融合页面优惠验证';
-    smallTitleFill[5]='发票配送';smallTitleFill[6]='保存配送地址';smallTitleFill[7]='融合页面发票信息';smallTitleFill[8]='融合页面可订检查';smallTitleFill[9]='融合页面旅客模板';
-    smallTitleFill[10]='融合页面page';smallTitleFill[11]='融合页面订单提交';smallTitleFill[12]='订单重复检查';smallTitleFill[13]='旅客信息获取';smallTitleFill[14]='page';smallTitleFill[15]='提交订单';
-   //完成页
-     var smallTitleend=new Array();
-    smallTitleend[0]='检查订单状态';smallTitleend[1]='推荐信息';smallTitleend[2]='page';smallTitleend[3]='加载订单状态';smallTitleend[4]='融合成功页';
+
+
     if(pageid==3){
         var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,3);
         var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,3);
@@ -164,9 +196,9 @@ function drawCurveForHandler(url,divIDArray,bigTitleArray,numberArray,timeArray,
 
     }
     if(pageid==5){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitleend,5);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitleend,5);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitleend,5);
+        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,5);
+        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,5);
+        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,5);
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -307,9 +339,9 @@ function drawCurveForHandler(url,divIDArray,bigTitleArray,numberArray,timeArray,
 
     }if(pageid==16){
 
- var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitleFill,16);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitleFill,16);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitleFill,16);
+ var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,16);
+        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,16);
+        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,16);
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -1335,6 +1367,31 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              arr5[j] = retobj.value[33+34 * j][4] ;//融合成功页
 
          }
+          else if(k==13)//度假下单接口
+         {
+
+             arr1[j] = retobj.value[2+3 * j][5] ;//平均
+             arr2[j] = retobj.value[2+3 * j][3] ;//最大
+             arr3[j] = retobj.value[2+3 * j][4] ;//最小
+
+         }
+          else if(k==14)//度假获取订单详情接口
+         {
+
+             arr1[j] = retobj.value[0+3 * j][5] ;//平均
+             arr2[j] = retobj.value[0+3 * j][3] ;//最大
+             arr3[j] = retobj.value[0+3 * j][4] ;//最小
+
+         }
+          else if(k==15)//度假订单订单管理接口
+         {
+
+             arr1[j] = retobj.value[1+3 * j][5] ;//平均
+             arr2[j] = retobj.value[1+3 * j][3] ;//最大
+             arr3[j] = retobj.value[1+3 * j][4] ;//最小
+
+         }
+
      }
  if(flag==1)
     {
