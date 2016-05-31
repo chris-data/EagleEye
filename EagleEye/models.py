@@ -190,7 +190,7 @@ class authusers(models.Model):
     insertdt = models.DateTimeField(db_column='insertdt')  # 插入时间
 
     def __str__(self):
-        return self.id
+        return self.username
 
     class Meta:
         managed = True
