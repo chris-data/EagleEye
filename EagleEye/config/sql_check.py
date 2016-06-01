@@ -155,3 +155,18 @@ sql_hotelCheckHistory="""
 vdate between  %s and %s
  and channel in ('hotelothers') order by vdate,statusCode,product
 """
+
+
+###  新的SDP可订检查接口
+sql_newCheckHistory="""
+select vdate,pagetype,channel,statustype,cnt from  diycanbooking where
+vdate between   %s and %s
+order by vdate,pagetype,channel,statustype
+"""
+
+###  老的DP可订检查接口
+sql_oldDPCheckHistory="""
+select vdate,statuscode,product,channel,cnt from diycanbookingDP
+where vdate between   %s and %s
+group by vdate,statuscode,product,channel
+"""
