@@ -1212,7 +1212,7 @@ function drawCurve(url, divIdArray,bigTitleArray ,dataArray,timeArray, pageid)
     var data1 = {};
     var data2 = {};
     var data3 = {};
-    var data4 = {};var data5 = {};var data6 = {};var data7 = {};
+    var data4 = {};var data5 = {};var data6 = {};var data7 = {};var data8 = {};
     //度假总订单
     var smallTitleAll=new Array();
     smallTitleAll[0]='度假总订单';smallTitleAll[1]='自由行订单';smallTitleAll[2]='团队游订单';smallTitleAll[3]='签证订单'
@@ -1224,7 +1224,8 @@ function drawCurve(url, divIdArray,bigTitleArray ,dataArray,timeArray, pageid)
      var smallTitle1=new Array();
     smallTitle1[0]='APP订单数';smallTitle1[1]='android';smallTitle1[2]='iphone'
      var smallTitle2=new Array();
-    smallTitle2[0]='iphone_6.16';smallTitle2[1]='iphone_6.15';smallTitle2[2]='iphone_6.14';smallTitle2[3]='iphone_6.13';smallTitle2[4]='iphone_6.12';smallTitle2[5]='iphone_6.11';smallTitle2[6]='iphone_others';
+    smallTitle2[0]='iphone_6.17'; smallTitle2[1]='iphone_6.16';smallTitle2[2]='iphone_6.15';smallTitle2[3]='iphone_6.14';
+    smallTitle2[4]='iphone_6.13';smallTitle2[5]='iphone_6.12';smallTitle2[6]='iphone_6.11';smallTitle2[7]='iphone_others';
     //自由定或团队分订单
     var smallTitleorder=new Array();
     smallTitleorder[0]='订单数';
@@ -1255,7 +1256,7 @@ function drawCurve(url, divIdArray,bigTitleArray ,dataArray,timeArray, pageid)
     }
     if (pageid == 1) {
         var options1=getOpition(divIdArray[0],bigTitleArray[0],timeArray,smallTitle1,3);
-        var options2=getOpition(divIdArray[1],bigTitleArray[1],timeArray,smallTitle2,7);
+        var options2=getOpition(divIdArray[1],bigTitleArray[1],timeArray,smallTitle2,8);
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         mychart1.showLoading('Loading data from server...');
@@ -1273,7 +1274,7 @@ function drawCurve(url, divIdArray,bigTitleArray ,dataArray,timeArray, pageid)
             mychart1.series[1].setData(data2);
             mychart1.series[2].setData(data3);
 
-            var dataArray2 = getOrderArray(reObj,90, dataArray[1],7)
+            var dataArray2 = getOrderArray(reObj,90, dataArray[1],8)
             data1 = dataArray2[0];
             data2 = dataArray2[1];
             data3 = dataArray2[2];
@@ -1288,6 +1289,7 @@ function drawCurve(url, divIdArray,bigTitleArray ,dataArray,timeArray, pageid)
             mychart2.series[4].setData(data5);
             mychart2.series[5].setData(data6);
             mychart2.series[6].setData(data7);
+            mychart2.series[7].setData(data8);
             mychart1.hideLoading();
             mychart2.hideLoading();
 
@@ -1398,16 +1400,18 @@ function getPieData(retobj,k)//k=1 度假总订单android/iphone占比  k=2 ipho
         var iphone_614=retobj.value[20][3] +retobj.value[21][3]+retobj.value[22][3]+retobj.value[23][3];
         var iphone_615=retobj.value[24][3] +retobj.value[25][3]+retobj.value[26][3]+retobj.value[27][3];
         var iphone_616=retobj.value[28][3] +retobj.value[29][3]+retobj.value[30][3]+retobj.value[31][3];
-        var iphone_others=retobj.value[32][3] +retobj.value[33][3]+retobj.value[34][3]+retobj.value[35][3];
+        var iphone_617=retobj.value[32][3] +retobj.value[33][3]+retobj.value[34][3]+retobj.value[35][3];
+        var iphone_others=retobj.value[36][3] +retobj.value[37][3]+retobj.value[38][3]+retobj.value[39][3];
 
-        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
+        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_617Rate=(iphone_617*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
         var iphone_othersRate=(iphone_others*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        pieSeriesIphone=[{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
+        pieSeriesIphone=[{name: 'iphone_6.17',y: parseFloat(iphone_617Rate)},{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
         return pieSeriesIphone;
     }
     if(k==3)//自由行总订单
@@ -1427,16 +1431,18 @@ function getPieData(retobj,k)//k=1 度假总订单android/iphone占比  k=2 ipho
         var iphone_614=retobj.value[20][3] ;
         var iphone_615=retobj.value[24][3] ;
         var iphone_616=retobj.value[28][3] ;
-        var iphone_others=retobj.value[32][3] ;
+        var iphone_617=retobj.value[32][3] ;
+        var iphone_others=retobj.value[36][3] ;
 
-        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
+        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_617Rate=(iphone_617*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
         var iphone_othersRate=(iphone_others*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        pieSeriesIphone=[{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
+        pieSeriesIphone=[{name: 'iphone_6.17',y: parseFloat(iphone_617Rate)},{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
         return pieSeriesIphone;
     }
     if(k==5)//团队总定订单
@@ -1450,22 +1456,24 @@ function getPieData(retobj,k)//k=1 度假总订单android/iphone占比  k=2 ipho
     }
     if(k==6)//团队iphone个版本
     {
-      var iphone_611=retobj.value[9][3]+retobj.value[10][3];
+        var iphone_611=retobj.value[9][3]+retobj.value[10][3];
         var iphone_612=retobj.value[13][3]+retobj.value[14][3];
         var iphone_613=retobj.value[17][3]+retobj.value[18][3];
         var iphone_614=retobj.value[21][3]+retobj.value[22][3];
         var iphone_615=retobj.value[25][3]+retobj.value[26][3];
         var iphone_616=retobj.value[29][3]+retobj.value[30][3];
-        var iphone_others=retobj.value[33][3]+retobj.value[34][3];
+        var iphone_617=retobj.value[33][3]+retobj.value[34][3];
+        var iphone_others=retobj.value[37][3]+retobj.value[38][3];
 
-        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
+        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_617Rate=(iphone_617*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
         var iphone_othersRate=(iphone_others*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        pieSeriesIphone=[{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
+        pieSeriesIphone=[{name: 'iphone_6.17',y: parseFloat(iphone_617Rate)},{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
         return pieSeriesIphone;
     }
     if(k==7)//签证总订单
@@ -1485,16 +1493,18 @@ function getPieData(retobj,k)//k=1 度假总订单android/iphone占比  k=2 ipho
         var iphone_614=retobj.value[23][3];
         var iphone_615=retobj.value[27][3];
         var iphone_616=retobj.value[31][3];
-        var iphone_others=retobj.value[35][3];
+        var iphone_617=retobj.value[35][3];
+        var iphone_others=retobj.value[39][3];
 
-        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
+        var iphone_611Rate=(iphone_611*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_612Rate=(iphone_612*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_613Rate=(iphone_613*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_614Rate=(iphone_614*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_615Rate=(iphone_615*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_616Rate=(iphone_616*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
+        var iphone_617Rate=(iphone_617*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_617+iphone_others)).toFixed(2);
         var iphone_othersRate=(iphone_others*100/(iphone_611+iphone_612+iphone_613+iphone_614+iphone_615+iphone_616+iphone_others)).toFixed(2);
-        pieSeriesIphone=[{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
+        pieSeriesIphone=[{name: 'iphone_6.17',y: parseFloat(iphone_617Rate)},{name: 'iphone_6.16',y: parseFloat(iphone_616Rate)},{name: 'iphone_6.15',y: parseFloat(iphone_615Rate)},{name: 'iphone_6.14',y: parseFloat(iphone_614Rate)},{name: 'iphone_6.13',y: parseFloat(iphone_613Rate)},{name: 'iphone_6.12',y:parseFloat(iphone_612Rate)},{name: 'iphone_6.11',y: parseFloat(iphone_611Rate)},{name: 'iphone_others',y: parseFloat(iphone_othersRate)}];
         return pieSeriesIphone;
     }
 
@@ -1560,74 +1570,79 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
     var arr5=[];
     var arr6=[];
     var arr7=[];
+    var arr8=[];
      for (var j = 0; j < days; j++)
      {
         if(k==1)//度假页app 总订单
         {
-            arr2[j] = retobj.value[36 * j][3] + retobj.value[1 + 36* j][3] + retobj.value[2+ 36* j][3]+ retobj.value[3 + 36* j][3]
-            arr3[j] =retobj.value[4+36* j][3] + retobj.value[5 + 36* j][3] + retobj.value[6+ 36* j][3]+ retobj.value[7 + 36* j][3]
+            arr2[j] = retobj.value[40 * j][3] + retobj.value[1 + 40* j][3] + retobj.value[2+ 40* j][3]+ retobj.value[3 + 40* j][3]
+            arr3[j] =retobj.value[4+40* j][3] + retobj.value[5 + 40* j][3] + retobj.value[6+ 40* j][3]+ retobj.value[7 + 40* j][3]
             arr1[j] = arr3[j]+arr2[j];
         }
           if(k==2)//度假页app  分平台订单
         {
-            // 0.6.16   1.6.15   2. 6.14  3. 6.13  4.6.12   5. 6.11  4..others
-            arr1[j]=retobj.value[28+36* j][3] + retobj.value[29+ 36* j][3] + retobj.value[30+ 36* j][3]+ retobj.value[31 + 36* j][3];
-            arr2[j]=retobj.value[24+36* j][3] + retobj.value[25+ 36* j][3] + retobj.value[26+ 36* j][3]+ retobj.value[27 + 36* j][3];
-            arr3[j]=retobj.value[20+36* j][3] + retobj.value[21+ 36* j][3] + retobj.value[22+ 36* j][3]+ retobj.value[23+ 36* j][3];
-            arr4[j]=retobj.value[16+36* j][3] + retobj.value[17 + 36* j][3] + retobj.value[18 + 36* j][3]+ retobj.value[19 + 36* j][3];
-            arr5[j]=retobj.value[12+36* j][3] + retobj.value[13 + 36* j][3] + retobj.value[14 + 36* j][3]+ retobj.value[15 + 36* j][3];
-            arr6[j]=retobj.value[8+36* j][3] + retobj.value[9 + 36* j][3] + retobj.value[10 + 36* j][3]+ retobj.value[11 + 36* j][3];
-            arr7[j]=retobj.value[32+36* j][3] + retobj.value[33 + 36* j][3] + retobj.value[34 + 36* j][3]+ retobj.value[35 + 36* j][3];
+            // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
+            arr1[j]=retobj.value[32+40* j][3] + retobj.value[33+ 40* j][3] + retobj.value[34+ 40* j][3]+ retobj.value[35 + 40* j][3];
+            arr2[j]=retobj.value[28+40* j][3] + retobj.value[29+ 40* j][3] + retobj.value[30+ 40* j][3]+ retobj.value[31 + 40* j][3];
+            arr3[j]=retobj.value[24+40* j][3] + retobj.value[25+ 40* j][3] + retobj.value[26+ 40* j][3]+ retobj.value[27 + 40* j][3];
+            arr4[j]=retobj.value[20+40* j][3] + retobj.value[21+ 40* j][3] + retobj.value[22+ 40* j][3]+ retobj.value[23+ 40* j][3];
+            arr5[j]=retobj.value[16+40* j][3] + retobj.value[17 + 40* j][3] + retobj.value[18 + 40* j][3]+ retobj.value[19 + 40* j][3];
+            arr6[j]=retobj.value[12+40* j][3] + retobj.value[13 + 40* j][3] + retobj.value[14 + 40* j][3]+ retobj.value[15 + 40* j][3];
+            arr7[j]=retobj.value[8+40* j][3] + retobj.value[9 + 40* j][3] + retobj.value[10 + 40* j][3]+ retobj.value[11 + 40* j][3];
+            arr8[j]=retobj.value[36+40* j][3] + retobj.value[37 + 40* j][3] + retobj.value[38 + 40* j][3]+ retobj.value[39 + 40* j][3];
         }
           if(k==3)//自由行app   总订单
         {
 
-            arr3[j] = retobj.value[4+36 * j][3];
-            arr2[j] =retobj.value[0+36 * j][3];
+            arr3[j] = retobj.value[4+40 * j][3];
+            arr2[j] =retobj.value[0+40 * j][3];
             arr1[j] = arr3[j]+arr2[j];
         }
          if(k==4)//自由行app   分平台
         {
-            arr1[j]=retobj.value[28+36* j][3] ;  //6.16 1.5
-            arr2[j]=retobj.value[24+36* j][3] ;// 6.15
-            arr3[j]=retobj.value[20+36* j][3] ;// 6.14
-            arr4[j]=retobj.value[16+36* j][3];// 6.13
-            arr5[j]=retobj.value[12+36* j][3];// 6.12
-            arr6[j]=retobj.value[8+36* j][3] ;// 6.11
-            arr7[j]=retobj.value[32+36* j][3] ;// others
+            arr1[j]=retobj.value[32+40* j][3] ;  //6.17 1.5
+            arr2[j]=retobj.value[28+40* j][3] ;  //6.16 1.5
+            arr3[j]=retobj.value[24+40* j][3] ;// 6.15
+            arr4[j]=retobj.value[20+40* j][3] ;// 6.14
+            arr5[j]=retobj.value[16+40* j][3];// 6.13
+            arr6[j]=retobj.value[12+40* j][3];// 6.12
+            arr7[j]=retobj.value[8+40* j][3] ;// 6.11
+            arr8[j]=retobj.value[36+40* j][3] ;// others
 
         }
           if(k==5)//团队游app   总订单
         {
-             arr3[j] = retobj.value[5+36 * j][3]+retobj.value[6+36* j][3];
-            arr2[j] =retobj.value[1+36 * j][3]+retobj.value[2+36 * j][3];
+             arr3[j] = retobj.value[5+40 * j][3]+retobj.value[6+40* j][3];
+            arr2[j] =retobj.value[1+40 * j][3]+retobj.value[2+40 * j][3];
             arr1[j] = arr3[j]+arr2[j];
         }
          if(k==6)//团队游app   分平台
         {
-            arr1[j]=retobj.value[29+36* j][3]+retobj.value[30+36* j][3] ;  //6.15 1.5
-            arr2[j]=retobj.value[25+36* j][3] +retobj.value[26+36* j][3] ;  //6.15 1.5;
-            arr3[j]=retobj.value[21+36* j][3] +retobj.value[22+36* j][3] ;  //6.15 1.5;
-            arr4[j]=retobj.value[17+36* j][3]+retobj.value[18+36* j][3] ;  //6.15 1.5;
-            arr5[j]=retobj.value[13+36* j][3]+retobj.value[14+36* j][3] ;  //6.15 1.5;
-            arr6[j]=retobj.value[9+36* j][3]+retobj.value[10+36* j][3] ;  //6.15 1.5 ;
-            arr7[j]=retobj.value[33+36* j][3]+retobj.value[34+36* j][3] ;  //6.15 1.5 ;
+            arr1[j]=retobj.value[33+40* j][3]+retobj.value[34+40* j][3] ;  //6.17 1.5
+            arr2[j]=retobj.value[29+40* j][3]+retobj.value[30+40* j][3] ;  //6.16 1.5
+            arr3[j]=retobj.value[25+40* j][3] +retobj.value[26+40* j][3] ;  //6.15 1.5;
+            arr4[j]=retobj.value[21+40* j][3] +retobj.value[22+40* j][3] ;  //6.15 1.5;
+            arr5[j]=retobj.value[17+40* j][3]+retobj.value[18+40* j][3] ;  //6.15 1.5;
+            arr6[j]=retobj.value[13+40* j][3]+retobj.value[14+40* j][3] ;  //6.15 1.5;
+            arr7[j]=retobj.value[9+40* j][3]+retobj.value[10+40* j][3] ;  //6.15 1.5 ;
+            arr8[j]=retobj.value[37+40* j][3]+retobj.value[38+40* j][3] ;  //6.15 1.5 ;
         }
           if(k==7)//签证app   总订单
         {
-             arr3[j] = retobj.value[7+36 * j][3];
-            arr2[j] =retobj.value[3+36 * j][3];
+             arr3[j] = retobj.value[7+40 * j][3];
+            arr2[j] =retobj.value[3+40 * j][3];
             arr1[j] = arr3[j]+arr2[j];
         }
         else if(k==8)//签证app   分平台
         {
-            arr1[j]=retobj.value[31+36* j][3] ;  //6.15 1.5
-            arr2[j]=retobj.value[27+36* j][3] ;
-            arr3[j]=retobj.value[23+36* j][3] ;
-            arr4[j]=retobj.value[19+36* j][3];
-            arr5[j]=retobj.value[15+36* j][3];
-            arr6[j]=retobj.value[11+36* j][3] ;
-            arr7[j]=retobj.value[35+36* j][3] ;//others
+            arr1[j]=retobj.value[35+40* j][3] ;  //6.15 1.5
+            arr2[j]=retobj.value[31+40* j][3] ;  //6.15 1.5
+            arr3[j]=retobj.value[27+40* j][3] ;
+            arr4[j]=retobj.value[23+40* j][3] ;
+            arr5[j]=retobj.value[19+40* j][3];
+            arr6[j]=retobj.value[15+40* j][3];
+            arr7[j]=retobj.value[11+40* j][3] ;
+            arr8[j]=retobj.value[39+40* j][3] ;//others
         }
           if(k==9)//邮轮app   总订单
         {
@@ -1981,6 +1996,17 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
         resultThree[5]=arr6;
          resultThree[6]=arr7;
     }
+     else if(flag==8)
+    {
+        resultThree[0]=arr1;
+        resultThree[1]=arr2;
+        resultThree[2]=arr3;
+        resultThree[3]=arr4;
+        resultThree[4]=arr5;
+        resultThree[5]=arr6;
+         resultThree[6]=arr7;
+        resultThree[7]=arr8;
+    }
 return resultThree;
 
 }
@@ -2002,6 +2028,7 @@ function getOpition(divId,bigTitle,timeArray,smallTitle,flag)//flag标志位 用
     var data5 = {};
     var data6 = {};
     var data7 = {};
+    var data8 = {};
     if(flag==1)
     {
         options={
@@ -2889,6 +2916,180 @@ function getOpition(divId,bigTitle,timeArray,smallTitle,flag)//flag标志位 用
                     lineWidth: 1,
                     radius: 1,
                     data: data7,
+                    visible: false,
+                    shadow: true,
+                    stickyTracking: false,
+                }
+            ],
+                legend : {
+                    //layout: 'vertical',
+                    //borderWidth: 0.5,
+                    //itemHiddenStyle: {color: 'red'}
+                },
+            loading: {
+                style: {
+                    position: 'absolute',
+                    backgroundColor: 'black',
+                    opacity: 0.5,
+                    textAlign: 'center'
+                }
+            }
+        };
+    }
+     else if(flag==8)
+    {
+        options={
+            chart: {
+
+                animation: Highcharts.svg,
+                renderTo: divId,
+                backgroundColor: '#FCFCFC',//黑色：#272727
+                borderColor: '#743A3A',
+                borderWidth: 1,
+                events: {
+
+                }
+            },
+            title: {
+                style: {
+                    fontSize: '18px',
+                    fontWeight: 'bold', //刻度字体加粗
+                    color: '#000000'
+                },
+                text: bigTitle  //大标题 如DP Offline 国内
+            },
+            subtitle: {
+                text: ''       //小标题省略
+            },
+            credits: {
+                text: '',
+                href: 'http://www.ctrip.com/'
+            },
+             plotOptions : {
+            line: {
+                lineWidth: 2.5,
+                states: {
+                    hover: {
+                        lineWidth: 2.7
+                    }
+                },
+                marker: {
+                    enabled: true,
+                    radius: 2.5,
+                },
+            }
+        },
+            xAxis: {
+                categories: timeArray,
+                //tickInterval: 5  ,   //也会导致误会
+                labels: {
+                    step:12,
+                    staggerLines: 1 ,
+                    style: {
+                        color: '#000000', //刻度字体颜色
+                        fontSize: '10px' //刻度字体大小
+                    }
+                },
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                min: 0,
+                labels: {
+                    style: {
+                        color: '#000000', //刻度字体颜色
+                        fontSize: '10px' //刻度字体大小
+                    }
+                }
+            },
+            tooltip: {
+
+                crosshairs: [{            // 设置准星线样式
+                            width:2,
+                            color: '#408080'
+                        }, {
+                            width: 1,
+                            color: "#006cee",
+                            dashStyle: 'longdashdot',
+                            zIndex: 100
+                            }],
+                shadow: false,
+                borderColor: '#663333',
+                backgroundColor: '#996666',
+            },
+            series: [{
+                name:smallTitle[0],
+                lineWidth: 1,
+                radius: 1,
+                data: data1,
+                visible: true,
+                shadow: false,
+                stickyTracking: false,
+            }, {
+                tooltip: { valueSuffix: '' },
+                name: smallTitle[1],
+                lineWidth: 1,
+                radius: 1,
+                data: data2,
+                visible: false,
+                shadow: true,
+                stickyTracking: false,
+            },
+                {
+                    name: smallTitle[2],
+                    lineWidth: 1,
+                    radius: 1,
+                    data: data3,
+                    visible: false,
+                    shadow: true,
+                    stickyTracking: false,
+                }
+                  ,
+                {
+                    name:smallTitle[3],
+                    lineWidth: 1,
+                    radius: 1,
+                    data: data4,
+                    visible: false,
+                    shadow: true,
+                    stickyTracking: false,
+                }
+                 ,
+                {
+                    name: smallTitle[4],
+                    lineWidth: 1,
+                    radius: 1,
+                    data: data5,
+                    visible: false,
+                    shadow: true,
+                    stickyTracking: false,
+                }
+                  ,
+                {
+                    name: smallTitle[5],
+                    lineWidth: 1,
+                    radius: 1,
+                    data: data6,
+                    visible: false,
+                    shadow: true,
+                    stickyTracking: false,
+                } ,
+                {
+                    name: smallTitle[6],
+                    lineWidth: 1,
+                    radius: 1,
+                    data: data7,
+                    visible: false,
+                    shadow: true,
+                    stickyTracking: false,
+                }
+                ,
+                {
+                    name: smallTitle[7],
+                    lineWidth: 1,
+                    radius: 1,
+                    data: data8,
                     visible: false,
                     shadow: true,
                     stickyTracking: false,

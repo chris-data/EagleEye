@@ -443,7 +443,7 @@ WHERE
     "appOrder":"""
     select vdate,bu,channel,cnt from fatVdataVacationOrder where
     vdate> %s and vdate <%s
-    and channel in ('android','iphone','iphone_6.16','iphone_6.15','iphone_6.14','iphone_6.13','iphone_6.12','iphone_6.11','others')
+    and channel in ('android','iphone','iphone_6.17','iphone_6.16','iphone_6.15','iphone_6.14','iphone_6.13','iphone_6.12','iphone_6.11','others')
     order by vdate,channel,bu
     """,
     #h5¶È¼Ù¶©µ¥
