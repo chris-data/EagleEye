@@ -451,8 +451,8 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
          if (k == 30) //SDP 可选项
         {
              var x;
-             fail[j] = retobj.value[12+ 20 * j][4] ;
-            total[j] = retobj.value[12+ 20 * j][4]  +retobj.value[13+ 20 * j][4]
+             fail[j] = retobj.value[14+ 20 * j][4] ;
+            total[j] = retobj.value[14+ 20 * j][4]  +retobj.value[15+ 20 * j][4]
             if(fail[j]==0)
             {
                 x=0;
@@ -465,8 +465,8 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
          if (k == 31) //SDP 产品
         {
               var x;
-             fail[j] = retobj.value[14+ 20 * j][4] ;
-            total[j] = retobj.value[14+ 20 * j][4]  +retobj.value[15+ 20 * j][4]
+             fail[j] = retobj.value[12+ 20 * j][4] ;
+            total[j] = retobj.value[12+ 20 * j][4]  +retobj.value[13+ 20 * j][4]
             if(fail[j]==0)
             {
                 x=0;
