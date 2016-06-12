@@ -30,6 +30,7 @@ pageurl = [
     url(r'^diyserviceinvoke/$',views_base.get_diy_serviceinvoke, name='diyserviceinvoke'),
     url(r'^handler/$',views_base.get_diy_handler, name='diyhandler'),
     url(r'^soa/$',views_base.get_vac_soa, name='vacsoa'),
+     url(r'^newcheckhistory/$',views_base.get_new_checkhistory, name='newcheckhistory'),##自由行新可订检查
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -220,6 +221,12 @@ checkurl = [
     url(
         r'^ajax/htCheckHistory/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_check.get_hotelCheckHistory),  ##酒店及其他资源
+    ##新的自由行SDP可订
+     url(r'^ajax/newcheckhis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
+        views_check.get_newcheckhis),
+     ##老的自由行DP可订
+     url(r'^ajax/olddpcheckhis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
+        views_check.get_olddpcheckhis),
 ]
 
 recommend = [
