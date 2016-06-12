@@ -30,18 +30,18 @@ def judge_list(user):
 
 @login_required(login_url='/login/')
 def get_check(request):
-    if judge_list(request.user):
-        return render(request, 'check.html', {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, 'check.html', {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 @login_required(login_url='/login/')
 def get_CheckHistory(request):
-    if judge_list(request.user):
-        return render(request, "checkHistory.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "checkHistory.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 def get_enddt(interval=10, lastdt=datetime.now()):

@@ -44,10 +44,10 @@ def judge_list(user):
 
 @login_required(login_url='/login/')
 def get_services_page(request):
-    if judge_list(request.user):
-        return render(request, 'services.html', {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, 'services.html', {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """

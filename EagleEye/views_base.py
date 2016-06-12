@@ -38,14 +38,16 @@ def judge_list(user):
         return False
     return True
 
+
 @login_required(login_url='/login/')
 def home(request):
-    if judge_list(request.user):
-        print(request.user.first_name)
-        return render(request, "home.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        # debug info
+        print(request.user.username)
+        return render(request, "home.html", {'first_name': request.user.username})
 
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 @login_required(login_url='/login/')
@@ -60,88 +62,90 @@ def get_pageid(request):
 
 @login_required(login_url='/login/')
 def get_traffic_detail(request):
-    if judge_list(request.user):
-        return render(request, "traffic.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "traffic.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 @login_required(login_url='/login/')
 def get_order_detail(request):
-    if judge_list(request.user):
-        return render(request, "order.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "order.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 @login_required(login_url='/login/')
 def get_ua_analysis(request):
-    if judge_list(request.user):
-        return render(request, "useragent.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "useragent.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 @login_required(login_url='/login/')
 def get_app_CR(request):
-    if judge_list(request.user):
-        return render(request, "appVacationCR.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "appVacationCR.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 # app订单url
 @login_required(login_url='/login/')
 def get_app_Order(request):
-    if judge_list(request.user):
-        return render(request, "appvacationorders.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "appvacationorders.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 # 度假bookcommit失败率
 @login_required(login_url='/login/')
 def get_vacation_bookcommit(request):
-    if judge_list(request.user):
-        return render(request, "vacationbookcommit.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "vacationbookcommit.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 # 自由行查询为空
 @login_required(login_url='/login/')
 def get_diy_serviceinvoke(request):
-    if judge_list(request.user):
-        return render(request, "diyserviceinvoke.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "diyserviceinvoke.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 # 自由行handler性能
 @login_required(login_url='/login/')
 def get_diy_handler(request):
-    if judge_list(request.user):
-        return render(request, "handler.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "handler.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
         ##度假接口监控
 
+
 @login_required(login_url='/login/')
 def get_vac_soa(request):
-    if judge_list(request.user):
-        return render(request, "soa.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "soa.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
         ##自由行新SDP可订检查
+
 
 @login_required(login_url='/login/')
 def get_new_checkhistory(request):
-    if judge_list(request.user):
-        return render(request, "newcheckHistory.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "newcheckHistory.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 def get_enddt(interval=10, lastdt=datetime.now()):

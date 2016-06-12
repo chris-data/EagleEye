@@ -20,10 +20,10 @@ def judge_list(user):
 
 @login_required(login_url='/login/')
 def get_page_bookable(request):
-    if judge_list(request.user):
-        return render(request, "bookable.html", {'first_name': request.user})
+    if judge_list(request.user.username):
+        return render(request, "bookable.html", {'first_name': request.user.username})
     else:
-        return render(request, 'forbiddened.html', {'first_name': request.user})
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 def get_bookable_all(request, sdt, edt, interval=10):
@@ -82,7 +82,6 @@ def get_failure_rate(request, sdt, edt, interval):
 def get_adhoc_rate(request, sdt, edt):
 
     '获取当天平均失败率'
-
     gap = get_interval(sdt, edt)
     # failed
     failed = services.get_check_failed(sdt, edt, gap)
