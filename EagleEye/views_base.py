@@ -41,7 +41,9 @@ def judge_list(user):
 @login_required(login_url='/login/')
 def home(request):
     if judge_list(request.user):
+        print(request.user.first_name)
         return render(request, "home.html", {'first_name': request.user})
+
     else:
         return render(request, 'forbiddened.html', {'first_name': request.user})
 
@@ -64,7 +66,6 @@ def get_traffic_detail(request):
         return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
-
 @login_required(login_url='/login/')
 def get_order_detail(request):
     if judge_list(request.user):
@@ -81,7 +82,7 @@ def get_ua_analysis(request):
         return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
-# @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def get_app_CR(request):
     if judge_list(request.user):
         return render(request, "appVacationCR.html", {'first_name': request.user})
@@ -90,6 +91,7 @@ def get_app_CR(request):
 
 
 # app订单url
+@login_required(login_url='/login/')
 def get_app_Order(request):
     if judge_list(request.user):
         return render(request, "appvacationorders.html", {'first_name': request.user})
@@ -98,6 +100,7 @@ def get_app_Order(request):
 
 
 # 度假bookcommit失败率
+@login_required(login_url='/login/')
 def get_vacation_bookcommit(request):
     if judge_list(request.user):
         return render(request, "vacationbookcommit.html", {'first_name': request.user})
@@ -106,6 +109,7 @@ def get_vacation_bookcommit(request):
 
 
 # 自由行查询为空
+@login_required(login_url='/login/')
 def get_diy_serviceinvoke(request):
     if judge_list(request.user):
         return render(request, "diyserviceinvoke.html", {'first_name': request.user})
@@ -114,6 +118,7 @@ def get_diy_serviceinvoke(request):
 
 
 # 自由行handler性能
+@login_required(login_url='/login/')
 def get_diy_handler(request):
     if judge_list(request.user):
         return render(request, "handler.html", {'first_name': request.user})
@@ -121,13 +126,17 @@ def get_diy_handler(request):
         return render(request, 'forbiddened.html', {'first_name': request.user})
 
 
-  ##度假接口监控
+        ##度假接口监控
+
+@login_required(login_url='/login/')
 def get_vac_soa(request):
     if judge_list(request.user):
         return render(request, "soa.html", {'first_name': request.user})
     else:
         return render(request, 'forbiddened.html', {'first_name': request.user})
-   ##自由行新SDP可订检查
+        ##自由行新SDP可订检查
+
+@login_required(login_url='/login/')
 def get_new_checkhistory(request):
     if judge_list(request.user):
         return render(request, "newcheckHistory.html", {'first_name': request.user})
@@ -1329,6 +1338,7 @@ def get_pageHandler(request, sdt, edt):
 
     return JsonResponse(mapping)
 
+
 ## 接口性能
 def get_interfacePerforms(request, sdt, edt):
     """
@@ -1347,4 +1357,3 @@ def get_interfacePerforms(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
-
