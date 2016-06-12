@@ -184,9 +184,10 @@ class systemusers(models.Model):
         managed = False
         db_table = 'system_users'
 
+
 class authusers(models.Model):
-    id = models.AutoField(primary_key=True)  #序号
-    username = models.CharField(db_column='username',max_length=100)  # 用户名
+    id = models.AutoField(primary_key=True)  # 序号
+    username = models.CharField(db_column='username', max_length=100)  # 用户名
     insertdt = models.DateTimeField(db_column='insertdt')  # 插入时间
 
     def __str__(self):
@@ -195,3 +196,11 @@ class authusers(models.Model):
     class Meta:
         managed = True
         db_table = 'authusers'
+
+
+class Task(models.Model):
+
+    class Meta:
+        permissions = (
+            ("can_view_order_page", "Can see order page"),
+        )

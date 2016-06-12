@@ -156,25 +156,27 @@
     <!--sidebar end-->
     <section id="main-content">
         <section class="wrapper">
-             <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
 
-                </span>
             <ul id="myTab" class="nav nav-tabs">
-                <li id="handler1" class="active"><a href="#vacInterface" data-toggle="tab" ></i>
-                    度假接口耗时</a></li>
-                <li id="handler2"><a href="#plaseWait" data-toggle="tab" onClick="plaseWait()">敬请期待</a></li>
-
+                <li id="tab_default" class="active"><a href="#home" data-toggle="tab" ><i class="icon_house"></i>
+                    SDP</a></li>
+                <li id="tab_flight"><a href="#checkResource" data-toggle="tab" onClick="checkResource()"><i class="icon_compass"></i>SDP分资源</a></li>
+                <li id="tab_hotel"><a href="#DP" data-toggle="tab" onClick="checkDP()"><i class="icon_building_alt"></i>DP</a></li>
+                <li class="pull-right" style="margin-top: 8px;">
+                    <i class="arrow_right_alt"></i>
+                    <small><a href="/EagleEye/check/" style="color: #6a6a6a">&nbsp;查看实时趋势&nbsp;</a></small>
+                </li>
             </ul>
             <!-- params start-->
             <div id="myTabContent" class="tab-content">
-            <div id="vacInterface" class="tab-pane fade in active" >
-                 <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+            <div id="home" class="tab-pane fade in active" >
+                  <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
+                    <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-19，前期无数据埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
                      </span>
 
             </header>
-                <div id='orderContainer' class="panel-body" style="margin-left:2px;">
+                <div id='checkContainer' class="panel-body" style="margin-left:2px;">
 
                 </div>
                 <div class="panel-footer">
@@ -189,14 +191,14 @@
                     </footer>
                 </div>
             </div>
-            <div id="plaseWait" class="tab-pane fade">
-                <header id="acheader2" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+            <div id="checkResource" style="margin-top:10px;" class="tab-pane fade">
+                 <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                   <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
+                    <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-30，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
                      </span>
 
             </header>
-               <div id='plaseWaitH'  style="margin-left:2px;">
+                <div id='checkResourceH'  style="margin-left:2px;">
                 </div>
                 <div style='clear:left' class="panel-footer">
                     <footer class="main-footer">
@@ -210,9 +212,21 @@
                     </footer>
                 </div>
             </div>
-
-
-
+            <div id="DP" class="tab-pane fade">
+               <div id='DPH'  style="margin-left:2px;">
+                </div>
+                <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 度假数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
          </div>
         </section>
     </section>
@@ -221,16 +235,14 @@
 <!-- javascripts -->
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/select2.min.js"></script>
 <script src="/static/js/jquery.scrollTo.min.js"></script>
 <script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
-<script language="javascript" type="text/javascript" src="/static/js/datepicker/WdatePicker.js"></script>
-<script type="text/javascript" language="javascript" src="/static/js/DataTables/media/js/jquery.dataTables.js"></script>
-<script type="text/javascript" language="javascript" src="/static/js/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
 <script src="/static/js/scripts.js"></script>
 <script src="/static/js/highstock/highstock.js"></script>
 <script src="/static/js/highcharts/themes/sand-signika.js"></script>
 <script src="/static/js/Custom/ajax-charts.js"></script>
-<script src="/static/js/Custom/performs.js"></script>
+<script src="/static/js/Custom/checkHistory.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
 
@@ -239,7 +251,7 @@
             this.cnt = cnt;
         }
 
-vacationInterface();
+        checkSDP()
 
     })
 

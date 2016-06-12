@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from . import views_base, views_ext, views_pkg, views_check, views_services, views_cruise, views_metrix
+from . import views_base, views_ext, views_pkg, views_check, views_services, views_cruise,views_metrix
 
 # yyyy-mm-dd  checkhistory
 regex_date = '[0-9]{4}-[0-9]{2}-[0-9]{2}'
@@ -26,10 +26,10 @@ pageurl = [
     url(r'^appcr/$', views_base.get_app_CR, name='appCR'),
     url(r'^apporder/$', views_base.get_app_Order, name='appOrder'),
     url(r'^cruise/$', views_cruise.get_cruise, name='cruise'),
-    url(r'^vacationbookcommit/$', views_base.get_vacation_bookcommit, name='vacbookcommit'),
-    url(r'^diyserviceinvoke/$', views_base.get_diy_serviceinvoke, name='diyserviceinvoke'),
-    url(r'^handler/$', views_base.get_diy_handler, name='diyhandler'),
-    url(r'^soa/$', views_base.get_vac_soa, name='vacsoa'),
+    url(r'^vacationbookcommit/$',views_base.get_vacation_bookcommit, name='vacbookcommit'),
+    url(r'^diyserviceinvoke/$',views_base.get_diy_serviceinvoke, name='diyserviceinvoke'),
+    url(r'^handler/$',views_base.get_diy_handler, name='diyhandler'),
+    url(r'^soa/$',views_base.get_vac_soa, name='vacsoa'),
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -48,14 +48,16 @@ orderurl = [
         views_base.get_orders_aggregate),
     # 度假app转化率
     url(r'^ajax/appvacr/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPCR),
-    # 度假总订单 含app online 等
+    #度假总订单 含app online 等
     url(r'^ajax/appvaallorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAllOrder),
-    # 度假app订单
+    #度假app订单
     url(r'^ajax/appvaorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPOrder),
-    # 度h5订单
+     #度h5订单
     url(r'^ajax/h5vaorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_H5Order),
-    # 度假金额
+    #度假金额
     url(r'^ajax/appvaamount/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAmount),
+
+
 
 ]
 trafficurl = [
@@ -87,13 +89,13 @@ bookingurl = [
     url(
         r'^ajax/init/booking2/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[a-z]+[0-9]?)/(?P<product>[a-z]+)/(?P<interval>[0-9]+)/(?P<history>False|True)$',
         views_base.get_booking_aggregate, name='booking_aggregate'),
-    ## 自由行bookcommit
+     ## 自由行bookcommit
     url(r'^ajax/diybookcommit/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_base.get_diyBookCommit),
-    ## 团队游bookcommit
+     ## 团队游bookcommit
     url(r'^ajax/pkgbookcommit/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_base.get_pkgBookCommit),
-    ## 签证commit
+     ## 签证commit
     url(r'^ajax/visacommit/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_base.get_visaBookCommit),
     url(
@@ -105,6 +107,7 @@ bookingurl = [
     url(
         r'^ajax/visacommitnew/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_base.get_visacommitnew),
+
 
 ]
 commiturl = [
@@ -144,11 +147,10 @@ uaurl = [
     url(r'^ajax/ua/edition/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_ext.get_edition,
         name='edition'),
     url(r'^download/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_ext.download_ua_excel),
-    # 页面性能
+     #页面性能
     url(r'^ajax/pagehandler/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_pageHandler),
-    # 接口性能
-    url(r'^ajax/soaperform/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
-        views_base.get_interfacePerforms),
+     #接口性能
+    url(r'^ajax/soaperform/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_interfacePerforms),
 
 ]
 
@@ -237,7 +239,7 @@ recommend = [
         r'^ajax/service/ratio/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
         views_services.get_serviceinvoke_failureratio,
         name='failureratio'),
-    ## 团队游bookcommit
+     ## 团队游bookcommit
     url(r'^ajax/diyservicehis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_base.get_diyserviceinvoke),
 ]
@@ -249,7 +251,6 @@ cruise = [
         name='cruise_order'),
 ]
 # -------------------------------------pkg end------------------------------------------------------
-
 regex_datetime = "[0-9]{4}(-[0-9]{2})* ([0-9]{2}:)*[0-9]{2}"
 
 matrix = [

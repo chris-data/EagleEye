@@ -127,6 +127,13 @@ def get_vac_soa(request):
         return render(request, "soa.html", {'first_name': request.user})
     else:
         return render(request, 'forbiddened.html', {'first_name': request.user})
+   ##自由行新SDP可订检查
+def get_new_checkhistory(request):
+    if judge_list(request.user):
+        return render(request, "newcheckHistory.html", {'first_name': request.user})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user})
+
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """

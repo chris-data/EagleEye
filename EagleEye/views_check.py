@@ -406,3 +406,41 @@ def get_hotelCheckHistory(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+##新的离线可订检查接口 SDP 2016-05-31
+def get_newcheckhis(request, sdt, edt):
+    """
+    :param bu: bu，例如：diy
+    :param pageType: bu，例如：详情页  填写页
+    :param channel:预定渠道：online,无线,intl
+    :param statustype:成功  失败
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_newCheckHistory, [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##老的离线可订检查接口 DP  2016-05-31
+def get_olddpcheckhis(request, sdt, edt):
+    """
+    :param bu: bu，例如：diy
+    :param pageType: bu，例如：详情页  填写页
+    :param channel:预定渠道：online,无线,intl
+    :param statustype:成功  失败
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_oldDPCheckHistory, [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+
+
+

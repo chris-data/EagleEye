@@ -17,10 +17,78 @@ function checkAll() {
     var url = '/EagleEye/ajax/allCheck/'+sysdate(-30)+'/'+sysdate(0);
      var smallTitle=new Array();
     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-    drawCurve(url, 'spline', nameArray, timeArray, 0,null,smallTitle)
+    var orderSquence= new Array();
+    orderSquence[0]=0;orderSquence[1]=1;orderSquence[2]=2;orderSquence[3]=3;orderSquence[4]=4;orderSquence[5]=5;
+    drawCurve(url, 'spline', nameArray, timeArray, 0,null,smallTitle,orderSquence)
 
 }
 
+function checkSDP() {   //2016-05-31
+    //定义线的颜色
+    var timeArray = getMonth30();
+    var nameArray = [];
+    nameArray[0] = 'SDP Online-详情页';
+    nameArray[1] = 'SDP APP-详情页';
+    nameArray[2] = 'SDP Online-填写页';
+    nameArray[3] = 'SDP APP-填写页';
+    nameArray[4] = '新机票引擎';
+    nameArray[5] = '旧机票引擎';
+    $checkContainer = $("#checkContainer")
+    $checkContainer.empty();//清空翻页标签
+    $checkContainer.append("<div id='all' style='height:300px;width:49%;float:left;clear:left;margin-top: 2px'></div><div id='Dp' style='height:300px;width:49%;float:left;margin-left:10px;margin-top: 2px '></div><div id='Sdp' style='height:300px;width:49%;float:left;clear:left;margin-top: 2px'></div><div id='Online' style='height:300px;width:49%;float:left;margin-left:10px;margin-top:2px'></div><div id='Wireless' style='height:300px;width:49%;float:left;clear:left;margin-top: 2px'></div><div id='Offline' style='height:300px;width:49%;float:left;margin-left:10px;margin-top: 2px '></div>")
+    var url = '/EagleEye/ajax/newcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+     var smallTitle=new Array();
+    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var orderSquence= new Array();
+    orderSquence[0]=22;orderSquence[1]=23;orderSquence[2]=24;orderSquence[3]=25;orderSquence[4]=26;orderSquence[5]=27;
+    drawCurve(url, 'spline', nameArray, timeArray, 0,null,smallTitle,orderSquence)
+
+}
+
+function checkResource()
+{
+
+ //定义线的颜色
+    var timeArray = getMonth30();
+    var nameArray = [];
+    nameArray[0] = 'SDP 机票';
+    nameArray[1] = 'SDP 酒店';
+    nameArray[2] = 'SDP 可选项';
+    nameArray[3] = 'SDP 产品';
+    $checkContainer = $("#checkResourceH")
+    $checkContainer.empty();//清空翻页标签
+    $checkContainer.append("<div id='char11' style='height:300px;width:44%;float:left;clear:left;margin-top: 2px'></div><div id='char12' style='height:300px;width:44%;float:left;margin-left:90px;margin-top: 2px '></div><div id='char13' style='height:300px;width:44%;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:44%;float:left;margin-left:90px;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/newcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+     var smallTitle=new Array();
+    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var orderSquence= new Array();
+    orderSquence[0]=28;orderSquence[1]=29;orderSquence[2]=30;orderSquence[3]=31;
+    drawCurve(url, 'spline', nameArray, timeArray,5,null,smallTitle,orderSquence)
+
+}
+
+function checkDP()
+{
+
+     //定义线的颜色
+    var timeArray = getMonth30();
+    var nameArray = [];
+    nameArray[0] = 'DP 全部';
+    nameArray[1] = 'DP Online';
+    nameArray[2] = 'DP 无线';
+    nameArray[3] = 'DP Offline';
+    $checkContainer = $("#DPH")
+    $checkContainer.empty();//清空翻页标签
+    $checkContainer.append("<div id='char1' style='height:300px;width:44%;float:left;clear:left;margin-top: 10px'></div><div id='char2' style='height:300px;width:44%;float:left;margin-left:90px;margin-top: 10px '></div><div id='char3' style='height:300px;width:44%;float:left;clear:left;margin-top: 10px'></div><div id='char4' style='height:300px;width:44%;float:left;margin-left:90px;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/olddpcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+     var smallTitle=new Array();
+    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var orderSquence= new Array();
+    orderSquence[0]=32;orderSquence[1]=33;orderSquence[2]=34;orderSquence[3]=35;
+    drawCurve(url, 'spline', nameArray, timeArray, 1,null,smallTitle,orderSquence)
+
+
+}
 //获取过去30天日期
 function getMonth30() {
     var timeArray = [];
@@ -267,6 +335,206 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
                 }
             }
         }
+         if (k == 22) //SDP Online详情页
+        {
+            var x;
+            fail[j] = retobj.value[10+ 20 * j][4] ;
+            total[j] = retobj.value[10+ 20 * j][4]  +retobj.value[11+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 23) //SDP APP 详情页
+        {
+             var x;
+             fail[j] = retobj.value[8+ 20 * j][4] ;
+            total[j] = retobj.value[8+ 20 * j][4]  +retobj.value[9+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 24) //SDP Online填写页
+        {
+             var x;
+             fail[j] = retobj.value[2+ 20 * j][4] ;
+            total[j] = retobj.value[2+ 20 * j][4]  +retobj.value[3+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 25) //SDP APP填写页
+        {
+             var x;
+             fail[j] = retobj.value[0+ 20 * j][4] ;
+            total[j] = retobj.value[0+ 20 * j][4]  +retobj.value[1+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 26) //SDP 新机票引擎
+        {
+             var x;
+             fail[j] = retobj.value[4+ 20 * j][4] ;
+            total[j] = retobj.value[4+ 20 * j][4]  +retobj.value[5+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 27) //SDP 旧机票引擎
+        {
+              var x;
+             fail[j] = retobj.value[6+ 20 * j][4] ;
+            total[j] = retobj.value[6+ 20 * j][4]  +retobj.value[7+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 28) //SDP 机票
+        {
+             var x;
+             fail[j] = retobj.value[16+ 20 * j][4] ;
+            total[j] = retobj.value[16+ 20 * j][4]  +retobj.value[17+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 29) //SDP 酒店
+        {
+             var x;
+             fail[j] = retobj.value[18+ 20 * j][4] ;
+            total[j] = retobj.value[18+ 20 * j][4]  +retobj.value[19+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 30) //SDP 可选项
+        {
+             var x;
+             fail[j] = retobj.value[12+ 20 * j][4] ;
+            total[j] = retobj.value[12+ 20 * j][4]  +retobj.value[13+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 31) //SDP 产品
+        {
+              var x;
+             fail[j] = retobj.value[14+ 20 * j][4] ;
+            total[j] = retobj.value[14+ 20 * j][4]  +retobj.value[15+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 32) //DP 全部
+        {
+              var x;
+             fail[j] = retobj.value[0+ 6 * j][4]+retobj.value[1+ 6 * j][4] +retobj.value[2+ 6 * j][4] ;
+             total[j] = retobj.value[0+ 6 * j][4]+retobj.value[1+ 6 * j][4] +retobj.value[2+ 6 * j][4] +retobj.value[3+ 6 * j][4]+retobj.value[4+ 6 * j][4]+retobj.value[5+ 6 * j][4];
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+
+            }
+            rate[j] = parseFloat(x);
+
+        }
+         if (k == 33) //DP Online
+        {
+              var x;
+             fail[j] = retobj.value[1+ 6 * j][4] ;
+            total[j] = retobj.value[1+ 6 * j][4]  +retobj.value[4+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 34) //DP 无线
+        {
+              var x;
+             fail[j] = retobj.value[2+ 6 * j][4] ;
+            total[j] = retobj.value[2+ 6 * j][4]  +retobj.value[5+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 35) //DP Offline
+        {
+              var x;
+             fail[j] = retobj.value[0+ 6 * j][4] ;
+            total[j] = retobj.value[0+ 6 * j][4]  +retobj.value[3+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+
 
     }
     resultThree[0] = rate;
@@ -366,31 +634,30 @@ function options(divId,type,bigTitle,timeArray,smallTitle)
             },
             series: [{
                 tooltip: { valueSuffix: ' %' },
-                name:'<p style=" color:#000000">'+smallTitle[0]+'</p>',
+                name:smallTitle[0],
                 lineWidth: 1,
                 radius: 1,
                 data: data1,
-                color: '#FF0033',
                 visible: true,
                 shadow: false,
                 stickyTracking: false,
             }, {
                 tooltip: { valueSuffix: ' 个' },
-                name:  '<p style=" color:#663366">'+smallTitle[1]+'</p>',
+                name:  smallTitle[1],
                 lineWidth: 1,
                 radius: 1,
                 data: data2,
-                color: '#663366',
+
                 visible: false,
                 shadow: true,
                 stickyTracking: false,
             },
                 {
-                    name: '<p style=" color:#003366">'+smallTitle[2]+'</p>',
+                    name: smallTitle[2],
                     lineWidth: 1,
                     radius: 1,
                     data: data3,
-                    color: '#003366',
+
                     visible: false,
                     shadow: true,
                     stickyTracking: false,
@@ -398,7 +665,7 @@ function options(divId,type,bigTitle,timeArray,smallTitle)
                 legend : {
                     //layout: 'vertical',
                     //borderWidth: 0.5,
-                    itemHiddenStyle: {color: 'red'}
+                   // itemHiddenStyle: {color: 'red'}
                 },
             loading: {
                 style: {
@@ -437,7 +704,7 @@ function getresourceType(url,data1,data2,data3,divId,name,type,timeArray,k,small
 
 }
 //画图函数
-function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTitle)//pageid=0 首页;  pageid=1  分渠道; pageid=2 机票;
+function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTitle,orderSquence)//pageid=0 首页;  pageid=1  分渠道; pageid=2 机票;
 {
     var data1 = {};
     var data2 = {};
@@ -462,8 +729,7 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
 
             var reObj = data;
 
-            var dataArray1 = getArray(reObj, 6,null)
-            console.log('dataArray1:'+dataArray1[0])
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             data3 = dataArray1[2];
@@ -471,21 +737,21 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
             mychart1.series[1].setData(data2);
             mychart1.series[2].setData(data3);
 
-            var dataArray2 = getArray(reObj, 7,null)
+            var dataArray2 = getArray(reObj,  orderSquence[1],null)
             data1 = dataArray2[0];
             data2 = dataArray2[1];
             data3 = dataArray2[2];
             mychart2.series[0].setData(data1);
             mychart2.series[1].setData(data2);
             mychart2.series[2].setData(data3);
-            var dataArray3 = getArray(reObj, 8,null)
+            var dataArray3 = getArray(reObj,  orderSquence[2],null)
             data1 = dataArray3[0];
             data2 = dataArray3[1];
             data3 = dataArray3[2];
             mychart3.series[0].setData(data1);
             mychart3.series[1].setData(data2);
             mychart3.series[2].setData(data3);
-            var dataArray4 = getArray(reObj, 9,null)
+            var dataArray4 = getArray(reObj,  orderSquence[3],null)
             data1 = dataArray4[0];
             data2 = dataArray4[1];
             data3 = dataArray4[2];
@@ -528,7 +794,7 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
             var reObj = data;
 
 
-            var dataArray1 = getArray(reObj, 0,null)
+            var dataArray1 = getArray(reObj,  orderSquence[0],null)
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             data3 = dataArray1[2];
@@ -536,35 +802,35 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
             mychart1.series[1].setData(data2);
             mychart1.series[2].setData(data3);
 
-            var dataArray2 = getArray(reObj, 1,null)
+            var dataArray2 = getArray(reObj,  orderSquence[1],null)
             data1 = dataArray2[0];
             data2 = dataArray2[1];
             data3 = dataArray2[2];
             mychart2.series[0].setData(data1);
             mychart2.series[1].setData(data2);
             mychart2.series[2].setData(data3);
-            var dataArray3 = getArray(reObj, 2,null)
+            var dataArray3 = getArray(reObj,  orderSquence[2],null)
             data1 = dataArray3[0];
             data2 = dataArray3[1];
             data3 = dataArray3[2];
             mychart3.series[0].setData(data1);
             mychart3.series[1].setData(data2);
             mychart3.series[2].setData(data3);
-            var dataArray4 = getArray(reObj, 3,null)
+            var dataArray4 = getArray(reObj,  orderSquence[3],null)
             data1 = dataArray4[0];
             data2 = dataArray4[1];
             data3 = dataArray4[2];
             mychart4.series[0].setData(data1);
             mychart4.series[1].setData(data2);
             mychart4.series[2].setData(data3);
-            var dataArray5 = getArray(reObj, 4,null)
+            var dataArray5 = getArray(reObj,  orderSquence[4],null)
             data1 = dataArray5[0];
             data2 = dataArray5[1];
             data3 = dataArray5[2];
             mychart5.series[0].setData(data1);
             mychart5.series[1].setData(data2);
             mychart5.series[2].setData(data3);
-            var dataArray6 = getArray(reObj, 5,null)
+            var dataArray6 = getArray(reObj,  orderSquence[5],null)
             data1 = dataArray6[0];
             data2 = dataArray6[1];
             data3 = dataArray6[2];
@@ -597,35 +863,35 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
         mychart5.showLoading('Loading data from server...');
          $.getJSON(url, function (data) {
             var reObj = data;
-            var dataArray1 = getArray(reObj, 14,null)
+            var dataArray1 = getArray(reObj,  orderSquence[0],null)
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             data3 = dataArray1[2];
             mychart1.series[0].setData(data1);
             mychart1.series[1].setData(data2);
             mychart1.series[2].setData(data3);
-            var dataArray2 = getArray(reObj, 10,null)
+            var dataArray2 = getArray(reObj,  orderSquence[1],null)
             data1 = dataArray2[0];
             data2 = dataArray2[1];
             data3 = dataArray2[2];
             mychart2.series[0].setData(data1);
             mychart2.series[1].setData(data2);
             mychart2.series[2].setData(data3);
-            var dataArray3 = getArray(reObj, 11,null)
+            var dataArray3 = getArray(reObj,  orderSquence[2],null)
             data1 = dataArray3[0];
             data2 = dataArray3[1];
             data3 = dataArray3[2];
             mychart3.series[0].setData(data1);
             mychart3.series[1].setData(data2);
             mychart3.series[2].setData(data3);
-            var dataArray4 = getArray(reObj, 12,null)
+            var dataArray4 = getArray(reObj,  orderSquence[3],null)
             data1 = dataArray4[0];
             data2 = dataArray4[1];
             data3 = dataArray4[2];
             mychart4.series[0].setData(data1);
             mychart4.series[1].setData(data2);
             mychart4.series[2].setData(data3);
-            var dataArray5 = getArray(reObj, 13,null)
+            var dataArray5 = getArray(reObj,  orderSquence[4],null)
             data1 = dataArray5[0];
             data2 = dataArray5[1];
             data3 = dataArray5[2];
@@ -658,6 +924,63 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
 
             getresourceType(url,data1,data2,data3,'play0',nameArray[0],type,timeArray,18,smallTitle)
         }
+    }
+    if (pageid == 5) {
+        var options1=options('char11',type,nameArray[0],timeArray,smallTitle)
+        var options2=options('char12',type,nameArray[1],timeArray,smallTitle)
+        var options3=options('char13',type,nameArray[2],timeArray,smallTitle)
+        var options4=options('char14',type,nameArray[3],timeArray,smallTitle)
+        var mychart1 = new Highcharts.Chart(options1);
+        var mychart2 = new Highcharts.Chart(options2);
+        var mychart3 = new Highcharts.Chart(options3);
+        var mychart4 = new Highcharts.Chart(options4);
+
+        mychart1.showLoading('Loading data from server...');
+        mychart2.showLoading('Loading data from server...');
+        mychart3.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+
+        $.getJSON(url, function (data) {
+
+            var reObj = data;
+
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            data1 = dataArray1[0];
+            data2 = dataArray1[1];
+            data3 = dataArray1[2];
+            mychart1.series[0].setData(data1);
+            mychart1.series[1].setData(data2);
+            mychart1.series[2].setData(data3);
+
+            var dataArray2 = getArray(reObj,  orderSquence[1],null)
+            data1 = dataArray2[0];
+            data2 = dataArray2[1];
+            data3 = dataArray2[2];
+            mychart2.series[0].setData(data1);
+            mychart2.series[1].setData(data2);
+            mychart2.series[2].setData(data3);
+            var dataArray3 = getArray(reObj,  orderSquence[2],null)
+            data1 = dataArray3[0];
+            data2 = dataArray3[1];
+            data3 = dataArray3[2];
+            mychart3.series[0].setData(data1);
+            mychart3.series[1].setData(data2);
+            mychart3.series[2].setData(data3);
+            var dataArray4 = getArray(reObj,  orderSquence[3],null)
+            data1 = dataArray4[0];
+            data2 = dataArray4[1];
+            data3 = dataArray4[2];
+            mychart4.series[0].setData(data1);
+            mychart4.series[1].setData(data2);
+            mychart4.series[2].setData(data3);
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+
+
+        })
     }
     if(pageid==4){
 
@@ -808,7 +1131,9 @@ function checkChannel(channelId) {
     nameArray[3] = 'SDP 国际';
      var smallTitle=new Array();
     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-    drawCurve(url, 'spline', nameArray, timeArray, 1,null,smallTitle)
+     var orderSquence= new Array();
+    orderSquence[0]=6;orderSquence[1]=7;orderSquence[2]=8;orderSquence[3]=9;
+    drawCurve(url, 'spline', nameArray, timeArray, 1,null,smallTitle,orderSquence)
 
 
 }
@@ -837,7 +1162,9 @@ function checkFilght()//机票
     nameArray[4] = '机票-其他';
       var smallTitle=new Array();
     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-    drawCurve(url, 'spline', nameArray, timeArray, 2,null,smallTitle)
+    var orderSquence= new Array();
+    orderSquence[0]=14;orderSquence[1]=10;orderSquence[2]=11;orderSquence[3]=12;orderSquence[4]=13;
+    drawCurve(url, 'spline', nameArray, timeArray, 2,null,smallTitle,orderSquence)
     }
 
 
@@ -856,7 +1183,9 @@ function checkHotel()//酒店
         nameArray[0] = '酒店-全部';
         var smallTitle=new Array();
     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-        drawCurve(url, 'spline', nameArray, timeArray, 3,'hotel',smallTitle)
+            var orderSquence= new Array();
+    orderSquence[0]=15;orderSquence[1]=16;orderSquence[2]=17;orderSquence[3]=18;
+        drawCurve(url, 'spline', nameArray, timeArray, 3,'hotel',smallTitle,orderSquence)
     }
 
 }
@@ -874,7 +1203,7 @@ function checkX()//X资源
         nameArray[0] = 'X资源-全部';
          var smallTitle=new Array();
     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-        drawCurve(url, 'spline', nameArray, timeArray, 3,'xResource',smallTitle)
+        drawCurve(url, 'spline', nameArray, timeArray, 3,'xResource',smallTitle,null)
     }
 
 }
@@ -895,7 +1224,7 @@ function checkSelect()//单选项
         nameArray[0] = '单选项-全部';
           var smallTitle=new Array();
         smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-        drawCurve(url, 'spline', nameArray, timeArray, 3,'oneSelect',smallTitle)
+        drawCurve(url, 'spline', nameArray, timeArray, 3,'oneSelect',smallTitle,null)
     }
 }
 
@@ -915,7 +1244,7 @@ function checkPlay()//当地玩乐
         nameArray[0] = '当地玩乐-全部';
         var smallTitle=new Array();
         smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-        drawCurve(url, 'spline', nameArray, timeArray, 3,'play',smallTitle)
+        drawCurve(url, 'spline', nameArray, timeArray, 3,'play',smallTitle,null)
     }
 }
 
@@ -929,5 +1258,5 @@ function appVaCR()
      nameArray[0] = 'app-总体转化率';nameArray[1] = 'app-自由行转化率';nameArray[2] = 'app-团队游转化率';
      var smallTitle=new Array();
       smallTitle[0]='转化率';smallTitle[1]='订单';smallTitle[2]='流量(uv)'
-     drawCurve(url, 'spline', nameArray, timeArray, 4,null,smallTitle)
+     drawCurve(url, 'spline', nameArray, timeArray, 4,null,smallTitle,null)
 }
