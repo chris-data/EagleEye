@@ -4,10 +4,10 @@
 
 function RenderUAcharts() {
     $(document).ready(function () {
-        chart_device = charts.load_pie_chart("/EagleEye/ajax/ua/device/" + sysdate(-2) + "/" + sysdate(-1) + "/", "device", "设备分布");
-        chart_operationsystem = charts.load_pie_chart("/EagleEye/ajax/ua/operationsystem/" + sysdate(-2) + "/" + sysdate(-1) + "/", "operation", "操作系统分布");
-        chart_browser = charts.load_pie_chart("/EagleEye/ajax/ua/browser/" + sysdate(-2) + "/" + sysdate(-1) + "/", "browser", "浏览器分布");
-        chart_edition = charts.load_pie_chart("/EagleEye/ajax/ua/edition/" + sysdate(-2) + "/" + sysdate(-1) + "/", "edition", "APP版本分布");
+        chart_device = charts.load_pie_chart("/EagleEye/ajax/ua/device/" + sysdate(-1) + "/" + sysdate(0) + "/", "device", "设备分布");
+        chart_operationsystem = charts.load_pie_chart("/EagleEye/ajax/ua/operationsystem/" + sysdate(-1) + "/" + sysdate(0) + "/", "operation", "操作系统分布");
+        chart_browser = charts.load_pie_chart("/EagleEye/ajax/ua/browser/" + sysdate(-1) + "/" + sysdate(0) + "/", "browser", "浏览器分布");
+        chart_edition = charts.load_pie_chart("/EagleEye/ajax/ua/edition/" + sysdate(-1) + "/" + sysdate(0) + "/", "edition", "APP版本分布");
 
         function item(name, cnt) {
             this.name = name;
@@ -44,7 +44,7 @@ function RenderUAcharts() {
             }
         );
 
-        $.getJSON("/EagleEye/ajax/ua/device/" + sysdate(-2) + "/" + sysdate(-1) + "/", function (data) {
+        $.getJSON("/EagleEye/ajax/ua/device/" + sysdate(-1) + "/" + sysdate(0) + "/", function (data) {
             var device = [];
             $.each(data, function (key, value) {
                 device.push(new item(key, value));
@@ -70,7 +70,7 @@ function RenderUAcharts() {
                 ]
             });
         })
-        $.getJSON("/EagleEye/ajax/ua/operationsystem/" + sysdate(-2) + "/" + sysdate(-1) + "/", function (data) {
+        $.getJSON("/EagleEye/ajax/ua/operationsystem/" + sysdate(-1) + "/" + sysdate(0) + "/", function (data) {
             var operation = [];
             $.each(data, function (key, value) {
                 operation.push(new item(key, value));
@@ -93,7 +93,7 @@ function RenderUAcharts() {
                 retrieve: true,
             });
         })
-        $.getJSON("/EagleEye/ajax/ua/browser/" + sysdate(-2) + "/" + sysdate(-1) + "/", function (data) {
+        $.getJSON("/EagleEye/ajax/ua/browser/" + sysdate(-1) + "/" + sysdate(0) + "/", function (data) {
             var browser = [];
             $.each(data, function (key, value) {
                 browser.push(new item(key, value));
@@ -116,7 +116,7 @@ function RenderUAcharts() {
                 retrieve: true,
             });
         })
-        $.getJSON("/EagleEye/ajax/ua/edition/" + sysdate(-2) + "/" + sysdate(-1) + "/", function (data) {
+        $.getJSON("/EagleEye/ajax/ua/edition/" + sysdate(-1) + "/" + sysdate(0) + "/", function (data) {
             var edition = [];
             $.each(data, function (key, value) {
                 edition.push(new item(key, value));
