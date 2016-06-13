@@ -152,6 +152,10 @@ uaurl = [
     url(r'^ajax/pagehandler/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_pageHandler),
      #接口性能
     url(r'^ajax/soaperform/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_interfacePerforms),
+     #度假页面性能（除团队游，只包含自由行和保险）
+    url(r'^ajax/tourhandler/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_tourhandler),
+
+
 
 ]
 

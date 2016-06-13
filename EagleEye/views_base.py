@@ -1361,3 +1361,25 @@ def get_interfacePerforms(request, sdt, edt):
     mapping = {"key": sdt, "value": queryset}
 
     return JsonResponse(mapping)
+
+
+## 接口性能
+def get_tourhandler(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: diy
+    :param page:页面类型
+    :param handlername:页面中某个指标名称
+    :param maxcnt:最大值
+    :param mincnt:最小值
+    :param avgcnt:平均值
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["tourhandler"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+

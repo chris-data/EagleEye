@@ -536,7 +536,7 @@ WHERE
   )O
  order by  O.vdate,O.actionType,O.channel
     """  ,
-##页面性能
+##页面性能(团队游)
   "pageHandler": """
    select vdate,page,handlerName,maxcnt,mincnt,avgcnt from handler
     where vdate> %s and vdate <%s
@@ -548,6 +548,12 @@ WHERE
    select vdate,operation,interfaceName,maxcnt,mincnt,avgcnt from soarequestlatency
     where vdate> %s and vdate <%s
     order by vdate,operation,interfaceName,maxcnt,mincnt,avgcnt
+    """  ,
+ ##页面性能(自由行+保险)
+    "tourhandler": """
+  select vdate,page,handlerName,maxcnt,mincnt,avgcnt from tourhandler
+    where vdate> %s and vdate <%s
+    order by vdate,page,handlerName,maxcnt,mincnt,avgcnt
     """  ,
 
 
