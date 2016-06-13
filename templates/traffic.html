@@ -1,172 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="chris">
-    <meta name="keyword" content="Monitor Dashboard">
-    <meta http-equiv="refresh" content="10800">
-
-    <title>携程度假-综合数据平台</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/static/img/local/bitbug_favicon.ico"/>
-    <!-- Bootstrap CSS -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <!-- bootstrap theme -->
-    <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
-    <!--external css-->
-    <link href="/static/css/select2.css" rel="stylesheet">
-    <!-- font icon -->
-    <link href="/static/css/elegant-icons-style.css" rel="stylesheet"/>
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet"/>
-    <!-- Custom styles -->
-    <link href="/static/css/style.css" rel="stylesheet">
-    <link href="/static/css/style-responsive.css" rel="stylesheet"/>
-</head>
-
-<body>
-<!-- container section start -->
-<section id="container" class="">
-    <!--header start-->
-
-    <header class="header dark-bg">
-        <!--logo start-->
-        <img class="logo" src="/static/img/local/logo.jpg">
-        <!--logo end-->
-        <div class="top-nav notification-row">
-            <ul class="nav pull-right top-menu">
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="profile-ava">
-                             <img alt="" src="/static/img/local/user1.jpg">
-                        </span>
-                        <span class="username"><b>{{ first_name }}</b></span>
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu extended logout">
-                        <div class="log-arrow-up"></div>
-                        <li>
-                            <a href="/logout"><i class="icon_key_alt"></i>退出登录</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <!--header end-->
-    <!--sidebar start-->
-    <aside id="toggle">
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu">
-                <li class="">
-                    <a class="" href="/EagleEye/">
-                        <i class="icon_house_alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_piechart"></i>
-                        <span>实时监控</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="/EagleEye/realtime/order/"><i class="icon_documents_alt"></i>
-                            <small>机酒实时订单</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="/EagleEye/check/"><i class="icon_documents_alt"></i>
-                            <small>机酒可订检查</small>
-                        </a>
-                        <li><a class="" href="/EagleEye/services/"><i class="icon_documents_alt"></i>
-                            <small>机酒推荐查询</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="/EagleEye/realtime/traffic/"><i class="icon_documents_alt"></i>
-                            <small>度假实时流量</small>
-                        </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_datareport_alt"></i>
-                        <span>转化分析</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="/EagleEye/appcr/"><i class="icon_documents_alt"></i>
-                            <small>度假APP转化</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="http://frt.swat.ctripcorp.com:9000/funnelhome"><i
-                                class="icon_documents_alt"></i>
-                            <small>度假转化漏斗</small>
-                        </a></li>
-
-
-                        <li><a class="" href="/EagleEye/uaanalysis/"><i class="icon_documents_alt"></i>
-                            <small>UA分布分析</small>
-                        </a>
-                        <li><a class="" href="http://kpi.bi.ctripcorp.com/#default"><i
-                                class="icon_documents_alt"></i>
-                            <small>KPI Portal</small>
-                        </a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_puzzle"></i>
-                        <span>可订监控</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="/EagleEye/newcheckhistory/"><i class="icon_documents_alt"></i>
-                            <small>机酒可订检查</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="http://frt.swat.ctripcorp.com:9000/pkgcanbooking"><i
-                                class="icon_documents_alt"></i>
-                            <small>团队可订检查</small>
-                        </a></li>
-                        <li><a class="" href="/EagleEye/diyserviceinvoke/"><i class="icon_documents_alt"></i>
-                            <small>机酒查询为空</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="/EagleEye/vacationbookcommit/"><i class="icon_documents_alt"></i>
-                            <small>度假预定失败</small>
-                        </a>
-                        </li>
-                        <li><a class="" href="/EagleEye/handler/"><i class="icon_documents_alt"></i>
-                            <small>度假页面性能</small>
-                        </a>
-                        </li>
-                         <li><a class="" href="/EagleEye/soa/"><i class="icon_documents_alt"></i>
-                            <small>度假接口性能</small>
-                        </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="/EagleEye/apporder/" class="">
-                        <i class="icon_easel"></i>
-                        <span>订单分析</span>
-                    </a>
-                    {#                    <ul class="sub">#}
-                    {#                        <li><a class="" href="#"><i class="icon_documents_alt"></i>#}
-                    {#                            <small>机酒可订检查</small>#}
-                    {#                        </a>#}
-                    {#                        </li>#}
-                    {#                    </ul>#}
-                </li>
-            </ul>
-            <!-- sidebar menu end-->
-        </div>
-        <!-- sidebar menu end-->
-    </aside>
-    <!--sidebar end-->
-
-    <!--main content start-->
+{% extends "base.html" %}
+{% block css %}
+{% endblock %}
+{% block content %}
     <section id="main-content">
         <section class="wrapper">
             <!-- page start-->
@@ -209,55 +44,37 @@
 
         </section>
     </section>
-    <!--main content end-->
-</section>
-<!-- container section end -->
-<!-- javascripts -->
-<!-- js begin -->
-<script src="/static/js/jquery.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/select2.min.js"></script>
-<!-- nice scroll -->
-<script src="/static/js/jquery.scrollTo.min.js"></script>
-<script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
-<!--custome script for all page-->
-<script src="/static/js/scripts.js"></script>
-
-<!-- hightchart themes -->
-<script src="/static/js/highstock/highstock.js"></script>
-<script src="/static/js/highcharts/themes/dark-unica.js"></script>
-
-<!-- local js -->
-<script src="/static/js/Custom/ajax-charts.js"></script>
-<script src="/static/js/Custom/dashboard.js"></script>
-<script type="application/javascript">
-    $(document).ready(function () {
-        var pageid = $('#pageid').val();
-        var interval = $('#interval').val();
-        Highcharts.setOptions({
-            global: {
-                useUTC: false
-            }
-        });
-        chart_traffic = charts.render_double('spline', 'pv', 'uv', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/10", "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/10", 300, 5, 'traffic');
-
-        $('#traffic2').bind('click', function (event) {
-            var pageid = $("#pageid").val();
-            var interval_traffic = $('#interval').val();
-            charts.removeChart(chart_traffic);
-            chart_traffic = charts.render_double('spline', 'pv', 'uv', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid + "/" + interval_traffic, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid + "/" + interval_traffic, 300, 5, 'traffic');
-        });
-        $('.fa').hover(
-                function () {
-                    $(this).css({"color": "#f5675c"});
-                },
-                function () {
-                    $(this).css({"color": "#688a7e"});
+{% endblock %}
+{% block js %}
+    <script src="/static/js/highcharts/themes/dark-unica.js"></script>
+    <script src="/static/js/Custom/dashboard.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            var pageid = $('#pageid').val();
+            var interval = $('#interval').val();
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
                 }
-        );
-        loadpageid();
-    })
-</script>
-<!-- js end -->
-</body>
-</html>
+            });
+            chart_traffic = charts.render_double('spline', 'pv', 'uv', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/0/10", "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/0/10", 300, 5, 'traffic');
+
+            $('#traffic2').bind('click', function (event) {
+                var pageid = $("#pageid").val();
+                var interval_traffic = $('#interval').val();
+                charts.removeChart(chart_traffic);
+                chart_traffic = charts.render_double('spline', 'pv', 'uv', "/EagleEye/ajax/init/traffic/" + sysdate(0) + "/" + pageid + "/" + interval_traffic, "/EagleEye/ajax/update/traffic/" + sysdate(0) + "/" + pageid + "/" + interval_traffic, 300, 5, 'traffic');
+            });
+            $('.fa').hover(
+                    function () {
+                        $(this).css({"color": "#f5675c"});
+                    },
+                    function () {
+                        $(this).css({"color": "#688a7e"});
+                    }
+            );
+            loadpageid();
+        })
+    </script>
+{% endblock %}
+
