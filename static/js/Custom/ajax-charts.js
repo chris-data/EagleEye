@@ -49,7 +49,7 @@ var charts = {
                 renderTo: container,
                 events: {
                     load: function () {
-                        if (appendurl === '') return
+                        if (appendurl === '') return;
                         var series = this.series[0];
                         if (series !== undefined) {
                             this.intervalid = setInterval(function () {
@@ -107,7 +107,7 @@ var charts = {
                     var x = 0;
                     var y = 0;
                     x = points[0].x;
-                    arr.push('<i class="icon_clock_alt"></i> &nbsp;' + Highcharts.dateFormat('%H:%M', x - 1000 * 60 * interval) + '-' + Highcharts.dateFormat('%H:%M', x));
+                    arr.push('<i class="icon_clock_alt"></i> &nbsp;' + Highcharts.dateFormat('%H:%M', x - 1000 * 60 * interval) + '~' + Highcharts.dateFormat('%H:%M', x));
                     for (var i = 0; i < points.length; i++) {
                         var name = $.trim(points[i].series.name);
                         x = points[i].x;
@@ -466,42 +466,8 @@ var charts = {
                     itemMarginBottom: 5,
                     shadow: true,
                     x: 20,
-                    y: 0,
+                    y: 0
                 },
-                //legend: {
-                //    align: 'right',
-                //    verticalAlign: 'top',
-                //    layout: 'vertical',
-                //    y: 30,
-                //    //itemStyle: {
-                //    //    color: '#DDDF0D'
-                //    //},
-                //    //itemHoverStyle: {
-                //    //    color: '#DF5353'
-                //    //},
-                //    //itemHiddenStyle: {
-                //    //    color: '#FFF'
-                //    //},
-                //    navigation: {
-                //        style: {
-                //            color: '#55BF3B'
-                //        }
-                //    },
-                //    labelFormatter: function () {
-                //        if (this.name.length > 200) {
-                //            return this.name.substr(0, 50) + '<br/>' + this.name.substr(50, 50) + '<br/>' + this.name.substr(100, 50) + '<br/>' + this.name.substr(150, 50) + this.name.substring(200);
-                //        } else if (this.name.length > 150) {
-                //            return this.name.substr(0, 50) + '<br/>' + this.name.substr(50, 50) + '<br/>' + this.name.substr(100, 50) + '<br/>' + this.name.substring(150);
-                //        } else if (this.name.length > 100) {
-                //            return this.name.substr(0, 50) + '<br/>' + this.name.substr(50, 50) + '<br/>' + this.name.substring(100);
-                //        } else if (this.name.length > 50) {
-                //            return this.name.substr(0, 50) + '<br/>' + this.name.substring(50);
-                //        } else {
-                //            return this.name;
-                //        }
-                //    }
-                //},
-
                 credits: {
                     enabled: false // 禁用版权信息
                 }
@@ -541,97 +507,13 @@ var charts = {
                         color: '#FFF'
                     }
                 }
-            }
-//options.title = {
-//    text: '',
-//};
-//options.xAxis = {
-//    type: 'datetime',
-//    showFirstLabel: true,
-//    showLastLabel: true,
-//};
-//options.yAxis = {
-//    title: {
-//        text: null
-//    },
-//    plotLines: [{
-//        value: 0,
-//        width: 2,
-//        color: '#808080'
-//    }],
-//    min: 0,
-//    labels: {
-//        enabled: true
-//    },
-//    showLastLabel: true,
-//};
-//options.tooltip = {
-//    shared: true, //是否共享提示，也就是X一样的所有点都显示出来
-//    xDateFormat: '%Y-%m-%d %H:%M',
-//    animation: true,
-//    crosshairs: [{
-//        width: 1,
-//        color: '#8BAFA3'
-//    }, {
-//        width: 1,
-//        color: '#8BAFA3'
-//    }],
-//    useHTML: true,
-//formatter: function () {
-//    var arr = [];
-//    var points = this.points;
-//    var x = 0;
-//    var y = 0;
-//    x = points[0].x;
-//    arr.push('<i class="icon_clock_alt"></i>&nbsp;' + Highcharts.dateFormat('%Y/%m/%d %H:%M', x - 1000 * 60 * interval) + '-' + Highcharts.dateFormat('%H:%M', x));
-//    for (var i = 0; i < points.length; i++) {
-//        var name = $.trim(points[i].series.name);
-//        x = points[i].x;
-//        y = points[i].y;
-//        arr.push('<span style="display:inline-block;margin:2px;color:' + points[i].series.color + '">' + name + '</span><span style="display:inline-block;margin:2px;color:' + points[i].series.color + '">' + y + '</span>&nbsp;');
-//    }
-//    return arr.join("<br>");
-//}
-//,
-//    style: {
-//        padding: 10,
-//        fontWeight: 'bold'
-//    },
-//    followPointer: false,
-//    //backgroundColor: {
-//    //    linearGradient: [0, 0, 0, 60],
-//    //    stops: [
-//    //        [0, '#2E2E2E'],
-//    //        [1, '#E0E0E0']
-//    //    ]
-//    //},
-//    //borderWidth: 1,
-//    borderColor: '#AAA'
-//};
-//options.legend = {
-//    //layout: 'vertical',
-//    //borderWidth: 0.5,
-//    layout: 'horizontal',
-//    align: 'left',
-//    verticalAlign: 'top',
-//    floating: true,
-//    itemMarginBottom: 5,
-//    shadow: true,
-//    x: 20,
-//    y: 0,
-//};
-//options.credits = {
-//    enabled: false // 禁用版权信息
-//};
-//options.exporting = {
-//    enabled: false
-//};
+            };
             options.series = [{
                 name: name,
                 data: data,
                 color: color,
                 shadow: true,
-                stickyTracking: false,
+                stickyTracking: false
             }];
             options.plotOptions = {
                 spline: {
