@@ -160,7 +160,7 @@ vdate between  %s and %s
 ###  新的SDP可订检查接口
 sql_newCheckHistory="""
 select vdate,pagetype,channel,statustype,cnt from  diycanbooking where
-vdate between   %s and %s
+vdate between   %s and %s and bu='diy'
 order by vdate,pagetype,channel,statustype
 """
 
