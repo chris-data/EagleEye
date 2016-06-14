@@ -89,6 +89,71 @@ function checkDP()
 
 
 }
+
+//团队游 APP
+function pkgAPP()
+{
+    var timeArray = getMonth30();
+    var nameArray = [];
+    nameArray[0] = 'APP 全部失败率';
+    nameArray[1] = 'APP 正常预订失败率';
+    nameArray[2] = 'APP 促销秒杀失败率';
+    $checkContainer = $("#pkgAPPH")
+    $checkContainer.empty();//清空翻页标签
+    $checkContainer.append("<div id='pkgAPPAll' style='height:300px;'></div><div id='pkgAPP1' style='height:300px;margin-top:10px'></div><div id='pkgAPP2' style='height:300px;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/pkgcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+     var smallTitle=new Array();
+    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var orderSquence= new Array();
+    orderSquence[0]=36;orderSquence[1]=37;orderSquence[2]=38;
+    var divArray=new Array();
+    divArray[0]='pkgAPPAll';divArray[1]='pkgAPP1';divArray[2]='pkgAPP2';
+    pkgdrawCurve(url, 'spline',divArray, nameArray, timeArray,smallTitle,orderSquence)
+
+}
+
+//团队游 Online
+function pkgOnline()
+{
+ var timeArray = getMonth30();
+    var nameArray = [];
+    nameArray[0] = 'Online 全部失败率';
+    nameArray[1] = 'Online 正常预订失败率';
+    nameArray[2] = 'Online 促销秒杀失败率';
+    $checkContainer = $("#pkgOnlineH")
+    $checkContainer.empty();//清空翻页标签
+    $checkContainer.append("<div id='pkgOnlineAll' style='height:300px;width:90%'></div><div id='pkgOnline1' style='height:300px;width:90%;margin-top:10px'></div><div id='pkgOnline2' style='height:300px;width:90%;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/pkgcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+     var smallTitle=new Array();
+    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var orderSquence= new Array();
+    orderSquence[0]=39;orderSquence[1]=40;orderSquence[2]=41;
+    var divArray=new Array();
+    divArray[0]='pkgOnlineAll';divArray[1]='pkgOnline1';divArray[2]='pkgOnline2';
+    pkgdrawCurve(url, 'spline',divArray, nameArray, timeArray,smallTitle,orderSquence)
+}
+
+//团队游 Offline
+function pkgOffline()
+{
+   var timeArray = getMonth30();
+    var nameArray = [];
+    nameArray[0] = 'Offline 全部失败率';
+    nameArray[1] = 'Offline 正常预订失败率';
+    nameArray[2] = 'Offline 促销秒杀失败率';
+    $checkContainer = $("#pkgOfflineH")
+    $checkContainer.empty();//清空翻页标签
+    $checkContainer.append("<div id='pkgOfflineAll' style='height:300px;width:90%'></div><div id='pkgOffline1' style='height:300px;width:90%;margin-top:10px'></div><div id='pkgOffline2' style='height:300px;width:90%;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/pkgcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+     var smallTitle=new Array();
+    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var orderSquence= new Array();
+    orderSquence[0]=42;orderSquence[1]=43;orderSquence[2]=44;
+    var divArray=new Array();
+    divArray[0]='pkgOfflineAll';divArray[1]='pkgOffline1';divArray[2]='pkgOffline2';
+    pkgdrawCurve(url, 'spline',divArray, nameArray, timeArray,smallTitle,orderSquence)
+}
+
 //获取过去30天日期
 function getMonth30() {
     var timeArray = [];
@@ -525,6 +590,132 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
               var x;
              fail[j] = retobj.value[0+ 6 * j][4] ;
             total[j] = retobj.value[0+ 6 * j][4]  +retobj.value[3+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 36) //团队游APP全部
+        {
+              var x;
+             fail[j] = retobj.value[6+ 18 * j][4] ;
+            total[j] = retobj.value[6+ 18 * j][4]  +retobj.value[7+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 37) //团队游APP 正常
+        {
+              var x;
+             fail[j] = retobj.value[12+ 18 * j][4] ;
+            total[j] = retobj.value[12+ 18 * j][4]  +retobj.value[13+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 38) //团队游APP 促销
+        {
+              var x;
+             fail[j] = retobj.value[0+ 18 * j][4] ;
+            total[j] = retobj.value[0+ 18 * j][4]  +retobj.value[1+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 39) //团队游 Online 全部
+        {
+              var x;
+             fail[j] = retobj.value[10+ 18 * j][4] ;
+            total[j] = retobj.value[10+ 18 * j][4]  +retobj.value[11+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 40) //团队游Online 正常
+        {
+              var x;
+             fail[j] = retobj.value[16+ 18 * j][4] ;
+            total[j] = retobj.value[16+ 18 * j][4]  +retobj.value[17+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 41) //团队游Online 促销
+        {
+             var x;
+             fail[j] = retobj.value[4+ 18 * j][4] ;
+            total[j] = retobj.value[4+ 18 * j][4]  +retobj.value[5+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 42) //团队游Offline 全部
+        {
+             var x;
+             fail[j] = retobj.value[8+ 18 * j][4] ;
+            total[j] = retobj.value[8+ 18 * j][4]  +retobj.value[9+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 43) //团队游Offline 正常
+        {
+              var x;
+             fail[j] = retobj.value[14+ 18 * j][4] ;
+            total[j] = retobj.value[14+ 18 * j][4]  +retobj.value[15+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 44) //团队游Offline 促销
+        {
+             var x;
+             fail[j] = retobj.value[2+ 18 * j][4] ;
+            total[j] = retobj.value[2+ 18 * j][4]  +retobj.value[3+ 18 * j][4]
             if(fail[j]==0)
             {
                 x=0;
@@ -1082,6 +1273,62 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
 
     }
 }
+
+//团队游画图含数
+function pkgdrawCurve(url, type,divID, nameArray, timeArray, smallTitle,orderSquence)
+{
+    var data1 = {};
+    var data2 = {};
+    var data3 = {};
+        var options1=options(divID[0],type,nameArray[0],timeArray,smallTitle)
+        var options2=options(divID[1],type,nameArray[1],timeArray,smallTitle)
+        var options3=options(divID[2],type,nameArray[2],timeArray,smallTitle)
+        var mychart1 = new Highcharts.Chart(options1);
+        var mychart2 = new Highcharts.Chart(options2);
+        var mychart3 = new Highcharts.Chart(options3);
+
+        mychart1.showLoading('Loading data from server...');
+        mychart2.showLoading('Loading data from server...');
+        mychart3.showLoading('Loading data from server...');
+
+        $.getJSON(url, function (data) {
+
+            var reObj = data;
+
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            data1 = dataArray1[0];
+            data2 = dataArray1[1];
+            data3 = dataArray1[2];
+            mychart1.series[0].setData(data1);
+            mychart1.series[1].setData(data2);
+            mychart1.series[2].setData(data3);
+
+            var dataArray2 = getArray(reObj,  orderSquence[1],null)
+            data1 = dataArray2[0];
+            data2 = dataArray2[1];
+            data3 = dataArray2[2];
+            mychart2.series[0].setData(data1);
+            mychart2.series[1].setData(data2);
+            mychart2.series[2].setData(data3);
+            var dataArray3 = getArray(reObj,  orderSquence[2],null)
+            data1 = dataArray3[0];
+            data2 = dataArray3[1];
+            data3 = dataArray3[2];
+            mychart3.series[0].setData(data1);
+            mychart3.series[1].setData(data2);
+            mychart3.series[2].setData(data3);
+
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+
+
+
+        })
+
+}
+
 
 //时间格式函数
 Date.prototype.Format = function (fmt) { //author: meizz

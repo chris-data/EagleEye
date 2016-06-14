@@ -170,3 +170,10 @@ select vdate,statuscode,product,channel,cnt from diycanbookingDP
 where vdate between   %s and %s
 group by vdate,statuscode,product,channel
 """
+###  团队游可订
+sql_pkgCheckHistory="""
+select vdate,pagetype,channel,statustype,cnt from  diycanbooking where
+vdate between   %s and %s and bu='pkg'
+order by vdate,pagetype,channel,statustype
+"""
+

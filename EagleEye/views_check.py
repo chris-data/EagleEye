@@ -441,6 +441,19 @@ def get_olddpcheckhis(request, sdt, edt):
 
     return JsonResponse(mapping)
 
+##团队游可订检查  2016-06-13
+def get_pkgcheckhis(request, sdt, edt):
+
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sql_pkgCheckHistory, [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+
 
 
 
