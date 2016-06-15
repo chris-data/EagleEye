@@ -5262,3 +5262,9 @@ span.customSelect.changed {
 .text-yellow {
     color: #f39c12 !important;
 }
+
+.inputdate {
+    color: #F7A35C;
+    background-color: transparent;
+    font-weight: 600;
+}

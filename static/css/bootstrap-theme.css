@@ -4103,35 +4103,50 @@ textarea.input-group-sm > .input-group-btn > .btn {
     max-width: none;
 }
 
-/*.nav-tabs {*/
-/*border-bottom: 1px solid #d7d7d7;*/
-/*}*/
+.nav-tabs {
+    border-bottom: 0 none;
+}
 
 .nav-tabs > li {
     float: left;
     margin-bottom: -1px;
-
 }
 
 .nav-tabs > li > a {
-    margin-right: 5px;
-    line-height: 12px;
-    border: 1px solid transparent;
-    border-radius: 2px 2px 0 0;
+    border-bottom: medium none !important;
+    border-left: 1px solid #DDDDDD;
+    border-radius: 0 0 0 0;
+    border-right: 1px solid #DDDDDD;
+    border-top: medium none;
+    color: #999999;
+    margin: 0;
+    outline: medium none;
+    padding: 9px 10px 8px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #FFFFFF;
 }
 
-/*.nav-tabs > li > a:hover {*/
-/*border-color: #f7f7f7 #f7f7f7 #d7d7d7;*/
-/*}*/
+.nav-tabs li:first-child a {
+    border-left: medium none !important;
+}
 
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
+.nav-tabs li a:hover {
+    background-color: transparent !important;
+    border-color: #D6D6D6;
+    border-width: 0 1px;
+    color: #34aadc;
+}
+
 .nav-tabs > li.active > a:focus {
-    color: #333;
-    background-color: #EEE;
-    border: 1px solid #c6c6c6;
-    border-bottom-color: transparent;
-    cursor: default;
+    background-color: transparent !important;
+    border-color: #D6D6D6;
+    border-width: 0 1px;
+    color: #34aadc;
+}
+
+.nav-tabs li.active a {
+    background-color: #F9F9F9 !important;
+    color: #34aadc;
 }
 
 .nav-tabs.nav-justified {
