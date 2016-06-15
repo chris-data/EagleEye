@@ -680,7 +680,6 @@ function diyServiceInvoke()
     $orderContainer.empty();//清空翻页标签
     $orderContainer.append("<div id='diyall' style='height:350px;margin-top:5px;width:99%'></div><div id='dp' style='height:350px;float:left;clear:left;width:49%;margin-top: 5px'></div><div id='sdp' style='height:350px;float:left;clear:right;width:49%;margin-left:10px;margin-top: 5px '></div><div id='sdponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='sdpwrilessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdpwrilessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dpwirelessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dpwirelessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div>")
     var urlAll='/EagleEye/ajax/diyservicehis/'+sysdate(-91)+'/'+sysdate(0);//总订单
-    console.log('urlAll:'+urlAll);
     var AllDivIdArray=new Array();
     AllDivIdArray[0]='diyall';AllDivIdArray[1]='dp';AllDivIdArray[2]='sdp';AllDivIdArray[3]='sdponlineDe';
 	AllDivIdArray[4]='sdponlineIn';AllDivIdArray[5]='sdpwrilessDe';AllDivIdArray[6]='sdpwrilessIn';
@@ -1004,10 +1003,12 @@ function drawCurvediyServiceInvoke(url,divIdArray,bigTitleArray,dataArray,timeAr
 //bookcommit专用
 function drawCurveBookCommit(url,divIdArray,bigTitleArray,dataArray,timeArray,pageid)
 {
+
     var data1={}; var data2={};
     var  smallTitle=new Array();smallTitle[0]='失败率';smallTitle[1]='去年同期失败率'
     if(pageid==1)
     {
+
         var options1=getOpition(divIdArray[0],bigTitleArray[0],timeArray,smallTitle,2);//1条线
         var options2=getOpition(divIdArray[1],bigTitleArray[1],timeArray,smallTitle,2);//1条线
         var options3=getOpition(divIdArray[2],bigTitleArray[2],timeArray,smallTitle,2);//1条线
@@ -1040,6 +1041,7 @@ function drawCurveBookCommit(url,divIdArray,bigTitleArray,dataArray,timeArray,pa
 
             var reObj = data;
             var dataArray1 =  getOrderArray(reObj,30, dataArray[0],2)
+             console.log("dataArray1[0]:"+dataArray1[0]);
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             mychart1.series[0].setData(data1);

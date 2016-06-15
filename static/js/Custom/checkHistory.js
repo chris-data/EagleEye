@@ -22,73 +22,216 @@ function checkAll() {
     drawCurve(url, 'spline', nameArray, timeArray, 0,null,smallTitle,orderSquence)
 
 }
-
+var  chart_width ;
 function checkSDP() {   //2016-05-31
-    //定义线的颜色
-    var timeArray = getMonth30();
-    var nameArray = [];
-    nameArray[0] = 'SDP Online-详情页';
-    nameArray[1] = 'SDP APP-详情页';
-    nameArray[2] = 'SDP Online-填写页';
-    nameArray[3] = 'SDP APP-填写页';
-    nameArray[4] = '新机票引擎';
-    nameArray[5] = '旧机票引擎';
+
+
+        //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
+    var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
     $checkContainer = $("#checkContainer")
     $checkContainer.empty();//清空翻页标签
     $checkContainer.append("<div id='all' style='height:300px;width:49%;float:left;clear:left;margin-top: 2px'></div><div id='Dp' style='height:300px;width:49%;float:left;margin-left:10px;margin-top: 2px '></div><div id='Sdp' style='height:300px;width:49%;float:left;clear:left;margin-top: 2px'></div><div id='Online' style='height:300px;width:49%;float:left;margin-left:10px;margin-top:2px'></div><div id='Wireless' style='height:300px;width:49%;float:left;clear:left;margin-top: 2px'></div><div id='Offline' style='height:300px;width:49%;float:left;margin-left:10px;margin-top: 2px '></div>")
-    var url = '/EagleEye/ajax/newcheckhis/'+sysdate(-30)+'/'+sysdate(0);
-     var smallTitle=new Array();
-    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var orderSquence= new Array();
-    orderSquence[0]=22;orderSquence[1]=23;orderSquence[2]=24;orderSquence[3]=25;orderSquence[4]=26;orderSquence[5]=27;
-    drawCurve(url, 'spline', nameArray, timeArray, 0,null,smallTitle,orderSquence)
+    chart_width = $("#all").width();
+     if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+     else if(startDate<'2016-05-13')
+     {
+          alert("之前的数据因没有埋点暂无数据记录")
+     }
+    else {
+         var url = '/EagleEye/ajax/newcheckhis/' + startDate + '/' + endDate;
+         var days = getDays(startDate, endDate) + 1;
+         var bigTitle = [];
+         bigTitle[0] = 'SDP Online-详情页';
+         bigTitle[1] = 'SDP APP-详情页';
+         bigTitle[2] = 'SDP Online-填写页';
+         bigTitle[3] = 'SDP APP-填写页';
+         bigTitle[4] = '新机票引擎';
+         bigTitle[5] = '旧机票引擎';
+         var smallTitle = new Array();
+         smallTitle[0] = '失败率';
+         smallTitle[1] = '失败数';
+         smallTitle[2] = '调用数'
+         var div = new Array();
+         div[0] = 'all';
+         div[1] = 'Dp';
+         div[2] = 'Sdp';
+         div[3] = 'Online';
+         div[4] = 'Wireless';
+         div[5] = 'Offline';
+         var orderSquence = new Array();
+         orderSquence[0] = 4;
+         orderSquence[1] = 5;
+         orderSquence[2] = 6;
+         orderSquence[3] = 7;
+         orderSquence[4] = 8;
+         orderSquence[5] = 9;
+         appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 6, orderSquence, days, 20)
+     }
+
+
+
 
 }
 
 function checkResource()
 {
 
- //定义线的颜色
-    var timeArray = getMonth30();
-    var nameArray = [];
-    nameArray[0] = 'SDP 机票';
-    nameArray[1] = 'SDP 酒店';
-    nameArray[2] = 'SDP 可选项';
-    nameArray[3] = 'SDP 产品';
-    $checkContainer = $("#checkResourceH")
+    console.log("chart_width:"+chart_width);
+    var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+  $checkContainer = $("#checkResourceH")
     $checkContainer.empty();//清空翻页标签
-    $checkContainer.append("<div id='char11' style='height:300px;width:44%;float:left;clear:left;margin-top: 2px'></div><div id='char12' style='height:300px;width:44%;float:left;margin-left:90px;margin-top: 2px '></div><div id='char13' style='height:300px;width:44%;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:44%;float:left;margin-left:90px;margin-top:10px'></div>")
-    var url = '/EagleEye/ajax/newcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+
+     $checkContainer.append("<div id='char11' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char12' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char13' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top:10px'></div>")
+
+     var url = '/EagleEye/ajax/newcheckhis/'+startDate+'/'+endDate ;
+     var days=getDays(startDate,endDate)+1;
+      var bigTitle = [];
+    bigTitle[0] = 'SDP 机票';
+    bigTitle[1] = 'SDP 酒店';
+    bigTitle[2] = 'SDP 可选项';
+    bigTitle[3] = 'SDP 产品';
      var smallTitle=new Array();
-    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var orderSquence= new Array();
-    orderSquence[0]=28;orderSquence[1]=29;orderSquence[2]=30;orderSquence[3]=31;
-    drawCurve(url, 'spline', nameArray, timeArray,5,null,smallTitle,orderSquence)
+     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var div=new Array();
+     div[0]='char11'; div[1]='char12'; div[2]='char13';div[3]='char14';
+     var orderSquence=new Array();
+     orderSquence[0]=10;orderSquence[1]=11;orderSquence[2]=12;orderSquence[3]=13;
+     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,4,orderSquence,days,20)
+
 
 }
 
 function checkDP()
 {
 
-     //定义线的颜色
-    var timeArray = getMonth30();
-    var nameArray = [];
-    nameArray[0] = 'DP 全部';
-    nameArray[1] = 'DP Online';
-    nameArray[2] = 'DP 无线';
-    nameArray[3] = 'DP Offline';
+    var startDate=$("#startdate3").val();
+    var endDate=$("#enddate3").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
     $checkContainer = $("#DPH")
     $checkContainer.empty();//清空翻页标签
-    $checkContainer.append("<div id='char1' style='height:300px;width:44%;float:left;clear:left;margin-top: 10px'></div><div id='char2' style='height:300px;width:44%;float:left;margin-left:90px;margin-top: 10px '></div><div id='char3' style='height:300px;width:44%;float:left;clear:left;margin-top: 10px'></div><div id='char4' style='height:300px;width:44%;float:left;margin-left:90px;margin-top:10px'></div>")
-    var url = '/EagleEye/ajax/olddpcheckhis/'+sysdate(-30)+'/'+sysdate(0);
+   $checkContainer.append("<div id='char1' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char2' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char3' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char4' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/olddpcheckhis/'+startDate+'/'+endDate ;
+     var days=getDays(startDate,endDate)+1;
+      var bigTitle = [];
+    bigTitle[0] = 'SDP 机票';
+    bigTitle[1] = 'SDP 酒店';
+    bigTitle[2] = 'SDP 可选项';
+    bigTitle[3] = 'SDP 产品';
      var smallTitle=new Array();
-    smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var orderSquence= new Array();
-    orderSquence[0]=32;orderSquence[1]=33;orderSquence[2]=34;orderSquence[3]=35;
-    drawCurve(url, 'spline', nameArray, timeArray, 1,null,smallTitle,orderSquence)
+     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var div=new Array();
+     div[0]='char1'; div[1]='char2'; div[2]='char3';div[3]='char4';
+     var orderSquence=new Array();
+     orderSquence[0]=14;orderSquence[1]=15;orderSquence[2]=16;orderSquence[3]=17;
+     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,4,orderSquence,days,6)
 
 
 }
+
+//团队游 APP
+var pkg_chart_width;
+function pkgAPP()
+{
+
+
+         //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
+    var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $checkContainer = $("#pkgAPPH")
+    $checkContainer.empty();//清空翻页标签
+     $checkContainer.append("<div id='pkgAPPAll' style='height:300px;'></div><div id='pkgAPP1' style='height:300px;margin-top:10px'></div><div id='pkgAPP2' style='height:300px;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/pkgcheckhis/'+startDate+'/'+endDate ;
+    pkg_chart_width= $("#pkgAPPAll").width();
+     var  days=getDays(startDate,endDate)+1;
+     var bigTitle = [];
+    bigTitle[0] = 'APP 全部失败率';
+    bigTitle[1] = 'APP 正常预订失败率';
+    bigTitle[2] = 'APP 促销秒杀失败率';
+     var smallTitle=new Array();
+     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var div=new Array();
+     div[0]='pkgAPPAll'; div[1]='pkgAPP1'; div[2]='pkgAPP2';
+     var orderSquence=new Array();
+     orderSquence[0]=18;orderSquence[1]=19;orderSquence[2]=20;
+     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,18)
+
+}
+
+//团队游 Online
+function pkgOnline()
+{
+
+          //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
+    var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $checkContainer = $("#pkgOnlineH")
+    $checkContainer.empty();//清空翻页标签
+     $checkContainer.append("<div id='pkgOnlineAll' style='height:300px;width:"+pkg_chart_width+"px;'></div><div id='pkgOnline1' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div><div id='pkgOnline2' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div>")
+    var url = '/EagleEye/ajax/pkgcheckhis/'+startDate+'/'+endDate ;
+     var  days=getDays(startDate,endDate)+1;
+     var bigTitle = [];
+    bigTitle[0] = 'Online 全部失败率';
+    bigTitle[1] = 'Online 正常预订失败率';
+    bigTitle[2] = 'Online 促销秒杀失败率';
+     var smallTitle=new Array();
+     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var div=new Array();
+     div[0]='pkgOnlineAll'; div[1]='pkgOnline1'; div[2]='pkgOnline2';
+     var orderSquence=new Array();
+     orderSquence[0]=21;orderSquence[1]=22;orderSquence[2]=23;
+     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,18)
+}
+
+//团队游 Offline
+function pkgOffline()
+{
+          //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
+    var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $checkContainer = $("#pkgOfflineH")
+    $checkContainer.empty();//清空翻页标签
+     $checkContainer.append("<div id='pkgOfflineAll' style='height:300px;width:"+pkg_chart_width+"px;'></div><div id='pkgOffline1' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div><div id='pkgOffline2' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div>")
+     var url = '/EagleEye/ajax/pkgcheckhis/'+startDate+'/'+endDate ;
+     var days=getDays(startDate,endDate)+1;
+     var bigTitle = [];
+    bigTitle[0] = 'Offline 全部失败率';
+    bigTitle[1] = 'Offline 正常预订失败率';
+    bigTitle[2] = 'Offline 促销秒杀失败率';
+     var smallTitle=new Array();
+     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
+     var div=new Array();
+     div[0]='pkgOfflineAll'; div[1]='pkgOffline1'; div[2]='pkgOffline2';
+     var orderSquence=new Array();
+     orderSquence[0]=24;orderSquence[1]=25;orderSquence[2]=26;
+     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,18)
+}
+
 //获取过去30天日期
 function getMonth30() {
     var timeArray = [];
@@ -272,268 +415,6 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
             }
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
-        if(k==19) //总体转化率
-        {
-            if(flag==1)//正常情况
-            {
-                  fail[j] = retobj.value[i  +2+ 6 * j][2];//总订单
-            total[j] = retobj.value[i + 5 + 6 * j][2];//总UV
-              var x= (fail[j]*100 / total[j]).toFixed(2);
-            rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
-            }
-            if(flag==0)//异常情况
-            {
-                if(j!=29)
-                {
-                      fail[j] = retobj.value[i  +2+ 6 * j][2];//总订单
-                    total[j] = retobj.value[i + 5 + 6 * j][2];//总UV
-                    var x= (fail[j]*100 / total[j]).toFixed(2);
-                    rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
-                }
-            }
-
-        }
-        if(k==20)//自由行
-        {
-            if(flag==1)//正常情况
-            {
-                 fail[j] = retobj.value[i  + 6 * j][2];//自由行订单
-            total[j] = retobj.value[i + 1 + 6 * j][2] ;//自由行UV
-              var x= (fail[j]*100 / total[j]).toFixed(2);
-            rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
-            }
-            if(flag==0)
-            {
-                if(j!=29)
-                {
-                       fail[j] = retobj.value[i  + 6 * j][2];//自由行订单
-            total[j] = retobj.value[i + 1 + 6 * j][2] ;//自由行UV
-              var x= (fail[j]*100 / total[j]).toFixed(2);
-            rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
-                }
-            }
-
-        }
-        if(k==21) //团队
-        {
-             if(flag==1)//正常情况
-             {
-                 fail[j] = retobj.value[i + 3 + 6 * j][2];//团队订单
-                 total[j] = retobj.value[i + 4 + 6 * j][2];//团队UV
-                 var x = (fail[j]*100 / total[j]).toFixed(2);
-                 rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
-             }
-            if(flag==0)
-            {
-                if(j!=29)
-                {
-                     fail[j] = retobj.value[i + 3 + 6 * j][2];//团队订单
-                 total[j] = retobj.value[i + 4 + 6 * j][2];//团队UV
-                 var x = (fail[j]*100 / total[j]).toFixed(2);
-                 rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
-
-                }
-            }
-        }
-         if (k == 22) //SDP Online详情页
-        {
-            var x;
-            fail[j] = retobj.value[10+ 20 * j][4] ;
-            total[j] = retobj.value[10+ 20 * j][4]  +retobj.value[11+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 23) //SDP APP 详情页
-        {
-             var x;
-             fail[j] = retobj.value[8+ 20 * j][4] ;
-            total[j] = retobj.value[8+ 20 * j][4]  +retobj.value[9+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 24) //SDP Online填写页
-        {
-             var x;
-             fail[j] = retobj.value[2+ 20 * j][4] ;
-            total[j] = retobj.value[2+ 20 * j][4]  +retobj.value[3+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 25) //SDP APP填写页
-        {
-             var x;
-             fail[j] = retobj.value[0+ 20 * j][4] ;
-            total[j] = retobj.value[0+ 20 * j][4]  +retobj.value[1+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 26) //SDP 新机票引擎
-        {
-             var x;
-             fail[j] = retobj.value[4+ 20 * j][4] ;
-            total[j] = retobj.value[4+ 20 * j][4]  +retobj.value[5+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 27) //SDP 旧机票引擎
-        {
-              var x;
-             fail[j] = retobj.value[6+ 20 * j][4] ;
-            total[j] = retobj.value[6+ 20 * j][4]  +retobj.value[7+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 28) //SDP 机票
-        {
-             var x;
-             fail[j] = retobj.value[16+ 20 * j][4] ;
-            total[j] = retobj.value[16+ 20 * j][4]  +retobj.value[17+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 29) //SDP 酒店
-        {
-             var x;
-             fail[j] = retobj.value[18+ 20 * j][4] ;
-            total[j] = retobj.value[18+ 20 * j][4]  +retobj.value[19+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 30) //SDP 可选项
-        {
-             var x;
-             fail[j] = retobj.value[14+ 20 * j][4] ;
-            total[j] = retobj.value[14+ 20 * j][4]  +retobj.value[15+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 31) //SDP 产品
-        {
-              var x;
-             fail[j] = retobj.value[12+ 20 * j][4] ;
-            total[j] = retobj.value[12+ 20 * j][4]  +retobj.value[13+ 20 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 32) //DP 全部
-        {
-              var x;
-             fail[j] = retobj.value[0+ 6 * j][4]+retobj.value[1+ 6 * j][4] +retobj.value[2+ 6 * j][4] ;
-             total[j] = retobj.value[0+ 6 * j][4]+retobj.value[1+ 6 * j][4] +retobj.value[2+ 6 * j][4] +retobj.value[3+ 6 * j][4]+retobj.value[4+ 6 * j][4]+retobj.value[5+ 6 * j][4];
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-
-            }
-            rate[j] = parseFloat(x);
-
-        }
-         if (k == 33) //DP Online
-        {
-              var x;
-             fail[j] = retobj.value[1+ 6 * j][4] ;
-            total[j] = retobj.value[1+ 6 * j][4]  +retobj.value[4+ 6 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 34) //DP 无线
-        {
-              var x;
-             fail[j] = retobj.value[2+ 6 * j][4] ;
-            total[j] = retobj.value[2+ 6 * j][4]  +retobj.value[5+ 6 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
-         if (k == 35) //DP Offline
-        {
-              var x;
-             fail[j] = retobj.value[0+ 6 * j][4] ;
-            total[j] = retobj.value[0+ 6 * j][4]  +retobj.value[3+ 6 * j][4]
-            if(fail[j]==0)
-            {
-                x=0;
-            }
-            else{
-                x= (fail[j]*100 / total[j]).toFixed(2);
-            }
-            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
-        }
 
 
     }
@@ -545,8 +426,9 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
 }
 
 
-function options(divId,type,bigTitle,timeArray,smallTitle)
+function options(divId,type,bigTitle,timeArray,smallTitle,days)
 {
+
 
     var options={};
     var data1 = {};
@@ -597,7 +479,7 @@ function options(divId,type,bigTitle,timeArray,smallTitle)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -711,10 +593,10 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
     var data3 = {};
 
     if (pageid == 1) {
-        var options1=options('char1',type,nameArray[0],timeArray,smallTitle)
-        var options2=options('char2',type,nameArray[1],timeArray,smallTitle)
-        var options3=options('char3',type,nameArray[2],timeArray,smallTitle)
-        var options4=options('char4',type,nameArray[3],timeArray,smallTitle)
+        var options1=options('char1',type,nameArray[0],timeArray,smallTitle,5)
+        var options2=options('char2',type,nameArray[1],timeArray,smallTitle,5)
+        var options3=options('char3',type,nameArray[2],timeArray,smallTitle,5)
+        var options4=options('char4',type,nameArray[3],timeArray,smallTitle,5)
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -768,12 +650,12 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
         })
     }
     if (pageid == 0) {
-         var options1=options('all',type,nameArray[0],timeArray,smallTitle)
-         var options2=options('Dp',type,nameArray[1],timeArray,smallTitle)
-         var options3=options('Sdp',type,nameArray[2],timeArray,smallTitle)
-         var options4=options('Online',type,nameArray[3],timeArray,smallTitle)
-         var options5=options('Wireless',type,nameArray[4],timeArray,smallTitle)
-         var options6=options('Offline',type,nameArray[5],timeArray,smallTitle)
+         var options1=options('all',type,nameArray[0],timeArray,smallTitle,5)
+         var options2=options('Dp',type,nameArray[1],timeArray,smallTitle,5)
+         var options3=options('Sdp',type,nameArray[2],timeArray,smallTitle,5)
+         var options4=options('Online',type,nameArray[3],timeArray,smallTitle,5)
+         var options5=options('Wireless',type,nameArray[4],timeArray,smallTitle,5)
+         var options6=options('Offline',type,nameArray[5],timeArray,smallTitle,5)
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -846,11 +728,11 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
         })
     }
     if(pageid==2){ //资源  机票
-        var options1=options('flight0',type,nameArray[0],timeArray,smallTitle)
-        var options2=options('flight1',type,nameArray[1],timeArray,smallTitle)
-        var options3=options('flight2',type,nameArray[2],timeArray,smallTitle)
-        var options4=options('flight3',type,nameArray[3],timeArray,smallTitle)
-        var options5=options('flight4',type,nameArray[4],timeArray,smallTitle)
+        var options1=options('flight0',type,nameArray[0],timeArray,smallTitle,5)
+        var options2=options('flight1',type,nameArray[1],timeArray,smallTitle,5)
+        var options3=options('flight2',type,nameArray[2],timeArray,smallTitle,5)
+        var options4=options('flight3',type,nameArray[3],timeArray,smallTitle,5)
+        var options5=options('flight4',type,nameArray[4],timeArray,smallTitle,5)
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -926,10 +808,10 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
         }
     }
     if (pageid == 5) {
-        var options1=options('char11',type,nameArray[0],timeArray,smallTitle)
-        var options2=options('char12',type,nameArray[1],timeArray,smallTitle)
-        var options3=options('char13',type,nameArray[2],timeArray,smallTitle)
-        var options4=options('char14',type,nameArray[3],timeArray,smallTitle)
+        var options1=options('char11',type,nameArray[0],timeArray,smallTitle,5)
+        var options2=options('char12',type,nameArray[1],timeArray,smallTitle,5)
+        var options3=options('char13',type,nameArray[2],timeArray,smallTitle,5)
+        var options4=options('char14',type,nameArray[3],timeArray,smallTitle,5)
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -984,9 +866,9 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
     }
     if(pageid==4){
 
-        var options1=options('total',type,nameArray[0],timeArray,smallTitle)
-        var options2=options('diy',type,nameArray[1],timeArray,smallTitle)
-        var options3=options('pkg',type,nameArray[2],timeArray,smallTitle)
+        var options1=options('total',type,nameArray[0],timeArray,smallTitle,5)
+        var options2=options('diy',type,nameArray[1],timeArray,smallTitle,5)
+        var options3=options('pkg',type,nameArray[2],timeArray,smallTitle,5)
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         var mychart3 = new Highcharts.Chart(options3);
@@ -1082,6 +964,7 @@ function drawCurve(url, type, nameArray, timeArray, pageid,resourceType,smallTit
 
     }
 }
+
 
 //时间格式函数
 Date.prototype.Format = function (fmt) { //author: meizz
@@ -1251,12 +1134,965 @@ function checkPlay()//当地玩乐
 //度假app 转化率
 function appVaCR()
 {
-
-     var timeArray = getMonth30();
-     var url = '/EagleEye/ajax/appvacr/'+sysdate(-31)+'/'+sysdate(0) ;
-     var nameArray = [];
-     nameArray[0] = 'app-总体转化率';nameArray[1] = 'app-自由行转化率';nameArray[2] = 'app-团队游转化率';
+    //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
+    var startDate=$("#startdate").val();
+    var endDate=$("#enddate").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else
+    {
+         //将选定的日期作为参数请求对应日期的数据
+     var url = '/EagleEye/ajax/appvacr/'+startDate+'/'+endDate ;
+     var days=getDays(startDate,endDate)+1;
+        console.log("days:"+days);
+     var bigTitle = [];
+     bigTitle[0] = 'APP-总体转化率';bigTitle[1] = 'APP-自由行转化率';bigTitle[2] = 'APP-团队游转化率';
      var smallTitle=new Array();
-      smallTitle[0]='转化率';smallTitle[1]='订单';smallTitle[2]='流量(uv)'
-     drawCurve(url, 'spline', nameArray, timeArray, 4,null,smallTitle,null)
+     smallTitle[0]='转化率';smallTitle[1]='订单';smallTitle[2]='流量(uv)'
+     var div=new Array();
+     div[0]='total'; div[1]='diy'; div[2]='pkg';
+     var orderSquence=new Array();
+     orderSquence[0]=1; orderSquence[1]=2; orderSquence[2]=3;
+     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,6) //6代表每天json数据长度为6
+
+    }
+
+
+}
+//获取选定的时间数组
+function getChoseDate(StartDate,EndDate)
+{
+   var choseTimeArray=new Array();
+   var strSeparator = "-"; //日期分隔符
+   var oDate1;
+   var oDate2;
+   var iDays;
+   oDate1= StartDate.split(strSeparator);
+   oDate2= EndDate.split(strSeparator);
+   var strDateS = new Date(oDate1[0], oDate1[1]-1, oDate1[2]);
+   var strDateE = new Date(oDate2[0], oDate2[1]-1, oDate2[2]);
+   iDays = parseInt(Math.abs(strDateS - strDateE ) / 1000 / 60 / 60 /24)//把相差的毫秒数转换为天数
+    var dd = new Date(oDate1[0],oDate1[1]-1, oDate1[2]);
+    for(var i=0;i<=iDays;i++)
+    {
+        choseTimeArray[i]=dd.Format("yyyy-MM-dd");
+        dd.setDate(dd.getDate() +1);
+
+    }
+    return choseTimeArray;
+}
+
+function appcrCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,days,jsonCnt) //pageid=3代表有3个图   k=2代表两根线
+{
+    var type= 'spline';
+    if (pageid == 1) {
+        var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+        var mychart1 = new Highcharts.Chart(options1);
+        mychart1.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+
+            var reObj = data;
+
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            for(var i=0;i<k;i++)
+            {
+              mychart1.series[i].setData(dataArray1[i]);
+            }
+
+            mychart1.hideLoading();
+        })
+    }
+    else if(pageid == 2)
+    {
+        var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+        var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+        var mychart1 = new Highcharts.Chart(options1);
+        var mychart2 = new Highcharts.Chart(options2);
+        mychart1.showLoading('Loading data from server...');
+        mychart2.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+            var reObj = data;
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            var dataArray2 = getArray(reObj, orderSquence[1],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+              mychart1.series[i].setData(dataArray1[i]);
+              mychart2.series[i].setData(dataArray2[i]);
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+        })
+    }
+     else if(pageid == 3)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+            if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                }
+
+            }
+
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+
+        })
+    }
+    else if(pageid == 4)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                }
+
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+        })
+    }
+    else if(pageid == 5)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                }
+
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+        })
+    }
+    else if(pageid == 6)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                 var dataArray6 = newGetArray(reObj, orderSquence[5],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                 var dataArray6 = newGetArray(reObj, orderSquence[5],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                }
+
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+        })
+    }
+    else if(pageid == 7)
+    {
+          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+        })
+    }
+
+    else if(pageid == 8)
+    {
+          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         var mychart8 = new Highcharts.Chart(options8);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+         mychart8.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+             var dataArray8 = getArray(reObj, orderSquence[7],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+                mychart8.series[i].setData(dataArray8[i]);
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+            mychart8.hideLoading();
+        })
+    }
+    else if(pageid == 9)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+         var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         var mychart8 = new Highcharts.Chart(options8);
+         var mychart9 = new Highcharts.Chart(options9);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+         mychart8.showLoading('Loading data from server...');
+         mychart9.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+             var dataArray8 = getArray(reObj, orderSquence[7],null)
+             var dataArray9 = getArray(reObj, orderSquence[8],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+                mychart8.series[i].setData(dataArray8[i]);
+                mychart9.series[i].setData(dataArray9[i]);
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+            mychart8.hideLoading();
+            mychart9.hideLoading();
+        })
+    }
+    else if(pageid == 10)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+         var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle)
+         var options10=options(div[9],type,bigTitle[9],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         var mychart8 = new Highcharts.Chart(options8);
+         var mychart9 = new Highcharts.Chart(options9);
+         var mychart10 = new Highcharts.Chart(options10);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+         mychart8.showLoading('Loading data from server...');
+         mychart9.showLoading('Loading data from server...');
+         mychart10.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+             var dataArray8 = getArray(reObj, orderSquence[7],null)
+             var dataArray9 = getArray(reObj, orderSquence[8],null)
+             var dataArray10 = getArray(reObj, orderSquence[9],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+                mychart8.series[i].setData(dataArray8[i]);
+                mychart9.series[i].setData(dataArray9[i]);
+                mychart10.series[i].setData(dataArray10[i]);
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+            mychart8.hideLoading();
+            mychart9.hideLoading();
+            mychart10.hideLoading();
+        })
+    }
+
+
+}
+
+
+function newGetArray(retobj, k,flag,days)  //如 k=1自由行转化率   flag=0异常 flag=1正常   days天数
+{
+   var resultThree = [];
+    var fail = [];
+    var total = [];
+    var rate = [];
+    for(var j=0;j<days;j++)
+    {
+        if(k==1)
+        {
+               fail[j] = retobj.value[2+ 6 * j][2];//总订单
+            total[j] = retobj.value[ 5 + 6 * j][2];//总UV
+              var x= (fail[j]*100 / total[j]).toFixed(2);
+            rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
+
+        }
+        else if(k==2)
+        {
+
+                 fail[j] = retobj.value[ 6 * j][2];//自由行订单
+            total[j] = retobj.value[ 1 + 6 * j][2] ;//自由行UV
+              var x= (fail[j]*100 / total[j]).toFixed(2);
+            rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
+
+        }
+        else if(k==3)
+        {
+                 fail[j] = retobj.value[ 3 + 6 * j][2];//团队订单
+                 total[j] = retobj.value[ 4 + 6 * j][2];//团队UV
+                 var x = (fail[j]*100 / total[j]).toFixed(2);
+                 rate[j] = parseFloat(x);//转化率  toFixed(4) parseFloat
+        }
+          if (k == 4) //SDP Online详情页
+        {
+            var x;
+            fail[j] = retobj.value[10+ 20 * j][4] ;
+            total[j] = retobj.value[10+ 20 * j][4]  +retobj.value[11+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 5) //SDP APP 详情页
+        {
+             var x;
+             fail[j] = retobj.value[8+ 20 * j][4] ;
+            total[j] = retobj.value[8+ 20 * j][4]  +retobj.value[9+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 6) //SDP Online填写页
+        {
+             var x;
+             fail[j] = retobj.value[2+ 20 * j][4] ;
+            total[j] = retobj.value[2+ 20 * j][4]  +retobj.value[3+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 7) //SDP APP填写页
+        {
+             var x;
+             fail[j] = retobj.value[0+ 20 * j][4] ;
+            total[j] = retobj.value[0+ 20 * j][4]  +retobj.value[1+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 8) //SDP 新机票引擎
+        {
+             var x;
+             fail[j] = retobj.value[4+ 20 * j][4] ;
+            total[j] = retobj.value[4+ 20 * j][4]  +retobj.value[5+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 9) //SDP 旧机票引擎
+        {
+              var x;
+             fail[j] = retobj.value[6+ 20 * j][4] ;
+            total[j] = retobj.value[6+ 20 * j][4]  +retobj.value[7+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 10) //SDP 机票
+        {
+             var x;
+             fail[j] = retobj.value[16+ 20 * j][4] ;
+            total[j] = retobj.value[16+ 20 * j][4]  +retobj.value[17+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 11) //SDP 酒店
+        {
+             var x;
+             fail[j] = retobj.value[18+ 20 * j][4] ;
+            total[j] = retobj.value[18+ 20 * j][4]  +retobj.value[19+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 12) //SDP 可选项
+        {
+             var x;
+             fail[j] = retobj.value[14+ 20 * j][4] ;
+            total[j] = retobj.value[14+ 20 * j][4]  +retobj.value[15+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 13) //SDP 产品
+        {
+              var x;
+             fail[j] = retobj.value[12+ 20 * j][4] ;
+            total[j] = retobj.value[12+ 20 * j][4]  +retobj.value[13+ 20 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 14) //DP 全部
+        {
+              var x;
+             fail[j] = retobj.value[0+ 6 * j][4]+retobj.value[1+ 6 * j][4] +retobj.value[2+ 6 * j][4] ;
+             total[j] = retobj.value[0+ 6 * j][4]+retobj.value[1+ 6 * j][4] +retobj.value[2+ 6 * j][4] +retobj.value[3+ 6 * j][4]+retobj.value[4+ 6 * j][4]+retobj.value[5+ 6 * j][4];
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+
+            }
+            rate[j] = parseFloat(x);
+
+        }
+         if (k == 15) //DP Online
+        {
+              var x;
+             fail[j] = retobj.value[1+ 6 * j][4] ;
+            total[j] = retobj.value[1+ 6 * j][4]  +retobj.value[4+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 16) //DP 无线
+        {
+              var x;
+             fail[j] = retobj.value[2+ 6 * j][4] ;
+            total[j] = retobj.value[2+ 6 * j][4]  +retobj.value[5+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 17) //DP Offline
+        {
+              var x;
+             fail[j] = retobj.value[0+ 6 * j][4] ;
+            total[j] = retobj.value[0+ 6 * j][4]  +retobj.value[3+ 6 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+        if (k == 18) //团队游APP全部
+        {
+              var x;
+             fail[j] = retobj.value[6+ 18 * j][4] ;
+            total[j] = retobj.value[6+ 18 * j][4]  +retobj.value[7+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 19) //团队游APP 正常
+        {
+              var x;
+             fail[j] = retobj.value[12+ 18 * j][4] ;
+            total[j] = retobj.value[12+ 18 * j][4]  +retobj.value[13+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 20) //团队游APP 促销
+        {
+              var x;
+             fail[j] = retobj.value[0+ 18 * j][4] ;
+            total[j] = retobj.value[0+ 18 * j][4]  +retobj.value[1+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 21) //团队游 Online 全部
+        {
+              var x;
+             fail[j] = retobj.value[10+ 18 * j][4] ;
+            total[j] = retobj.value[10+ 18 * j][4]  +retobj.value[11+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 22) //团队游Online 正常
+        {
+              var x;
+             fail[j] = retobj.value[16+ 18 * j][4] ;
+            total[j] = retobj.value[16+ 18 * j][4]  +retobj.value[17+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 23) //团队游Online 促销
+        {
+             var x;
+             fail[j] = retobj.value[4+ 18 * j][4] ;
+            total[j] = retobj.value[4+ 18 * j][4]  +retobj.value[5+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 24) //团队游Offline 全部
+        {
+             var x;
+             fail[j] = retobj.value[8+ 18 * j][4] ;
+            total[j] = retobj.value[8+ 18 * j][4]  +retobj.value[9+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 25) //团队游Offline 正常
+        {
+              var x;
+             fail[j] = retobj.value[14+ 18 * j][4] ;
+            total[j] = retobj.value[14+ 18 * j][4]  +retobj.value[15+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 26) //团队游Offline 促销
+        {
+             var x;
+             fail[j] = retobj.value[2+ 18 * j][4] ;
+            total[j] = retobj.value[2+ 18 * j][4]  +retobj.value[3+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+
+    }
+    resultThree[0] = rate;
+    resultThree[1] = fail;
+    resultThree[2] = total;
+    return resultThree;
+
+}
+
+//两个日期相减
+    function getDays(strDateStart,strDateEnd){
+   var strSeparator = "-"; //日期分隔符
+   var oDate1;
+   var oDate2;
+   var iDays;
+   oDate1= strDateStart.split(strSeparator);
+   oDate2= strDateEnd.split(strSeparator);
+   var strDateS = new Date(oDate1[0], oDate1[1]-1, oDate1[2]);
+   var strDateE = new Date(oDate2[0], oDate2[1]-1, oDate2[2]);
+   iDays = parseInt(Math.abs(strDateS - strDateE ) / 1000 / 60 / 60 /24)//把相差的毫秒数转换为天数
+   return iDays ;
+}
+
+function getNowDay()
+{
+    var initTime=new Array();
+    var taday=new Date();
+    taday.setDate(taday.getDate()-1)
+    initTime[0]=taday.Format("yyyy-MM-dd");
+    var taday=new Date();
+    taday.setDate(taday.getDate()-30)
+    initTime[1]=taday.Format("yyyy-MM-dd");
+
+    return initTime;
 }

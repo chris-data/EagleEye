@@ -428,8 +428,8 @@ WHERE
     """,
     # app整体转化率
     "appCR": """
-    select vdate,type,cnt from APPVacationCR where
-    vdate> %s and vdate <%s
+    select vdate,type,cnt from tmp_APPVacationCR where
+    vdate between %s and %s
     order by vdate,type
     """  ,
      #度假全部订单
@@ -495,7 +495,7 @@ WHERE
    select * from vacationBookCommit where
   vdate> %s and vdate < %s    and bu='diy'
    union all
-  select * from vacationBookCommit where
+  select * from tmp_vacationBookCommit where
   vdate> %s and vdate < %s   and bu='diy'
   )O
  order by  O.vdate,O.actionType,O.channel

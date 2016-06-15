@@ -6,17 +6,21 @@
     <section id="main-content">
         <section class="wrapper">
             <!-- charts container-->
+              <header id="pkg_header" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                                <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='appVaCR()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
+                </header>
             <div class="panel shadow">
                 <div class="panel-body">
                     <div class="panel shadow">
                         <div class="panel-heading"><i class="icon_grid-3x3"></i>度假APP转化率 &nbsp;
-                    <span class="icon_question_alt2" data-toggle="modal" href="#myModal"
-                          style="float:right;margin-top: 10px;margin-right: 10px"></span>
+                           <span class="icon_question_alt2" data-toggle="modal" href="#myModal" style="float:right;margin-top: 10px;margin-right: 10px"></span>
+
                         </div>
-                        <div>
-                            <p style="color: #FF0000;margin-left: 10px;margin-top:10px"><b>指标算法：总体转化率不含邮轮、签证、游学等，只包含团队游、自由行。其中自由行包括SDP
-                                APP和DP APP产品，团队游包括国内游APP、海外游APP和周边短途APP。</b></p>
-                        </div>
+
                         <div id="total" style="height:300px"></div>
                         <div id="diy" style="margin-top: 10px;height:300px"></div>
                         <div id="pkg" style="margin-top: 10px;height:300px"></div>
@@ -45,6 +49,8 @@
     <script src="/static/js/highcharts/themes/sand-signika.js"></script>
     <script src="/static/js/Custom/checkHistory.js"></script>
     <script type="application/javascript">
+     $("#startdate").val(getNowDay()[1]);
+      $("#enddate").val(getNowDay()[0]);
         appVaCR();
     </script>
 {% endblock %}

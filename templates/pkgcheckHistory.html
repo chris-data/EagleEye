@@ -7,11 +7,11 @@
         <section class="wrapper">
 
             <ul id="myTab" class="nav nav-tabs">
-                <li id="tab_default" class="active"><a href="#home" data-toggle="tab"><i class="icon_house"></i>
-                    SDP</a></li>
-                <li id="tab_flight"><a href="#checkResource" data-toggle="tab" onClick="checkResource()"><i
-                        class="icon_compass"></i>SDP分资源</a></li>
-                <li id="tab_hotel"><a href="#DP" data-toggle="tab" onClick="checkDP()"><i class="icon_building_alt"></i>DP</a>
+                <li id="tab_default" class="active"><a href="#pkgAPP" data-toggle="tab"><i class="icon_house"></i>
+                    团队游APP</a></li>
+                <li id="tab_flight"><a href="#pkgOnline" data-toggle="tab" onClick="pkgOnline()"><i
+                        class="icon_compass"></i>团队游Online</a></li>
+                <li id="tab_hotel"><a href="#pkgOffline" data-toggle="tab" onClick="pkgOffline()"><i class="icon_building_alt"></i>团队游Offline</a>
                 </li>
                 <li class="pull-right" style="margin-top: 8px;">
                     <i class="arrow_right_alt"></i>
@@ -20,20 +20,20 @@
             </ul>
             <!-- params start-->
             <div id="myTabContent" class="tab-content">
-                <div id="home" class="tab-pane fade in active">
+                <div id="pkgAPP" class="tab-pane fade in active">
                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                         <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
                                     <label>开始时间：<input id="startdate1" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                                     <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='checkSDP()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                                </span>
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='pkgAPP()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                         </span>
                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-19，前期无数据埋点暂置为0 。每天凌晨自动更新昨日数据。</p>
+                    <label><p style="color:red;font-size:14px;">数据取自metric,每天凌晨自动更新昨日数据。</p>
                     </label>
-                     </span>
+                    </span>
 
                     </header>
-                    <div id='checkContainer' class="panel-body" style="margin-left:2px;">
+                    <div id='pkgAPPH' class="panel-body" style="margin-left:2px;">
 
                     </div>
                     <div class="panel-footer">
@@ -49,20 +49,22 @@
                         </footer>
                     </div>
                 </div>
-                <div id="checkResource" style="margin-top:10px;" class="tab-pane fade">
+                <div id="pkgOnline" style="margin-top:10px;" class="tab-pane fade">
                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                         <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
                                     <label>开始时间：<input id="startdate2" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                                     <label>截止时间：<input id="enddate2" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='checkResource()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                       </span>
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='pkgOnline()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                         </span>
                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-30，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p>
+                    <label><p style="color:red;font-size:14px;">数据取自metric，每天凌晨自动更新昨日数据。</p>
                     </label>
                      </span>
 
                     </header>
-                    <div id='checkResourceH' style="margin-left:2px;">
+                    <div id='pkgOnlineH' style="margin-left:2px;">
+
+
                     </div>
                     <div style='clear:left' class="panel-footer">
                         <footer class="main-footer">
@@ -77,15 +79,20 @@
                         </footer>
                     </div>
                 </div>
-                <div id="DP" class="tab-pane fade">
+                <div id="pkgOffline" class="tab-pane fade">
                      <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
                       <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
                                     <label>开始时间：<input id="startdate3" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                                     <label>截止时间：<input id="enddate3" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='checkDP()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                       </span>
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='pkgOffline()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                      </span>
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label><p style="color:red;font-size:14px;">数据取自metric，每天凌晨自动更新昨日数据。</p>
+                    </label>
+                     </span>
+
                     </header>
-                    <div id='DPH' style="margin-left:2px;">
+                    <div id='pkgOfflineH' style="margin-left:2px;">
                     </div>
                     <div style='clear:left' class="panel-footer">
                         <footer class="main-footer">
@@ -114,13 +121,13 @@
                 this.name = name;
                 this.cnt = cnt;
             }
-           $("#startdate1").val(getNowDay()[1]);
+             $("#startdate1").val(getNowDay()[1]);
            $("#enddate1").val(getNowDay()[0]);
            $("#startdate2").val(getNowDay()[1]);
            $("#enddate2").val(getNowDay()[0]);
             $("#startdate3").val(getNowDay()[1]);
            $("#enddate3").val(getNowDay()[0]);
-            checkSDP()
+            pkgAPP()
         })
     </script>
 {% endblock %}
