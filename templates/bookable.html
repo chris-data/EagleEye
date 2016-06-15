@@ -1,41 +1,58 @@
 {% extends "base.html" %}
 {% block css %}
+    <style type="text/css">
+        .knob {
+            margin: 200px;
+        }
+
+        .description-text {
+            margin: 20px;
+        }
+    </style>
+
 {% endblock %}
 
 {% block content %}
     <section id="main-content">
         <section class="wrapper">
-            <header id="pkg_header" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>开始时间：<input id="d5221" class="Wdate" type="text" style="width:160px;"
+            <header id="pkg_header" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px;">
+                     <span id="param" style="padding: 3px;display:inline-block;margin-left: 10px;">
+                    <label>开始时间：<input id="d5221" class="Wdate inputdate" type="text" style="width:150px;"
                                        placeholder="-----开始时间-----"
-                                       onFocus="var d5222=$dp.$('d5222');WdatePicker({onpicked:function(){d5222.focus();},maxDate:'#F{$dp.$D(\'d5222\')}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></label>&nbsp;&nbsp;
-                    <label>截止时间：<input id="d5222" class="Wdate" type="text" style="width:160px;"
+                                       onFocus="var d5222=$dp.$('d5222');WdatePicker({onpicked:function(){d5222.focus();},maxDate:'#F{$dp.$D(\'d5222\')}',dateFmt:'yyyy-MM-dd HH:mm'})"/></label>&nbsp;&nbsp;
+                    <label>截止时间：<input id="d5222" class="Wdate inputdate" type="text" style="width:150px;"
                                        placeholder="-----截止时间-----"
-                                       onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d5221\')}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></label>&nbsp;&nbsp;
+                                       onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d5221\')}',dateFmt:'yyyy-MM-dd HH:mm'})"/></label>&nbsp;&nbsp;
+                         <label>间隔时间： <select id="interval" class="selectparam" name="interval" data-toggle="tooltip"
+                                              title="请选择间隔时间">
+                             <option value="3" label="3min">1min</option>
+                             <option value="3" label="3min">3min</option>
+                             <option value="5" label="5min">5min</option>
+                             <option value="10" selected label="10min">10min</option>
+                             <option value="15" label="15min">15min</option>
+                             <option value="20" label="20min">20min</option>
+                             <option value="30" label="30min">30min</option>
+                             <option value="60" label="60min">60min</option>
+                             <option value="1440" label="1440min">1 Day</option>
+                         </select>
+                         </label>
 
-                         <label>间隔时间：</label>
-                    <select id="interval" class="selectparam" name="interval" data-toggle="tooltip" title="请选择间隔时间">
-                        <option value="3" label="3min">1min</option>
-                        <option value="3" label="3min">3min</option>
-                        <option value="5" label="5min">5min</option>
-                        <option value="10" selected label="10min">10min</option>
-                        <option value="15" label="15min">15min</option>
-                        <option value="20" label="20min">20min</option>
-                        <option value="30" label="30min">30min</option>
-                        <option value="60" label="60min">60min</option>
-                    </select>
-                         <div class="btn-group" style="margin-left: 30px">
-                             <button id="1h" class="btn btn-info btn-xs" type="button">最近1小时</button>
-                             <button id="2h" class="btn btn-info btn-xs" type="button">最近2小时</button>
-                             <button id="3h" class="btn btn-info btn-xs" type="button">最近3小时</button>
-                             <button id="1d" class="btn btn-info btn-xs active" type="button">最近1天</button>
-                             <button id="2d" class="btn btn-info btn-xs" type="button">最近2天</button>
-                             <button id="3d" class="btn btn-info btn-xs" type="button">最近3天</button>
-                         </div>
-                         <button type="button" id='search' class="btn btn-info btn-xs" style="margin-left: 20px"><b><i
-                                 class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                         </button>
+                             <div class="btn-group" style="margin-left: 10px">
+                                 <button id="1d" class="btn btn-info btn-xs active" type="button">最近1天</button>
+                                 <button id="2d" class="btn btn-info btn-xs" type="button">最近2天</button>
+                                 <button id="3d" class="btn btn-info btn-xs" type="button">最近3天</button>
+                             </div>
+
+                            <div class="btn-group" style="margin-left: 10px">
+                                <button id="bt_all" class="btn btn-info btn-xs active" type="button">ALL</button>
+                                <button id="bt_dp" class="btn btn-info btn-xs" type="button">DP</button>
+                                <button id="bt_sdp" class="btn btn-info btn-xs" type="button">SDP</button>
+                            </div>
+
+                       <button type="button" id='search' class="btn btn-info btn-xs pull-right"
+                               style="margin-left: 30px"><i class="icon_search"></i>
+                           &nbsp;&nbsp;刷新
+                       </button>
                 </span>
             </header>
             <!-- charts container-->
@@ -43,8 +60,8 @@
                 <div class="panel-heading"><i class="icon_grid-3x3" style="margin-left: 5px"></i>
                     自由行可订检查实时监控
                     <span id="updatedt"></span>
-                    <span id="datasource" style="float: right;margin-right: 5px"><small>统计数据来自：<a
-                            href="http://cdataportal.sh.ctripcorp.com/fx/dashboard/">Matrix</a></small></span>
+                    <span id="datasource" style="float: right;margin-right: 5px"><small>数据来自：<a
+                            href="http://cdataportal.sh.ctripcorp.com/fx/dashboard/"><b>metrix</b></a></small></span>
                 </div>
                 <div class="panel-body" style="background-color: #F7F7F7">
                     <div class="row">
@@ -52,12 +69,21 @@
                             <div id="chart_1"></div>
                         </div>
                         <div class="col-lg-2" style="margin-top: 30px;">
-                            <div class="description-block border-right">
-                                    <span class="description-percentage text-green"><b><i
-                                            class="fa fa-caret-up"></i> 17%</b></span>
-
-                                <div class="description-text">实时整体失败率</div>
-                                <!-- /.description-block -->
+                            <div style="text-align: center">
+                                <div class="description-text">整体失败率(%)</div>
+                                <input type="text" value="0" id="rate" class="knob">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div id="chart_2">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div style="text-align: center">
+                                <div class="description-text">总失败数(次)</div>
+                                <input type="text" value="0" id="failed" class="knob">
                             </div>
                         </div>
                     </div>
@@ -67,31 +93,9 @@
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <div class="">
-                                <span class="description-percentage text-green"><i
-                                        class="fa fa-caret-up"></i> 17 %</span>
-                                <span class="description-text">实时全天失败数</span>
-                            </div>
-
-
-                            {#                            #}
-                            {#                            <div class="description-block border-right">#}
-                            {#                                    <span class="description-percentage text-green"><i#}
-                            {#                                            class="fa fa-caret-up"></i> 17%</span>#}
-                            {#                                <span class="description-text">实时全天失败数</span>#}
-                            {#                            </div>#}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <div id="chart_4">
-                            </div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="description-block border-right">
-                                    <span class="description-percentage text-green"><i
-                                            class="fa fa-caret-up"></i> 17%</span>
-                                <span class="description-text">实时全天调用数</span>
+                            <div style="text-align: center">
+                                <div class="description-text">总调用数(次)</div>
+                                <input type="text" value="0" id="total" class="knob">
                             </div>
                         </div>
                     </div>
@@ -117,36 +121,9 @@
 
 {% block js %}
     <script src="/static/js/jquery.knob.js"></script>
-    <script src="/static/js/D3/d3.min.js"></script>
     <script src="/static/js/Custom/charts.js" charset="utf-8"></script>
+    <script src="/static/js/Custom/bookable.js"></script>
     <script type="application/javascript">
-        $(function () {
-            sdt = sysdatetime(-1);
-            edt = sysdatetime(0);
-            $("#d5221").val = sdt;
-            interval = 10;
-            $(".knob").knob({
-                'width': 100,
-                'thickness': ".1",
-                'fgColor ': '#00a65a'
-            });
-            $('.dial').val(27).trigger('change');
-
-            $.render_line_charts('spline', 'chart_1', '可定失败率', '/EagleEye/bookable/rate/' + sdt + '/' + edt + '/10/', null, 10, null, 250, null, '%', null);
-            $.render_line_charts('spline', 'chart_3', '可定失败数', '/EagleEye/bookable/failure/' + sdt + '/' + edt + '/10/', null, 10, null, 250, null, '次', null);
-            $.render_line_charts('spline', 'chart_4', '可定调用数', '/EagleEye/bookable/all/' + sdt + '/' + edt + '/10/', null, 10, null, 250, null, '次', null);
-
-            $("#search").click(function () {
-                sdt = $("#d5221").val();
-                edt = $("#d5222").val();
-                interval = $("#interval").val();
-                charts.render_singlem2('spline', '失败率', '/EagleEye/bookable/rate/' + sdt + '/' + edt + '/' + interval + '/', '', 250, 10, 'chart_1');
-                charts.render_singlem2('spline', '失败数', '/EagleEye/bookable/failure/' + sdt + '/' + edt + '/' + interval + '/', '', 250, 10, 'chart_3');
-                charts.render_singlem2('spline', '调用总数', '/EagleEye/bookable/all/' + sdt + '/' + edt + '/' + interval + '/', '', 250, 10, 'chart_4');
-            });
-            $(".selectparam").select2({
-                minimumResultsForSearch: Infinity
-            });
-        })
+        init();
     </script>
 {% endblock %}
