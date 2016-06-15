@@ -102,7 +102,7 @@ function init() {
 
         });
         $("#bt_dp").click(function () {
-            alert("DP数据还没进埋点，暂不可用！");
+            alert("Sorry,DP数据暂不可用！");
             return;
             type = 'dp';
             $("#bt_all,#bt_sdp").removeClass('active');
