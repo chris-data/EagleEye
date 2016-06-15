@@ -428,7 +428,7 @@ WHERE
     """,
     # app整体转化率
     "appCR": """
-    select vdate,type,cnt from tmp_APPVacationCR where
+    select vdate,type,cnt from APPVacationCR where
     vdate between %s and %s
     order by vdate,type
     """  ,

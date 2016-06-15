@@ -31,6 +31,7 @@ pageurl = [
     url(r'^handler/$', views_base.get_diy_handler, name='diyhandler'),
     url(r'^soa/$', views_base.get_vac_soa, name='vacsoa'),
     url(r'^newcheckhistory/$', views_base.get_new_checkhistory, name='newcheckhistory'),  ##自由行新可订检查
+      url(r'^pkgcheckhistory/$', views_base.get_pkg_checkhistory, name='pkgcheckhistory'),  ##团队游新可订检查
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -224,6 +225,9 @@ checkurl = [
     ##新的自由行SDP可订
     url(r'^ajax/newcheckhis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_check.get_newcheckhis),
+    ##新的团队游可订
+    url(r'^ajax/pkgcheckhis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
+        views_check.get_pkgcheckhis),
     ##老的自由行DP可订
     url(r'^ajax/olddpcheckhis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_check.get_olddpcheckhis),

@@ -160,9 +160,18 @@ vdate between  %s and %s
 ###  新的SDP可订检查接口
 sql_newCheckHistory="""
 select vdate,pagetype,channel,statustype,cnt from  diycanbooking where
-vdate between   %s and %s
+vdate between   %s and %s and bu='diy'
 order by vdate,pagetype,channel,statustype
 """
+
+
+###  新的团队游可订检查接口
+sql_pkgCheckHistory="""
+select vdate,pagetype,channel,statustype,cnt from  diycanbooking where
+vdate between   %s and %s and bu='pkg'
+order by vdate,pagetype,channel,statustype
+"""
+
 
 ###  老的DP可订检查接口
 sql_oldDPCheckHistory="""
