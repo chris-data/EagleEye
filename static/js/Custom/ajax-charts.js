@@ -30,7 +30,7 @@ var systime = function () {
     var second = now.getSeconds();
     if (second < 10)
         second = '0' + second;
-    return hour + ":" + minute + ":" + second
+    return hour + ":" + minute
 };
 
 var sysdatetime = function (offset) {

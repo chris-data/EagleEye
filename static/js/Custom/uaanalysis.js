@@ -14,6 +14,8 @@ function RenderUAcharts() {
             this.cnt = cnt;
         }
 
+        $('#d5221').val(sysdate(-1));
+        $('#d5222').val(sysdate(0));
         $("[data-toggle = 'tooltip']").tooltip();
         $('#d5221').hover(
             function () {
