@@ -28,10 +28,15 @@ def f(x):
         return x
 
 
-def get_check_all(sdt, edt, interval):
+def get_check_all(sdt, edt, interval, type):
     env = 'PROD'
     metrix_name = "tour.product.shoppingservice.orderavailabilitycounternew"
-    tags = """{"async":["t"],"channel":["MD_DistributionChannel_Online"],"onlypricechange":["f"],"ordertype":["0"],"section":["3"]}"""
+    if type == 'dp':
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["4"]}"""
+    elif type == 'sdp':
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["3"]}"""
+    else:
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["3","4"]}"""
     chart = 'line'
     aggregator = "sum"
     groupby = []
@@ -48,26 +53,35 @@ def get_check_all(sdt, edt, interval):
     if r.status_code == 200:
         a = r.json()
         b = a["time-series-group-list"]
-        c = b[0]["data-points"]
-        points = c["data-points"]
-        basetime = c["base-time"]
-        import pandas as pd
-        interval = interval + 'in'
-        indexs = pd.date_range(start=basetime, end=edt, freq=interval)
+        if len(b)==0:
+            return None,None
+        else:
+            c = b[0]["data-points"]
+            points = c["data-points"]
+            basetime = c["base-time"]
+            total = c["total"]
+            import pandas as pd
+            interval = interval + 'in'
+            indexs = pd.date_range(start=basetime, end=edt, freq=interval)
     else:
-        return None
+        return None,None
     json = {}
 
     for key, value in zip(indexs, points):
         value = f(value)
         json[str(key)] = value
-    return json
+    return json, total
 
 
-def get_check_failed(sdt, edt, interval):
+def get_check_failed(sdt, edt, interval, type):
     env = 'PROD'
     metrix_name = "tour.product.shoppingservice.orderavailabilitycounternew"
-    tags = """{"async":["t"],"channel":["MD_DistributionChannel_Online"],"onlypricechange":["f"],"ordertype":["0"],"section":["3"],"status":["f"]}"""
+    if type == 'dp':
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["4"],"status":["f"]}"""
+    elif type == 'sdp':
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["3"],"status":["f"]}"""
+    else:
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["3","4"],"status":["f"]}"""
     chart = 'line'
     aggregator = "sum"
     groupby = []
@@ -83,25 +97,34 @@ def get_check_failed(sdt, edt, interval):
     if r.status_code == 200:
         a = r.json()
         b = a["time-series-group-list"]
-        c = b[0]["data-points"]
-        points = c["data-points"]
-        basetime = c["base-time"]
-        import pandas as pd
-        interval = interval + 'in'
-        indexs = pd.date_range(start=basetime, end=edt, freq=interval)
+        if len(b)==0:
+            return None,None
+        else:
+            c = b[0]["data-points"]
+            points = c["data-points"]
+            total = c["total"]
+            basetime = c["base-time"]
+            import pandas as pd
+            interval = interval + 'in'
+            indexs = pd.date_range(start=basetime, end=edt, freq=interval)
     else:
         return None
     json = {}
     for key, value in zip(indexs, points):
         value = f(value)
         json[str(key)] = value
-    return json
+    return json, total
 
 
-def get_check_successed(sdt, edt, interval):
+def get_check_successed(sdt, edt, interval, type):
     env = 'PROD'
     metrix_name = "tour.product.shoppingservice.orderavailabilitycounternew"
-    tags = """{"async":["t"],"channel":["MD_DistributionChannel_Online"],"onlypricechange":["f"],"ordertype":["0"],"section":["3"],"status":["t"]}"""
+    if type == 'dp':
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["4"],"status":["t"]}"""
+    elif type == 'sdp':
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["3"],"status":["t"]}"""
+    else:
+        tags = """{"channel":["MD_DistributionChannel_Online","MD_DistributionChannel_MobileAPP","MD_DistributionChannel_Offline"],"onlypricechange":["f"],"ordertype":["0"],"section":["3","4"],"status":["t"]}"""
     chart = 'line'
     aggregator = "sum"
     groupby = []
@@ -118,6 +141,7 @@ def get_check_successed(sdt, edt, interval):
         b = a["time-series-group-list"]
         c = b[0]["data-points"]
         points = c["data-points"]
+        total = c["total"]
         basetime = c["base-time"]
         import pandas as pd
         interval += 'in'
@@ -128,4 +152,4 @@ def get_check_successed(sdt, edt, interval):
     for key, value in zip(indexs, points):
         value = f(value)
         json[str(key)] = value
-    return json
+    return json, total
