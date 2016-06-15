@@ -1,6 +1,8 @@
 # coding=utf8
 # Created by wang.zy at 2016/5/31
 
+from datetime import datetime
+
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -26,7 +28,7 @@ def get_page_bookable(request):
         return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
-def get_bookable_all(request, sdt, edt, interval=10):
+def get_bookable_all(request, sdt, edt=datetime.now(), interval=10, type='all'):
     """
     从Metrix restful API 读取数据
     :param request:
@@ -36,11 +38,11 @@ def get_bookable_all(request, sdt, edt, interval=10):
     # sdt="2016-06-02 00:00:00"
     # edt="2016-06-02 14:12:00"
     # interval=10
-    map = services.get_check_all(sdt, edt, interval)
+    map, x = services.get_check_all(sdt, edt, interval, type)
     return JsonResponse(map, safe=False)
 
 
-def get_bookable_failure(request, sdt, edt, interval=10):
+def get_bookable_failure(request, sdt, edt=datetime.now(), interval=10, type='all'):
     """
     从Metrix restful API 读取数据
     :param request:
@@ -50,15 +52,15 @@ def get_bookable_failure(request, sdt, edt, interval=10):
     # sdt="2016-06-02 00:00:00"
     # edt="2016-06-02 14:12:00"
     # interval=10
-    map = services.get_check_failed(sdt, edt, interval)
+    map, x = services.get_check_failed(sdt, edt, interval, type)
     return JsonResponse(map, safe=False)
 
 
-def get_failure_rate(request, sdt, edt, interval):
+def get_bookable_rate(request, sdt, edt=datetime.now(), interval=10, type='all'):
     # get failure map
-    failure = services.get_check_failed(sdt, edt, interval)
+    failure, a = services.get_check_failed(sdt, edt, interval, type)
     # get bookable map
-    bookable = services.get_check_all(sdt, edt, interval)
+    bookable, b = services.get_check_all(sdt, edt, interval, type)
 
     import pandas as pd
 
@@ -79,18 +81,63 @@ def get_failure_rate(request, sdt, edt, interval):
     return JsonResponse(mapping, safe=False)
 
 
-def get_adhoc_rate(request, sdt, edt):
+# def get_adhoc_rate(request, sdt, edt):
+#     '获取当天平均失败率'
+#     gap = get_interval(sdt, edt)
+#     # failed
+#     failed = services.get_check_failed(sdt, edt, gap)
+#     # total
+#     total = services.get_check_all(sdt, edt, gap)
+#     if failed.get(sdt):
+#         rate = {
+#             "rate": round((failed.get(sdt) / total.get(sdt)) * 100, 2)
+#         }
+#     else:
+#         rate = {
+#             "rate": 0.00
+#         }
+#     return JsonResponse(rate)
 
-    '获取当天平均失败率'
-    gap = get_interval(sdt, edt)
-    # failed
-    failed = services.get_check_failed(sdt, edt, gap)
-    # total
-    total = services.get_check_all(sdt, edt, gap)
-    rate = {
-        "rate": round((failed.get(sdt) / total.get(sdt))*100,4)
-    }
-    return JsonResponse(rate)
+#
+# def get_adhoc_total(request, sdt, edt):
+#     '获取当天总调用数'
+#     gap = get_interval(sdt, edt)
+#     # failed
+#     total = services.get_check_all(sdt, edt, gap)
+#     data = {
+#         'total': total
+#     }
+#     return JsonResponse(data)
+#
+#
+# def get_adhoc_failed(request, sdt, edt):
+#     '获取当天总失败次数'
+#     gap = get_interval(sdt, edt)
+#     # failed
+#     failed = services.get_check_failed(sdt, edt, gap)
+#     data = {
+#         'failed': failed
+#     }
+#     return JsonResponse(data)
+
+
+# def get_today_all(request, sdt, edt):
+#     gap = get_interval(sdt, edt)
+#     # failed
+#     failed = services.get_check_failed(sdt, edt, gap)
+#     # total
+#     total = services.get_check_all(sdt, edt, gap)
+#     if failed.get(sdt):
+#         rate = round((failed.get(sdt) / total.get(sdt)) * 100, 2)
+#
+#     else:
+#         rate = 0.00
+#     data = {
+#         'rate': rate,
+#         'failed': failed.get(sdt),
+#         'total': total.get(sdt)
+#     }
+#     return JsonResponse(data)
 
 
 def get_interval(sdt, edt):
@@ -99,8 +146,23 @@ def get_interval(sdt, edt):
     """
     from dateutil.parser import parse
     interval = parse(edt) - parse(sdt)
-    print('sdt:%s' %sdt)
-    print('edt:%s' %edt)
-    a=int(interval.seconds / 60)
-    print('interval:%s' %a)
-    return int(interval.seconds / 60)
+    return int(interval.days * 1440 + interval.seconds / 60)
+
+
+def get_metrix(request, sdt, edt, type):
+    gap = get_interval(sdt, edt)
+
+    # failed
+    failed, failed_total = services.get_check_failed(sdt, edt, gap, type)
+    # total
+    total, total_total = services.get_check_all(sdt, edt, gap, type)
+    if failed != 0:
+        rate = round((float(failed_total) / float(total_total)) * 100, 2)
+    else:
+        rate = 0.00
+    data = {
+        'rate': rate,
+        'failed': failed_total,
+        'total': total_total
+    }
+    return JsonResponse(data)
