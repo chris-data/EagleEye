@@ -458,24 +458,6 @@ WHERE
     vdate> %s and vdate <%s
     order by vdate,bu
     """,
- # 自由行bookcommit
-    "diybookcommit": """
-   select * from vacationBookCommit where
-  vdate> %s and vdate <%s   and bu='diy'
-   order by vdate,actionType,channel
-    """  ,
-# 团队游bookcommit
-    "pkgbookcommit": """
-   select * from vacationBookCommit where
-  vdate> %s and vdate <%s  and bu='pkg'
-   order by vdate,actionType,channel
-    """  ,
-# 签证 commit
-    "visabookcommit": """
-   select * from vacationBookCommit where
-  vdate> %s and vdate <%s  and bu='visa'
-   order by vdate,actionType,channel
-    """  ,
 #自由行查询为空
    "diyservicehis": """
    select vdate,type,product,channel,status,cnt from serviceinvokelogResults where
@@ -493,10 +475,10 @@ WHERE
  from
    (
    select * from vacationBookCommit where
-  vdate> %s and vdate < %s    and bu='diy'
+  vdate between %s and  %s    and bu='diy'
    union all
   select * from vacationBookCommit where
-  vdate> %s and vdate < %s   and bu='diy'
+  vdate between %s and  %s     and bu='diy'
   )O
  order by  O.vdate,O.actionType,O.channel
     """  ,
@@ -511,10 +493,10 @@ WHERE
  from
    (
    select * from vacationBookCommit where
-  vdate> %s and vdate < %s    and bu='pkg'
+  vdate between %s and  %s  and bu='pkg'
    union all
   select * from vacationBookCommit where
-  vdate> %s and vdate < %s   and bu='pkg'
+  vdate between %s and  %s   and bu='pkg'
   )O
  order by  O.vdate,O.actionType,O.channel
     """  ,
@@ -529,10 +511,10 @@ WHERE
  from
    (
    select * from vacationBookCommit where
-  vdate> %s and vdate < %s    and bu='visa'
+  vdate between %s and  %s    and bu='visa'
    union all
   select * from vacationBookCommit where
-  vdate> %s and vdate < %s   and bu='visa'
+  vdate between %s and  %s   and bu='visa'
   )O
  order by  O.vdate,O.actionType,O.channel
     """  ,

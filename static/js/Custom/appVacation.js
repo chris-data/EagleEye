@@ -200,260 +200,236 @@ function getLastYear(curDate)
     return parseInt(strs[0])-1+'-'+strs[1]+'-'+strs[2];
 }
 //自由行book
+
+var bc_chart_width;
+var bbc_width;
 function diybook()
 {
-    var timeArray = getMonth30(31);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='自由行book失败率';
-    AllTitleArray[1]='sdp app失败率';
-	AllTitleArray[2]='sdp online失败率';
-	AllTitleArray[3]='sdp h5失败率';
-	AllTitleArray[4]='dp app失败率';
-	AllTitleArray[5]='dp online失败率';
-	AllTitleArray[6]='dp h5失败率';
-	AllTitleArray[7]='国际站失败率';
-	AllTitleArray[8]='offline失败率';
-
-    $orderContainer = $("#orderContainer");
+    var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#orderContainer")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='diyall' style='height:250px;margin-top:5px;width:98%'></div><div id='sdpapp' style='height:250px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='sdponline' style='height:250px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='sdph5' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='dpapp' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div><div id='dponline' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='dph5' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div><div id='国际站' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='offline' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-    var urlAll='/EagleEye/ajax/diybookcommitnew/'+getLastYear(sysdate(-31))+'/'+getLastYear(sysdate(0))+'/'+sysdate(-31)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='diyall';AllDivIdArray[1]='sdpapp';AllDivIdArray[2]='sdponline';AllDivIdArray[3]='sdph5';
-	AllDivIdArray[4]='dpapp';AllDivIdArray[5]='dponline';AllDivIdArray[6]='dph5';AllDivIdArray[7]='国际站';AllDivIdArray[8]='offline';
-    var dataArray=new Array();dataArray[0]=20;dataArray[1]=21;dataArray[2]=22;dataArray[3]=23;dataArray[4]=24;dataArray[5]=25;dataArray[6]=26;dataArray[7]=27;dataArray[8]=28;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,1)
+    $orderContainer.append("<div id='diyall' style='height:350px;margin-top:5px;width:99%;'></div><div id='sdpapp' style='height:350px;float:left;clear:left;width:49%;margin-top: 5px'></div><div id='sdponline' style='height:350px;float:left;clear:right;width:49%;margin-left:10px;margin-top: 5px '></div><div id='sdph5' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dpapp' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dponline' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dph5' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='国际站' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='offline' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div>")
+    bc_chart_width= $("#sdph5").width();
+    bbc_width =$("#diyall").width();
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/diybookcommitnew/' +getLastYear(startDate)+'/'+getLastYear(endDate)+'/'+startDate+'/'+endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+         bigTitle[0]='自由行book失败率';
+        bigTitle[1]='sdp app失败率';
+        bigTitle[2]='sdp online失败率';
+        bigTitle[3]='sdp h5失败率';
+        bigTitle[4]='dp app失败率';
+        bigTitle[5]='dp online失败率';
+        bigTitle[6]='dp h5失败率';
+        bigTitle[7]='国际站失败率';
+        bigTitle[8]='offline失败率';
+        var smallTitle = new Array();
+         smallTitle[0]='失败率';smallTitle[1]='历史同期失败率';
+        var div = new Array();
+         div[0]='diyall';div[1]='sdpapp';div[2]='sdponline';div[3]='sdph5';
+	     div[4]='dpapp';div[5]='dponline';div[6]='dph5';div[7]='国际站';div[8]='offline';
+        var orderSquence = new Array();
+        orderSquence[0] = 37;orderSquence[1] = 38;orderSquence[2] = 39;orderSquence[3] = 40;orderSquence[4] = 41;orderSquence[5] = 42;
+        orderSquence[6] = 43;orderSquence[7] = 44;orderSquence[8] = 45
+
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 9, orderSquence, days, 18*2)
+    }
+
 }
 //自由行commit
 function diycommit()
 {
-  var timeArray = getMonth30(31);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='自由行commit失败率';
-    AllTitleArray[1]='sdp app失败率';
-	AllTitleArray[2]='sdp online失败率';
-	AllTitleArray[3]='sdp h5失败率';
-	AllTitleArray[4]='dp app失败率';
-	AllTitleArray[5]='dp online失败率';
-	AllTitleArray[6]='dp h5失败率';
-	AllTitleArray[7]='国际站失败率';
-	AllTitleArray[8]='offline失败率';
 
-    $orderContainer = $("#diycommitH");
+    var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#diycommitH")  //
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='diyallcommit' style='height:250px;margin-top:5px;width:89%'></div><div id='sdpappcommit' style='height:250px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='sdponlinecommit' style='height:250px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='sdph5commit' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='dpappcommit' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div><div id='dponlinecommit' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='dph5commit' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div><div id='国际站commit' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='offlinecommit' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div>")
-    var urlAll='/EagleEye/ajax/diybookcommitnew/'+getLastYear(sysdate(-31))+'/'+getLastYear(sysdate(0))+'/'+sysdate(-31)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='diyallcommit';AllDivIdArray[1]='sdpappcommit';AllDivIdArray[2]='sdponlinecommit';AllDivIdArray[3]='sdph5commit';
-	AllDivIdArray[4]='dpappcommit';AllDivIdArray[5]='dponlinecommit';AllDivIdArray[6]='dph5commit';AllDivIdArray[7]='国际站commit';AllDivIdArray[8]='offlinecommit';
-    var dataArray=new Array();dataArray[0]=29;dataArray[1]=30;dataArray[2]=31;dataArray[3]=32;dataArray[4]=33;dataArray[5]=34;dataArray[6]=35;dataArray[7]=36;dataArray[8]=37;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,1)
+     $orderContainer.append("<div id='diyallcommit' style='height:350px;margin-top:5px;width:"+bbc_width+"px;'></div><div id='sdpappcommit' style='height:350px;float:left;clear:left;width:"+bc_chart_width+"px;;margin-top: 5px'></div><div id='sdponlinecommit' style='height:350px;float:left;clear:right;width:"+bc_chart_width+"px;;margin-left:10px;margin-top: 5px '></div><div id='sdph5commit' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+bc_chart_width+"px;'></div><div id='dpappcommit' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+bc_chart_width+"px; '></div><div id='dponlinecommit' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+bc_chart_width+"px;'></div><div id='dph5commit' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+bc_chart_width+"px; '></div><div id='国际站commit' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+bc_chart_width+"px;'></div><div id='offlinecommit' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+bc_chart_width+"px; '></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/diybookcommitnew/' + getLastYear(startDate) + '/' + getLastYear(endDate) + '/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0] = '自由行commit失败率';
+        bigTitle[1] = 'sdp app失败率';
+        bigTitle[2] = 'sdp online失败率';
+        bigTitle[3] = 'sdp h5失败率';
+        bigTitle[4] = 'dp app失败率';
+        bigTitle[5] = 'dp online失败率';
+        bigTitle[6] = 'dp h5失败率';
+        bigTitle[7] = '国际站失败率';
+        bigTitle[8] = 'offline失败率';
+        var smallTitle = new Array();
+        smallTitle[0] = '失败率';
+        smallTitle[1] = '历史同期失败率';
+        var div = new Array();
+        div[0] = 'diyallcommit';
+        div[1] = 'sdpappcommit';
+        div[2] = 'sdponlinecommit';
+        div[3] = 'sdph5commit';
+        div[4] = 'dpappcommit';
+        div[5] = 'dponlinecommit';
+        div[6] = 'dph5commit';
+        div[7] = '国际站commit';
+        div[8] = 'offlinecommit';
+        var orderSquence = new Array();
+        orderSquence[0] = 46;
+        orderSquence[1] = 47;
+        orderSquence[2] = 48;
+        orderSquence[3] = 49;
+        orderSquence[4] = 50;
+        orderSquence[5] = 51;
+        orderSquence[6] = 52;
+        orderSquence[7] = 53;
+        orderSquence[8] = 54
+
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 9, orderSquence, days, 18 * 2)
+    }
+
 }
 //团队游book
 function pkgbook()
 {
-    var timeArray = getMonth30(31);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='团队游book失败率';
-    AllTitleArray[1]='APP失败率';
-	AllTitleArray[2]='Online失败率';
-	AllTitleArray[3]='H5失败率';
-    AllTitleArray[4]='offline失败率';
-    $orderContainer = $("#pkgbookH");
+
+    var startDate=$("#startdate3").val();
+    var endDate=$("#enddate3").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#pkgbookH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='pkgall' style='height:250px;margin-top:5px;width:89%'></div><div id='pkgapp' style='height:250px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='pkgonline' style='height:250px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='pkgh5' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='pkgoffline' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div>")
-    var urlAll='/EagleEye/ajax/pkgbookcommitnew/'+getLastYear(sysdate(-31))+'/'+getLastYear(sysdate(0))+'/'+sysdate(-31)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='pkgall';AllDivIdArray[1]='pkgapp';AllDivIdArray[2]='pkgonline';AllDivIdArray[3]='pkgh5';
-	AllDivIdArray[4]='pkgoffline';
-    var dataArray=new Array();dataArray[0]=38;dataArray[1]=39;dataArray[2]=40;dataArray[3]=41;dataArray[4]=42;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
+    $orderContainer.append("<div id='pkgall' style='height:350px;margin-top:5px;width:"+bbc_width+"px;'></div><div id='pkgapp' style='height:350px;float:left;clear:left;width:"+bc_chart_width+"px;;margin-top: 5px'></div><div id='pkgonline' style='height:350px;float:left;clear:right;width:"+bc_chart_width+"px;;margin-left:10px;margin-top: 5px '></div><div id='pkgh5' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+bc_chart_width+"px;'></div><div id='pkgoffline' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+bc_chart_width+"px;'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/pkgbookcommitnew/' + getLastYear(startDate) + '/' + getLastYear(endDate) + '/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='团队游book失败率';
+        bigTitle[1]='APP失败率';
+        bigTitle[2]='Online失败率';
+        bigTitle[3]='H5失败率';
+        bigTitle[4]='offline失败率';
+        var smallTitle = new Array();
+        smallTitle[0] = '失败率';
+        smallTitle[1] = '历史同期失败率';
+        var div = new Array();
+        div[0]='pkgall';div[1]='pkgapp';div[2]='pkgonline';div[3]='pkgh5';
+	     div[4]='pkgoffline';
+        var orderSquence = new Array();
+        orderSquence[0] = 55;orderSquence[1] = 56;orderSquence[2] = 57;orderSquence[3] = 58;orderSquence[4] = 59;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 5, orderSquence, days, 10 * 2)
+    }
+
 }
 //团队游commit
 function pkgcommit()
 {
-     var timeArray = getMonth30(31);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='团队游commit失败率';
-    AllTitleArray[1]='APP失败率';
-	AllTitleArray[2]='Online失败率';
-	AllTitleArray[3]='H5失败率';
-    AllTitleArray[4]='offline失败率';
-
-    $orderContainer = $("#pkgcommitH");
+    var startDate=$("#startdate4").val();
+    var endDate=$("#enddate4").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#pkgcommitH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='pkgallcommit' style='height:250px;margin-top:5px;width:89%'></div><div id='pkgappcommit' style='height:250px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='pkgonlinecommit' style='height:250px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='pkgh5commit' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='pkgofflinecommit' style='height:250px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div>")
-      var urlAll='/EagleEye/ajax/pkgbookcommitnew/'+getLastYear(sysdate(-31))+'/'+getLastYear(sysdate(0))+'/'+sysdate(-31)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='pkgallcommit';AllDivIdArray[1]='pkgappcommit';AllDivIdArray[2]='pkgonlinecommit';AllDivIdArray[3]='pkgh5commit';
-	AllDivIdArray[4]='pkgofflinecommit';
-    var dataArray=new Array();dataArray[0]=43;dataArray[1]=44;dataArray[2]=45;dataArray[3]=46;dataArray[4]=47;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
+    $orderContainer.append("<div id='pkgallcommit' style='height:350px;margin-top:5px;width:"+bbc_width+"px;'></div><div id='pkgappcommit' style='height:350px;float:left;clear:left;width:"+bc_chart_width+"px;;margin-top: 5px'></div><div id='pkgonlinecommit' style='height:350px;float:left;clear:right;width:"+bc_chart_width+"px;;margin-left:10px;margin-top: 5px '></div><div id='pkgh5commit' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+bc_chart_width+"px;'></div><div id='pkgofflinecommit' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+bc_chart_width+"px; '></div>")
+     if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/pkgbookcommitnew/' + getLastYear(startDate) + '/' + getLastYear(endDate) + '/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='团队游commit失败率';
+        bigTitle[1]='APP失败率';
+        bigTitle[2]='Online失败率';
+        bigTitle[3]='H5失败率';
+        bigTitle[4]='offline失败率';
+        var smallTitle = new Array();
+        smallTitle[0] = '失败率';
+        smallTitle[1] = '历史同期失败率';
+        var div = new Array();
+        div[0]='pkgallcommit';div[1]='pkgappcommit';div[2]='pkgonlinecommit';div[3]='pkgh5commit';
+	    div[4]='pkgofflinecommit';
+        var orderSquence = new Array();
+        orderSquence[0] = 60;orderSquence[1] = 61;orderSquence[2] = 62;orderSquence[3] = 63;orderSquence[4] = 64;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 5, orderSquence, days, 10 * 2)
+    }
 }
 //签证commit
 function visacommit()
 {
-     var timeArray = getMonth30(31);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='签证commit失败率';
-    AllTitleArray[1]='APP失败率';
-	AllTitleArray[2]='Online失败率';
-	AllTitleArray[3]='H5失败率';
-
-    $orderContainer = $("#visacommitH");
+    var startDate=$("#startdate5").val();
+    var endDate=$("#enddate5").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#visacommitH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='visaall' style='height:250px;margin-top:5px;width:89%'></div><div id='visaapp' style='height:250px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='visaonline' style='height:250px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='visah5' style='height:250px;float:left;clear:left;margin-top: 5px;width:44%'></div>")
-      var urlAll='/EagleEye/ajax/visacommitnew/'+getLastYear(sysdate(-31))+'/'+getLastYear(sysdate(0))+'/'+sysdate(-31)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='visaall';AllDivIdArray[1]='visaapp';AllDivIdArray[2]='visaonline';AllDivIdArray[3]='visah5';
-    var dataArray=new Array();dataArray[0]=48;dataArray[1]=49;dataArray[2]=50;dataArray[3]=51;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,3)
-}
-//搜索
-//自由行book搜索
-function diybookSearch()
-{
-    var calDate=$("#calDate1").val();
-    if(getTimeDiff(calDate)>0)
+    $orderContainer.append("<div id='visaall' style='height:350px;float:left;clear:left;width:"+bc_chart_width+"px;margin-top: 5px'></div><div id='visaapp' style='height:350px;float:left;clear:right;width:"+bc_chart_width+"px;margin-left:10px;margin-top: 5px '></div><div id='visaonline' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+bc_chart_width+"px;'></div><div id='visah5' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+bc_chart_width+"px; '></div>")
+     if(startDate>endDate)
     {
-        alert('请选择正确的日期')
-    }else{
-     var timeArray = getMonth30(31);
-     var AllTitleArray=new Array();
-    AllTitleArray[0]='自由行book失败率';
-    AllTitleArray[1]='sdp app失败率';
-	AllTitleArray[2]='sdp online失败率';
-	AllTitleArray[3]='sdp h5失败率';
-	AllTitleArray[4]='dp app失败率';
-	AllTitleArray[5]='dp online失败率';
-	AllTitleArray[6]='dp h5失败率';
-	AllTitleArray[7]='国际站失败率';
-	AllTitleArray[8]='offline失败率';
-    $orderContainer = $("#orderContainer");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='diyall' style='height:250px;margin-top:5px;width:98%'></div><div id='sdpapp' style='height:250px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='sdponline' style='height:250px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='sdph5' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='dpapp' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div><div id='dponline' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='dph5' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div><div id='国际站' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='offline' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-    var urlAll='/EagleEye/ajax/diybookcommitnew/'+getLastYear(sysdate(-31+getTimeDiff(calDate)))+'/'+getLastYear(sysdate(getTimeDiff(calDate)))+'/'+sysdate(-31+getTimeDiff(calDate))+'/'+sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='diyall';AllDivIdArray[1]='sdpapp';AllDivIdArray[2]='sdponline';AllDivIdArray[3]='sdph5';
-	AllDivIdArray[4]='dpapp';AllDivIdArray[5]='dponline';AllDivIdArray[6]='dph5';AllDivIdArray[7]='国际站';AllDivIdArray[8]='offline';
-    var dataArray=new Array();dataArray[0]=20;dataArray[1]=21;dataArray[2]=22;dataArray[3]=23;dataArray[4]=24;dataArray[5]=25;dataArray[6]=26;dataArray[7]=27;dataArray[8]=28;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,1)
-
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/visacommitnew/' + getLastYear(startDate) + '/' + getLastYear(endDate) + '/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='签证commit失败率';
+        bigTitle[1]='APP失败率';
+        bigTitle[2]='Online失败率';
+        bigTitle[3]='H5失败率';
+        var smallTitle = new Array();
+        smallTitle[0] = '失败率';
+        smallTitle[1] = '历史同期失败率';
+        var div = new Array();
+        div[0]='visaall';div[1]='visaapp';div[2]='visaonline';div[3]='visah5';
+        var orderSquence = new Array();
+        orderSquence[0] = 65;orderSquence[1] = 66;orderSquence[2] = 67;orderSquence[3] = 68;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 3 * 2)
     }
 
-}
-//自由行commit搜索
-function diycommitSearch()
-{
-    var calDate=$("#calDate2").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else{
-     var timeArray = getMonth30(31-getTimeDiff(calDate));
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='自由行commit失败率';
-    AllTitleArray[1]='sdp app失败率';
-	AllTitleArray[2]='sdp online失败率';
-	AllTitleArray[3]='sdp h5失败率';
-	AllTitleArray[4]='dp app失败率';
-	AllTitleArray[5]='dp online失败率';
-	AllTitleArray[6]='dp h5失败率';
-	AllTitleArray[7]='国际站失败率';
-	AllTitleArray[8]='offline失败率';
-
-    $orderContainer = $("#diycommitH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='diyallcommit' style='height:250px;margin-top:5px;width:98%'></div><div id='sdpappcommit' style='height:250px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='sdponlinecommit' style='height:250px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='sdph5commit' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='dpappcommit' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div><div id='dponlinecommit' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='dph5commit' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div><div id='国际站commit' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='offlinecommit' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-    var urlAll='/EagleEye/ajax/diybookcommitnew/'+getLastYear(sysdate(-31+getTimeDiff(calDate)))+'/'+getLastYear(sysdate(getTimeDiff(calDate)))+'/'+sysdate(-31+getTimeDiff(calDate))+'/'+sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='diyallcommit';AllDivIdArray[1]='sdpappcommit';AllDivIdArray[2]='sdponlinecommit';AllDivIdArray[3]='sdph5commit';
-	AllDivIdArray[4]='dpappcommit';AllDivIdArray[5]='dponlinecommit';AllDivIdArray[6]='dph5commit';AllDivIdArray[7]='国际站commit';AllDivIdArray[8]='offlinecommit';
-    var dataArray=new Array();dataArray[0]=29;dataArray[1]=30;dataArray[2]=31;dataArray[3]=32;dataArray[4]=33;dataArray[5]=34;dataArray[6]=35;dataArray[7]=36;dataArray[8]=37;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,1)
-
-    }
 
 }
-//团队游book
-function pkgbookSearch()
-{
- var calDate=$("#calDate3").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else{
-    var timeArray = getMonth30(31-getTimeDiff(calDate));
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='团队游book失败率';
-    AllTitleArray[1]='APP失败率';
-	AllTitleArray[2]='Online失败率';
-	AllTitleArray[3]='H5失败率';
-    AllTitleArray[4]='offline失败率';
-    $orderContainer = $("#pkgbookH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='pkgall' style='height:250px;margin-top:5px;width:98%'></div><div id='pkgapp' style='height:250px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='pkgonline' style='height:250px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='pkgh5' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='pkgoffline' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-     var urlAll='/EagleEye/ajax/pkgbookcommitnew/'+getLastYear(sysdate(-31+getTimeDiff(calDate)))+'/'+getLastYear(sysdate(getTimeDiff(calDate)))+'/'+sysdate(-31+getTimeDiff(calDate))+'/'+sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='pkgall';AllDivIdArray[1]='pkgapp';AllDivIdArray[2]='pkgonline';AllDivIdArray[3]='pkgh5';
-	AllDivIdArray[4]='pkgoffline';
-    var dataArray=new Array();dataArray[0]=38;dataArray[1]=39;dataArray[2]=40;dataArray[3]=41;dataArray[4]=42;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
-    }
-}
-//团队游commit
-function pkgcommitSearch()
-{
-var calDate=$("#calDate4").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else{
-     var timeArray = getMonth30(31-getTimeDiff(calDate));
-      var AllTitleArray=new Array();
-    AllTitleArray[0]='团队游commit失败率';
-    AllTitleArray[1]='APP失败率';
-	AllTitleArray[2]='Online失败率';
-	AllTitleArray[3]='H5失败率';
-    AllTitleArray[4]='offline失败率';
 
-    $orderContainer = $("#pkgcommitH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='pkgallcommit' style='height:250px;margin-top:5px;width:98%'></div><div id='pkgappcommit' style='height:250px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='pkgonlinecommit' style='height:250px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='pkgh5commit' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='pkgofflinecommit' style='height:250px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-     var urlAll='/EagleEye/ajax/pkgbookcommitnew/'+getLastYear(sysdate(-31+getTimeDiff(calDate)))+'/'+getLastYear(sysdate(getTimeDiff(calDate)))+'/'+sysdate(-31+getTimeDiff(calDate))+'/'+sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='pkgallcommit';AllDivIdArray[1]='pkgappcommit';AllDivIdArray[2]='pkgonlinecommit';AllDivIdArray[3]='pkgh5commit';
-	AllDivIdArray[4]='pkgofflinecommit';
-    var dataArray=new Array();dataArray[0]=43;dataArray[1]=44;dataArray[2]=45;dataArray[3]=46;dataArray[4]=47;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
-    }
-}
-//签证commit
-function visacommitSearch()
-{
-    var calDate=$("#calDate6").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else {
-     var timeArray = getMonth30(31-getTimeDiff(calDate));
-     var AllTitleArray=new Array();
-    AllTitleArray[0]='签证commit失败率';
-    AllTitleArray[1]='APP失败率';
-	AllTitleArray[2]='Online失败率';
-	AllTitleArray[3]='H5失败率';
-
-    $orderContainer = $("#visacommitH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='visaall' style='height:250px;margin-top:5px;width:98%'></div><div id='visaapp' style='height:250px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='visaonline' style='height:250px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='visah5' style='height:250px;float:left;clear:left;margin-top: 5px;width:48%'></div>")
-     var urlAll='/EagleEye/ajax/visacommitnew/'+getLastYear(sysdate(-31+getTimeDiff(calDate)))+'/'+getLastYear(sysdate(getTimeDiff(calDate)))+'/'+sysdate(-31+getTimeDiff(calDate))+'/'+sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='visaall';AllDivIdArray[1]='visaapp';AllDivIdArray[2]='visaonline';AllDivIdArray[3]='visah5';
-    var dataArray=new Array();dataArray[0]=48;dataArray[1]=49;dataArray[2]=50;dataArray[3]=51;
-    drawCurveBookCommit(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,3)
-    }
-
-}
 function Vacationsearch()
 {
    var calDate=$("#calDate1").val();
@@ -738,7 +714,6 @@ function drawCurveBookCommit(url,divIdArray,bigTitleArray,dataArray,timeArray,pa
 
             var reObj = data;
             var dataArray1 =  getOrderArray(reObj,30, dataArray[0],2)
-             console.log("dataArray1[0]:"+dataArray1[0]);
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             mychart1.series[0].setData(data1);
@@ -1397,168 +1372,6 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              arr4[j]=retobj.value[2+3* j][2];
              arr1[j]=arr2[j]+arr3[j]+arr4[j]
 
-         }
-         if(k==20)//自由行总book
-         {
-
-             arr1[j]=toDecimal(retobj.value[30*18+7+18* j][3]*100);//现在的数据
-             console.log('yy'+j+'--'+arr1[j]);
-             arr2[j]=toDecimal(retobj.value[7+18* j][3]*100);//历史的数据
-         }
-         if(k==21)//自由行总book sdp app
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+4+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[4+18* j][3]*100);
-         }
-         if(k==22)//自由行总book sdp online
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+6+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[6+18* j][3]*100);
-         }
-         if(k==23)//自由行总book sdp h5
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+5+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[5+18* j][3]*100);
-         }
-         if(k==24)//自由行总book dp app
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+0+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[0+18* j][3]*100);
-         }
-         if(k==25)//自由行总book dp online
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+2+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[2+18* j][3]*100);
-         }
-         if(k==26)//自由行总book dp h5
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+1+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[1+18* j][3]*100);
-         }
-         if(k==27)//自由行总book 国际站
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+8+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[8+18* j][3]*100);
-         }
-         if(k==28)//自由行总book offline
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+3+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[3+18* j][3]*100);
-         }
-         if(k==29)//自由行总commit
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+16+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[16+18* j][3]*100);
-         }
-         if(k==30)//自由行总commit sdp app
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+13+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[13+18* j][3]*100);
-         }
-         if(k==31)//自由行总commit sdp online
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+15+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[15+18* j][3]*100);
-         }
-         if(k==32)//自由行总commit sdp h5
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+14+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[14+18* j][3]*100);
-         }
-         if(k==33)//自由行总commit dp app
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+9+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[9+18* j][3]*100);
-         }
-         if(k==34)//自由行总commit dp online
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+11+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[11+18* j][3]*100);
-         }
-          if(k==35)//自由行总commit dp h5
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+10+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[10+18* j][3]*100);
-         }
-          if(k==36)//自由行总commit 国际站
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+17+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[17+18* j][3]*100);
-         }
-          if(k==37)//自由行总commit offline
-         {
-             arr1[j]=toDecimal(retobj.value[30*18+12+18* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[12+18* j][3]*100);
-         }
-           if(k==38)//团队游总book
-         {
-             arr1[j]=toDecimal(retobj.value[4+10* j][3]);
-             arr2[j]=toDecimal(retobj.value[4+10* j][3]);
-         }
-           if(k==39)//团队游book app
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+0+10*j][3]*100);
-             arr2[j]=toDecimal(retobj.value[0+10* j][3]*100);
-         }
-           if(k==40)//团队游 book online
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+3+10* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[3+10* j][3]*100);
-         }
-           if(k==41)//团队游book h5
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+1+10* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[1+10* j][3]*100);
-         }
-           if(k==42)//团队游book offline
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+2+10* j][3]*100);
-              arr2[j]=toDecimal(retobj.value[2+10* j][3]*100);
-         }
-           if(k==43)//团队游总commit
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+9+10* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[9+10* j][3]*100);
-         }
-           if(k==44)//团队游总commit APP
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+5+8* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[5+8* j][3]*100);
-         }
-           if(k==45)//团队游总commit ONLINE
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+8+10* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[8+10* j][3]*100);
-         }
-           if(k==46)//团队游总commit H5
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+6+10* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[6+10* j][3]*100);
-         }
-             if(k==47)//团队游总commit OFFLINE
-         {
-             arr1[j]=toDecimal(retobj.value[30*10+7+10* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[7+10* j][3]*100);
-         }
-          if(k==48)//签证 总commit
-         {
-             arr1[j]=toDecimal(retobj.value[30*3+0+3* j][3]*100)+toDecimal(retobj.value[30*3+1+3* j][3]*100)+toDecimal(retobj.value[30*3+2+3* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[0+3* j][3]*100)+toDecimal(retobj.value[1+3* j][3]*100)+toDecimal(retobj.value[2+3* j][3]*100);
-         }
-          if(k==49)//签证 app
-         {
-             arr1[j]=toDecimal(retobj.value[30*3+0+3* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[0+3* j][3]*100);
-         }
-          if(k==50)//签证 online
-         {
-             arr1[j]=toDecimal(retobj.value[30*3+2+3* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[2+3* j][3]*100);
-         }
-          if(k==51)//签证 h5
-         {
-             arr1[j]=toDecimal(retobj.value[30*3+1+3* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[1+3* j][3]*100);
          }
 
          if(k==71)//度假h5总订单
