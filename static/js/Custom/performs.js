@@ -2,295 +2,491 @@
  * Created by yangyz on 2016/5/19.
  */
 
-
+var handler_chart_width;
 function handelDetail()
 {
-    var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='详情页-平均值';
-    bigTitle[1]='详情页-最大值';
-    bigTitle[2]='详情页-最小值';
-
-
-    $orderContainer = $("#orderContainer");
+    var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#orderContainer")
     $orderContainer.empty();//清空翻页标签
     $orderContainer.append("<div id='avgDetail' style='height:300px'></div><div id='maxDetail' style='height:300px;margin-top:10px'></div><div id='minDetail' style='height:300px;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/pagehandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgDetail';DivIdArray[1]='maxDetail';DivIdArray[2]='minDetail';
-    var numberArray=new Array();//编号
-    numberArray[0]=1;numberArray[1]=2;numberArray[2]=3;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='产品预订';smallTitle[1]='产品描述信息';smallTitle[2]='产品详情页页面';smallTitle[3]='产品介绍信息';smallTitle[4]='产品地图';
-    smallTitle[5]='机票重新选择';smallTitle[6]='资源反查';smallTitle[7]='单选项资源重新选择';smallTitle[8]='日历框信息';smallTitle[9]='酒店重现选择';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 10)
+    handler_chart_width = $("#avgDetail").width();
+     if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+         var url = '/EagleEye/ajax/pagehandler/' + startDate + '/' + endDate;
+         var days = getDays(startDate, endDate) + 1;
+         var bigTitle = [];
+          bigTitle[0]='详情页-平均值';
+        bigTitle[1]='详情页-最大值';
+        bigTitle[2]='详情页-最小值';
+         var smallTitle = new Array();
+         smallTitle[0]='产品预订';smallTitle[1]='产品描述信息';smallTitle[2]='产品详情页页面';smallTitle[3]='产品介绍信息';smallTitle[4]='产品地图';
+         smallTitle[5]='机票重新选择';smallTitle[6]='资源反查';smallTitle[7]='单选项资源重新选择';smallTitle[8]='日历框信息';smallTitle[9]='酒店重现选择';
+         var div = new Array();
+         div[0] = 'avgDetail';
+         div[1] = 'maxDetail';
+         div[2] = 'minDetail';
+         var orderSquence = new Array();
+         orderSquence[0] = 1;
+         orderSquence[1] = 2;
+         orderSquence[2] = 3;
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34)
+     }
 
 }
 
 function canchosepage()
 {
- var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='可选项页-平均值';
-    bigTitle[1]='可选项页-最大值';
-    bigTitle[2]='可选项页-最小值';
-    $orderContainer = $("#handlerchoseH");
+    var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#handlerchoseH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgcanchose' style='height:300px;width:90%'></div><div id='maxcanchose' style='height:300px;margin-top:10px;width:90%'></div><div id='mincanchose' style='height:300px;margin-top:10px;width:90%'></div>")
-    var url='/EagleEye/ajax/pagehandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgcanchose';DivIdArray[1]='maxcanchose';DivIdArray[2]='mincanchose';
-    var numberArray=new Array();//编号
-    numberArray[0]=4;numberArray[1]=5;numberArray[2]=6;
-
-    //可选项页
-     var smallTitle=new Array();
-    smallTitle[0]='头部资源框价格框加载';smallTitle[1]='预订';smallTitle[2]='资源反查';
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 3)
+     $orderContainer.append("<div id='avgcanchose' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxcanchose' style='height:300px;margin-top:10px;width:"+handler_chart_width+"px;'></div><div id='mincanchose' style='height:300px;margin-top:10px;width:"+handler_chart_width+"px;'></div>")
+     if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+         var url = '/EagleEye/ajax/pagehandler/' + startDate + '/' + endDate;
+         var days = getDays(startDate, endDate) + 1;
+         var bigTitle = [];
+          bigTitle[0]='可选项页-平均值';
+          bigTitle[1]='可选项页-最大值';
+          bigTitle[2]='可选项页-最小值';
+         var smallTitle = new Array();
+          smallTitle[0]='头部资源框价格框加载';smallTitle[1]='预订';smallTitle[2]='资源反查';
+         var div = new Array();
+         div[0] = 'avgcanchose';
+         div[1] = 'maxcanchose';
+         div[2] = 'mincanchose';
+         var orderSquence = new Array();
+         orderSquence[0] = 4;
+         orderSquence[1] = 5;
+         orderSquence[2] = 6;
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34)
+     }
 
 }
 function fillpage()//填写页
 {
-   var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='填写页-平均值';
-    bigTitle[1]='填写页-最大值';
-    bigTitle[2]='填写页-最小值';
-    $orderContainer = $("#handlerfillH");
+     var startDate=$("#startdate3").val();
+    var endDate=$("#enddate3").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#handlerfillH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgfill' style='height:300px;width:90%'></div><div id='maxfill' style='height:300px;margin-top:10px;width:90%'></div><div id='minfill' style='height:300px;margin-top:10px;width:90%'></div>")
-    var url='/EagleEye/ajax/pagehandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgfill';DivIdArray[1]='maxfill';DivIdArray[2]='minfill';
-    var numberArray=new Array();//编号
-    numberArray[0]=7;numberArray[1]=8;numberArray[2]=9;
-      //填写页
-    var smallTitleFill=new Array();
-    smallTitleFill[0]='融合页面资源框加载';smallTitleFill[1]='获取优惠信息';smallTitleFill[2]='验证优惠';smallTitleFill[3]='融合页面获取优惠';smallTitleFill[4]='融合页面优惠验证';
-    smallTitleFill[5]='发票配送';smallTitleFill[6]='保存配送地址';smallTitleFill[7]='融合页面发票信息';smallTitleFill[8]='融合页面可订检查';smallTitleFill[9]='融合页面旅客模板';
-    smallTitleFill[10]='融合页面page';smallTitleFill[11]='融合页面订单提交';smallTitleFill[12]='订单重复检查';smallTitleFill[13]='旅客信息获取';smallTitleFill[14]='page';smallTitleFill[15]='提交订单';
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitleFill,timeArray, 16)
+     $orderContainer.append("<div id='avgfill' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxfill' style='height:300px;margin-top:10px;width:"+handler_chart_width+"px;'></div><div id='minfill' style='height:300px;margin-top:10px;width:"+handler_chart_width+"px;'></div>")
+   if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+         var url = '/EagleEye/ajax/pagehandler/' + startDate + '/' + endDate;
+         var days = getDays(startDate, endDate) + 1;
+         var bigTitle = [];
+          bigTitle[0]='填写页-平均值';
+          bigTitle[1]='填写页-最大值';
+          bigTitle[2]='填写页-最小值';
+          var smallTitleFill = new Array();
+            smallTitleFill[0]='融合页面资源框加载';smallTitleFill[1]='获取优惠信息';smallTitleFill[2]='验证优惠';smallTitleFill[3]='融合页面获取优惠';smallTitleFill[4]='融合页面优惠验证';
+            smallTitleFill[5]='发票配送';smallTitleFill[6]='保存配送地址';smallTitleFill[7]='融合页面发票信息';smallTitleFill[8]='融合页面可订检查';smallTitleFill[9]='融合页面旅客模板';
+            smallTitleFill[10]='融合页面page';smallTitleFill[11]='融合页面订单提交';smallTitleFill[12]='订单重复检查';smallTitleFill[13]='旅客信息获取';smallTitleFill[14]='page';smallTitleFill[15]='提交订单';
+         var div = new Array();
+         div[0] = 'avgfill';
+         div[1] = 'maxfill';
+         div[2] = 'minfill';
+         var orderSquence = new Array();
+         orderSquence[0] = 7;
+         orderSquence[1] = 8;
+         orderSquence[2] = 9;
+         handlerCurve(url, div, bigTitle, smallTitleFill, choseTimeArray,3, orderSquence, days, 34)
+     }
 }
 
 function endpage()
 {
- var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='完成页-平均值';
-    bigTitle[1]='完成页-最大值';
-    bigTitle[2]='完成页-最小值';
-    $orderContainer = $("#handlerendH");
+     var startDate=$("#startdate4").val();
+    var endDate=$("#enddate4").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#handlerendH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgend' style='height:300px;width:90%'></div><div id='maxend' style='height:300px;margin-top:10px;width:90%'></div><div id='minend' style='height:300px;margin-top:10px;width:90%'></div>")
-    var url='/EagleEye/ajax/pagehandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgend';DivIdArray[1]='maxend';DivIdArray[2]='minend';
-    var numberArray=new Array();//编号
-    numberArray[0]=10;numberArray[1]=11;numberArray[2]=12;
-
-   //完成页
-     var smallTitle=new Array();
-    smallTitle[0]='检查订单状态';smallTitle[1]='推荐信息';smallTitle[2]='page';smallTitle[3]='加载订单状态';smallTitle[4]='融合成功页';
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 5)
+     $orderContainer.append("<div id='avgend' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxend' style='height:300px;margin-top:10px;width:"+handler_chart_width+"px;'></div><div id='minend' style='height:300px;margin-top:10px;width:"+handler_chart_width+"px;'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+         var url = '/EagleEye/ajax/pagehandler/' + startDate + '/' + endDate;
+         var days = getDays(startDate, endDate) + 1;
+         var bigTitle = [];
+          bigTitle[0]='完成页-平均值';
+        bigTitle[1]='完成页-最大值';
+        bigTitle[2]='完成页-最小值';
+          var smallTitle = new Array();
+           smallTitle[0]='检查订单状态';smallTitle[1]='推荐信息';smallTitle[2]='page';smallTitle[3]='加载订单状态';smallTitle[4]='融合成功页'; var div = new Array();
+         var div = new Array();
+        div[0] = 'avgend';
+         div[1] = 'maxend';
+         div[2] = 'minend';
+         var orderSquence = new Array();
+         orderSquence[0] = 10;
+         orderSquence[1] = 11;
+         orderSquence[2] = 12;
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34)
+     }
 
 }
 //自由行-SDP 详情页
 function diysdpdetail()
 {
-    var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='SDP详情页-平均值';
-    bigTitle[1]='SDP详情页-最大值';
-    bigTitle[2]='SDP详情页-最小值';
 
-
-    $orderContainer = $("#diysdpdetailH");
+    var startDate=$("#startdate5").val();
+    var endDate=$("#enddate5").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#diysdpdetailH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgDiySDPDetail' style='height:300px;width:90%'></div><div id='maxDiySDPDetail' style='height:300px;width:90%;margin-top:10px'></div><div id='minDiySDPDetail' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgDiySDPDetail';DivIdArray[1]='maxDiySDPDetail';DivIdArray[2]='minDiySDPDetail';
-    var numberArray=new Array();//编号
-    numberArray[0]=16;numberArray[1]=17;numberArray[2]=18;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='主页';smallTitle[1]='日历框';smallTitle[2]='机酒搜索';smallTitle[3]='X资源搜索';smallTitle[4]='“下一步”更新资源';
-    smallTitle[5]='“下一步”可订检查(SDP/DP)';smallTitle[6]='重选机票(SDP/DP)';smallTitle[7]='重选酒店(SDP/DP)';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 8)
+     $orderContainer.append("<div id='avgDiySDPDetail' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxDiySDPDetail' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minDiySDPDetail' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+         var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+         var days = getDays(startDate, endDate) + 1;
+         var bigTitle = [];
+         bigTitle[0]='SDP详情页-平均值';
+        bigTitle[1]='SDP详情页-最大值';
+        bigTitle[2]='SDP详情页-最小值';
+          var smallTitle = new Array();
+         smallTitle[0]='主页';smallTitle[1]='日历框';smallTitle[2]='机酒搜索';smallTitle[3]='X资源搜索';smallTitle[4]='“下一步”更新资源';
+        smallTitle[5]='“下一步”可订检查(SDP/DP)';smallTitle[6]='重选机票(SDP/DP)';smallTitle[7]='重选酒店(SDP/DP)';
+         var div = new Array();
+        div[0] = 'avgDiySDPDetail';
+         div[1] = 'maxDiySDPDetail';
+         div[2] = 'minDiySDPDetail';
+         var orderSquence = new Array();
+         orderSquence[0] = 16;
+         orderSquence[1] = 17;
+         orderSquence[2] = 18;
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 27)
+     }
 }
 
 function diydpdetail() //自由行DP详情页
 {
-     var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='DP详情页-平均值';
-    bigTitle[1]='DP详情页-最大值';
-    bigTitle[2]='DP详情页-最小值';
 
 
-    $orderContainer = $("#diydpdetailH");
+     var startDate=$("#startdate6").val();
+    var endDate=$("#enddate6").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#diydpdetailH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgDiyDPDetail' style='height:300px;width:90%'></div><div id='maxDiyDPDetail' style='height:300px;width:90%;margin-top:10px'></div><div id='minDiyDPDetail' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgDiyDPDetail';DivIdArray[1]='maxDiyDPDetail';DivIdArray[2]='minDiyDPDetail';
-    var numberArray=new Array();//编号
-    numberArray[0]=19;numberArray[1]=20;numberArray[2]=21;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='“下一步”更新资源';smallTitle[1]='“下一步”可订检查(SDP/DP)';smallTitle[2]='重新机票(SDP/DP)';smallTitle[3]='重新酒店(SDP/DP)';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 4)
+     $orderContainer.append("<div id='avgDiyDPDetail' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxDiyDPDetail' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minDiyDPDetail' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0] = 'DP详情页-平均值';
+        bigTitle[1] = 'DP详情页-最大值';
+        bigTitle[2] = 'DP详情页-最小值';
+        var smallTitle = new Array();
+        smallTitle[0] = '“下一步”更新资源';
+        smallTitle[1] = '“下一步”可订检查(SDP/DP)';
+        smallTitle[2] = '重新机票(SDP/DP)';
+        smallTitle[3] = '重新酒店(SDP/DP)';
+        var div = new Array();
+        div[0] = 'avgDiyDPDetail';
+        div[1] = 'maxDiyDPDetail';
+        div[2] = 'minDiyDPDetail';
+        var orderSquence = new Array();
+        orderSquence[0] = 19;
+        orderSquence[1] = 20;
+        orderSquence[2] = 21;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+    }
 }
 function  diydpfill()//DP填写页
 {
- var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='DP填写页-平均值';
-    bigTitle[1]='DP填写页-最大值';
-    bigTitle[2]='DP填写页-最小值';
-
-
-    $orderContainer = $("#diydpfillH");
+    var startDate=$("#startdate7").val();
+    var endDate=$("#enddate7").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#diydpfillH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgDiyDPFill' style='height:300px;width:90%'></div><div id='maxDiyDPFill' style='height:300px;width:90%;margin-top:10px'></div><div id='minDiyDPFill' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
+     $orderContainer.append("<div id='avgDiyDPFill' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxDiyDPFill' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minDiyDPFill' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0] = 'DP填写页-平均值';
+        bigTitle[1] = 'DP填写页-最大值';
+        bigTitle[2] = 'DP填写页-最小值';
+        var smallTitle = new Array();
+        smallTitle[0] = '填写页';
+        smallTitle[1] = '中文姓名转英文姓名';
+        smallTitle[2] = '选常旅时触发';
+        smallTitle[3] = '填写页点下一步';
+        smallTitle[4] = '获取城市代码';
+        var div = new Array();
+        div[0] = 'avgDiyDPFill';
+        div[1] = 'maxDiyDPFill';
+        div[2] = 'minDiyDPFill';
+        var orderSquence = new Array();
+        orderSquence[0] = 22;
+        orderSquence[1] = 23;
+        orderSquence[2] = 24;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+    }
 
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgDiyDPFill';DivIdArray[1]='maxDiyDPFill';DivIdArray[2]='minDiyDPFill';
-    var numberArray=new Array();//编号
-    numberArray[0]=22;numberArray[1]=23;numberArray[2]=24;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='填写页';smallTitle[1]='中文姓名转英文姓名';smallTitle[2]='选常旅时触发';smallTitle[3]='填写页点下一步';smallTitle[4]='获取城市代码';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 5)
 }
 function  diydpend()// DP完成页
 {
-    var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='DP完成页-平均值';
-    bigTitle[1]='DP完成页-最大值';
-    bigTitle[2]='DP完成页-最小值';
-
-    $orderContainer = $("#diydpendH");
+    var startDate=$("#startdate8").val();
+    var endDate=$("#enddate8").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#diydpendH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgDiyDPEnd' style='height:300px;width:90%'></div><div id='maxDiyDPEnd' style='height:300px;width:90%;margin-top:10px'></div><div id='minDiyDPEnd' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
+    $orderContainer.append("<div id='avgDiyDPEnd' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxDiyDPEnd' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minDiyDPEnd' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='DP完成页-平均值';
+        bigTitle[1]='DP完成页-最大值';
+        bigTitle[2]='DP完成页-最小值';
+        var smallTitle = new Array();
+         smallTitle[0]='完成页';
+        var div = new Array();
+        div[0] = 'avgDiyDPEnd';
+        div[1] = 'maxDiyDPEnd';
+        div[2] = 'minDiyDPEnd';
+        var orderSquence = new Array();
+        orderSquence[0] = 25;
+        orderSquence[1] = 26;
+        orderSquence[2] = 27;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+    }
 
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgDiyDPEnd';DivIdArray[1]='maxDiyDPEnd';DivIdArray[2]='minDiyDPEnd';
-    var numberArray=new Array();//编号
-    numberArray[0]=25;numberArray[1]=26;numberArray[2]=27;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='完成页';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 1)
 }
 function  insurdeatil()//保险详情页
 {
-    var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='保险详情页-平均值';
-    bigTitle[1]='保险详情页-最大值';
-    bigTitle[2]='保险详情页-最小值';
 
-    $orderContainer = $("#insurdeatilH");
+
+    var startDate=$("#startdate9").val();
+    var endDate=$("#enddate9").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#insurdeatilH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgInsurDetail' style='height:300px;width:90%'></div><div id='maxInsurDetail' style='height:300px;width:90%;margin-top:10px'></div><div id='minInsurDetail' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
+    $orderContainer.append("<div id='avgInsurDetail' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxInsurDetail' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minInsurDetail' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='保险详情页-平均值';
+        bigTitle[1]='保险详情页-最大值';
+        bigTitle[2]='保险详情页-最小值';
+        var smallTitle = new Array();
+        smallTitle[0]='产品详情页';smallTitle[1]='产品询价详情页';smallTitle[2]='产品搜索页';
+        var div = new Array();
+        div[0] = 'avgInsurDetail';
+        div[1] = 'maxInsurDetail';
+        div[2] = 'minInsurDetail';
+        var orderSquence = new Array();
+        orderSquence[0] = 28;
+        orderSquence[1] = 29;
+        orderSquence[2] = 30;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+    }
 
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgInsurDetail';DivIdArray[1]='maxInsurDetail';DivIdArray[2]='minInsurDetail';
-    var numberArray=new Array();//编号
-    numberArray[0]=28;numberArray[1]=29;numberArray[2]=30;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='产品详情页';smallTitle[1]='产品询价详情页';smallTitle[2]='产品搜索页';
 
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 3)
 }
 function  insurfill()//保险填写页
 {
-    var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='保险填写页-平均值';
-    bigTitle[1]='保险填写页-最大值';
-    bigTitle[2]='保险填写页-最小值';
-
-    $orderContainer = $("#insurfillH");
+    var startDate=$("#startdate10").val();
+    var endDate=$("#enddate10").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#insurfillH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgInsurFill' style='height:300px;width:90%'></div><div id='maxInsurFill' style='height:300px;width:90%;margin-top:10px'></div><div id='minInsurFill' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgInsurFill';DivIdArray[1]='maxInsurFill';DivIdArray[2]='minInsurFill';
-    var numberArray=new Array();//编号
-    numberArray[0]=31;numberArray[1]=32;numberArray[2]=33;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='获取国家';smallTitle[1]='获取区域目的地';smallTitle[2]='询价';smallTitle[3]='订单提交';smallTitle[4]='去支付';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 5)
+     $orderContainer.append("<div id='avgInsurFill' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxInsurFill' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minInsurFill' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+       bigTitle[0]='保险填写页-平均值';
+        bigTitle[1]='保险填写页-最大值';
+        bigTitle[2]='保险填写页-最小值';
+        var smallTitle = new Array();
+         smallTitle[0]='获取国家';smallTitle[1]='获取区域目的地';smallTitle[2]='询价';smallTitle[3]='订单提交';smallTitle[4]='去支付';
+        var div = new Array();
+        div[0] = 'avgInsurFill';
+        div[1] = 'maxInsurFill';
+        div[2] = 'minInsurFill';
+        var orderSquence = new Array();
+        orderSquence[0] = 31;
+        orderSquence[1] = 32;
+        orderSquence[2] = 33;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+    }
 }
 function  insurend()//保险完成页
 {
-var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='保险填写页-平均值';
-    bigTitle[1]='保险填写页-最大值';
-    bigTitle[2]='保险填写页-最小值';
-
-    $orderContainer = $("#insurendH");
+    var startDate=$("#startdate11").val();
+    var endDate=$("#enddate11").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#insurendH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='avgInsurEnd' style='height:300px;width:90%'></div><div id='maxInsurEnd' style='height:300px;width:90%;margin-top:10px'></div><div id='minInsurEnd' style='height:300px;width:90%;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/tourhandler/'+sysdate(-31)+'/'+sysdate(0);//总订单
-
-    var DivIdArray=new Array();
-    DivIdArray[0]='avgInsurEnd';DivIdArray[1]='maxInsurEnd';DivIdArray[2]='minInsurEnd';
-    var numberArray=new Array();//编号
-    numberArray[0]=34;numberArray[1]=35;numberArray[2]=36;
-     //详情页
-    var smallTitle=new Array();
-    smallTitle[0]='Page';
-
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 1)
+     $orderContainer.append("<div id='avgInsurEnd' style='height:300px;width:"+handler_chart_width+"px;'></div><div id='maxInsurEnd' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div><div id='minInsurEnd' style='height:300px;width:"+handler_chart_width+"px;;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourhandler/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='保险完成页-平均值';
+        bigTitle[1]='保险完成页-最大值';
+        bigTitle[2]='保险完成页-最小值';
+        var smallTitle = new Array();
+         smallTitle[0]='Page';
+        var div = new Array();
+        div[0] = 'avgInsurEnd';
+        div[1] = 'maxInsurEnd';
+        div[2] = 'minInsurEnd';
+        var orderSquence = new Array();
+        orderSquence[0] = 34;
+        orderSquence[1] = 35;
+        orderSquence[2] = 36;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+    }
 }
-
-
-
 
 function vacationInterface()
 {
-    var timeArray = getMonth30(31);
-    var bigTitle=new Array();
-    bigTitle[0]='tour.touromdservice.v1.touromdservice.ordercreate（<3s）';
-    bigTitle[1]='tour.orderservice.v1.tourorderservice.orderdetailget';
-    bigTitle[2]='tour.orderservice.v1.tourorderservice.tourordermanagelist';
-    $orderContainer = $("#orderContainer");
+     var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#orderContainer")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='Create' style='height:300px'></div><div id='getDetail' style='height:300px;margin-top:10px'></div><div id='manageList' style='height:300px;margin-top:10px'></div>")
-    var url='/EagleEye/ajax/soaperform/'+sysdate(-31)+'/'+sysdate(0);//总订单
-    var DivIdArray=new Array();
-    DivIdArray[0]='Create';DivIdArray[1]='getDetail';DivIdArray[2]='manageList';
-    var numberArray=new Array();//编号
-    numberArray[0]=13;numberArray[1]=14;numberArray[2]=15;
-   //接口耗时
-     var smallTitle=new Array();
-    smallTitle[0]='平均值';smallTitle[1]='最大值';smallTitle[2]='最小值';
-    drawCurveForHandler(url, DivIdArray,bigTitle ,numberArray,smallTitle,timeArray, 3)
-
+     $orderContainer.append("<div id='Create' style='height:300px'></div><div id='getDetail' style='height:300px;margin-top:10px'></div><div id='manageList' style='height:300px;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/soaperform/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='tour.touromdservice.v1.touromdservice.ordercreate（<3s）';
+        bigTitle[1]='tour.orderservice.v1.tourorderservice.orderdetailget';
+        bigTitle[2]='tour.orderservice.v1.tourorderservice.tourordermanagelist';
+        var smallTitle = new Array();
+         smallTitle[0]='平均值';smallTitle[1]='最大值';smallTitle[2]='最小值';
+        var div = new Array();
+        div[0] = 'Create';
+        div[1] = 'getDetail';
+        div[2] = 'manageList';
+        var orderSquence = new Array();
+        orderSquence[0] = 13;
+        orderSquence[1] = 14;
+        orderSquence[2] = 15;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 3)
+    }
 
 }
 function plaseWait()//获取订单详情接口
@@ -298,507 +494,633 @@ function plaseWait()//获取订单详情接口
 
 }
 
-//获取过去30天日期
-function getMonth30(k) {
-    var timeArray = [];
-    var dd = new Date();
-    dd.setDate(dd.getDate() - k);//获取往前30天日期
-    for (var m = 0; m < 30; m++) {
-        dd.setDate(dd.getDate() + 1);//往前30天日期+1
-        timeArray[m] = dd.Format("yyyy-MM-dd")
-    }
-    return timeArray;
-
-
-}
-function drawCurveForHandler(url,divIDArray,bigTitleArray,numberArray,smallTitle,timeArray,pageid)
+function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,days,jsonCnt) //pageid=3代表有3个图   k=2代表两根线
 {
-    var data1 = {};var data2 = {}; var data3 = {};var data4 = {};var data5 = {};var data6 = {};var data7 = {};
-    var data8 = {};var data9 = {};var data10 = {};var data11 = {};var data12 = {};var data13 = {};
-    var data14 = {};var data15 = {};var data16 = {};
-
-     if(pageid==1){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,1);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,1);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,1);
+    if (pageid == 1) {
+        var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
         var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
         mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
+        $.getJSON(url, function (data) {
 
             var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],1)
-            data1 = dataArray1[0];
-            mychart1.series[0].setData(data1);
 
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],1)
-            data1 = dataArray2[0];
-            mychart2.series[0].setData(data1);
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            for(var i=0;i<k;i++)
+            {
+              mychart1.series[i].setData(dataArray1[i]);
+            }
 
+            mychart1.hideLoading();
+        })
+    }
+    else if(pageid == 2)
+    {
+        var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+        var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+        var mychart1 = new Highcharts.Chart(options1);
+        var mychart2 = new Highcharts.Chart(options2);
+        mychart1.showLoading('Loading data from server...');
+        mychart2.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+            var reObj = data;
+            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            var dataArray2 = getArray(reObj, orderSquence[1],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+              mychart1.series[i].setData(dataArray1[i]);
+              mychart2.series[i].setData(dataArray2[i]);
+            }
 
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],1)
-            data1 = dataArray3[0];
-            mychart3.series[0].setData(data1);
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+        })
+    }
+     else if(pageid == 3)
+    {
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+            if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                }
+            }
+            else{
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                }
+
+            }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
 
         })
-
     }
-    else if(pageid==3){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,3);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,3);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,3);
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
+    else if(pageid == 4)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                }
 
-            var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],3)
-            data1 = dataArray1[0];
-            data2 = dataArray1[1];
-            data3 = dataArray1[2];
-            mychart1.series[0].setData(data1);
-            mychart1.series[1].setData(data2);
-            mychart1.series[2].setData(data3);
-
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],3)
-            data1 = dataArray2[0];
-            data2 = dataArray2[1];
-            data3 = dataArray2[2];
-            mychart2.series[0].setData(data1);
-            mychart2.series[1].setData(data2);
-            mychart2.series[2].setData(data3);
-
-
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],3)
-            data1 = dataArray3[0];
-            data2 = dataArray3[1];
-            data3 = dataArray3[2];
-            mychart3.series[0].setData(data1);
-            mychart3.series[1].setData(data2);
-            mychart3.series[2].setData(data3);
+            }
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
-
+            mychart4.hideLoading();
         })
-
     }
-     else if(pageid==4){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,4);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,4);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,4);
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
+    else if(pageid == 5)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                }
 
-            var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],4)
-            data1 = dataArray1[0];
-            data2 = dataArray1[1];
-            data3 = dataArray1[2];
-            data4 = dataArray1[3];
-            mychart1.series[0].setData(data1);
-            mychart1.series[1].setData(data2);
-            mychart1.series[2].setData(data3);
-            mychart1.series[3].setData(data4);
+            }
 
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],4)
-            data1 = dataArray2[0];
-            data2 = dataArray2[1];
-            data3 = dataArray2[2];
-            data4 = dataArray2[3];
-            mychart2.series[0].setData(data1);
-            mychart2.series[1].setData(data2);
-            mychart2.series[2].setData(data3);
-            mychart2.series[3].setData(data4);
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],4)
-            data1 = dataArray3[0];
-            data2 = dataArray3[1];
-            data3 = dataArray3[2];
-            data4 = dataArray3[3];
-            mychart3.series[0].setData(data1);
-            mychart3.series[1].setData(data2);
-            mychart3.series[2].setData(data3);
-            mychart3.series[3].setData(data4);
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
-
+            mychart4.hideLoading();
+            mychart5.hideLoading();
         })
-
     }
-   else if(pageid==5){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,5);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,5);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,5);
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
+    else if(pageid == 6)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                 var dataArray6 = newGetArray(reObj, orderSquence[5],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                 var dataArray6 = newGetArray(reObj, orderSquence[5],1,days)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                }
 
-            var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],5)
-            data1 = dataArray1[0];
-            data2 = dataArray1[1];
-            data3 = dataArray1[2];
-            data4 = dataArray1[3];
-            data5 = dataArray1[4];
-            mychart1.series[0].setData(data1);
-            mychart1.series[1].setData(data2);
-            mychart1.series[2].setData(data3);
-            mychart1.series[3].setData(data4);
-            mychart1.series[4].setData(data5);
+            }
 
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],5)
-            data1 = dataArray2[0];
-            data2 = dataArray2[1];
-            data3 = dataArray2[2];
-            data4 = dataArray2[3];
-            data5 = dataArray2[4];
-            mychart2.series[0].setData(data1);
-            mychart2.series[1].setData(data2);
-            mychart2.series[2].setData(data3);
-            mychart2.series[3].setData(data4);
-            mychart2.series[4].setData(data5);
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],5)
-            data1 = dataArray3[0];
-            data2 = dataArray3[1];
-            data3 = dataArray3[2];
-            data4 = dataArray3[3];
-            data5 = dataArray3[4];
-            mychart3.series[0].setData(data1);
-            mychart3.series[1].setData(data2);
-            mychart3.series[2].setData(data3);
-            mychart3.series[3].setData(data4);
-            mychart3.series[4].setData(data5);
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
-
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
         })
-
     }
-     else if(pageid==8){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,8);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,8);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,8);
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
-
-            var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],8)
-            data1 = dataArray1[0];
-            data2 = dataArray1[1];
-            data3 = dataArray1[2];
-            data4 = dataArray1[3];
-            data5 = dataArray1[4];
-            data6 = dataArray1[5];
-            data7 = dataArray1[6];
-            data8 = dataArray1[7];
-            mychart1.series[0].setData(data1);
-            mychart1.series[1].setData(data2);
-            mychart1.series[2].setData(data3);
-            mychart1.series[3].setData(data4);
-            mychart1.series[4].setData(data5);
-            mychart1.series[5].setData(data6);
-            mychart1.series[6].setData(data7);
-            mychart1.series[7].setData(data8);
-
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],8)
-            data1 = dataArray2[0];
-            data2 = dataArray2[1];
-            data3 = dataArray2[2];
-            data4 = dataArray2[3];
-            data5 = dataArray2[4];
-            data6 = dataArray2[5];
-            data7 = dataArray2[6];
-            data8 = dataArray2[7];
-            mychart2.series[0].setData(data1);
-            mychart2.series[1].setData(data2);
-            mychart2.series[2].setData(data3);
-            mychart2.series[3].setData(data4);
-            mychart2.series[4].setData(data5);
-            mychart2.series[5].setData(data6);
-            mychart2.series[6].setData(data7);
-            mychart2.series[7].setData(data8);
-
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],8)
-            data1 = dataArray3[0];
-            data2 = dataArray3[1];
-            data3 = dataArray3[2];
-            data4 = dataArray3[3];
-            data5 = dataArray3[4];
-            data6 = dataArray3[5];
-            data7 = dataArray3[6];
-            data8 = dataArray3[7];
-            mychart3.series[0].setData(data1);
-            mychart3.series[1].setData(data2);
-            mychart3.series[2].setData(data3);
-            mychart3.series[3].setData(data4);
-            mychart3.series[4].setData(data5);
-            mychart3.series[5].setData(data6);
-            mychart3.series[6].setData(data7);
-            mychart3.series[7].setData(data8);
+    else if(pageid == 7)
+    {
+          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+            }
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
-
-
-
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
         })
-
-
     }
-    else if(pageid==10){
-        var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,10);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,10);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,10);
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
 
-            var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],10)
-            data1 = dataArray1[0];
-            data2 = dataArray1[1];
-            data3 = dataArray1[2];
-            data4 = dataArray1[3];
-            data5 = dataArray1[4];
-            data6 = dataArray1[5];
-            data7 = dataArray1[6];
-            data8 = dataArray1[7];
-            data9 = dataArray1[8];
-            data10= dataArray1[9];
-            mychart1.series[0].setData(data1);
-            mychart1.series[1].setData(data2);
-            mychart1.series[2].setData(data3);
-            mychart1.series[3].setData(data4);
-            mychart1.series[4].setData(data5);
-            mychart1.series[5].setData(data6);
-            mychart1.series[6].setData(data7);
-            mychart1.series[7].setData(data8);
-            mychart1.series[8].setData(data9);
-            mychart1.series[9].setData(data10);
-
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],10)
-            data1 = dataArray2[0];
-            data2 = dataArray2[1];
-            data3 = dataArray2[2];
-            data4 = dataArray2[3];
-            data5 = dataArray2[4];
-            data6 = dataArray2[5];
-            data7 = dataArray2[6];
-            data8 = dataArray2[7];
-            data9 = dataArray2[8];
-            data10= dataArray2[9];
-            mychart2.series[0].setData(data1);
-            mychart2.series[1].setData(data2);
-            mychart2.series[2].setData(data3);
-            mychart2.series[3].setData(data4);
-            mychart2.series[4].setData(data5);
-            mychart2.series[5].setData(data6);
-            mychart2.series[6].setData(data7);
-            mychart2.series[7].setData(data8);
-            mychart2.series[8].setData(data9);
-            mychart2.series[9].setData(data10);
-
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],10)
-            data1 = dataArray3[0];
-            data2 = dataArray3[1];
-            data3 = dataArray3[2];
-            data4 = dataArray3[3];
-            data5 = dataArray3[4];
-            data6 = dataArray3[5];
-            data7 = dataArray3[6];
-            data8 = dataArray3[7];
-            data9 = dataArray3[8];
-            data10= dataArray3[9];
-            mychart3.series[0].setData(data1);
-            mychart3.series[1].setData(data2);
-            mychart3.series[2].setData(data3);
-            mychart3.series[3].setData(data4);
-            mychart3.series[4].setData(data5);
-            mychart3.series[5].setData(data6);
-            mychart3.series[6].setData(data7);
-            mychart3.series[7].setData(data8);
-            mychart3.series[8].setData(data9);
-            mychart3.series[9].setData(data10);
+    else if(pageid == 8)
+    {
+          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         var mychart8 = new Highcharts.Chart(options8);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+         mychart8.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+             var dataArray8 = getArray(reObj, orderSquence[7],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+                mychart8.series[i].setData(dataArray8[i]);
+            }
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
-
-
-
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+            mychart8.hideLoading();
         })
-
-
     }
-    else if(pageid==16){
-
- var options1=getHandlerOpition(divIDArray[0],bigTitleArray[0],timeArray,smallTitle,16);
-        var options2=getHandlerOpition(divIDArray[1],bigTitleArray[1],timeArray,smallTitle,16);
-        var options3=getHandlerOpition(divIDArray[2],bigTitleArray[2],timeArray,smallTitle,16);
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-           $.getJSON(url, function (data) {
-
-            var reObj = data;
-            var dataArray1 =  getDataArray(reObj,30, numberArray[0],16)
-            data1 = dataArray1[0];
-            data2 = dataArray1[1];
-            data3 = dataArray1[2];
-            data4 = dataArray1[3];
-            data5 = dataArray1[4];
-            data6 = dataArray1[5];
-            data7 = dataArray1[6];
-            data8 = dataArray1[7];
-            data9 = dataArray1[8];
-            data10= dataArray1[9];
-            data11= dataArray1[10];
-            data12= dataArray1[11];
-            data13= dataArray1[12];
-            data14= dataArray1[13];
-            data15= dataArray1[14];
-            data16= dataArray1[15];
-
-            mychart1.series[0].setData(data1);
-            mychart1.series[1].setData(data2);
-            mychart1.series[2].setData(data3);
-            mychart1.series[3].setData(data4);
-            mychart1.series[4].setData(data5);
-            mychart1.series[5].setData(data6);
-            mychart1.series[6].setData(data7);
-            mychart1.series[7].setData(data8);
-            mychart1.series[8].setData(data9);
-            mychart1.series[9].setData(data10);
-            mychart1.series[10].setData(data11);
-            mychart1.series[11].setData(data12);
-            mychart1.series[12].setData(data13);
-            mychart1.series[13].setData(data14);
-            mychart1.series[14].setData(data15);
-            mychart1.series[15].setData(data16);
-             var dataArray2 =  getDataArray(reObj,30, numberArray[1],16)
-            data1 = dataArray2[0];
-            data2 = dataArray2[1];
-            data3 = dataArray2[2];
-            data4 = dataArray2[3];
-            data5 = dataArray2[4];
-            data6 = dataArray2[5];
-            data7 = dataArray2[6];
-            data8 = dataArray2[7];
-            data9 = dataArray2[8];
-            data10= dataArray2[9];
-            data11= dataArray2[10];
-            data12= dataArray2[11];
-            data13= dataArray2[12];
-            data14= dataArray2[13];
-            data15= dataArray2[14];
-            data16= dataArray2[15];
-
-            mychart2.series[0].setData(data1);
-            mychart2.series[1].setData(data2);
-            mychart2.series[2].setData(data3);
-            mychart2.series[3].setData(data4);
-            mychart2.series[4].setData(data5);
-            mychart2.series[5].setData(data6);
-            mychart2.series[6].setData(data7);
-            mychart2.series[7].setData(data8);
-            mychart2.series[8].setData(data9);
-            mychart2.series[9].setData(data10);
-            mychart2.series[10].setData(data11);
-            mychart2.series[11].setData(data12);
-            mychart2.series[12].setData(data13);
-            mychart2.series[13].setData(data14);
-            mychart2.series[14].setData(data15);
-            mychart2.series[15].setData(data16);
-
-            var dataArray3 =  getDataArray(reObj,30, numberArray[2],16)
-           data1 = dataArray3[0];
-            data2 = dataArray3[1];
-            data3 = dataArray3[2];
-            data4 = dataArray3[3];
-            data5 = dataArray3[4];
-            data6 = dataArray3[5];
-            data7 = dataArray3[6];
-            data8 = dataArray3[7];
-            data9 = dataArray3[8];
-            data10= dataArray3[9];
-            data11= dataArray3[10];
-            data12= dataArray3[11];
-            data13= dataArray3[12];
-            data14= dataArray3[13];
-            data15= dataArray3[14];
-            data16= dataArray3[15];
-
-            mychart3.series[0].setData(data1);
-            mychart3.series[1].setData(data2);
-            mychart3.series[2].setData(data3);
-            mychart3.series[3].setData(data4);
-            mychart3.series[4].setData(data5);
-            mychart3.series[5].setData(data6);
-            mychart3.series[6].setData(data7);
-            mychart3.series[7].setData(data8);
-            mychart3.series[8].setData(data9);
-            mychart3.series[9].setData(data10);
-            mychart3.series[10].setData(data11);
-            mychart3.series[11].setData(data12);
-            mychart3.series[12].setData(data13);
-            mychart3.series[13].setData(data14);
-            mychart3.series[14].setData(data15);
-            mychart3.series[15].setData(data16);
+    else if(pageid == 9)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+         var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         var mychart8 = new Highcharts.Chart(options8);
+         var mychart9 = new Highcharts.Chart(options9);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+         mychart8.showLoading('Loading data from server...');
+         mychart9.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+             var dataArray8 = getArray(reObj, orderSquence[7],null)
+             var dataArray9 = getArray(reObj, orderSquence[8],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+                mychart8.series[i].setData(dataArray8[i]);
+                mychart9.series[i].setData(dataArray9[i]);
+            }
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+            mychart8.hideLoading();
+            mychart9.hideLoading();
+        })
+    }
+    else if(pageid == 10)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
+         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
+         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+         var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle)
+         var options10=options(div[9],type,bigTitle[9],timeArray,smallTitle)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+         var mychart6 = new Highcharts.Chart(options6);
+         var mychart7 = new Highcharts.Chart(options7);
+         var mychart8 = new Highcharts.Chart(options8);
+         var mychart9 = new Highcharts.Chart(options9);
+         var mychart10 = new Highcharts.Chart(options10);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+         mychart6.showLoading('Loading data from server...');
+         mychart7.showLoading('Loading data from server...');
+         mychart8.showLoading('Loading data from server...');
+         mychart9.showLoading('Loading data from server...');
+         mychart10.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+             var dataArray1 = getArray(reObj, orderSquence[0],null)
+             var dataArray2 = getArray(reObj, orderSquence[1],null)
+             var dataArray3 = getArray(reObj, orderSquence[2],null)
+             var dataArray4 = getArray(reObj, orderSquence[3],null)
+             var dataArray5 = getArray(reObj, orderSquence[4],null)
+             var dataArray6 = getArray(reObj, orderSquence[5],null)
+             var dataArray7 = getArray(reObj, orderSquence[6],null)
+             var dataArray8 = getArray(reObj, orderSquence[7],null)
+             var dataArray9 = getArray(reObj, orderSquence[8],null)
+             var dataArray10 = getArray(reObj, orderSquence[9],null)
+            for(var i=0;i<smallTitle.length;i++)
+            {
+                mychart1.series[i].setData(dataArray1[i]);
+                mychart2.series[i].setData(dataArray2[i]);
+                mychart3.series[i].setData(dataArray3[i]);
+                mychart4.series[i].setData(dataArray4[i]);
+                mychart5.series[i].setData(dataArray5[i]);
+                mychart6.series[i].setData(dataArray6[i]);
+                mychart7.series[i].setData(dataArray7[i]);
+                mychart8.series[i].setData(dataArray8[i]);
+                mychart9.series[i].setData(dataArray9[i]);
+                mychart10.series[i].setData(dataArray10[i]);
+            }
 
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+            mychart6.hideLoading();
+            mychart7.hideLoading();
+            mychart8.hideLoading();
+            mychart9.hideLoading();
+            mychart10.hideLoading();
+        })
+    }
+    else if(pageid == 11)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+        var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle,days)
+        var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle,days)
+        var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle,days)
+        var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle,days)
+        var options10=options(div[9],type,bigTitle[9],timeArray,smallTitle,days)
+        var options11=options(div[10],type,bigTitle[10],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+        var mychart6 = new Highcharts.Chart(options6);
+        var mychart7 = new Highcharts.Chart(options7);
+        var mychart8 = new Highcharts.Chart(options8);
+        var mychart9 = new Highcharts.Chart(options9);
+        var mychart10 = new Highcharts.Chart(options10);
+        var mychart11 = new Highcharts.Chart(options11);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+        mychart6.showLoading('Loading data from server...');
+        mychart7.showLoading('Loading data from server...');
+        mychart8.showLoading('Loading data from server...');
+        mychart9.showLoading('Loading data from server...');
+        mychart10.showLoading('Loading data from server...');
+        mychart11.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                 var dataArray6 = newGetArray(reObj, orderSquence[5],0,days-1)
+                 var dataArray7 = newGetArray(reObj, orderSquence[6],0,days-1)
+                 var dataArray8 = newGetArray(reObj, orderSquence[7],0,days-1)
+                 var dataArray9 = newGetArray(reObj, orderSquence[8],0,days-1)
+                 var dataArray10 = newGetArray(reObj, orderSquence[9],0,days-1)
+                 var dataArray11 = newGetArray(reObj, orderSquence[10],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                     mychart6.series[i].setData(dataArray6[i]);
+                     mychart7.series[i].setData(dataArray7[i]);
+                     mychart8.series[i].setData(dataArray8[i]);
+                     mychart9.series[i].setData(dataArray9[i]);
+                     mychart10.series[i].setData(dataArray10[i]);
+                     mychart11.series[i].setData(dataArray11[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                   var dataArray6 = newGetArray(reObj, orderSquence[5],1,days)
+                   var dataArray7 = newGetArray(reObj, orderSquence[6],1,days)
+                   var dataArray8 = newGetArray(reObj, orderSquence[7],1,days)
+                   var dataArray9 = newGetArray(reObj, orderSquence[8],1,days)
+                   var dataArray10 = newGetArray(reObj, orderSquence[9],1,days)
+                   var dataArray11 = newGetArray(reObj, orderSquence[10],1,days)
 
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                     mychart6.series[i].setData(dataArray6[i]);
+                     mychart7.series[i].setData(dataArray7[i]);
+                     mychart8.series[i].setData(dataArray8[i]);
+                     mychart9.series[i].setData(dataArray9[i]);
+                     mychart10.series[i].setData(dataArray10[i]);
+                     mychart11.series[i].setData(dataArray11[i]);
+                }
 
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+             mychart6.hideLoading();
+             mychart7.hideLoading();
+             mychart8.hideLoading();
+             mychart9.hideLoading();
+             mychart10.hideLoading();
+             mychart11.hideLoading();
         })
     }
 
 
 }
 
-function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
+
+function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
 {
   var options={};
     var data1 = {};var data2 = {};var data3 = {};var data4 = {};var data5 = {};var data6 = {};var data7 = {};var data8 = {};
     var data9 = {};var data10 = {};var data11 = {};var data12 = {};var data13 = {};var data14 = {};var data15 = {};var data16 = {};
-     if(flag==1)
+     if(smallTitle.length==1)
     {
         options={
             chart: {
@@ -845,7 +1167,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -904,7 +1226,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
             }
         };
     }
-    else if(flag==3)
+    else if(smallTitle.length==3)
     {
         options={
             chart: {
@@ -1029,7 +1351,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
             }
         };
     }
-     else if(flag==4)
+     else if(smallTitle.length==4)
     {
         options={
             chart: {
@@ -1165,7 +1487,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
             }
         };
     }
-    else if(flag==5)
+    else if(smallTitle.length==5)
     {
         options={
             chart: {
@@ -1311,7 +1633,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
             }
         };
     }
-      else  if(flag==8)
+      else  if(smallTitle.length==8)
     {
         options={
             chart: {
@@ -1485,7 +1807,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
             }
         };
     }
-   else  if(flag==10)
+   else  if(smallTitle.length==10)
     {
         options={
             chart: {
@@ -1678,7 +2000,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
             }
         };
     }
-    else if(flag==16)
+    else if(smallTitle.length==16)
     {
         options={
             chart: {
@@ -1937,7 +2259,8 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,flag)
      return options;
 }
 
-function getDataArray(retobj,days, k,flag)
+
+function gethandlerDataArray(retobj,days, k,flag,crcCnt)//days 天数, k=1 详情页平均值 ,flag=0异常    --crcCnt  曲线条数
 {
 var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=18  当地玩乐
     //返回4个数组
@@ -2322,22 +2645,22 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
          }
 
      }
- if(flag==1)
+ if(crcCnt==1)
     {
         resultThree[0]=arr1;
     }
-    else if(flag==2)
+    else if(crcCnt==2)
     {
          resultThree[0]=arr1;
         resultThree[1]=arr2;
     }
-    else if(flag==3){
+    else if(crcCnt==3){
          resultThree[0]=arr1;
         resultThree[1]=arr2;
         resultThree[2]=arr3;
 
     }
-    else if(flag==4)
+    else if(crcCnt==4)
     {
 
         resultThree[0]=arr1;
@@ -2345,7 +2668,7 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
         resultThree[2]=arr3;
         resultThree[3]=arr4;
     }
-    else if(flag==5)
+    else if(crcCnt==5)
     {
         resultThree[0]=arr1;
         resultThree[1]=arr2;
@@ -2353,7 +2676,7 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
         resultThree[3]=arr4;
         resultThree[4]=arr5;
     }
- else if(flag==6)
+ else if(crcCnt==6)
     {
         resultThree[0]=arr1;
         resultThree[1]=arr2;
@@ -2362,7 +2685,7 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
         resultThree[4]=arr5;
         resultThree[5]=arr6;
     }
- else if(flag==7)
+ else if(crcCnt==7)
     {
         resultThree[0]=arr1;
         resultThree[1]=arr2;
@@ -2372,7 +2695,7 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
         resultThree[5]=arr6;
         resultThree[6]=arr7;
     }
-else if(flag==8)
+else if(crcCnt==8)
     {
         resultThree[0]=arr1;
         resultThree[1]=arr2;
@@ -2383,7 +2706,7 @@ else if(flag==8)
         resultThree[6]=arr7;
         resultThree[7]=arr8;
     }
-     else if(flag==10)
+     else if(crcCnt==10)
     {
         resultThree[0]=arr1;
         resultThree[1]=arr2;
@@ -2396,7 +2719,7 @@ else if(flag==8)
         resultThree[8]=arr9;
         resultThree[9]=arr10;
     }
-     else if(flag==16)
+     else if(crcCnt==16)
     {
         resultThree[0]=arr1;
         resultThree[1]=arr2;

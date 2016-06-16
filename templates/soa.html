@@ -17,13 +17,16 @@
             <!-- params start-->
             <div id="myTabContent" class="tab-content">
                 <div id="vacInterface" class="tab-pane fade in active">
-                    <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p>
-                    </label>
-                     </span>
-
-                    </header>
+                           <label>开始时间：<input id="startdate1" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                           <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                           <button type="button" id="search" class="btn btn-info btn-xs" onclick='handelDetail()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                      </span>
+                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
+                      </span>
+                 </header>
                     <div id='orderContainer' class="panel-body" style="margin-left:2px;">
 
                     </div>
@@ -73,12 +76,15 @@
 {% block js %}
     <script src="/static/js/highcharts/themes/sand-signika.js"></script>
     <script src="/static/js/Custom/performs.js"></script>
+    <script src="/static/js/Custom/checkHistory.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
             function item(name, cnt) {
                 this.name = name;
                 this.cnt = cnt;
             }
+           $("#startdate1").val(getNowDay()[1]);
+           $("#enddate1").val(getNowDay()[0]);
             vacationInterface();
         })
     </script>

@@ -429,7 +429,7 @@ WHERE
     # app整体转化率
     "appCR": """
     select vdate,type,cnt from APPVacationCR where
-    vdate> %s and vdate <%s
+    vdate between %s and %s
     order by vdate,type
     """  ,
      #度假全部订单
@@ -478,9 +478,9 @@ WHERE
     """  ,
 #自由行查询为空
    "diyservicehis": """
-   select * from serviceinvokelogResults where
-  vdate> %s and vdate <%s
-   order by vdate,type,product,channel
+   select vdate,type,product,channel,status,cnt from serviceinvokelogResults where
+  vdate between %s and %s
+   order by vdate,type,product,channel,status
     """  ,
  # 自由行bookcommit新
     "diybookcommitnew": """
@@ -539,20 +539,20 @@ WHERE
 ##页面性能(团队游)
   "pageHandler": """
    select vdate,page,handlerName,maxcnt,mincnt,avgcnt from handler
-    where vdate> %s and vdate <%s
+    where vdate between %s and %s
     order by vdate,page,handlerName,maxcnt,mincnt,avgcnt
     """  ,
 
 ##接口性能
   "soaPerforms": """
    select vdate,operation,interfaceName,maxcnt,mincnt,avgcnt from soarequestlatency
-    where vdate> %s and vdate <%s
+    where vdate between %s and %s
     order by vdate,operation,interfaceName,maxcnt,mincnt,avgcnt
     """  ,
  ##页面性能(自由行+保险)
     "tourhandler": """
   select vdate,page,handlerName,maxcnt,mincnt,avgcnt from tourhandler
-    where vdate> %s and vdate <%s
+    where vdate between %s and %s
     order by vdate,page,handlerName,maxcnt,mincnt,avgcnt
     """  ,
 

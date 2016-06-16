@@ -659,179 +659,6 @@ function visasearch()
 
 }
 
-
-//自由行查询为空
-function diyServiceInvoke()
-{
-    var timeArray = getMonth90(91);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='总体为空率(包含DP和SDP)';
-    AllTitleArray[1]='DP为空率';
-    AllTitleArray[2]='SDP为空率';
-	AllTitleArray[3]='DP Online国内为空率';
-	AllTitleArray[4]='SDP Online国内为空率';
-	AllTitleArray[5]='DP 无线国内为空率';
-	AllTitleArray[6]='SDP 无线国内为空率';
-    AllTitleArray[7]='DP Online国际为空率';
-    AllTitleArray[8]='SDP Online国际为空率';
-    AllTitleArray[9]='DP 无线国际为空率';
-    AllTitleArray[10]='SDP 无线国际为空率';
-    $orderContainer = $("#orderContainer");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='diyall' style='height:350px;margin-top:5px;width:99%'></div><div id='dp' style='height:350px;float:left;clear:left;width:49%;margin-top: 5px'></div><div id='sdp' style='height:350px;float:left;clear:right;width:49%;margin-left:10px;margin-top: 5px '></div><div id='sdponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='sdpwrilessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdpwrilessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dpwirelessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dpwirelessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div>")
-    var urlAll='/EagleEye/ajax/diyservicehis/'+sysdate(-91)+'/'+sysdate(0);//总订单
-    console.log('urlAll:'+urlAll);
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='diyall';AllDivIdArray[1]='dp';AllDivIdArray[2]='sdp';AllDivIdArray[3]='sdponlineDe';
-	AllDivIdArray[4]='sdponlineIn';AllDivIdArray[5]='sdpwrilessDe';AllDivIdArray[6]='sdpwrilessIn';
-    AllDivIdArray[7]='dponlineDe';AllDivIdArray[8]='dponlineIn';AllDivIdArray[9]='dpwirelessDe';AllDivIdArray[10]='dpwirelessIn';
-    var dataArray=new Array();dataArray[0]=52;dataArray[1]=53;dataArray[2]=54;dataArray[3]=55;dataArray[4]=56;dataArray[5]=57;dataArray[6]=58;dataArray[7]=59;dataArray[8]=60;dataArray[9]=61;dataArray[10]=62;
-    drawCurvediyServiceInvoke(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,1)
-}
-
-//自由行机票查询为空
-function diyFlightService()
-{
-    var timeArray = getMonth90(91);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='DP 国内机票';
-    AllTitleArray[1]='SDP 国内机票';
-    AllTitleArray[2]='DP 国际机票';
-	AllTitleArray[3]='SDP 国际机票';
-    $orderContainer = $("#pkgbookH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='dpDe' style='height:350px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='sdpDe' style='height:350px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='dpIn' style='height:350px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='sdpIn' style='height:350px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div>")
-    var urlAll='/EagleEye/ajax/diyservicehis/'+sysdate(-91)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='dpDe';AllDivIdArray[1]='sdpDe';AllDivIdArray[2]='dpIn';AllDivIdArray[3]='sdpIn';
-    var dataArray=new Array();dataArray[0]=63;dataArray[1]=64;dataArray[2]=65;dataArray[3]=66;
-    drawCurvediyServiceInvoke(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
-}
-
-//自由行酒店查询为空
-function diyHotelService()
-{
-    var timeArray = getMonth90(91);
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='DP 国内酒店';
-    AllTitleArray[1]='SDP 国内酒店';
-    AllTitleArray[2]='DP 国际酒店';
-	AllTitleArray[3]='SDP 国际酒店';
-    $orderContainer = $("#pkgcommitH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='dpDeH' style='height:350px;float:left;clear:left;width:44%;margin-top: 5px'></div><div id='sdpDeH' style='height:350px;float:left;clear:right;width:44%;margin-left:80px;margin-top: 5px '></div><div id='dpInH' style='height:350px;float:left;clear:left;margin-top: 5px;width:44%'></div><div id='sdpInH' style='height:350px;float:left;clear:right;margin-left:80px;margin-top: 5px;width:44% '></div>")
-    var urlAll='/EagleEye/ajax/diyservicehis/'+sysdate(-91)+'/'+sysdate(0);//总订单
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='dpDeH';AllDivIdArray[1]='sdpDeH';AllDivIdArray[2]='dpInH';AllDivIdArray[3]='sdpInH';
-    var dataArray=new Array();dataArray[0]=67;dataArray[1]=68;dataArray[2]=69;dataArray[3]=70;
-    drawCurvediyServiceInvoke(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
-    //
-}
-//自由行查询为空搜索
-function diyServiceSearch()
-{
-    var calDate=$("#calDate1").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else {
-        var timeArray = getMonth90(91 - getTimeDiff(calDate));
-        var AllTitleArray = new Array();
-        AllTitleArray[0] = '总体为空率(包含DP和SDP)';
-        AllTitleArray[1] = 'DP为空率';
-        AllTitleArray[2] = 'SDP为空率';
-        AllTitleArray[3] = 'DP Online国内为空率';
-        AllTitleArray[4] = 'SDP Online国内为空率';
-        AllTitleArray[5] = 'DP 无线国内为空率';
-        AllTitleArray[6] = 'SDP 无线国内为空率';
-        AllTitleArray[7] = 'DP Online国际为空率';
-        AllTitleArray[8] = 'SDP Online国际为空率';
-        AllTitleArray[9] = 'DP 无线国际为空率';
-        AllTitleArray[10] = 'SDP 无线国际为空率';
-        $orderContainer = $("#orderContainer");
-        $orderContainer.empty();//清空翻页标签
-        $orderContainer.append("<div id='diyall' style='height:350px;margin-top:5px;width:99%'></div><div id='dp' style='height:350px;float:left;clear:left;width:49%;margin-top: 5px'></div><div id='sdp' style='height:350px;float:left;clear:right;width:49%;margin-left:10px;margin-top: 5px '></div><div id='sdponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='sdpwrilessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdpwrilessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dpwirelessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dpwirelessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div>")
-        var urlAll = '/EagleEye/ajax/diyservicehis/' + sysdate(-91 + getTimeDiff(calDate)) + '/' + sysdate(getTimeDiff(calDate));
-        var AllDivIdArray = new Array();
-        AllDivIdArray[0] = 'diyall';
-        AllDivIdArray[1] = 'dp';
-        AllDivIdArray[2] = 'sdp';
-        AllDivIdArray[3] = 'sdponlineDe';
-        AllDivIdArray[4] = 'sdponlineIn';
-        AllDivIdArray[5] = 'sdpwrilessDe';
-        AllDivIdArray[6] = 'sdpwrilessIn';
-        AllDivIdArray[7] = 'dponlineDe';
-        AllDivIdArray[8] = 'dponlineIn';
-        AllDivIdArray[9] = 'dpwirelessDe';
-        AllDivIdArray[10] = 'dpwirelessIn';
-        var dataArray = new Array();
-        dataArray[0] = 52;
-        dataArray[1] = 53;
-        dataArray[2] = 54;
-        dataArray[3] = 55;
-        dataArray[4] = 56;
-        dataArray[5] = 57;
-        dataArray[6] = 58;
-        dataArray[7] = 59;
-        dataArray[8] = 60;
-        dataArray[9] = 61;
-        dataArray[10] = 62;
-        drawCurvediyServiceInvoke(urlAll, AllDivIdArray, AllTitleArray, dataArray, timeArray, 1)
-    }
-
-}
-//机票查询为空搜索
-function diyServiceFlightSearch()
-{
- var calDate=$("#calDate2").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else {
-        var timeArray =  getMonth90(91 - getTimeDiff(calDate));
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='DP 国内机票';
-    AllTitleArray[1]='SDP 国内机票';
-    AllTitleArray[2]='DP 国际机票';
-	AllTitleArray[3]='SDP 国际机票';
-    $orderContainer = $("#pkgbookH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='dpDe' style='height:350px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='sdpDe' style='height:350px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='dpIn' style='height:350px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='sdpIn' style='height:350px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-    var urlAll='/EagleEye/ajax/diyservicehis/'+ sysdate(-91 + getTimeDiff(calDate)) + '/' + sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='dpDe';AllDivIdArray[1]='sdpDe';AllDivIdArray[2]='dpIn';AllDivIdArray[3]='sdpIn';
-    var dataArray=new Array();dataArray[0]=63;dataArray[1]=64;dataArray[2]=65;dataArray[3]=66;
-    drawCurvediyServiceInvoke(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
-
-
-    }
-
-}
-//酒店查询为空搜索
-function diyServiceHotelSearch()
-{
-var calDate=$("#calDate3").val();
-    if(getTimeDiff(calDate)>0)
-    {
-        alert('请选择正确的日期')
-    }else {
-        var timeArray =getMonth90(91 - getTimeDiff(calDate));
-    var AllTitleArray=new Array();
-    AllTitleArray[0]='DP 国内酒店';
-    AllTitleArray[1]='SDP 国内酒店';
-    AllTitleArray[2]='DP 国际酒店';
-	AllTitleArray[3]='SDP 国际酒店';
-    $orderContainer = $("#pkgcommitH");
-    $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='dpDeH' style='height:350px;float:left;clear:left;width:48%;margin-top: 5px'></div><div id='sdpDeH' style='height:350px;float:left;clear:right;width:48%;margin-left:20px;margin-top: 5px '></div><div id='dpInH' style='height:350px;float:left;clear:left;margin-top: 5px;width:48%'></div><div id='sdpInH' style='height:350px;float:left;clear:right;margin-left:20px;margin-top: 5px;width:48% '></div>")
-    var urlAll='/EagleEye/ajax/diyservicehis/'+ sysdate(-91 + getTimeDiff(calDate)) + '/' + sysdate(getTimeDiff(calDate));
-    var AllDivIdArray=new Array();
-    AllDivIdArray[0]='dpDeH';AllDivIdArray[1]='sdpDeH';AllDivIdArray[2]='dpInH';AllDivIdArray[3]='sdpInH';
-    var dataArray=new Array();dataArray[0]=67;dataArray[1]=68;dataArray[2]=69;dataArray[3]=70;
-    drawCurvediyServiceInvoke(urlAll,AllDivIdArray,AllTitleArray,dataArray,timeArray,2)
-
-    }
-}
 //获取过去30天日期
 function getMonth30(k) {
     var timeArray = [];
@@ -870,144 +697,15 @@ function getMonth180(k) {
 
 }
 
-
-//自由行查询为空专用
-function drawCurvediyServiceInvoke(url,divIdArray,bigTitleArray,dataArray,timeArray,pageid)
-{
-    var data1={};
-    var  smallTitle=new Array();smallTitle[0]='为空率'
-    if(pageid==1)
-    {
-         var options1=getOpition(divIdArray[0],bigTitleArray[0],timeArray,smallTitle,11);//1条线
-        var options2=getOpition(divIdArray[1],bigTitleArray[1],timeArray,smallTitle,11);//1条线
-        var options3=getOpition(divIdArray[2],bigTitleArray[2],timeArray,smallTitle,11);//1条线
-        var options4=getOpition(divIdArray[3],bigTitleArray[3],timeArray,smallTitle,11);//1条线
-        var options5=getOpition(divIdArray[4],bigTitleArray[4],timeArray,smallTitle,11);//1条线
-        var options6=getOpition(divIdArray[5],bigTitleArray[5],timeArray,smallTitle,11);//1条线
-        var options7=getOpition(divIdArray[6],bigTitleArray[6],timeArray,smallTitle,11);//1条线
-        var options8=getOpition(divIdArray[7],bigTitleArray[7],timeArray,smallTitle,11);//1条线
-        var options9=getOpition(divIdArray[8],bigTitleArray[8],timeArray,smallTitle,11);//1条线
-        var options10=getOpition(divIdArray[9],bigTitleArray[9],timeArray,smallTitle,11);//1条线
-        var options11=getOpition(divIdArray[10],bigTitleArray[10],timeArray,smallTitle,11);//1条线
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        var mychart4 = new Highcharts.Chart(options4);
-        var mychart5 = new Highcharts.Chart(options5);
-        var mychart6 = new Highcharts.Chart(options6);
-        var mychart7 = new Highcharts.Chart(options7);
-        var mychart8 = new Highcharts.Chart(options8);
-        var mychart9 = new Highcharts.Chart(options9);
-         var mychart10 = new Highcharts.Chart(options10);
-         var mychart11 = new Highcharts.Chart(options11);
-         mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-        mychart4.showLoading('Loading data from server...');
-        mychart5.showLoading('Loading data from server...');
-        mychart6.showLoading('Loading data from server...');
-        mychart7.showLoading('Loading data from server...');
-        mychart8.showLoading('Loading data from server...');
-        mychart9.showLoading('Loading data from server...');
-         mychart10.showLoading('Loading data from server...');
-        mychart11.showLoading('Loading data from server...');
-         $.getJSON(url, function (data) {
-
-            var reObj = data;
-            var dataArray1 =  getOrderArray(reObj,90, dataArray[0],1)
-            data1 = dataArray1[0];
-            mychart1.series[0].setData(data1);
-             var dataArray2 =  getOrderArray(reObj, 90,dataArray[1],1)
-            data1 = dataArray2[0];
-            mychart2.series[0].setData(data1);
-              var dataArray3 =  getOrderArray(reObj,90, dataArray[2],1)
-            data1 = dataArray3[0];
-            mychart3.series[0].setData(data1);
-              var dataArray4 =  getOrderArray(reObj,90, dataArray[3],1)
-            data1 = dataArray4[0];
-            mychart4.series[0].setData(data1);
-              var dataArray5 =  getOrderArray(reObj,90, dataArray[4],1)
-            data1 = dataArray5[0];
-            mychart5.series[0].setData(data1);
-              var dataArray6 =  getOrderArray(reObj, 90,dataArray[5],1)
-            data1 = dataArray6[0];
-            mychart6.series[0].setData(data1);
-              var dataArray7 =  getOrderArray(reObj,90, dataArray[6],1)
-            data1 = dataArray7[0];
-            mychart7.series[0].setData(data1);
-              var dataArray8 =  getOrderArray(reObj, 90,dataArray[7],1)
-            data1 = dataArray8[0];
-            mychart8.series[0].setData(data1);
-              var dataArray9 =  getOrderArray(reObj,90, dataArray[8],1)
-            data1 = dataArray9[0];
-            mychart9.series[0].setData(data1);
-               var dataArray10 =  getOrderArray(reObj,90, dataArray[9],1)
-            data1 = dataArray10[0];
-            mychart10.series[0].setData(data1);
-               var dataArray11 =  getOrderArray(reObj, 90,dataArray[10],1)
-            data1 = dataArray11[0];
-            mychart11.series[0].setData(data1);
-
-            mychart1.hideLoading();
-            mychart2.hideLoading();
-             mychart3.hideLoading();
-            mychart4.hideLoading();
-             mychart5.hideLoading();
-            mychart6.hideLoading();
-             mychart7.hideLoading();
-            mychart8.hideLoading();
-             mychart9.hideLoading();
-              mychart10.hideLoading();
-              mychart11.hideLoading();
-
-        })
-    }
-    else if(pageid==2)
-    {
-         var options1=getOpition(divIdArray[0],bigTitleArray[0],timeArray,smallTitle,11);//1条线
-        var options2=getOpition(divIdArray[1],bigTitleArray[1],timeArray,smallTitle,11);//1条线
-        var options3=getOpition(divIdArray[2],bigTitleArray[2],timeArray,smallTitle,11);//1条线
-        var options4=getOpition(divIdArray[3],bigTitleArray[3],timeArray,smallTitle,11);//1条线
-        var mychart1 = new Highcharts.Chart(options1);
-        var mychart2 = new Highcharts.Chart(options2);
-        var mychart3 = new Highcharts.Chart(options3);
-        var mychart4 = new Highcharts.Chart(options4);
-        mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
-        mychart3.showLoading('Loading data from server...');
-        mychart4.showLoading('Loading data from server...');
-         $.getJSON(url, function (data) {
-
-            var reObj = data;
-            var dataArray1 =  getOrderArray(reObj,90, dataArray[0],1)
-            data1 = dataArray1[0];
-            mychart1.series[0].setData(data1);
-             var dataArray2 =  getOrderArray(reObj,90, dataArray[1],1)
-            data1 = dataArray2[0];
-            mychart2.series[0].setData(data1);
-              var dataArray3 =  getOrderArray(reObj,90, dataArray[2],1)
-            data1 = dataArray3[0];
-            mychart3.series[0].setData(data1);
-              var dataArray4 =  getOrderArray(reObj,90, dataArray[3],1)
-            data1 = dataArray4[0];
-            mychart4.series[0].setData(data1);
-
-            mychart1.hideLoading();
-            mychart2.hideLoading();
-             mychart3.hideLoading();
-            mychart4.hideLoading();
-
-        })
-    }
-
-}
 //bookcommit专用
 function drawCurveBookCommit(url,divIdArray,bigTitleArray,dataArray,timeArray,pageid)
 {
+
     var data1={}; var data2={};
     var  smallTitle=new Array();smallTitle[0]='失败率';smallTitle[1]='去年同期失败率'
     if(pageid==1)
     {
+
         var options1=getOpition(divIdArray[0],bigTitleArray[0],timeArray,smallTitle,2);//1条线
         var options2=getOpition(divIdArray[1],bigTitleArray[1],timeArray,smallTitle,2);//1条线
         var options3=getOpition(divIdArray[2],bigTitleArray[2],timeArray,smallTitle,2);//1条线
@@ -1040,6 +738,7 @@ function drawCurveBookCommit(url,divIdArray,bigTitleArray,dataArray,timeArray,pa
 
             var reObj = data;
             var dataArray1 =  getOrderArray(reObj,30, dataArray[0],2)
+             console.log("dataArray1[0]:"+dataArray1[0]);
             data1 = dataArray1[0];
             data2 = dataArray1[1];
             mychart1.series[0].setData(data1);
@@ -1701,7 +1400,9 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
          }
          if(k==20)//自由行总book
          {
+
              arr1[j]=toDecimal(retobj.value[30*18+7+18* j][3]*100);//现在的数据
+             console.log('yy'+j+'--'+arr1[j]);
              arr2[j]=toDecimal(retobj.value[7+18* j][3]*100);//历史的数据
          }
          if(k==21)//自由行总book sdp app
@@ -1859,82 +1560,7 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              arr1[j]=toDecimal(retobj.value[30*3+1+3* j][3]*100);
              arr2[j]=toDecimal(retobj.value[1+3* j][3]*100);
          }
-          if(k==52)//diy查询为空 全部
-         {
-             arr1[j]=toDecimal(retobj.value[2+19* j][5]*100);
-         }
-          if(k==53)//查询为空 dp
-         {
-             arr1[j]=toDecimal(retobj.value[0+19* j][5]*100);
-         }
-          if(k==54)//查询为空 sdp
-         {
-             arr1[j]=toDecimal(retobj.value[1+19* j][5]*100);
-         }
-          if(k==55)//查询为空 dp online 国内
-         {
-             arr1[j]=toDecimal(retobj.value[3+19* j][5]*100);
-         }
-          if(k==56)//查询为空 sdp online 国内
-         {
-             arr1[j]=toDecimal(retobj.value[5+19* j][5]*100);
-         }
-          if(k==57)//查询为空 dp 无线 国内
-         {
-             arr1[j]=toDecimal(retobj.value[4+19* j][5]*100);
-         }
-          if(k==58)//查询为空 sdp 无线 国内
-         {
-             arr1[j]=toDecimal(retobj.value[6+19* j][5]*100);
-         }
-          if(k==59)//查询为空 dp online 国际
-         {
-             arr1[j]=toDecimal(retobj.value[11+19* j][5]*100);
-         }
-          if(k==60)//查询为空 sdp online 国际
-         {
-             arr1[j]=toDecimal(retobj.value[13+19* j][5]*100);
-         }
-          if(k==61)//查询为空 dp 无线 国际
-         {
-             arr1[j]=toDecimal(retobj.value[12+19* j][5]*100);
-         }
-          if(k==62)//查询为空 sdp 无线 国际
-         {
-             arr1[j]=toDecimal(retobj.value[14+19* j][5]*100);
-         }
-          if(k==63)//查询为空 dp 国内机票
-         {
-             arr1[j]=toDecimal(retobj.value[7+19* j][5]*100);
-         }
-          if(k==64)//查询为空 sdp 国内机票
-         {
-             arr1[j]=toDecimal(retobj.value[8+19* j][5]*100);
-         }
-          if(k==65)//查询为空 dp 国际机票
-         {
-             arr1[j]=toDecimal(retobj.value[15+19* j][5]*100);
-         }
-          if(k==66)//查询为空 sdp 国际机票
-         {
-             arr1[j]=toDecimal(retobj.value[16+19* j][5]*100);
-         }
-          if(k==67)//查询为空 dp 国内酒店
-         {
-             arr1[j]=toDecimal(retobj.value[9+19* j][5]*100);
-         }
-          if(k==68)//查询为空 sdp 国内酒店
-         {
-             arr1[j]=toDecimal(retobj.value[10+19* j][5]*100);
-         }
-          if(k==69)//查询为空 dp国际酒店
-         {
-             arr1[j]=toDecimal(retobj.value[17+19* j][5]*100);
-         }
-          if(k==70)//查询为空 sdp 国际酒店
-         {
-             arr1[j]=toDecimal(retobj.value[18+19* j][5]*100);
-         }
+
          if(k==71)//度假h5总订单
          {
              arr1[j]= retobj.value[0+3 * j][2]+retobj.value[1+3 * j][2]+retobj.value[2+3 * j][2];

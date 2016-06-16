@@ -20,15 +20,12 @@
             <!-- params start-->
             <div id="myTabContent" class="tab-content">
                 <div id="diybook" class="tab-pane fade in active">
-                    <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate1" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search1" class="btn btn-info btn-xs" onclick='diyServiceSearch()'
-                            style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
-
+                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate1" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='diyServiceInvoke()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
                     </header>
                     <div id='orderContainer' class="panel-body" style="margin-left:2px;">
 
@@ -47,14 +44,13 @@
                     </div>
                 </div>
                 <div id="pkgbook" class="tab-pane fade">
-                    <header id="acheader2" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate2" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search2" class="btn btn-info btn-xs" onclick='diyServiceFlightSearch()'
-                            style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
+                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate2" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate2" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='diyFlightService()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
+
 
                     </header>
                     <div id='pkgbookH' style="margin-left:2px;">
@@ -73,14 +69,12 @@
                     </div>
                 </div>
                 <div id="pkgcommit" class="tab-pane fade">
-                    <header id="acheader3" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate3" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search3" class="btn btn-info btn-xs" onclick='diyServiceHotelSearch()'
-                            style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
+                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate3" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate3" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='diyHotelService()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
 
                     </header>
                     <div id='pkgcommitH' style="margin-left:2px;">
@@ -108,7 +102,7 @@
 {#js#}
 {% block js %}
     <script src="/static/js/highcharts/themes/sand-signika.js"></script>
-    <script src="/static/js/Custom/appVacation.js"></script>
+    <script src="/static/js/Custom/checkHistory.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
 
@@ -116,6 +110,12 @@
                 this.name = name;
                 this.cnt = cnt;
             }
+            $("#startdate1").val(getNowDay()[1]);
+           $("#enddate1").val(getNowDay()[0]);
+           $("#startdate2").val(getNowDay()[1]);
+           $("#enddate2").val(getNowDay()[0]);
+            $("#startdate3").val(getNowDay()[1]);
+           $("#enddate3").val(getNowDay()[0]);
 
             diyServiceInvoke();
 

@@ -147,6 +147,13 @@ def get_new_checkhistory(request):
     else:
         return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
+@login_required(login_url='/login/')
+def get_pkg_checkhistory(request):
+    if judge_list(request.user.username):
+        return render(request, "pkgcheckHistory.html", {'first_name': request.user.username})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
+
 
 def get_enddt(interval=10, lastdt=datetime.now()):
     """
