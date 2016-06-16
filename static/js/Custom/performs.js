@@ -2805,92 +2805,92 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
           if(k==37)//自由行总book
          {
 
-             arr1[j]=toDecimal(retobj.value[30*18+7+18* j][3]*100);//现在的数据
+             arr1[j]=toDecimal(retobj.value[days*18+7+18* j][3]*100);//现在的数据
              arr2[j]=toDecimal(retobj.value[7+18* j][3]*100);//历史的数据
          }
          if(k==38)//自由行总book sdp app
          {
-             arr1[j]=toDecimal(retobj.value[30*18+4+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+4+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[4+18* j][3]*100);
          }
          if(k==39)//自由行总book sdp online
          {
-             arr1[j]=toDecimal(retobj.value[30*18+6+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+6+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[6+18* j][3]*100);
          }
          if(k==40)//自由行总book sdp h5
          {
-             arr1[j]=toDecimal(retobj.value[30*18+5+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+5+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[5+18* j][3]*100);
          }
          if(k==41)//自由行总book dp app
          {
-             arr1[j]=toDecimal(retobj.value[30*18+0+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+0+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[0+18* j][3]*100);
          }
          if(k==42)//自由行总book dp online
          {
-             arr1[j]=toDecimal(retobj.value[30*18+2+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+2+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[2+18* j][3]*100);
          }
          if(k==43)//自由行总book dp h5
          {
-             arr1[j]=toDecimal(retobj.value[30*18+1+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+1+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[1+18* j][3]*100);
          }
          if(k==44)//自由行总book 国际站
          {
-             arr1[j]=toDecimal(retobj.value[30*18+8+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+8+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[8+18* j][3]*100);
          }
          if(k==45)//自由行总book offline
          {
-             arr1[j]=toDecimal(retobj.value[30*18+3+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+3+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[3+18* j][3]*100);
          }
          if(k==46)//自由行总commit
          {
-             arr1[j]=toDecimal(retobj.value[30*18+16+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+16+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[16+18* j][3]*100);
          }
          if(k==47)//自由行总commit sdp app
          {
-             arr1[j]=toDecimal(retobj.value[30*18+13+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+13+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[13+18* j][3]*100);
          }
          if(k==48)//自由行总commit sdp online
          {
-             arr1[j]=toDecimal(retobj.value[30*18+15+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+15+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[15+18* j][3]*100);
          }
          if(k==49)//自由行总commit sdp h5
          {
-             arr1[j]=toDecimal(retobj.value[30*18+14+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+14+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[14+18* j][3]*100);
          }
          if(k==50)//自由行总commit dp app
          {
-             arr1[j]=toDecimal(retobj.value[30*18+9+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+9+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[9+18* j][3]*100);
          }
          if(k==51)//自由行总commit dp online
          {
-             arr1[j]=toDecimal(retobj.value[30*18+11+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+11+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[11+18* j][3]*100);
          }
           if(k==52)//自由行总commit dp h5
          {
-             arr1[j]=toDecimal(retobj.value[30*18+10+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+10+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[10+18* j][3]*100);
          }
           if(k==53)//自由行总commit 国际站
          {
-             arr1[j]=toDecimal(retobj.value[30*18+17+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+17+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[17+18* j][3]*100);
          }
           if(k==54)//自由行总commit offline
          {
-             arr1[j]=toDecimal(retobj.value[30*18+12+18* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*18+12+18* j][3]*100);
              arr2[j]=toDecimal(retobj.value[12+18* j][3]*100);
          }
            if(k==55)//团队游总book
@@ -2900,62 +2900,62 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
          }
            if(k==56)//团队游book app
          {
-             arr1[j]=toDecimal(retobj.value[30*10+0+10*j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+0+10*j][3]*100);
              arr2[j]=toDecimal(retobj.value[0+10* j][3]*100);
          }
            if(k==57)//团队游 book online
          {
-             arr1[j]=toDecimal(retobj.value[30*10+3+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+3+10* j][3]*100);
              arr2[j]=toDecimal(retobj.value[3+10* j][3]*100);
          }
            if(k==58)//团队游book h5
          {
-             arr1[j]=toDecimal(retobj.value[30*10+1+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+1+10* j][3]*100);
              arr2[j]=toDecimal(retobj.value[1+10* j][3]*100);
          }
            if(k==59)//团队游book offline
          {
-             arr1[j]=toDecimal(retobj.value[30*10+2+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+2+10* j][3]*100);
               arr2[j]=toDecimal(retobj.value[2+10* j][3]*100);
          }
            if(k==60)//团队游总commit
          {
-             arr1[j]=toDecimal(retobj.value[30*10+9+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+9+10* j][3]*100);
              arr2[j]=toDecimal(retobj.value[9+10* j][3]*100);
          }
            if(k==61)//团队游总commit APP
          {
-             arr1[j]=toDecimal(retobj.value[30*10+5+8* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+5+8* j][3]*100);
              arr2[j]=toDecimal(retobj.value[5+8* j][3]*100);
          }
            if(k==62)//团队游总commit ONLINE
          {
-             arr1[j]=toDecimal(retobj.value[30*10+8+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+8+10* j][3]*100);
              arr2[j]=toDecimal(retobj.value[8+10* j][3]*100);
          }
            if(k==63)//团队游总commit H5
          {
-             arr1[j]=toDecimal(retobj.value[30*10+6+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+6+10* j][3]*100);
              arr2[j]=toDecimal(retobj.value[6+10* j][3]*100);
          }
              if(k==64)//团队游总commit OFFLINE
          {
-             arr1[j]=toDecimal(retobj.value[30*10+7+10* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*10+7+10* j][3]*100);
              arr2[j]=toDecimal(retobj.value[7+10* j][3]*100);
          }
           if(k==65)//签证 总commit
          {
-             arr1[j]=toDecimal(retobj.value[30*3+0+3* j][3]*100)+toDecimal(retobj.value[30*3+1+3* j][3]*100)+toDecimal(retobj.value[30*3+2+3* j][3]*100);
-             arr2[j]=toDecimal(retobj.value[0+3* j][3]*100)+toDecimal(retobj.value[1+3* j][3]*100)+toDecimal(retobj.value[2+3* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*3+0+3* j][3]*100/3)+toDecimal(retobj.value[days*3+1+3* j][3]*100/3)+toDecimal(retobj.value[days*3+2+3* j][3]*100/3);
+             arr2[j]=toDecimal(retobj.value[0+3* j][3]*100/3)+toDecimal(retobj.value[1+3* j][3]*100/3)+toDecimal(retobj.value[2+3* j][3]*100/3);
          }
           if(k==66)//签证 app
          {
-             arr1[j]=toDecimal(retobj.value[30*3+0+3* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*3+0+3* j][3]*100);
              arr2[j]=toDecimal(retobj.value[0+3* j][3]*100);
          }
           if(k==67)//签证 online
          {
-             arr1[j]=toDecimal(retobj.value[30*3+2+3* j][3]*100);
+             arr1[j]=toDecimal(retobj.value[days*3+2+3* j][3]*100);
              arr2[j]=toDecimal(retobj.value[2+3* j][3]*100);
          }
           if(k==68)//签证 h5
