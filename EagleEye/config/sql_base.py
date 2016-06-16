@@ -495,7 +495,7 @@ WHERE
    select * from vacationBookCommit where
   vdate> %s and vdate < %s    and bu='diy'
    union all
-  select * from tmp_vacationBookCommit where
+  select * from vacationBookCommit where
   vdate> %s and vdate < %s   and bu='diy'
   )O
  order by  O.vdate,O.actionType,O.channel

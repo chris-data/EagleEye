@@ -1703,7 +1703,9 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
          }
          if(k==20)//自由行总book
          {
+
              arr1[j]=toDecimal(retobj.value[30*18+7+18* j][3]*100);//现在的数据
+             console.log('yy'+j+'--'+arr1[j]);
              arr2[j]=toDecimal(retobj.value[7+18* j][3]*100);//历史的数据
          }
          if(k==21)//自由行总book sdp app
