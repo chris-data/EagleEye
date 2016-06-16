@@ -1360,7 +1360,7 @@ function appcrCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,da
         mychart2.showLoading('Loading data from server...');
         $.getJSON(url, function (data) {
             var reObj = data;
-            var dataArray1 = getArray(reObj, orderSquence[0],null)
+            var dataArray1 = getArray(reObj, orderSquence[0],null)//gethandlerDataArray(reObj,days, k,flag,crcCnt)
             var dataArray2 = getArray(reObj, orderSquence[1],null)
             for(var i=0;i<smallTitle.length;i++)
             {
