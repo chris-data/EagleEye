@@ -535,7 +535,7 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
             mychart2.hideLoading();
         })
     }
-     else if(pageid == 3)
+    else if(pageid == 3)
     {
          var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
          var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
@@ -582,26 +582,28 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     }
     else if(pageid == 4)
     {
-         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
-         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
-         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
-         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+        var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
-         var mychart4 = new Highcharts.Chart(options4);
+        var mychart4 = new Highcharts.Chart(options4);
          mychart1.showLoading('Loading data from server...');
          mychart2.showLoading('Loading data from server...');
          mychart3.showLoading('Loading data from server...');
-         mychart4.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+
         $.getJSON(url, function (data) {
              var reObj = data;
-               if(reObj.value.length<days*jsonCnt)
+            if(reObj.value.length<days*jsonCnt)
             {
-                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
-                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
-                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
-                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                var dataArray4 = gethandlerDataArray(reObj,days-1, orderSquence[3],0,smallTitle.length)
+
                 for(var i=0;i<smallTitle.length;i++)
                 {
                     mychart1.series[i].setData(dataArray1[i]);
@@ -611,10 +613,10 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
                 }
             }
             else{
-                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
-                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
-                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
-                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                 var dataArray4 = gethandlerDataArray(reObj,days, orderSquence[3],1,smallTitle.length)
                 for(var i=0;i<smallTitle.length;i++)
                 {
                     mychart1.series[i].setData(dataArray1[i]);
@@ -624,39 +626,44 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
                 }
 
             }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
             mychart4.hideLoading();
+
         })
     }
     else if(pageid == 5)
     {
-         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
-         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
-         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
-         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
-         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
-         var mychart4 = new Highcharts.Chart(options4);
-         var mychart5 = new Highcharts.Chart(options5);
+        var mychart4 = new Highcharts.Chart(options4);
+        var mychart5 = new Highcharts.Chart(options5);
          mychart1.showLoading('Loading data from server...');
          mychart2.showLoading('Loading data from server...');
          mychart3.showLoading('Loading data from server...');
-         mychart4.showLoading('Loading data from server...');
-         mychart5.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+        mychart5.showLoading('Loading data from server...');
+
         $.getJSON(url, function (data) {
              var reObj = data;
-               if(reObj.value.length<days*jsonCnt)
+            if(reObj.value.length<days*jsonCnt)
             {
-                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
-                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
-                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
-                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
-                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                var dataArray4 = gethandlerDataArray(reObj,days-1, orderSquence[3],0,smallTitle.length)
+                var dataArray5 = gethandlerDataArray(reObj,days-1, orderSquence[4],0,smallTitle.length)
+
                 for(var i=0;i<smallTitle.length;i++)
                 {
                     mychart1.series[i].setData(dataArray1[i]);
@@ -667,11 +674,11 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
                 }
             }
             else{
-                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
-                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
-                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
-                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
-                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                 var dataArray4 = gethandlerDataArray(reObj,days, orderSquence[3],1,smallTitle.length)
+                 var dataArray5 = gethandlerDataArray(reObj,days, orderSquence[4],1,smallTitle.length)
                 for(var i=0;i<smallTitle.length;i++)
                 {
                     mychart1.series[i].setData(dataArray1[i]);
@@ -682,12 +689,14 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
                 }
 
             }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
             mychart3.hideLoading();
             mychart4.hideLoading();
             mychart5.hideLoading();
+
         })
     }
     else if(pageid == 6)
@@ -870,56 +879,87 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     }
     else if(pageid == 9)
     {
-         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
-         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
-         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
-         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
-         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
-         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
-         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
-         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
-         var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle)
+
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days)
+        var options6=getHandlerOpition(div[5],bigTitle[5],timeArray,smallTitle,days)
+        var options7=getHandlerOpition(div[6],bigTitle[6],timeArray,smallTitle,days)
+        var options8=getHandlerOpition(div[7],bigTitle[7],timeArray,smallTitle,days)
+        var options9=getHandlerOpition(div[8],bigTitle[8],timeArray,smallTitle,days)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
-         var mychart4 = new Highcharts.Chart(options4);
-         var mychart5 = new Highcharts.Chart(options5);
-         var mychart6 = new Highcharts.Chart(options6);
-         var mychart7 = new Highcharts.Chart(options7);
-         var mychart8 = new Highcharts.Chart(options8);
-         var mychart9 = new Highcharts.Chart(options9);
+        var mychart4 = new Highcharts.Chart(options4);
+        var mychart5 = new Highcharts.Chart(options5);
+        var mychart6 = new Highcharts.Chart(options6);
+        var mychart7 = new Highcharts.Chart(options7);
+        var mychart8 = new Highcharts.Chart(options8);
+        var mychart9 = new Highcharts.Chart(options9);
          mychart1.showLoading('Loading data from server...');
          mychart2.showLoading('Loading data from server...');
          mychart3.showLoading('Loading data from server...');
-         mychart4.showLoading('Loading data from server...');
-         mychart5.showLoading('Loading data from server...');
-         mychart6.showLoading('Loading data from server...');
-         mychart7.showLoading('Loading data from server...');
-         mychart8.showLoading('Loading data from server...');
-         mychart9.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+        mychart5.showLoading('Loading data from server...');
+        mychart6.showLoading('Loading data from server...');
+        mychart7.showLoading('Loading data from server...');
+        mychart8.showLoading('Loading data from server...');
+        mychart9.showLoading('Loading data from server...');
+
         $.getJSON(url, function (data) {
              var reObj = data;
-             var dataArray1 = getArray(reObj, orderSquence[0],null)
-             var dataArray2 = getArray(reObj, orderSquence[1],null)
-             var dataArray3 = getArray(reObj, orderSquence[2],null)
-             var dataArray4 = getArray(reObj, orderSquence[3],null)
-             var dataArray5 = getArray(reObj, orderSquence[4],null)
-             var dataArray6 = getArray(reObj, orderSquence[5],null)
-             var dataArray7 = getArray(reObj, orderSquence[6],null)
-             var dataArray8 = getArray(reObj, orderSquence[7],null)
-             var dataArray9 = getArray(reObj, orderSquence[8],null)
-            for(var i=0;i<smallTitle.length;i++)
+            if(reObj.value.length<days*jsonCnt)
             {
-                mychart1.series[i].setData(dataArray1[i]);
-                mychart2.series[i].setData(dataArray2[i]);
-                mychart3.series[i].setData(dataArray3[i]);
-                mychart4.series[i].setData(dataArray4[i]);
-                mychart5.series[i].setData(dataArray5[i]);
-                mychart6.series[i].setData(dataArray6[i]);
-                mychart7.series[i].setData(dataArray7[i]);
-                mychart8.series[i].setData(dataArray8[i]);
-                mychart9.series[i].setData(dataArray9[i]);
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                var dataArray4 = gethandlerDataArray(reObj,days-1, orderSquence[3],0,smallTitle.length)
+                var dataArray5 = gethandlerDataArray(reObj,days-1, orderSquence[4],0,smallTitle.length)
+                var dataArray6 = gethandlerDataArray(reObj,days-1, orderSquence[5],0,smallTitle.length)
+                var dataArray7 = gethandlerDataArray(reObj,days-1, orderSquence[6],0,smallTitle.length)
+                var dataArray8 = gethandlerDataArray(reObj,days-1, orderSquence[7],0,smallTitle.length)
+                var dataArray9 = gethandlerDataArray(reObj,days-1, orderSquence[8],0,smallTitle.length)
+
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                    mychart7.series[i].setData(dataArray7[i]);
+                    mychart8.series[i].setData(dataArray8[i]);
+                    mychart9.series[i].setData(dataArray9[i]);
+                }
             }
+            else{
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                 var dataArray4 = gethandlerDataArray(reObj,days, orderSquence[3],1,smallTitle.length)
+                 var dataArray5 = gethandlerDataArray(reObj,days, orderSquence[4],1,smallTitle.length)
+                 var dataArray6 = gethandlerDataArray(reObj,days, orderSquence[5],1,smallTitle.length)
+                 var dataArray7 = gethandlerDataArray(reObj,days, orderSquence[6],1,smallTitle.length)
+                 var dataArray8 = gethandlerDataArray(reObj,days, orderSquence[7],1,smallTitle.length)
+                 var dataArray9 = gethandlerDataArray(reObj,days, orderSquence[8],1,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                    mychart7.series[i].setData(dataArray7[i]);
+                    mychart8.series[i].setData(dataArray8[i]);
+                    mychart9.series[i].setData(dataArray9[i]);
+                }
+
+            }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
@@ -930,6 +970,7 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
             mychart7.hideLoading();
             mychart8.hideLoading();
             mychart9.hideLoading();
+
         })
     }
     else if(pageid == 10)
@@ -1226,6 +1267,124 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
             }
         };
     }
+     else if(smallTitle.length==2)
+    {
+        options={
+            chart: {
+
+                animation: Highcharts.svg,
+                renderTo: divId,
+                backgroundColor: '#FCFCFC',//黑色：#272727
+                borderColor: '#743A3A',
+                borderWidth: 1,
+                events: {
+
+                }
+            },
+            title: {
+                style: {
+                    fontSize: '18px',
+                    fontWeight: 'bold', //刻度字体加粗
+                    color: '#000000'
+                },
+                text: bigTitle  //大标题 如DP Offline 国内
+            },
+            subtitle: {
+                text: ''       //小标题省略
+            },
+            credits: {
+                text: '',
+                href: 'http://www.ctrip.com/'
+            },
+             plotOptions : {
+            line: {
+                lineWidth: 2.5,
+                states: {
+                    hover: {
+                        lineWidth: 2.7
+                    }
+                },
+                marker: {
+                    enabled: true,
+                    radius: 2.5,
+                },
+            }
+        },
+            xAxis: {
+                categories: timeArray,
+                //tickInterval: 5  ,   //也会导致误会
+                labels: {
+                    step:parseInt(days/6),
+                    staggerLines: 1 ,
+                    style: {
+                        color: '#000000', //刻度字体颜色
+                        fontSize: '10px' //刻度字体大小
+                    }
+                },
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                min: 0,
+                labels: {
+                    style: {
+                        color: '#000000', //刻度字体颜色
+                        fontSize: '10px' //刻度字体大小
+                    }
+                }
+            },
+            tooltip: {
+
+                crosshairs: [{            // 设置准星线样式
+                            width:2,
+                            color: '#408080'
+                        }, {
+                            width: 1,
+                            color: "#006cee",
+                            dashStyle: 'longdashdot',
+                            zIndex: 100
+                            }],
+                shadow: false,
+                backgroundColor: '#996666',
+            },
+            series: [{
+                  tooltip: { valueSuffix: ' %' },
+                name:smallTitle[0],
+                lineWidth: 1,
+                radius: 1,
+                data: data1,
+                visible: true,
+                shadow: false,
+                stickyTracking: false,
+            }, {
+                  tooltip: { valueSuffix: ' %' },
+                tooltip: { valueSuffix: '' },
+                name: smallTitle[1],
+                lineWidth: 1,
+                radius: 1,
+                data: data2,
+                visible: false,
+                shadow: true,
+                stickyTracking: false,
+            }
+
+            ],
+                legend : {
+                    //layout: 'vertical',
+                    //borderWidth: 0.5,
+                   // itemHiddenStyle: {color: 'red'}
+                },
+            loading: {
+                style: {
+                    position: 'absolute',
+                    backgroundColor: 'black',
+                    opacity: 0.5,
+                    textAlign: 'center'
+                }
+            }
+        };
+    }
     else if(smallTitle.length==3)
     {
         options={
@@ -1273,7 +1432,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -1398,7 +1557,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -1534,7 +1693,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -1680,7 +1839,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -1854,7 +2013,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -2047,7 +2206,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
                 categories: timeArray,
                 //tickInterval: 5  ,   //也会导致误会
                 labels: {
-                    step:4,
+                    step:parseInt(days/6),
                     staggerLines: 1 ,
                     style: {
                         color: '#000000', //刻度字体颜色
@@ -2642,6 +2801,167 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
 
              arr1[j] = retobj.value[21+27 * j][4] ;//完成页
 
+         }
+          if(k==37)//自由行总book
+         {
+
+             arr1[j]=toDecimal(retobj.value[30*18+7+18* j][3]*100);//现在的数据
+             arr2[j]=toDecimal(retobj.value[7+18* j][3]*100);//历史的数据
+         }
+         if(k==38)//自由行总book sdp app
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+4+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[4+18* j][3]*100);
+         }
+         if(k==39)//自由行总book sdp online
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+6+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[6+18* j][3]*100);
+         }
+         if(k==40)//自由行总book sdp h5
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+5+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[5+18* j][3]*100);
+         }
+         if(k==41)//自由行总book dp app
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+0+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[0+18* j][3]*100);
+         }
+         if(k==42)//自由行总book dp online
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+2+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[2+18* j][3]*100);
+         }
+         if(k==43)//自由行总book dp h5
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+1+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[1+18* j][3]*100);
+         }
+         if(k==44)//自由行总book 国际站
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+8+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[8+18* j][3]*100);
+         }
+         if(k==45)//自由行总book offline
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+3+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[3+18* j][3]*100);
+         }
+         if(k==46)//自由行总commit
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+16+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[16+18* j][3]*100);
+         }
+         if(k==47)//自由行总commit sdp app
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+13+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[13+18* j][3]*100);
+         }
+         if(k==48)//自由行总commit sdp online
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+15+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[15+18* j][3]*100);
+         }
+         if(k==49)//自由行总commit sdp h5
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+14+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[14+18* j][3]*100);
+         }
+         if(k==50)//自由行总commit dp app
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+9+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[9+18* j][3]*100);
+         }
+         if(k==51)//自由行总commit dp online
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+11+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[11+18* j][3]*100);
+         }
+          if(k==52)//自由行总commit dp h5
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+10+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[10+18* j][3]*100);
+         }
+          if(k==53)//自由行总commit 国际站
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+17+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[17+18* j][3]*100);
+         }
+          if(k==54)//自由行总commit offline
+         {
+             arr1[j]=toDecimal(retobj.value[30*18+12+18* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[12+18* j][3]*100);
+         }
+           if(k==55)//团队游总book
+         {
+             arr1[j]=toDecimal(retobj.value[4+10* j][3]);
+             arr2[j]=toDecimal(retobj.value[4+10* j][3]);
+         }
+           if(k==56)//团队游book app
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+0+10*j][3]*100);
+             arr2[j]=toDecimal(retobj.value[0+10* j][3]*100);
+         }
+           if(k==57)//团队游 book online
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+3+10* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[3+10* j][3]*100);
+         }
+           if(k==58)//团队游book h5
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+1+10* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[1+10* j][3]*100);
+         }
+           if(k==59)//团队游book offline
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+2+10* j][3]*100);
+              arr2[j]=toDecimal(retobj.value[2+10* j][3]*100);
+         }
+           if(k==60)//团队游总commit
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+9+10* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[9+10* j][3]*100);
+         }
+           if(k==61)//团队游总commit APP
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+5+8* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[5+8* j][3]*100);
+         }
+           if(k==62)//团队游总commit ONLINE
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+8+10* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[8+10* j][3]*100);
+         }
+           if(k==63)//团队游总commit H5
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+6+10* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[6+10* j][3]*100);
+         }
+             if(k==64)//团队游总commit OFFLINE
+         {
+             arr1[j]=toDecimal(retobj.value[30*10+7+10* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[7+10* j][3]*100);
+         }
+          if(k==65)//签证 总commit
+         {
+             arr1[j]=toDecimal(retobj.value[30*3+0+3* j][3]*100)+toDecimal(retobj.value[30*3+1+3* j][3]*100)+toDecimal(retobj.value[30*3+2+3* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[0+3* j][3]*100)+toDecimal(retobj.value[1+3* j][3]*100)+toDecimal(retobj.value[2+3* j][3]*100);
+         }
+          if(k==66)//签证 app
+         {
+             arr1[j]=toDecimal(retobj.value[30*3+0+3* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[0+3* j][3]*100);
+         }
+          if(k==67)//签证 online
+         {
+             arr1[j]=toDecimal(retobj.value[30*3+2+3* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[2+3* j][3]*100);
+         }
+          if(k==68)//签证 h5
+         {
+             arr1[j]=toDecimal(retobj.value[30*3+1+3* j][3]*100);
+             arr2[j]=toDecimal(retobj.value[1+3* j][3]*100);
          }
 
      }

@@ -81,8 +81,6 @@ function checkSDP()
      }
 
 
-
-
 }
 //自由行SDP可订检查   分资源
 function checkResource()
@@ -92,25 +90,42 @@ function checkResource()
     var endDate=$("#enddate2").val();
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
-          //将选定的日期作为参数请求对应日期的数据
-    $checkContainer = $("#checkResourceH")
-    $checkContainer.empty();//清空翻页标签
-    $checkContainer.append("<div id='char11' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char12' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char13' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top:10px'></div>")
-     var url = '/EagleEye/ajax/newcheckhis/'+startDate+'/'+endDate ;
-     var days=getDays(startDate,endDate)+1;
-      var bigTitle = [];
-    bigTitle[0] = 'SDP 机票';
-    bigTitle[1] = 'SDP 酒店';
-    bigTitle[2] = 'SDP 可选项';
-    bigTitle[3] = 'SDP 产品';
-     var smallTitle=new Array();
-     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var div=new Array();
-     div[0]='char11'; div[1]='char12'; div[2]='char13';div[3]='char14';
-     var orderSquence=new Array();
-     orderSquence[0]=10;orderSquence[1]=11;orderSquence[2]=12;orderSquence[3]=13;
-     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,4,orderSquence,days,20)
-
+       if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+           //将选定的日期作为参数请求对应日期的数据
+           $checkContainer = $("#checkResourceH")
+           $checkContainer.empty();//清空翻页标签
+           $checkContainer.append("<div id='char11' style='height:300px;width:" + chart_width + "px;float:left;clear:left;margin-top: 10px'></div><div id='char12' style='height:300px;width:" + chart_width + "px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char13' style='height:300px;width:" + chart_width + "px;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:" + chart_width + "px;float:left;margin-left:10px;margin-top:10px'></div>")
+           var url = '/EagleEye/ajax/newcheckhis/' + startDate + '/' + endDate;
+           var days = getDays(startDate, endDate) + 1;
+           var bigTitle = [];
+           bigTitle[0] = 'SDP 机票';
+           bigTitle[1] = 'SDP 酒店';
+           bigTitle[2] = 'SDP 可选项';
+           bigTitle[3] = 'SDP 产品';
+           var smallTitle = new Array();
+           smallTitle[0] = '失败率';
+           smallTitle[1] = '失败数';
+           smallTitle[2] = '调用数'
+           var div = new Array();
+           div[0] = 'char11';
+           div[1] = 'char12';
+           div[2] = 'char13';
+           div[3] = 'char14';
+           var orderSquence = new Array();
+           orderSquence[0] = 10;
+           orderSquence[1] = 11;
+           orderSquence[2] = 12;
+           orderSquence[3] = 13;
+           appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 20)
+       }
 
 }
 //自由行可订检查 DP
@@ -122,24 +137,41 @@ function checkDP()
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
-    $checkContainer = $("#DPH")
-    $checkContainer.empty();//清空翻页标签
-   $checkContainer.append("<div id='char1' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char2' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char3' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char4' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top:10px'></div>")
-    var url = '/EagleEye/ajax/olddpcheckhis/'+startDate+'/'+endDate ;
-     var days=getDays(startDate,endDate)+1;
-      var bigTitle = [];
-    bigTitle[0] = 'SDP 机票';
-    bigTitle[1] = 'SDP 酒店';
-    bigTitle[2] = 'SDP 可选项';
-    bigTitle[3] = 'SDP 产品';
-     var smallTitle=new Array();
-     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var div=new Array();
-     div[0]='char1'; div[1]='char2'; div[2]='char3';div[3]='char4';
-     var orderSquence=new Array();
-     orderSquence[0]=14;orderSquence[1]=15;orderSquence[2]=16;orderSquence[3]=17;
-     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,4,orderSquence,days,6)
-
+       if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+           $checkContainer = $("#DPH")
+           $checkContainer.empty();//清空翻页标签
+           $checkContainer.append("<div id='char1' style='height:300px;width:" + chart_width + "px;float:left;clear:left;margin-top: 10px'></div><div id='char2' style='height:300px;width:" + chart_width + "px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char3' style='height:300px;width:" + chart_width + "px;float:left;clear:left;margin-top: 10px'></div><div id='char4' style='height:300px;width:" + chart_width + "px;float:left;margin-left:10px;margin-top:10px'></div>")
+           var url = '/EagleEye/ajax/olddpcheckhis/' + startDate + '/' + endDate;
+           var days = getDays(startDate, endDate) + 1;
+           var bigTitle = [];
+           bigTitle[0] = 'SDP 机票';
+           bigTitle[1] = 'SDP 酒店';
+           bigTitle[2] = 'SDP 可选项';
+           bigTitle[3] = 'SDP 产品';
+           var smallTitle = new Array();
+           smallTitle[0] = '失败率';
+           smallTitle[1] = '失败数';
+           smallTitle[2] = '调用数'
+           var div = new Array();
+           div[0] = 'char1';
+           div[1] = 'char2';
+           div[2] = 'char3';
+           div[3] = 'char4';
+           var orderSquence = new Array();
+           orderSquence[0] = 14;
+           orderSquence[1] = 15;
+           orderSquence[2] = 16;
+           orderSquence[3] = 17;
+           appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 6)
+       }
 
 }
 
@@ -297,24 +329,39 @@ function pkgAPP()
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
-    $checkContainer = $("#pkgAPPH")
-    $checkContainer.empty();//清空翻页标签
-     $checkContainer.append("<div id='pkgAPPAll' style='height:300px;'></div><div id='pkgAPP1' style='height:300px;margin-top:10px'></div><div id='pkgAPP2' style='height:300px;margin-top:10px'></div>")
-    var url = '/EagleEye/ajax/pkgcheckhis/'+startDate+'/'+endDate ;
-    pkg_chart_width= $("#pkgAPPAll").width();
-     var  days=getDays(startDate,endDate)+1;
-     var bigTitle = [];
-    bigTitle[0] = 'APP 全部失败率';
-    bigTitle[1] = 'APP 正常预订失败率';
-    bigTitle[2] = 'APP 促销秒杀失败率';
-     var smallTitle=new Array();
-     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var div=new Array();
-     div[0]='pkgAPPAll'; div[1]='pkgAPP1'; div[2]='pkgAPP2';
-     var orderSquence=new Array();
-     orderSquence[0]=18;orderSquence[1]=19;orderSquence[2]=20;
-     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,18)
-
+       if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+           $checkContainer = $("#pkgAPPH")
+           $checkContainer.empty();//清空翻页标签
+           $checkContainer.append("<div id='pkgAPPAll' style='height:300px;'></div><div id='pkgAPP1' style='height:300px;margin-top:10px'></div><div id='pkgAPP2' style='height:300px;margin-top:10px'></div>")
+           var url = '/EagleEye/ajax/pkgcheckhis/' + startDate + '/' + endDate;
+           pkg_chart_width = $("#pkgAPPAll").width();
+           var days = getDays(startDate, endDate) + 1;
+           var bigTitle = [];
+           bigTitle[0] = 'APP 全部失败率';
+           bigTitle[1] = 'APP 正常预订失败率';
+           bigTitle[2] = 'APP 促销秒杀失败率';
+           var smallTitle = new Array();
+           smallTitle[0] = '失败率';
+           smallTitle[1] = '失败数';
+           smallTitle[2] = '调用数'
+           var div = new Array();
+           div[0] = 'pkgAPPAll';
+           div[1] = 'pkgAPP1';
+           div[2] = 'pkgAPP2';
+           var orderSquence = new Array();
+           orderSquence[0] = 18;
+           orderSquence[1] = 19;
+           orderSquence[2] = 20;
+           appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 18)
+       }
 }
 
 //团队游 Online
@@ -327,22 +374,38 @@ function pkgOnline()
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
-    $checkContainer = $("#pkgOnlineH")
-    $checkContainer.empty();//清空翻页标签
-     $checkContainer.append("<div id='pkgOnlineAll' style='height:300px;width:"+pkg_chart_width+"px;'></div><div id='pkgOnline1' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div><div id='pkgOnline2' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div>")
-    var url = '/EagleEye/ajax/pkgcheckhis/'+startDate+'/'+endDate ;
-     var  days=getDays(startDate,endDate)+1;
-     var bigTitle = [];
-    bigTitle[0] = 'Online 全部失败率';
-    bigTitle[1] = 'Online 正常预订失败率';
-    bigTitle[2] = 'Online 促销秒杀失败率';
-     var smallTitle=new Array();
-     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var div=new Array();
-     div[0]='pkgOnlineAll'; div[1]='pkgOnline1'; div[2]='pkgOnline2';
-     var orderSquence=new Array();
-     orderSquence[0]=21;orderSquence[1]=22;orderSquence[2]=23;
-     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,18)
+       if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+           $checkContainer = $("#pkgOnlineH")
+           $checkContainer.empty();//清空翻页标签
+           $checkContainer.append("<div id='pkgOnlineAll' style='height:300px;width:" + pkg_chart_width + "px;'></div><div id='pkgOnline1' style='height:300px;width:" + pkg_chart_width + "px;margin-top:10px'></div><div id='pkgOnline2' style='height:300px;width:" + pkg_chart_width + "px;margin-top:10px'></div>")
+           var url = '/EagleEye/ajax/pkgcheckhis/' + startDate + '/' + endDate;
+           var days = getDays(startDate, endDate) + 1;
+           var bigTitle = [];
+           bigTitle[0] = 'Online 全部失败率';
+           bigTitle[1] = 'Online 正常预订失败率';
+           bigTitle[2] = 'Online 促销秒杀失败率';
+           var smallTitle = new Array();
+           smallTitle[0] = '失败率';
+           smallTitle[1] = '失败数';
+           smallTitle[2] = '调用数'
+           var div = new Array();
+           div[0] = 'pkgOnlineAll';
+           div[1] = 'pkgOnline1';
+           div[2] = 'pkgOnline2';
+           var orderSquence = new Array();
+           orderSquence[0] = 21;
+           orderSquence[1] = 22;
+           orderSquence[2] = 23;
+           appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 18)
+       }
 }
 
 //团队游 Offline
@@ -354,22 +417,38 @@ function pkgOffline()
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
-    $checkContainer = $("#pkgOfflineH")
-    $checkContainer.empty();//清空翻页标签
-     $checkContainer.append("<div id='pkgOfflineAll' style='height:300px;width:"+pkg_chart_width+"px;'></div><div id='pkgOffline1' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div><div id='pkgOffline2' style='height:300px;width:"+pkg_chart_width+"px;margin-top:10px'></div>")
-     var url = '/EagleEye/ajax/pkgcheckhis/'+startDate+'/'+endDate ;
-     var days=getDays(startDate,endDate)+1;
-     var bigTitle = [];
-    bigTitle[0] = 'Offline 全部失败率';
-    bigTitle[1] = 'Offline 正常预订失败率';
-    bigTitle[2] = 'Offline 促销秒杀失败率';
-     var smallTitle=new Array();
-     smallTitle[0]='失败率';smallTitle[1]='失败数';smallTitle[2]='调用数'
-     var div=new Array();
-     div[0]='pkgOfflineAll'; div[1]='pkgOffline1'; div[2]='pkgOffline2';
-     var orderSquence=new Array();
-     orderSquence[0]=24;orderSquence[1]=25;orderSquence[2]=26;
-     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,18)
+       if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+           $checkContainer = $("#pkgOfflineH")
+           $checkContainer.empty();//清空翻页标签
+           $checkContainer.append("<div id='pkgOfflineAll' style='height:300px;width:" + pkg_chart_width + "px;'></div><div id='pkgOffline1' style='height:300px;width:" + pkg_chart_width + "px;margin-top:10px'></div><div id='pkgOffline2' style='height:300px;width:" + pkg_chart_width + "px;margin-top:10px'></div>")
+           var url = '/EagleEye/ajax/pkgcheckhis/' + startDate + '/' + endDate;
+           var days = getDays(startDate, endDate) + 1;
+           var bigTitle = [];
+           bigTitle[0] = 'Offline 全部失败率';
+           bigTitle[1] = 'Offline 正常预订失败率';
+           bigTitle[2] = 'Offline 促销秒杀失败率';
+           var smallTitle = new Array();
+           smallTitle[0] = '失败率';
+           smallTitle[1] = '失败数';
+           smallTitle[2] = '调用数'
+           var div = new Array();
+           div[0] = 'pkgOfflineAll';
+           div[1] = 'pkgOffline1';
+           div[2] = 'pkgOffline2';
+           var orderSquence = new Array();
+           orderSquence[0] = 24;
+           orderSquence[1] = 25;
+           orderSquence[2] = 26;
+           appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 18)
+       }
 }
 
 //获取过去30天日期
@@ -514,7 +593,6 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
         {
              fail[j] = retobj.value[3 + 8 * j][3];//机票 全部 失败
             total[j] = retobj.value[3 + 8 * j][3] + retobj.value[ 7+ 8 * j][3];//机票全部总数
-            console.log(' total[j]:'+ total[j]);
              var x=0;
             if(total[j]!=0)
             {
@@ -568,7 +646,6 @@ function getArray(retobj, k,flag) //flag=0异常  flag=1正常 //k=0  全部,  k
 
 function options(divId,type,bigTitle,timeArray,smallTitle,days)
 {
-
 
     var options={};
     var data1 = {};
@@ -1292,7 +1369,6 @@ function appVaCR()
          //将选定的日期作为参数请求对应日期的数据
      var url = '/EagleEye/ajax/appvacr/'+startDate+'/'+endDate ;
      var days=getDays(startDate,endDate)+1;
-        console.log("days:"+days);
      var bigTitle = [];
      bigTitle[0] = 'APP-总体转化率';bigTitle[1] = 'APP-自由行转化率';bigTitle[2] = 'APP-团队游转化率';
      var smallTitle=new Array();
