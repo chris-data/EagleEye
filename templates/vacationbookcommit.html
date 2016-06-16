@@ -5,9 +5,13 @@
 {% block content %}
     <section id="main-content">
         <section class="wrapper">
-             <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+            <div class="alert alert-info alert-dismissable">
+                注意事项：
+               <li>自由行book、commit记录始于2015-03-12，直至2015-04-22数据才趋于稳定。此外融合期间因统计方式不同会造成数据的误差。</li>
+               <li>团队游仅包含产品形态为：跟团游、团队游、私家团、半自助游、当地参团、独立成团，产品类型为：国内旅游,出境旅游,境外N日游,境内一日游,境内N日游。</li>
+               <li>签证仅包含产品类型为：签证。</li>
+           </div>
 
-                </span>
             <ul id="myTab" class="nav nav-tabs">
                 <li id="tab_default" class="active"><a href="#diybook" data-toggle="tab"></i>
                     自由行book</a></li>
@@ -24,9 +28,6 @@
                            <label>开始时间：<input id="startdate1" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='diybook()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                      </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">注意：自由行book、commit记录始于2015-03-12，直至2015-04-22数据才趋于稳定，在此日期前统一置零,后续未记录数据也一并置零。</p></label>
                       </span>
                  </header>
                     <div id='orderContainer' class="panel-body" style="margin-left:2px;">
@@ -52,9 +53,6 @@
                            <label>截止时间：<input id="enddate2" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='diycommit()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">注意：自由行book、commit记录始于2015-03-12，直至2015-04-22数据才趋于稳定，在此日期前统一置零,后续未记录数据也一并置零。</p></label>
-                      </span>
                    </header>
                     <div id='diycommitH' style="margin-left:2px;">
                     </div>
@@ -78,9 +76,6 @@
                            <label>截止时间：<input id="enddate3" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='pkgbook()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">注意：自由行book、commit记录始于2015-03-12，直至2015-04-22数据才趋于稳定，在此日期前统一置零,后续未记录数据也一并置零。</p></label>
-                      </span>
                  </header>
                     <div id='pkgbookH' style="margin-left:2px;">
                     </div>
@@ -103,9 +98,6 @@
                            <label>开始时间：<input id="startdate4" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <label>截止时间：<input id="enddate4" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='pkgcommit()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                      </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">注意：自由行book、commit记录始于2015-03-12，直至2015-04-22数据才趋于稳定，在此日期前统一置零,后续未记录数据也一并置零。</p></label>
                       </span>
                  </header>
                     <div id='pkgcommitH' style="margin-left:2px;">

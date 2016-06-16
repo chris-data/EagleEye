@@ -6,9 +6,11 @@
 {% block content %}
   <section id="main-content">
         <section class="wrapper">
-             <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-
-                </span>
+               <div class="alert alert-info alert-dismissable">
+                注意事项：
+               <li>团队游数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</li>
+                <li>自由行及保险数据同样取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</li>
+               </div>
             <ul id="myTab" class="nav nav-tabs">
                 <li id="handler1" class="active"><a href="#handlerdetail" data-toggle="tab" ></i>
                     团队游产品详情页</a></li>
@@ -33,9 +35,7 @@
                            <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='handelDetail()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
+
                  </header>
 
                 <div id='orderContainer' class="panel-body" style="margin-left:2px;">
@@ -60,9 +60,7 @@
                            <label>截止时间：<input id="enddate2" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='canchosepage()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
+
                  </header>
                <div id='handlerchoseH'  style="margin-left:2px;">
                 </div>
@@ -85,9 +83,7 @@
                            <label>截止时间：<input id="enddate3" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='fillpage()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-03，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
+
                  </header>
                <div id='handlerfillH'  style="margin-left:2px;">
                 </div>
@@ -109,9 +105,6 @@
                            <label>开始时间：<input id="startdate4" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <label>截止时间：<input id="enddate4" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='endpage()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                      </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
                       </span>
                  </header>
                <div id='handlerendH'  style="margin-left:2px;">
@@ -135,9 +128,6 @@
                            <label>截止时间：<input id="enddate5" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='diysdpdetail()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
                  </header>
                <div id='diysdpdetailH'  style="margin-left:2px;">
                 </div>
@@ -159,9 +149,6 @@
                            <label>开始时间：<input id="startdate6" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <label>截止时间：<input id="enddate6" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='diydpdetail()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                      </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
                       </span>
                  </header>
                <div id='diydpdetailH'  style="margin-left:2px;">
@@ -185,9 +172,6 @@
                            <label>截止时间：<input id="enddate7" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='diydpfill()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
                  </header>
                <div id='diydpfillH'  style="margin-left:2px;">
                 </div>
@@ -209,9 +193,6 @@
                            <label>开始时间：<input id="startdate8" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <label>截止时间：<input id="enddate8" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='diydpend()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                      </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
                       </span>
                  </header>
                <div id='diydpendH'  style="margin-left:2px;">
@@ -235,9 +216,6 @@
                            <label>截止时间：<input id="enddate9" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='insurdeatil()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
                  </header>
                <div id='insurdeatilH'  style="margin-left:2px;">
                 </div>
@@ -260,9 +238,6 @@
                            <label>截止时间：<input id="enddate10" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='insurfill()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
                       </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
-                      </span>
                  </header>
                <div id='insurfillH'  style="margin-left:2px;">
                 </div>
@@ -284,9 +259,6 @@
                            <label>开始时间：<input id="startdate11" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <label>截止时间：<input id="enddate11" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
                            <button type="button" id="search" class="btn btn-info btn-xs" onclick='insurend()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
-                      </span>
-                      <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                       <label><p style="color:red;font-size:14px;">数据取自metric，始于2016-05-14，前期因未埋点暂置为0 。每天凌晨自动更新昨日数据。</p></label>
                       </span>
                  </header>
                <div id='insurendH'  style="margin-left:2px;">
