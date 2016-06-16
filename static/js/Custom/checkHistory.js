@@ -23,8 +23,9 @@ function checkAll() {
 
 }
 var  chart_width ;
-function checkSDP() {   //2016-05-31
-
+//自由行可订检查
+function checkSDP()
+{   //2016-05-31
 
         //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
     var startDate=$("#startdate1").val();
@@ -83,21 +84,18 @@ function checkSDP() {   //2016-05-31
 
 
 }
-
+//自由行SDP可订检查   分资源
 function checkResource()
 {
 
-    console.log("chart_width:"+chart_width);
     var startDate=$("#startdate2").val();
     var endDate=$("#enddate2").val();
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
-  $checkContainer = $("#checkResourceH")
+    $checkContainer = $("#checkResourceH")
     $checkContainer.empty();//清空翻页标签
-
-     $checkContainer.append("<div id='char11' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char12' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char13' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top:10px'></div>")
-
+    $checkContainer.append("<div id='char11' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char12' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top: 10px '></div><div id='char13' style='height:300px;width:"+chart_width+"px;float:left;clear:left;margin-top: 10px'></div><div id='char14' style='height:300px;width:"+chart_width+"px;float:left;margin-left:10px;margin-top:10px'></div>")
      var url = '/EagleEye/ajax/newcheckhis/'+startDate+'/'+endDate ;
      var days=getDays(startDate,endDate)+1;
       var bigTitle = [];
@@ -115,7 +113,7 @@ function checkResource()
 
 
 }
-
+//自由行可订检查 DP
 function checkDP()
 {
 
@@ -145,12 +143,154 @@ function checkDP()
 
 }
 
+
+//自由行查询为空
+var invoke_chart_width;
+function diyServiceInvoke()
+{
+
+
+    var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+    //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#orderContainer")
+    $orderContainer.empty();//清空翻页标签
+    $orderContainer.append("<div id='diyall' style='height:350px;margin-top:5px;width:99%'></div><div id='dp' style='height:350px;float:left;clear:left;width:49%;margin-top: 5px'></div><div id='sdp' style='height:350px;float:left;clear:right;width:49%;margin-left:10px;margin-top: 5px '></div><div id='sdponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='sdpwrilessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='sdpwrilessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dponlineDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dponlineIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div><div id='dpwirelessDe' style='height:350px;float:left;clear:left;margin-top: 5px;width:49%'></div><div id='dpwirelessIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:49% '></div>")
+     invoke_chart_width= $("#dp").width();
+     if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else{
+        var url = '/EagleEye/ajax/diyservicehis/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle=new Array();
+        bigTitle[0]='总体为空率(包含DP和SDP)';
+        bigTitle[1]='DP为空率';
+        bigTitle[2]='SDP为空率';
+        bigTitle[3]='DP Online国内为空率';
+        bigTitle[4]='SDP Online国内为空率';
+        bigTitle[5]='DP 无线国内为空率';
+        bigTitle[6]='SDP 无线国内为空率';
+        bigTitle[7]='DP Online国际为空率';
+        bigTitle[8]='SDP Online国际为空率';
+        bigTitle[9]='DP 无线国际为空率';
+        bigTitle[10]='SDP 无线国际为空率';
+         var smallTitle = new Array();
+         smallTitle[0] = '为空率';
+         smallTitle[1] = '为空数';
+         smallTitle[2] = '调用数'
+        var div=new Array();
+        div[0]='diyall';div[1]='dp';div[2]='sdp';div[3]='sdponlineDe';
+        div[4]='sdponlineIn';div[5]='sdpwrilessDe';div[6]='sdpwrilessIn';
+        div[7]='dponlineDe';div[8]='dponlineIn';div[9]='dpwirelessDe';div[10]='dpwirelessIn';
+         var orderSquence = new Array();
+         orderSquence[0] = 27;orderSquence[1] = 28;
+         orderSquence[2] = 29;orderSquence[3] = 30;
+         orderSquence[4] = 31;orderSquence[5] = 32;
+         orderSquence[6] = 33;orderSquence[7] = 34;
+         orderSquence[8] = 35;orderSquence[9] = 36;
+         orderSquence[10] = 37;
+         appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 11, orderSquence, days, 38)
+
+         }
+
+
+}
+
+//自由行机票查询为空
+function diyFlightService()
+{
+     var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+    //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#pkgbookH")
+    $orderContainer.empty();//清空翻页标签
+    $orderContainer.append("<div id='dpDe' style='height:350px;float:left;clear:left;width:"+invoke_chart_width+"px;margin-top: 5px'></div><div id='sdpDe' style='height:350px;float:left;clear:right;width:"+invoke_chart_width+"px;margin-left:10px;margin-top: 5px '></div><div id='dpIn' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+invoke_chart_width+"px;'></div><div id='sdpIn' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+invoke_chart_width+"px;'></div>")
+         if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else{
+        var url = '/EagleEye/ajax/diyservicehis/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle=new Array();
+        bigTitle[0]='DP 国内机票';
+        bigTitle[1]='SDP 国内机票';
+        bigTitle[2]='DP 国际机票';
+        bigTitle[3]='SDP 国际机票';
+         var smallTitle = new Array();
+         smallTitle[0] = '为空率';
+         smallTitle[1] = '为空数';
+         smallTitle[2] = '调用数'
+        var div=new Array();
+         div[0]='dpDe';div[1]='sdpDe';div[2]='dpIn';div[3]='sdpIn';
+         var orderSquence = new Array();
+         orderSquence[0] = 38;orderSquence[1] = 39;
+         orderSquence[2] = 40;orderSquence[3] = 41;
+         appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 38)
+
+         }
+}
+
+//自由行酒店查询为空
+function diyHotelService()
+{
+
+     var startDate=$("#startdate3").val();
+    var endDate=$("#enddate3").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+    //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#pkgcommitH")
+    $orderContainer.empty();//清空翻页标签
+    $orderContainer.append("<div id='dpDeH' style='height:350px;float:left;clear:left;width:"+invoke_chart_width+"px;margin-top: 5px'></div><div id='sdpDeH' style='height:350px;float:left;clear:right;width:"+invoke_chart_width+"px;margin-left:10px;margin-top: 5px '></div><div id='dpInH' style='height:350px;float:left;clear:left;margin-top: 5px;width:"+invoke_chart_width+"px;'></div><div id='sdpInH' style='height:350px;float:left;clear:right;margin-left:10px;margin-top: 5px;width:"+invoke_chart_width+"px; '></div>")
+        if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else{
+        var url = '/EagleEye/ajax/diyservicehis/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle=new Array();
+         bigTitle[0]='DP 国内酒店';
+        bigTitle[1]='SDP 国内酒店';
+        bigTitle[2]='DP 国际酒店';
+        bigTitle[3]='SDP 国际酒店';
+         var smallTitle = new Array();
+         smallTitle[0] = '为空率';
+         smallTitle[1] = '为空数';
+         smallTitle[2] = '调用数'
+         var div=new Array();
+         div[0]='dpDeH';div[1]='sdpDeH';div[2]='dpInH';div[3]='sdpInH';
+         var orderSquence = new Array();
+         orderSquence[0] = 42;orderSquence[1] = 43;
+         orderSquence[2] = 44;orderSquence[3] = 45;
+         appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 38)
+
+         }
+}
+
 //团队游 APP
 var pkg_chart_width;
 function pkgAPP()
 {
-
-
          //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
     var startDate=$("#startdate1").val();
     var endDate=$("#enddate1").val();
@@ -1699,6 +1839,114 @@ function appcrCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,da
             mychart10.hideLoading();
         })
     }
+    else if(pageid == 11)
+    {
+         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
+         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
+         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
+         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
+        var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle,days)
+        var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle,days)
+        var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle,days)
+        var options9=options(div[8],type,bigTitle[8],timeArray,smallTitle,days)
+        var options10=options(div[9],type,bigTitle[9],timeArray,smallTitle,days)
+        var options11=options(div[10],type,bigTitle[10],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         var mychart2 = new Highcharts.Chart(options2);
+         var mychart3 = new Highcharts.Chart(options3);
+         var mychart4 = new Highcharts.Chart(options4);
+         var mychart5 = new Highcharts.Chart(options5);
+        var mychart6 = new Highcharts.Chart(options6);
+        var mychart7 = new Highcharts.Chart(options7);
+        var mychart8 = new Highcharts.Chart(options8);
+        var mychart9 = new Highcharts.Chart(options9);
+        var mychart10 = new Highcharts.Chart(options10);
+        var mychart11 = new Highcharts.Chart(options11);
+         mychart1.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
+         mychart3.showLoading('Loading data from server...');
+         mychart4.showLoading('Loading data from server...');
+         mychart5.showLoading('Loading data from server...');
+        mychart6.showLoading('Loading data from server...');
+        mychart7.showLoading('Loading data from server...');
+        mychart8.showLoading('Loading data from server...');
+        mychart9.showLoading('Loading data from server...');
+        mychart10.showLoading('Loading data from server...');
+        mychart11.showLoading('Loading data from server...');
+        $.getJSON(url, function (data) {
+             var reObj = data;
+               if(reObj.value.length<days*jsonCnt)
+            {
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
+                 var dataArray6 = newGetArray(reObj, orderSquence[5],0,days-1)
+                 var dataArray7 = newGetArray(reObj, orderSquence[6],0,days-1)
+                 var dataArray8 = newGetArray(reObj, orderSquence[7],0,days-1)
+                 var dataArray9 = newGetArray(reObj, orderSquence[8],0,days-1)
+                 var dataArray10 = newGetArray(reObj, orderSquence[9],0,days-1)
+                 var dataArray11 = newGetArray(reObj, orderSquence[10],0,days-1)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                     mychart6.series[i].setData(dataArray6[i]);
+                     mychart7.series[i].setData(dataArray7[i]);
+                     mychart8.series[i].setData(dataArray8[i]);
+                     mychart9.series[i].setData(dataArray9[i]);
+                     mychart10.series[i].setData(dataArray10[i]);
+                     mychart11.series[i].setData(dataArray11[i]);
+                }
+            }
+            else{
+                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
+                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
+                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
+                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
+                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
+                   var dataArray6 = newGetArray(reObj, orderSquence[5],1,days)
+                   var dataArray7 = newGetArray(reObj, orderSquence[6],1,days)
+                   var dataArray8 = newGetArray(reObj, orderSquence[7],1,days)
+                   var dataArray9 = newGetArray(reObj, orderSquence[8],1,days)
+                   var dataArray10 = newGetArray(reObj, orderSquence[9],1,days)
+                   var dataArray11 = newGetArray(reObj, orderSquence[10],1,days)
+
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                     mychart6.series[i].setData(dataArray6[i]);
+                     mychart7.series[i].setData(dataArray7[i]);
+                     mychart8.series[i].setData(dataArray8[i]);
+                     mychart9.series[i].setData(dataArray9[i]);
+                     mychart10.series[i].setData(dataArray10[i]);
+                     mychart11.series[i].setData(dataArray11[i]);
+                }
+
+            }
+
+            mychart1.hideLoading();
+            mychart2.hideLoading();
+            mychart3.hideLoading();
+            mychart4.hideLoading();
+            mychart5.hideLoading();
+             mychart6.hideLoading();
+             mychart7.hideLoading();
+             mychart8.hideLoading();
+             mychart9.hideLoading();
+             mychart10.hideLoading();
+             mychart11.hideLoading();
+        })
+    }
 
 
 }
@@ -2052,6 +2300,274 @@ function newGetArray(retobj, k,flag,days)  //如 k=1自由行转化率   flag=0�
              var x;
              fail[j] = retobj.value[2+ 18 * j][4] ;
             total[j] = retobj.value[2+ 18 * j][4]  +retobj.value[3+ 18 * j][4]
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+
+        //自由行为空
+         if (k == 27) //自由行总体为空率
+        {
+             var x;
+             fail[j] = retobj.value[5+ 38 * j][5] ;
+            total[j] = retobj.value[4+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 28) //DP为空率
+        {
+             var x;
+             fail[j] = retobj.value[1+ 38 * j][5] ;
+            total[j] = retobj.value[0+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 29) //SDP 为空率
+        {
+              var x;
+               fail[j] = retobj.value[3+ 38 * j][5] ;
+            total[j] = retobj.value[2+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 30) //DP Online国内为空率
+        {
+             var x;
+              fail[j] = retobj.value[7+ 38 * j][5] ;
+            total[j] = retobj.value[6+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 31) //SDP Online国内为空率
+        {
+              var x;
+              fail[j] = retobj.value[11+ 38 * j][5] ;
+            total[j] = retobj.value[10+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 32) //DP 无线国内
+        {
+             var x;
+              fail[j] = retobj.value[9+ 38 * j][5] ;
+            total[j] = retobj.value[8+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 33)//SDP 无线国内
+        {
+             var x;
+           fail[j] = retobj.value[13+ 38 * j][5] ;
+            total[j] = retobj.value[12+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 34)//DP Online国际
+        {
+             var x;
+              fail[j] = retobj.value[23+ 38 * j][5] ;
+            total[j] = retobj.value[22+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 35)  //SDP Online国际
+        {
+             var x;
+           fail[j] = retobj.value[27+ 38 * j][5] ;
+            total[j] = retobj.value[26+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 36) //DP 无线国际
+        {
+             var x;
+           fail[j] = retobj.value[25+ 38 * j][5] ;
+            total[j] = retobj.value[24+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 37)//SDP 无线国际
+        {
+             var x;
+              fail[j] = retobj.value[29+ 38 * j][5] ;
+            total[j] = retobj.value[28+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 38)  //DP 国内机票
+        {
+             var x;
+              fail[j] = retobj.value[15+ 38 * j][5] ;
+            total[j] = retobj.value[14+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 39) //SDP 国内机票
+        {
+             var x;
+            fail[j] = retobj.value[17+ 38 * j][5] ;
+            total[j] = retobj.value[16+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 40) //DP 国际机票
+        {
+             var x;
+              fail[j] = retobj.value[31+ 38 * j][5] ;
+            total[j] = retobj.value[30+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 41) //SDP 国际机票
+        {
+             var x;
+               fail[j] = retobj.value[33+ 38 * j][5] ;
+            total[j] = retobj.value[32+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 42) //DP 国内酒店
+        {
+             var x;
+               fail[j] = retobj.value[19+ 38 * j][5] ;
+            total[j] = retobj.value[18+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 43) //SDP 国内酒店
+        {
+              var x;
+             fail[j] = retobj.value[21+ 38 * j][5] ;
+            total[j] = retobj.value[20+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 44) //DP 国际酒店
+        {
+             var x;
+            fail[j] = retobj.value[35+ 38 * j][5] ;
+            total[j] = retobj.value[34+ 38 * j][5] ;
+            if(fail[j]==0)
+            {
+                x=0;
+            }
+            else{
+                x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
+        }
+         if (k == 45) //SDP 国际酒店
+        {
+             var x;
+             fail[j] = retobj.value[37+ 38 * j][5] ;
+            total[j] = retobj.value[36+ 38 * j][5] ;
             if(fail[j]==0)
             {
                 x=0;

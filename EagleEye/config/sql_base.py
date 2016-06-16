@@ -478,9 +478,9 @@ WHERE
     """  ,
 #自由行查询为空
    "diyservicehis": """
-   select * from serviceinvokelogResults where
-  vdate> %s and vdate <%s
-   order by vdate,type,product,channel
+   select vdate,type,product,channel,status,cnt from serviceinvokelogResults where
+  vdate between %s and %s
+   order by vdate,type,product,channel,status
     """  ,
  # 自由行bookcommit新
     "diybookcommitnew": """

@@ -250,7 +250,7 @@ recommend = [
         r'^ajax/service/ratio/(?P<params>([0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]{4}-[0-9]{2}-[0-9]{2}&[0-9]+&(-|[0-9]+)&(-|[0-9]+)&(-|[0-9]+)&(Hybrid|Online|H5|EnglishSite)))$',
         views_services.get_serviceinvoke_failureratio,
         name='failureratio'),
-    ## 团队游bookcommit
+    ## 自由行查询为空
     url(r'^ajax/diyservicehis/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$',
         views_base.get_diyserviceinvoke),
 ]
