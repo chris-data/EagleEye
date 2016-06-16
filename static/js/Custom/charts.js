@@ -145,7 +145,7 @@ $.extend({
                     var x = 0;
                     var y = 0;
                     x = points[0].x;
-                    arr.push('<span style="color:#00a65a" >' + '时间段：' + Highcharts.dateFormat('%H:%M', x - 1000 * 60 * interval) + '~' + Highcharts.dateFormat('%H:%M', x) + '</span>');
+                    arr.push('<span style="color:#00a65a" >' + '时间段：' + Highcharts.dateFormat('%H:%M', x) + '~' + Highcharts.dateFormat('%H:%M', x + 1000 * 60 * interval) + '</span>');
                     for (var i = 0; i < points.length; i++) {
                         var name = $.trim(points[i].series.name);
                         x = points[i].x;

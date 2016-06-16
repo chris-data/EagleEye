@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block css %}
+{% endblock %}
+
+{% block content %}
+    <section id="main-content">
+        <section class="wrapper">
+
+            <ul id="myTab" class="nav nav-tabs">
+                <li id="tab_default" class="active"><a href="#pkgAPP" data-toggle="tab"><i class="icon_house"></i>
+                    团队游APP</a></li>
+                <li id="tab_flight"><a href="#pkgOnline" data-toggle="tab" onClick="pkgOnline()"><i
+                        class="icon_compass"></i>团队游Online</a></li>
+                <li id="tab_hotel"><a href="#pkgOffline" data-toggle="tab" onClick="pkgOffline()"><i class="icon_building_alt"></i>团队游Offline</a>
+                </li>
+                <li class="pull-right" style="margin-top: 8px;">
+                    <i class="arrow_right_alt"></i>
+                    <small><a href="/EagleEye/check/" style="color: #6a6a6a">&nbsp;查看实时趋势&nbsp;</a></small>
+                </li>
+            </ul>
+            <!-- params start-->
+            <div id="myTabContent" class="tab-content">
+                <div id="pkgAPP" class="tab-pane fade in active">
+                    <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label><p style="color:red;font-size:14px;">数据取自metric,每天凌晨自动更新昨日数据。</p>
+                    </label>
+                    </span>
+
+                    </header>
+                    <div id='pkgAPPH' class="panel-body" style="margin-left:2px;">
+
+                    </div>
+                    <div class="panel-footer">
+                        <footer class="main-footer">
+                            <!-- To the right -->
+                            <div class="pull-right hidden-xs">
+                                <strong>Powered By 度假数据团队</strong>
+                            </div>
+                            <!-- Default to the left -->
+                            <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All
+                            rights
+                            reserved.
+                        </footer>
+                    </div>
+                </div>
+                <div id="pkgOnline" style="margin-top:10px;" class="tab-pane fade">
+                    <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label><p style="color:red;font-size:14px;">数据取自metric，每天凌晨自动更新昨日数据。</p>
+                    </label>
+                     </span>
+
+                    </header>
+                    <div id='pkgOnlineH' style="margin-left:2px;">
+                    </div>
+                    <div style='clear:left' class="panel-footer">
+                        <footer class="main-footer">
+                            <!-- To the right -->
+                            <div class="pull-right hidden-xs">
+                                <strong>Powered By 度假数据团队</strong>
+                            </div>
+                            <!-- Default to the left -->
+                            <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All
+                            rights
+                            reserved.
+                        </footer>
+                    </div>
+                </div>
+                <div id="pkgOffline" class="tab-pane fade">
+                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                    <label><p style="color:red;font-size:14px;">数据取自metric，每天凌晨自动更新昨日数据。</p>
+                    </label>
+                     </span>
+
+                    </header>
+                    <div id='pkgOfflineH' style="margin-left:2px;">
+                    </div>
+                    <div style='clear:left' class="panel-footer">
+                        <footer class="main-footer">
+                            <!-- To the right -->
+                            <div class="pull-right hidden-xs">
+                                <strong>Powered By 度假数据团队</strong>
+                            </div>
+                            <!-- Default to the left -->
+                            <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All
+                            rights
+                            reserved.
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/highcharts/themes/sand-signika.js"></script>
+    <script src="/static/js/Custom/checkHistory.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            function item(name, cnt) {
+                this.name = name;
+                this.cnt = cnt;
+            }
+            pkgAPP()
+        })
+    </script>
+{% endblock %}
