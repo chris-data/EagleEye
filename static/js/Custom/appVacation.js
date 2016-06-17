@@ -109,9 +109,10 @@ function tourMoney()
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
+    var chart_width=$("#visaOrder").width()
     $orderContainer = $("#visaH")
     $orderContainer.empty();//清空翻页标签
-    $orderContainer.append("<div id='money' style='height:350px;width:100%;margin-top: 2px'></div>")
+    $orderContainer.append("<div id='money' style='height:350px;width:" + 2.03*vaorder_chart_width + "px;margin-top: 2px'></div>")
     if(startDate>endDate)
     {
         alert("开始时间比截止时间还大，你长点心吧！！！")
