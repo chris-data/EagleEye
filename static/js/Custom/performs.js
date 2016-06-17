@@ -497,20 +497,33 @@ function plaseWait()//获取订单详情接口
 function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,days,jsonCnt) //pageid=3代表有3个图   k=2代表两根线
 {
     if (pageid == 1) {
-        var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
-        var mychart1 = new Highcharts.Chart(options1);
-        mychart1.showLoading('Loading data from server...');
+       var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
+         var mychart1 = new Highcharts.Chart(options1);
+         mychart1.showLoading('Loading data from server...');
+
         $.getJSON(url, function (data) {
-
-            var reObj = data;
-
-            var dataArray1 = getArray(reObj, orderSquence[0],null)
-            for(var i=0;i<k;i++)
+             var reObj = data;
+            if(reObj.value.length<days*jsonCnt)
             {
-              mychart1.series[i].setData(dataArray1[i]);
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                }
+            }
+            else{
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                }
+
             }
 
+
             mychart1.hideLoading();
+
         })
     }
     else if(pageid == 2)
@@ -2963,6 +2976,92 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              arr1[j]=toDecimal(retobj.value[30*3+1+3* j][3]*100);
              arr2[j]=toDecimal(retobj.value[1+3* j][3]*100);
          }
+          if(k==69)//度假总订单
+         {
+            arr2[j]=retobj.value[15+19* j][3] ;//自由定
+            arr3[j]=retobj.value[16+19* j][3]+retobj.value[17+19* j][3]  ;//团队游
+            arr4[j]=retobj.value[18+19* j][3] ;//签证
+            arr1[j]=arr2[j]+arr3[j]+ arr4[j];//总订单
+         }
+         if(k==70)//APP总订单
+         {
+            arr2[j]=retobj.value[0+19* j][3]+retobj.value[7+19* j][3] ;//自由定
+            arr3[j]=retobj.value[1+19* j][3]+retobj.value[8+19* j][3]+retobj.value[2+19* j][3]+retobj.value[9+19* j][3]  ;//团队游
+            arr4[j]=retobj.value[3+19* j][3]+retobj.value[10+19* j][3] ;//签证
+            arr1[j]=arr2[j]+arr3[j]+ arr4[j];//总订单
+         }
+         if(k==71)//Online 总订单
+         {
+            arr2[j]=retobj.value[11+19* j][3] ;//自由定
+            arr3[j]=retobj.value[12+19* j][3]+retobj.value[13+19* j][3]  ;//团队游
+            arr4[j]=retobj.value[14+19* j][3] ;//签证
+            arr1[j]=arr2[j]+arr3[j]+ arr4[j];//总订单
+         }
+         if(k==72)//H5 总订单
+         {
+            arr2[j]=retobj.value[4+19* j][3] ;//自由定
+            arr3[j]=retobj.value[5+19* j][3];//团队游
+            arr4[j]=retobj.value[6+19* j][3] ;//签证
+            arr1[j]=arr2[j]+arr3[j]+ arr4[j];//总订单
+         }
+          if(k==73)//度假 iphone分版本
+         {
+              // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
+            arr1[j]=retobj.value[24+32* j][3] + retobj.value[25+ 32* j][3] + retobj.value[26+ 32* j][3]+ retobj.value[27 + 32* j][3];
+            arr2[j]=retobj.value[20+32* j][3] + retobj.value[21+ 32* j][3] + retobj.value[22+ 32* j][3]+ retobj.value[23 + 32* j][3];
+            arr3[j]=retobj.value[16+32* j][3] + retobj.value[17+ 32* j][3] + retobj.value[18+ 32* j][3]+ retobj.value[19 + 32* j][3];
+            arr4[j]=retobj.value[12+32* j][3] + retobj.value[13+ 32* j][3] + retobj.value[14+ 32* j][3]+ retobj.value[15+ 32* j][3];
+            arr5[j]=retobj.value[8+32* j][3] + retobj.value[9 + 32* j][3] + retobj.value[10 + 32* j][3]+ retobj.value[11 + 32* j][3];
+            arr6[j]=retobj.value[4+32* j][3] + retobj.value[5 + 32* j][3] + retobj.value[6 + 32* j][3]+ retobj.value[7 + 32* j][3];
+            arr7[j]=retobj.value[0+32* j][3] + retobj.value[1 + 32* j][3] + retobj.value[2 + 32* j][3]+ retobj.value[3 + 32* j][3];
+            arr8[j]=retobj.value[28+32* j][3] + retobj.value[29 + 32* j][3] + retobj.value[30 + 32* j][3]+ retobj.value[31 + 32* j][3];
+         }
+          if(k==74)//自由行 iphone分版本
+         {
+            arr1[j]=retobj.value[24+32* j][3] ;
+            arr2[j]=retobj.value[20+32* j][3] ;
+            arr3[j]=retobj.value[16+32* j][3] ;
+            arr4[j]=retobj.value[12+32* j][3] ;
+            arr5[j]=retobj.value[8+32* j][3];
+            arr6[j]=retobj.value[4+32* j][3] ;
+            arr7[j]=retobj.value[0+32* j][3] ;
+            arr8[j]=retobj.value[28+32* j][3];
+         }
+          if(k==75)//团队游 iphone分版本
+         {
+                // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
+            arr1[j]=retobj.value[25+ 32* j][3] + retobj.value[26+ 32* j][3];
+            arr2[j]= retobj.value[21+ 32* j][3] + retobj.value[22+ 32* j][3];
+            arr3[j]=retobj.value[17+ 32* j][3] + retobj.value[18+ 32* j][3];
+            arr4[j]= retobj.value[13+ 32* j][3] + retobj.value[14+ 32* j][3];
+            arr5[j]= retobj.value[9 + 32* j][3] + retobj.value[10 + 32* j][3];
+            arr6[j]= retobj.value[5 + 32* j][3] + retobj.value[6 + 32* j][3];
+            arr7[j]= retobj.value[1 + 32* j][3] + retobj.value[2 + 32* j][3];
+            arr8[j]= retobj.value[29 + 32* j][3] + retobj.value[30 + 32* j][3];
+         }
+          if(k==76)//签证 iphone分版本
+         {
+                 // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
+            arr1[j]= retobj.value[27 + 32* j][3];
+            arr2[j]=retobj.value[23 + 32* j][3];
+            arr3[j]= retobj.value[19 + 32* j][3];
+            arr4[j]=retobj.value[15+ 32* j][3];
+            arr5[j]= retobj.value[11 + 32* j][3];
+            arr6[j]=retobj.value[7 + 32* j][3];
+            arr7[j]=retobj.value[3 + 32* j][3];
+            arr8[j]=retobj.value[31 + 32* j][3];
+         }
+         if(k==77)//度假总金额
+         {
+
+             arr2[j]=retobj.value[0+3* j][2];
+             arr3[j]=retobj.value[1+3* j][2];
+             arr4[j]=retobj.value[2+3* j][2];
+             arr1[j]=arr2[j]+arr3[j]+arr4[j];
+
+         }
+
+
 
      }
  if(crcCnt==1)

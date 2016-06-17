@@ -1168,8 +1168,8 @@ def get_APPOrder(request, sdt, edt):
     return JsonResponse(mapping)
 
 
-##度假app订单
-def get_H5Order(request, sdt, edt):
+##度假app分版本订单
+def get_VacPieOrder(request, sdt, edt):
     """
     :param vdate: 日期
     :param bu: bu名称  如自由行、团队游、 邮轮
@@ -1178,7 +1178,7 @@ def get_H5Order(request, sdt, edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sqldict["h5Order"], [sdt, edt])
+    cursor.execute(SQL.sqldict["pieOrder"], [sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 

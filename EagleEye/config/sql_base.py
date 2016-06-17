@@ -432,30 +432,39 @@ WHERE
     vdate between %s and %s
     order by vdate,type
     """  ,
-     #度假全部订单
+     #度假订单   app online h5
     "appAllOrder":"""
-    select vdate,bu,channel,cnt from fatVdataVacationOrder where
-    vdate> %s and vdate <%s
-    and channel in ('total','online')
-    order by vdate,channel,bu
+       select
+   O.vdate,O.bu,O.channel,O.cnt
+   from
+   (
+   select vdate,bu,channel,cnt from fatVdataVacationOrder where
+     channel in ('total','online','android','iphone')
+    union all
+    select vdate,bu,'h5'as channel,cnt from vdataVacationOrderH5
+    )O
+    where  O.vdate  between %s and %s
+    order by O.vdate,O.channel,O.bu
     """,
-    #app度假订单
+    #app分版本订单
     "appOrder":"""
     select vdate,bu,channel,cnt from fatVdataVacationOrder where
-    vdate> %s and vdate <%s
+    vdate   between %s and %s
+    and channel in ('iphone_6.17','iphone_6.16','iphone_6.15','iphone_6.14','iphone_6.13','iphone_6.12','iphone_6.11','others')
+    order by vdate,channel,bu
+    """,
+    #饼形图订单
+    "pieOrder":"""
+    select vdate,bu,channel,cnt from fatVdataVacationOrder where
+    vdate   between %s and %s
     and channel in ('android','iphone','iphone_6.17','iphone_6.16','iphone_6.15','iphone_6.14','iphone_6.13','iphone_6.12','iphone_6.11','others')
     order by vdate,channel,bu
     """,
-    #h5度假订单
-     "h5Order":"""
-    select vdate,bu,cnt from vdataVacationOrderH5 where
-    vdate> %s and vdate <%s
-    order by vdate,bu
-    """,
+
     #度假金额
      "appAmount":"""
     select vdate,bu,cnt from vdateVacationAmount where
-    vdate> %s and vdate <%s
+    vdate  between %s and %s
     order by vdate,bu
     """,
 #自由行查询为空

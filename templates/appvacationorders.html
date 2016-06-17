@@ -5,31 +5,31 @@
 {% block content %}
     <section id="main-content">
         <section class="wrapper">
-             <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-
-                </span>
+               <div class="alert alert-info alert-dismissable">
+                注意事项：
+                 <li>度假总订单此处包含自由行、团队游和签证</li>
+                 <li>自由行：包含下单渠道为APP/Online/H5的订单。</li>
+                   <li>签证：仅包含产品类型为签证的订单。</li>
+                 <li>团队游：包含国内游、海外游、周边短途。国内游：产品形态为:跟团游,团队游,私家团,半自助游,当地参团,独立成团,产品类型为:国内旅游。海外游：产品形态为:跟团游,团队游,私家团,半自助游,当地参团,独立成团,产品类型为:出境旅游,境外N日游。周边短途：产品形态为:跟团游,团队游,私家团,半自助游,当地参团,独立成团,产品类型为:境内N日游,境内一日游。</li>
+           
+               </div>
             <ul id="myTab" class="nav nav-tabs">
                 <li id="tab_default" class="active"><a href="#home" data-toggle="tab"><i class="icon_house"></i>
-                    全部</a></li>
-                <li id="diy"><a href="#diyOrder" data-toggle="tab" onClick="diyOrder()">自由行</a></li>
-                <li id="pkg"><a href="#pkgOrder" data-toggle="tab" onClick="pkgOrder()"> 团队游</a></li>
-                <li id="visa"><a href="#visaOrder" data-toggle="tab" onClick="visaOrder()"> 签证</a></li>
-                <li id="cruise"><a href="#cruiseOrder" data-toggle="tab" onClick="curiseOrder()"> 邮轮</a></li>
+                    度假订单</a></li>
+                <li id="diy"><a href="#diyOrder" data-toggle="tab" onClick="iphoneVersionOrder()">分版本订单</a></li>
+                <li id="pkg"><a href="#pkgOrder" data-toggle="tab" onClick="tourRate()">占比</a></li>
+                <li id="visa"><a href="#visaOrder" data-toggle="tab" onClick="tourMoney()"> 金额明细</a></li>
 
             </ul>
             <!-- params start-->
             <div id="myTabContent" class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate1" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search1" class="btn btn-info btn-xs" onclick='Vacationsearch()' style="">
-                        <b><i class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
-                        <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px"><b>注意：此处度假总订单仅包含自由行、团队游（含周边短途）、签证，不含邮轮。渠道包含app/online/h5/offline等，此处仅列出app/online/h5.</b>
-                        </p></label>
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate1" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='VacationOrder()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
                     </header>
                     <div id='orderContainer' class="panel-body" style="margin-left:2px;">
 
@@ -48,18 +48,12 @@
                     </div>
                 </div>
                 <div id="diyOrder" style="margin-top:10px;" class="tab-pane fade">
-                    <header id="acheader2" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate2" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search2" class="btn btn-info btn-xs" onclick='diysearch()' style=""><b><i
-                            class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
-                        <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px">
-                            <b>注意：此处自由行总订单包含下单方式为4126和6869的。渠道包含app/online/h5/offline等，此处仅列出app/online/h5.</b>
-                        </p>
-                        </label>
+                   <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate2" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate2" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='iphoneVersionOrder()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
                     </header>
                     <div id='orderdiyH' style="margin-left:2px;">
                     </div>
@@ -77,18 +71,11 @@
                     </div>
                 </div>
                 <div id="pkgOrder" class="tab-pane fade">
-                    <header id="acheader3" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate3" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search3" class="btn btn-info btn-xs" onclick='pkgsearch()' style=""><b><i
-                            class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
-                        <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px">
-                            <b>注意：此处团队游总订单仅包含产品形态为：跟团游、团队游、私家团、半自助游、当地参团、独立成团，产品类型为：国内旅游,出境旅游,境外N日游,境内一日游,境内N日游。</b>
-                        </p>
-                        </label>
+                      <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>选择时间：<input id="enddate3" class="Wdate" type="text" placeholder="--选择时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='tourRate()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
                     </header>
                     <div id='orderpkgH' style="margin-left:2px;">
                     </div>
@@ -106,18 +93,12 @@
                     </div>
                 </div>
                 <div id="visaOrder" class="tab-pane fade">
-                    <header id="acheader4" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
-                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
-                    <label>时间：<input id="calDate4" class="Wdate" type="text" placeholder="--选择时间--"
-                                     onfocus="WdatePicker()"></label>&nbsp;&nbsp;
-                    <button type="button" id="search4" class="btn btn-info btn-xs" onclick='visasearch()' style=""><b><i
-                            class="icon_search"></i>&nbsp;&nbsp;查询</b>
-                    </button>&nbsp;&nbsp;
-                     </span>
-                        <label><p style="color: #FF0000;margin-left: 10px;margin-top:10px">
-                            <b>注意：此处签证总订单仅包含产品类型为：签证。渠道包含app/online/h5/offline等，此处仅列出app/online/h5.</b>
-                        </p>
-                        </label>
+                   <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                           <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                                    <label>开始时间：<input id="startdate4" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                    <label>截止时间：<input id="enddate4" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                                     <button type="button" id="search" class="btn btn-info btn-xs" onclick='tourMoney()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                                </span>
                     </header>
                     <div id='visaH' style="margin-left:2px;">
                     </div>
@@ -134,29 +115,15 @@
                         </footer>
                     </div>
                 </div>
-                <div id="cruiseOrder" class="tab-pane fade">
-                    <div id='cruiseH' style="margin-left:2px;">
-                    </div>
-                    <div style='clear:left' class="panel-footer">
-                        <footer class="main-footer">
-                            <!-- To the right -->
-                            <div class="pull-right hidden-xs">
-                                <strong>Powered By 度假数据团队</strong>
-                            </div>
-                            <!-- Default to the left -->
-                            <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All
-                            rights
-                            reserved.
-                        </footer>
-                    </div>
-                </div>
-
             </div>
         </section>
     </section>
 {% endblock %}
 
 {% block js %}
+    <script src="/static/js/highcharts/themes/sand-signika.js"></script>
+    <script src="/static/js/Custom/performs.js"></script>
+    <script src="/static/js/Custom/checkHistory.js"></script>
     <script src="/static/js/Custom/appVacation.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
@@ -164,8 +131,14 @@
                 this.name = name;
                 this.cnt = cnt;
             }
-
-            appVacation()
+           $("#startdate1").val(getNowDay()[1]);
+           $("#enddate1").val(getNowDay()[0]);
+           $("#startdate2").val(getNowDay()[1]);
+           $("#enddate2").val(getNowDay()[0]);
+           $("#enddate3").val(getNowDay()[0]);
+           $("#startdate4").val(getNowDay()[1]);
+           $("#enddate4").val(getNowDay()[0]);
+            VacationOrder()
         });
     </script>
 {% endblock %}

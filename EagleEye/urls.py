@@ -54,10 +54,11 @@ orderurl = [
     url(r'^ajax/appvaallorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAllOrder),
     # 度假app订单
     url(r'^ajax/appvaorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPOrder),
-    # 度h5订单
-    url(r'^ajax/h5vaorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_H5Order),
     # 度假金额
     url(r'^ajax/appvaamount/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAmount),
+     # 度假订单版本饼形图
+    url(r'^ajax/pieOrder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacPieOrder),
+
 
 ]
 trafficurl = [
