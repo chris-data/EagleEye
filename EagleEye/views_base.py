@@ -153,6 +153,13 @@ def get_pkg_checkhistory(request):
         return render(request, "pkgcheckHistory.html", {'first_name': request.user.username})
     else:
         return render(request, 'forbiddened.html', {'first_name': request.user.username})
+##度假online阻断
+@login_required(login_url='/login/')
+def get_tour_block(request):
+    if judge_list(request.user.username):
+        return render(request, "blockRate.html", {'first_name': request.user.username})
+    else:
+        return render(request, 'forbiddened.html', {'first_name': request.user.username})
 
 
 def get_enddt(interval=10, lastdt=datetime.now()):
@@ -1385,6 +1392,25 @@ def get_tourhandler(request, sdt, edt):
     edt += ' 00:00:00'
     cursor = connection.cursor()
     cursor.execute(SQL.sqldict["tourhandler"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+## 接口性能
+def get_tourblock(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: diy
+    :param pagetype:详情页下一步
+    :param channel:online/offline
+    :param failcnt:失败
+    :param totalcnt:全部
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["tourblock"], [sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 

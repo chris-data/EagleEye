@@ -31,7 +31,8 @@ pageurl = [
     url(r'^handler/$', views_base.get_diy_handler, name='diyhandler'),
     url(r'^soa/$', views_base.get_vac_soa, name='vacsoa'),
     url(r'^newcheckhistory/$', views_base.get_new_checkhistory, name='newcheckhistory'),  ##自由行新可订检查
-      url(r'^pkgcheckhistory/$', views_base.get_pkg_checkhistory, name='pkgcheckhistory'),  ##团队游新可订检查
+    url(r'^pkgcheckhistory/$', views_base.get_pkg_checkhistory, name='pkgcheckhistory'),  ##团队游新可订检查
+    url(r'^tourblock/$', views_base.get_tour_block, name='tourblock'),  ##度假页面阻断
 ]
 orderurl = [
     # 订单sdt,edt,channel,product,interval5个维度
@@ -154,6 +155,8 @@ uaurl = [
         views_base.get_interfacePerforms),
     # 度假页面性能（除团队游，只包含自由行和保险）
     url(r'^ajax/tourhandler/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_tourhandler),
+     # 度假页面阻断
+    url(r'^ajax/tourblock/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_tourblock),
 
 ]
 

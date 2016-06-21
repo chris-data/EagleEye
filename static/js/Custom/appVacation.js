@@ -83,10 +83,10 @@ function iphoneVersionOrder()
         var url = '/EagleEye/ajax/appvaorder/' + startDate + '/' + endDate;
         var days = getDays(startDate, endDate) + 1;
         var bigTitle = [];
-         bigTitle[0]='度假总体-iphone总订单';
-        bigTitle[1]='自由行-iphone总订单';
-        bigTitle[2]='团队游-iphone总订单';
-        bigTitle[3]='签证-iphone总订单';
+         bigTitle[0]='度假总体-iphone分版本订单';
+        bigTitle[1]='自由行-iphone分版本订单';
+        bigTitle[2]='团队游-iphone分版本订单';
+        bigTitle[3]='签证-iphone分版本订单';
         var smallTitle = new Array();
          smallTitle[0]='iphone_6.17';smallTitle[1]='iphone_6.16';smallTitle[2]='iphone_6.15';
          smallTitle[3]='iphone_6.14';smallTitle[4]='iphone_6.13';smallTitle[5]='iphone_6.12';

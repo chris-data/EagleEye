@@ -546,6 +546,11 @@ WHERE
     where vdate between %s and %s
     order by vdate,page,handlerName,maxcnt,mincnt,avgcnt
     """  ,
-
+##¶È¼ÙÒ³Ãæ×è¶Ï
+    "tourblock": """
+  select vdate,bu,pagetype,channel,failCnt,totalCnt from tourBlock
+where vdate between %s and %s
+order by vdate,bu,pagetype,channel,failCnt,totalCnt
+    """  ,
 
 }

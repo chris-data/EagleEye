@@ -451,6 +451,94 @@ function pkgOffline()
        }
 }
 
+//详情页阻断
+var block_chart_width1;
+var block_chart_width2;
+function blockdetail()
+{
+    var startDate=$("#startdate1").val();
+    var endDate=$("#enddate1").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#blockdetailH")
+    $orderContainer.empty();//清空翻页标签
+     $orderContainer.append("<div id='pkgdetail' style='height:350px'></div><div id='sdpdetail' style='height:350px;width:49%;float:left;clear:left;margin-top: 10px'></div><div id='dpdetail' style='height:350px;width:49%;float:left;margin-left:10px;margin-top: 10px '></div>")
+    block_chart_width1= $("#pkgdetail").width();
+    block_chart_width2= $("#sdpdetail").width();
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourblock/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='详情页-团队游';
+        bigTitle[1]='详情页-自由行SDP';
+        bigTitle[2]='详情页-自由行DP';
+        var smallTitle = new Array();
+         smallTitle[0]='阻断率';smallTitle[1]='失败';smallTitle[2]='总数';
+        var div = new Array();
+        div[0] = 'pkgdetail';
+        div[1] = 'sdpdetail';
+        div[2] = 'dpdetail';
+        var orderSquence = new Array();
+        orderSquence[0] = 46;
+        orderSquence[1] = 47;
+        orderSquence[2] = 48;
+        appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 9)
+
+    }
+
+
+}
+
+//下一步阻断
+function fillnext()
+{
+    var startDate=$("#startdate2").val();
+    var endDate=$("#enddate2").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#blocknextH")
+    $orderContainer.empty();//清空翻页标签
+     $orderContainer.append("<div id='pkgfillnext' style='height:350px;width:"+block_chart_width1+"px;'></div><div id='sdpfillnext' style='height:350px;width:"+block_chart_width2+"px;float:left;clear:left;margin-top: 10px'></div><div id='dpfillnext' style='height:350px;width:"+block_chart_width2+"px;float:left;margin-left:10px;margin-top: 10px '></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourblock/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+        bigTitle[0]='填写页-团队游';
+        bigTitle[1]='填写页-自由行SDP';
+        bigTitle[2]='填写页-自由行DP';
+        var smallTitle = new Array();
+         smallTitle[0]='阻断率';smallTitle[1]='失败';smallTitle[2]='总数';
+        var div = new Array();
+        div[0] = 'pkgfillnext';
+        div[1] = 'sdpfillnext';
+        div[2] = 'dpfillnext';
+        var orderSquence = new Array();
+        orderSquence[0] = 49;
+        orderSquence[1] = 50;
+        orderSquence[2] = 51;
+        appcrCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 9)
+    }
+
+
+}
 //获取过去30天日期
 function getMonth30() {
     var timeArray = [];
@@ -1383,6 +1471,9 @@ function appVaCR()
 
 
 }
+
+
+
 //获取选定的时间数组
 function getChoseDate(StartDate,EndDate)
 {
@@ -1450,6 +1541,7 @@ function appcrCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,da
     }
      else if(pageid == 3)
     {
+
          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
          var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
          var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
@@ -2653,6 +2745,83 @@ function newGetArray(retobj, k,flag,days)  //如 k=1自由行转化率   flag=0�
             }
             rate[j] = parseFloat(x);//失败率  toFixed(4) parseFloat
         }
+        if(k==46)//团队游详情页
+         {
+
+             fail[j] = retobj.value[7 + 9 * j][4]+retobj.value[8 + 9 * j][4];//失败
+             total[j] =  retobj.value[7 + 9 * j][5]+retobj.value[8 + 9 * j][5];//总数
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率
+
+         }
+          if(k==47)//SDP详情页
+         {
+
+              fail[j] = retobj.value[2 + 9 * j][4];//失败
+             total[j] =  retobj.value[2 + 9 * j][5];//总数
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率
+
+         }
+         if(k==48)//DP详情页
+         {
+
+             fail[j] = retobj.value[1 + 9 * j][4];//失败
+             total[j] =  retobj.value[1 + 9 * j][5];//总数
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率
+
+         }
+         if(k==49)//团队游下一步
+         {
+
+               fail[j] = retobj.value[5 + 9 * j][4]+retobj.value[6 + 9 * j][4];//失败
+             total[j] =  retobj.value[5+ 9 * j][5]+retobj.value[6 + 9 * j][5];//总数
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率
+         }
+         if(k==50)//融合SDP下一步
+         {
+
+              fail[j] = retobj.value[3 + 9 * j][4]+retobj.value[4 + 9 * j][4];//失败
+             total[j] =  retobj.value[3 + 9 * j][5]+retobj.value[4 + 9 * j][5];//总数
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率
+
+         }
+         if(k==51)//DP下一步
+         {
+
+              fail[j] = retobj.value[0 + 9 * j][4];//失败
+             total[j] =  retobj.value[0 + 9 * j][5];//总数
+             var x=0;
+            if(total[j]!=0)
+            {
+                 var x= (fail[j]*100 / total[j]).toFixed(2);
+            }
+            rate[j] = parseFloat(x);//失败率
+
+         }
 
     }
     resultThree[0] = rate;

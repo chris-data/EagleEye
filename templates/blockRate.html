@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+  <section id="main-content">
+        <section class="wrapper">
+               <div class="alert alert-info alert-dismissable">
+                注意事项：
+               <li>数据取自metric，每天凌晨自动更新昨日数据。</li>
+                <li>后续几步待埋点后再一并做上。</li>
+               </div>
+            <ul id="myTab" class="nav nav-tabs">
+                <li id="handler1" class="active"><a href="#blockdetail" data-toggle="tab" ></i>
+                    详情页下一步</a></li>
+                <li id="handler2"><a href="#blocknext" data-toggle="tab" onClick="fillnext()">填写页下一步</a></li>
+
+            </ul>
+            <!-- params start-->
+            <div id="myTabContent" class="tab-content">
+            <div id="blockdetail" class="tab-pane fade in active" >
+                 <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                           <label>开始时间：<input id="startdate1" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                           <label>截止时间：<input id="enddate1" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                           <button type="button" id="search" class="btn btn-info btn-xs" onclick='blockdetail()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                      </span>
+
+                 </header>
+
+                <div id='blockdetailH' class="panel-body" style="margin-left:2px;">
+
+                </div>
+                 <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 度假数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+            <div id="blocknext" class="tab-pane fade">
+                <header id="acheader1" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
+                     <span id="param" style="padding: 3px;display:inline-block;text-align: center;margin-left: 10px;">
+                           <label>开始时间：<input id="startdate2" class="Wdate" type="text" placeholder="--开始时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                           <label>截止时间：<input id="enddate2" class="Wdate" type="text" placeholder="--截止时间--" onfocus="WdatePicker()"></label>&nbsp;&nbsp;
+                           <button type="button" id="search" class="btn btn-info btn-xs" onclick='fillnext()' style=""><b><i class="icon_search"></i>&nbsp;&nbsp;查询</b></button>
+                      </span>
+
+                 </header>
+               <div id='blocknextH'  style="margin-left:2px;">
+                </div>
+                 <div style='clear:left' class="panel-footer">
+                    <footer class="main-footer">
+                        <!-- To the right -->
+                        <div class="pull-right hidden-xs">
+                            <strong>Powered By 度假数据团队</strong>
+                        </div>
+                        <!-- Default to the left -->
+                        <strong>Copyright &copy; 2016 <a href="http://taocan.ctrip.com/">Ctrip</a>.</strong> All rights
+                        reserved.
+                    </footer>
+                </div>
+            </div>
+         </div>
+        </section>
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" language="javascript" src="/static/js/DataTables/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="/static/js/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/static/js/highcharts/themes/sand-signika.js"></script>
+    <script src="/static/js/Custom/checkHistory.js"></script>
+    <script type="application/javascript">
+    $(document).ready(function () {
+
+        function item(name, cnt) {
+            this.name = name;
+            this.cnt = cnt;
+        }
+          $("#startdate1").val(getNowDay()[1]);
+           $("#enddate1").val(getNowDay()[0]);
+           $("#startdate2").val(getNowDay()[1]);
+           $("#enddate2").val(getNowDay()[0]);
+
+            blockdetail();
+
+    })
+
+</script>
+
+{% endblock %}
+
+
+

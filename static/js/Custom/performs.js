@@ -452,7 +452,7 @@ function  insurend()//保险完成页
 
 function vacationInterface()
 {
-     var startDate=$("#startdate1").val();
+    var startDate=$("#startdate1").val();
     var endDate=$("#enddate1").val();
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
@@ -493,6 +493,8 @@ function plaseWait()//获取订单详情接口
 {
 
 }
+
+
 
 function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,days,jsonCnt) //pageid=3代表有3个图   k=2代表两根线
 {
@@ -3389,6 +3391,7 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              arr1[j]=arr2[j]+arr3[j]+arr4[j];
 
          }
+
 
 
 
