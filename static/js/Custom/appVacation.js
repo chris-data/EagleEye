@@ -42,7 +42,7 @@ function VacationOrder()
         var orderSquence = new Array();
         orderSquence[0] = 69;orderSquence[1] = 70;orderSquence[2] = 71;orderSquence[3] = 72;
 
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 19)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 19,0)
     }
 
 
@@ -59,7 +59,7 @@ function getTimeDiff(calDate)
 
     return x;
 }
-//自由行
+//度假iphone订单
 function iphoneVersionOrder()
 {
 
@@ -68,7 +68,7 @@ function iphoneVersionOrder()
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
-    $orderContainer = $("#orderdiyH")
+    $orderContainer = $("#iphoneVersionOrderH")
     $orderContainer.empty();//清空翻页标签
     $orderContainer.append("<div id='allOrdervs' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top: 2px'></div><div id='diyOrdervs' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top: 2px '></div><div id='pkgOrdervs' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top:10px'></div><div id='visaOrdervs' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top:10px'></div>")
     if(startDate>endDate)
@@ -80,7 +80,7 @@ function iphoneVersionOrder()
          alert("截止时间不能选择今天及以后的时间，记住没？？")
     }
     else {
-        var url = '/EagleEye/ajax/appvaorder/' + startDate + '/' + endDate;
+        var url = '/EagleEye/ajax/tourappor/' + startDate + '/' + endDate;
         var days = getDays(startDate, endDate) + 1;
         var bigTitle = [];
          bigTitle[0]='度假总体-iphone分版本订单';
@@ -95,17 +95,99 @@ function iphoneVersionOrder()
          div[0]='allOrdervs';div[1]='diyOrdervs';div[2]='pkgOrdervs';div[3]='visaOrdervs';
         var orderSquence = new Array();
         orderSquence[0] = 73;orderSquence[1] = 74;orderSquence[2] = 75;orderSquence[3] = 76;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 32)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 48,0)
     }
 
 
 }
+//度假android订单
+function androidVersionOrder()
+{
+    var startDate=$("#startdate3").val();
+    var endDate=$("#enddate3").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#androidVersionOrderH")
+    $orderContainer.empty();//清空翻页标签
+    $orderContainer.append("<div id='androidOrders' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top: 2px'></div><div id='diyandroidOrders' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top: 2px '></div><div id='pkgandroidOrders' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top:10px'></div><div id='visaandroidOrders' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourappor/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+         bigTitle[0]='度假总体-android分版本订单';
+        bigTitle[1]='自由行-android分版本订单';
+        bigTitle[2]='团队游-android分版本订单';
+        bigTitle[3]='签证-android分版本订单';
+        var smallTitle = new Array();
+         smallTitle[0]='iphone_6.17';smallTitle[1]='iphone_6.16';smallTitle[2]='iphone_6.15';
+         smallTitle[3]='iphone_6.14';smallTitle[4]='iphone_6.13';smallTitle[5]='iphone_6.12';
+         smallTitle[6]='iphone_6.11';smallTitle[7]='iphone_others';
+        var div = new Array();
+         div[0]='androidOrders';div[1]='diyandroidOrders';div[2]='pkgandroidOrders';div[3]='visaandroidOrders';
+        var orderSquence = new Array();
+        orderSquence[0] = 78;orderSquence[1] = 79;orderSquence[2] = 80;orderSquence[3] = 81;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 48,0)
+    }
+
+}
+//移动端分版本转化率
+function VersionRate()
+{
+    var startDate=$("#startdate4").val();
+    var endDate=$("#enddate4").val();
+    var taday=new Date();
+    var choseTimeArray=getChoseDate(startDate,endDate)
+          //将选定的日期作为参数请求对应日期的数据
+    $orderContainer = $("#VersionRateH")
+    $orderContainer.empty();//清空翻页标签
+    $orderContainer.append("<div id='diyiphone' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top: 2px'></div><div id='diyandroid' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top: 2px '></div><div id='pkgiphone' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top:10px'></div><div id='pkgandroid' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top:10px'></div><div id='visaiphone' style='height:350px;width:" + vaorder_chart_width + "px;float:left;clear:left;margin-top:10px'></div><div id='visaandroid' style='height:350px;width:" + vaorder_chart_width + "px;float:left;margin-left:10px;margin-top:10px'></div>")
+    if(startDate>endDate)
+    {
+        alert("开始时间比截止时间还大，你长点心吧！！！")
+    }
+    else if(endDate>=taday.Format("yyyy-MM-dd"))
+    {
+         alert("截止时间不能选择今天及以后的时间，记住没？？")
+    }
+    else {
+        var url = '/EagleEye/ajax/tourappor/' + startDate + '/' + endDate;
+        var days = getDays(startDate, endDate) + 1;
+        var bigTitle = [];
+         bigTitle[0]='自由行-iphone分版本转化率';
+        bigTitle[1]='自由行-android分版本转化率';
+        bigTitle[2]='团队游-iphone分版本转化率';
+        bigTitle[3]='团队游-android分版本转化率';
+        bigTitle[4]='签证-iphone分版本转化率';
+        bigTitle[5]='签证-android分版本转化率';
+        var smallTitle = new Array();
+         smallTitle[0]='iphone_6.17';smallTitle[1]='iphone_6.16';smallTitle[2]='iphone_6.15';
+         smallTitle[3]='iphone_6.14';smallTitle[4]='iphone_6.13';smallTitle[5]='iphone_6.12';
+         smallTitle[6]='iphone_6.11';smallTitle[7]='iphone_others';
+        var div = new Array();
+         div[0]='diyiphone';div[1]='diyandroid';div[2]='pkgiphone';div[3]='pkgandroid';div[4]='visaiphone';div[5]='visaandroid';
+        var orderSquence = new Array();
+        orderSquence[0] = 82;orderSquence[1] = 83;orderSquence[2] = 84;orderSquence[3] = 85;orderSquence[4] = 86;orderSquence[5] = 87;
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 6, orderSquence, days, 48,1)//1代表都是转化率或失败率
+    }
+}
+
+
+
 //度假金额明细
 function tourMoney()
 {
 
-    var startDate=$("#startdate4").val();
-    var endDate=$("#enddate4").val();
+    var startDate=$("#startdate6").val();
+    var endDate=$("#enddate6").val();
     var taday=new Date();
     var choseTimeArray=getChoseDate(startDate,endDate)
           //将选定的日期作为参数请求对应日期的数据
@@ -133,15 +215,16 @@ function tourMoney()
          div[0]='money';
         var orderSquence = new Array();
         orderSquence[0] = 77;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,1, orderSquence, days, 3)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,1, orderSquence, days, 3,0)
     }
 
 }
 
+
 //各订单金额占比
 function tourRate()
 {
-    var enddate=$("#enddate3").val();
+    var enddate=$("#enddate5").val();
     var taday=new Date();
     $orderContainer = $("#orderpkgH")
     $orderContainer.empty();//清空翻页标签
@@ -230,7 +313,7 @@ function diybook()
         orderSquence[0] = 37;orderSquence[1] = 38;orderSquence[2] = 39;orderSquence[3] = 40;orderSquence[4] = 41;orderSquence[5] = 42;
         orderSquence[6] = 43;orderSquence[7] = 44;orderSquence[8] = 45
 
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 9, orderSquence, days, 18*2)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 9, orderSquence, days, 18*2,1)
     }
 
 }
@@ -291,7 +374,7 @@ function diycommit()
         orderSquence[7] = 53;
         orderSquence[8] = 54
 
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 9, orderSquence, days, 18 * 2)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 9, orderSquence, days, 18 * 2,1)
     }
 
 }
@@ -332,7 +415,7 @@ function pkgbook()
 	     div[4]='pkgoffline';
         var orderSquence = new Array();
         orderSquence[0] = 55;orderSquence[1] = 56;orderSquence[2] = 57;orderSquence[3] = 58;orderSquence[4] = 59;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 5, orderSquence, days, 10 * 2)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 5, orderSquence, days, 10 * 2,1)
     }
 
 }
@@ -372,7 +455,7 @@ function pkgcommit()
 	    div[4]='pkgofflinecommit';
         var orderSquence = new Array();
         orderSquence[0] = 60;orderSquence[1] = 61;orderSquence[2] = 62;orderSquence[3] = 63;orderSquence[4] = 64;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 5, orderSquence, days, 10 * 2)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 5, orderSquence, days, 10 * 2,1)
     }
 }
 //签证commit
@@ -409,7 +492,7 @@ function visacommit()
         div[0]='visaall';div[1]='visaapp';div[2]='visaonline';div[3]='visah5';
         var orderSquence = new Array();
         orderSquence[0] = 65;orderSquence[1] = 66;orderSquence[2] = 67;orderSquence[3] = 68;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 3 * 2)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 4, orderSquence, days, 3 * 2,1)
     }
 
 

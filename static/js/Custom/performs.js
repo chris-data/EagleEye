@@ -40,7 +40,7 @@ function handelDetail()
          orderSquence[0] = 1;
          orderSquence[1] = 2;
          orderSquence[2] = 3;
-         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34)
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34,0)
      }
 
 }
@@ -80,7 +80,7 @@ function canchosepage()
          orderSquence[0] = 4;
          orderSquence[1] = 5;
          orderSquence[2] = 6;
-         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34)
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34,0)
      }
 
 }
@@ -121,7 +121,7 @@ function fillpage()//填写页
          orderSquence[0] = 7;
          orderSquence[1] = 8;
          orderSquence[2] = 9;
-         handlerCurve(url, div, bigTitle, smallTitleFill, choseTimeArray,3, orderSquence, days, 34)
+         handlerCurve(url, div, bigTitle, smallTitleFill, choseTimeArray,3, orderSquence, days, 34,0)
      }
 }
 
@@ -160,7 +160,7 @@ function endpage()
          orderSquence[0] = 10;
          orderSquence[1] = 11;
          orderSquence[2] = 12;
-         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34)
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 34,0)
      }
 
 }
@@ -202,7 +202,7 @@ function diysdpdetail()
          orderSquence[0] = 16;
          orderSquence[1] = 17;
          orderSquence[2] = 18;
-         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 27)
+         handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 27,0)
      }
 }
 
@@ -246,7 +246,7 @@ function diydpdetail() //自由行DP详情页
         orderSquence[0] = 19;
         orderSquence[1] = 20;
         orderSquence[2] = 21;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27,0)
     }
 }
 function  diydpfill()//DP填写页
@@ -288,7 +288,7 @@ function  diydpfill()//DP填写页
         orderSquence[0] = 22;
         orderSquence[1] = 23;
         orderSquence[2] = 24;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27,0)
     }
 
 }
@@ -327,7 +327,7 @@ function  diydpend()// DP完成页
         orderSquence[0] = 25;
         orderSquence[1] = 26;
         orderSquence[2] = 27;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27,0)
     }
 
 }
@@ -368,7 +368,7 @@ function  insurdeatil()//保险详情页
         orderSquence[0] = 28;
         orderSquence[1] = 29;
         orderSquence[2] = 30;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27,0)
     }
 
 
@@ -408,7 +408,7 @@ function  insurfill()//保险填写页
         orderSquence[0] = 31;
         orderSquence[1] = 32;
         orderSquence[2] = 33;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27,0)
     }
 }
 function  insurend()//保险完成页
@@ -446,7 +446,7 @@ function  insurend()//保险完成页
         orderSquence[0] = 34;
         orderSquence[1] = 35;
         orderSquence[2] = 36;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 27,0)
     }
 }
 
@@ -485,7 +485,7 @@ function vacationInterface()
         orderSquence[0] = 13;
         orderSquence[1] = 14;
         orderSquence[2] = 15;
-        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 3)
+        handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray, 3, orderSquence, days, 3,0)
     }
 
 }
@@ -496,10 +496,10 @@ function plaseWait()//获取订单详情接口
 
 
 
-function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,days,jsonCnt) //pageid=3代表有3个图   k=2代表两根线
+function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,days,jsonCnt,flag) //pageid=3代表有3个图   k=2代表两根线
 {
     if (pageid == 1) {
-       var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
+       var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          mychart1.showLoading('Loading data from server...');
 
@@ -530,21 +530,35 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     }
     else if(pageid == 2)
     {
-        var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
-        var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
+        var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+        var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
         var mychart1 = new Highcharts.Chart(options1);
         var mychart2 = new Highcharts.Chart(options2);
         mychart1.showLoading('Loading data from server...');
-        mychart2.showLoading('Loading data from server...');
+         mychart2.showLoading('Loading data from server...');
         $.getJSON(url, function (data) {
-            var reObj = data;
-            var dataArray1 = getArray(reObj, orderSquence[0],null)
-            var dataArray2 = getArray(reObj, orderSquence[1],null)
-            for(var i=0;i<smallTitle.length;i++)
+             var reObj = data;
+            if(reObj.value.length<days*jsonCnt)
             {
-              mychart1.series[i].setData(dataArray1[i]);
-              mychart2.series[i].setData(dataArray2[i]);
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                }
             }
+            else{
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                }
+
+            }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
@@ -552,9 +566,9 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     }
     else if(pageid == 3)
     {
-         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
-         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
-         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
@@ -597,10 +611,10 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     }
     else if(pageid == 4)
     {
-        var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
-         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
-         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
-        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days)
+        var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
@@ -653,11 +667,11 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     else if(pageid == 5)
     {
 
-         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
-         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
-         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
-        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days)
-        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days)
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days,flag)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
@@ -716,34 +730,39 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
     }
     else if(pageid == 6)
     {
-         var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle,days)
-         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle,days)
-         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle,days)
-         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle,days)
-         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle,days)
-         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle,days)
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days,flag)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days,flag)
+        var options6=getHandlerOpition(div[5],bigTitle[5],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
-         var mychart4 = new Highcharts.Chart(options4);
-         var mychart5 = new Highcharts.Chart(options5);
-         var mychart6 = new Highcharts.Chart(options6);
+        var mychart4 = new Highcharts.Chart(options4);
+        var mychart5 = new Highcharts.Chart(options5);
+        var mychart6 = new Highcharts.Chart(options6);
+
          mychart1.showLoading('Loading data from server...');
          mychart2.showLoading('Loading data from server...');
          mychart3.showLoading('Loading data from server...');
-         mychart4.showLoading('Loading data from server...');
-         mychart5.showLoading('Loading data from server...');
-         mychart6.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+        mychart5.showLoading('Loading data from server...');
+        mychart6.showLoading('Loading data from server...');
+
+
         $.getJSON(url, function (data) {
              var reObj = data;
-               if(reObj.value.length<days*jsonCnt)
+            if(reObj.value.length<days*jsonCnt)
             {
-                 var dataArray1 = newGetArray(reObj, orderSquence[0],0,days-1)
-                 var dataArray2 = newGetArray(reObj, orderSquence[1],0,days-1)
-                 var dataArray3 = newGetArray(reObj, orderSquence[2],0,days-1)
-                 var dataArray4 = newGetArray(reObj, orderSquence[3],0,days-1)
-                 var dataArray5 = newGetArray(reObj, orderSquence[4],0,days-1)
-                 var dataArray6 = newGetArray(reObj, orderSquence[5],0,days-1)
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                var dataArray4 = gethandlerDataArray(reObj,days-1, orderSquence[3],0,smallTitle.length)
+                var dataArray5 = gethandlerDataArray(reObj,days-1, orderSquence[4],0,smallTitle.length)
+                var dataArray6 = gethandlerDataArray(reObj,days-1, orderSquence[5],0,smallTitle.length)
+
+
                 for(var i=0;i<smallTitle.length;i++)
                 {
                     mychart1.series[i].setData(dataArray1[i]);
@@ -752,15 +771,17 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
                     mychart4.series[i].setData(dataArray4[i]);
                     mychart5.series[i].setData(dataArray5[i]);
                     mychart6.series[i].setData(dataArray6[i]);
+
                 }
             }
             else{
-                 var dataArray1 = newGetArray(reObj, orderSquence[0],1,days)
-                 var dataArray2 = newGetArray(reObj, orderSquence[1],1,days)
-                 var dataArray3 = newGetArray(reObj, orderSquence[2],1,days)
-                 var dataArray4 = newGetArray(reObj, orderSquence[3],1,days)
-                 var dataArray5 = newGetArray(reObj, orderSquence[4],1,days)
-                 var dataArray6 = newGetArray(reObj, orderSquence[5],1,days)
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                 var dataArray4 = gethandlerDataArray(reObj,days, orderSquence[3],1,smallTitle.length)
+                 var dataArray5 = gethandlerDataArray(reObj,days, orderSquence[4],1,smallTitle.length)
+                 var dataArray6 = gethandlerDataArray(reObj,days, orderSquence[5],1,smallTitle.length)
+
                 for(var i=0;i<smallTitle.length;i++)
                 {
                     mychart1.series[i].setData(dataArray1[i]);
@@ -772,6 +793,7 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
                 }
 
             }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
@@ -779,50 +801,78 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
             mychart4.hideLoading();
             mychart5.hideLoading();
             mychart6.hideLoading();
+
         })
     }
     else if(pageid == 7)
     {
-          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
-         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
-         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
-         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
-         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
-         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
-         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
+          var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days,flag)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days,flag)
+        var options6=getHandlerOpition(div[5],bigTitle[5],timeArray,smallTitle,days,flag)
+        var options7=getHandlerOpition(div[6],bigTitle[6],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
-         var mychart4 = new Highcharts.Chart(options4);
-         var mychart5 = new Highcharts.Chart(options5);
-         var mychart6 = new Highcharts.Chart(options6);
-         var mychart7 = new Highcharts.Chart(options7);
+        var mychart4 = new Highcharts.Chart(options4);
+        var mychart5 = new Highcharts.Chart(options5);
+        var mychart6 = new Highcharts.Chart(options6);
+        var mychart7 = new Highcharts.Chart(options7);
+
          mychart1.showLoading('Loading data from server...');
          mychart2.showLoading('Loading data from server...');
          mychart3.showLoading('Loading data from server...');
-         mychart4.showLoading('Loading data from server...');
-         mychart5.showLoading('Loading data from server...');
-         mychart6.showLoading('Loading data from server...');
-         mychart7.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+        mychart5.showLoading('Loading data from server...');
+        mychart6.showLoading('Loading data from server...');
+        mychart7.showLoading('Loading data from server...');
+
         $.getJSON(url, function (data) {
              var reObj = data;
-             var dataArray1 = getArray(reObj, orderSquence[0],null)
-             var dataArray2 = getArray(reObj, orderSquence[1],null)
-             var dataArray3 = getArray(reObj, orderSquence[2],null)
-             var dataArray4 = getArray(reObj, orderSquence[3],null)
-             var dataArray5 = getArray(reObj, orderSquence[4],null)
-             var dataArray6 = getArray(reObj, orderSquence[5],null)
-             var dataArray7 = getArray(reObj, orderSquence[6],null)
-            for(var i=0;i<smallTitle.length;i++)
+            if(reObj.value.length<days*jsonCnt)
             {
-                mychart1.series[i].setData(dataArray1[i]);
-                mychart2.series[i].setData(dataArray2[i]);
-                mychart3.series[i].setData(dataArray3[i]);
-                mychart4.series[i].setData(dataArray4[i]);
-                mychart5.series[i].setData(dataArray5[i]);
-                mychart6.series[i].setData(dataArray6[i]);
-                mychart7.series[i].setData(dataArray7[i]);
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                var dataArray4 = gethandlerDataArray(reObj,days-1, orderSquence[3],0,smallTitle.length)
+                var dataArray5 = gethandlerDataArray(reObj,days-1, orderSquence[4],0,smallTitle.length)
+                var dataArray6 = gethandlerDataArray(reObj,days-1, orderSquence[5],0,smallTitle.length)
+                var dataArray7 = gethandlerDataArray(reObj,days-1, orderSquence[6],0,smallTitle.length)
+
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                    mychart7.series[i].setData(dataArray7[i]);
+                }
             }
+            else{
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                 var dataArray4 = gethandlerDataArray(reObj,days, orderSquence[3],1,smallTitle.length)
+                 var dataArray5 = gethandlerDataArray(reObj,days, orderSquence[4],1,smallTitle.length)
+                 var dataArray6 = gethandlerDataArray(reObj,days, orderSquence[5],1,smallTitle.length)
+                 var dataArray7 = gethandlerDataArray(reObj,days, orderSquence[6],1,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                    mychart7.series[i].setData(dataArray7[i]);
+                }
+
+            }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
@@ -831,56 +881,85 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
             mychart5.hideLoading();
             mychart6.hideLoading();
             mychart7.hideLoading();
+
         })
     }
 
     else if(pageid == 8)
     {
-          var options1=options(div[0],type,bigTitle[0],timeArray,smallTitle)
-         var options2=options(div[1],type,bigTitle[1],timeArray,smallTitle)
-         var options3=options(div[2],type,bigTitle[2],timeArray,smallTitle)
-         var options4=options(div[3],type,bigTitle[3],timeArray,smallTitle)
-         var options5=options(div[4],type,bigTitle[4],timeArray,smallTitle)
-         var options6=options(div[5],type,bigTitle[5],timeArray,smallTitle)
-         var options7=options(div[6],type,bigTitle[6],timeArray,smallTitle)
-         var options8=options(div[7],type,bigTitle[7],timeArray,smallTitle)
+          var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days,flag)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days,flag)
+        var options6=getHandlerOpition(div[5],bigTitle[5],timeArray,smallTitle,days,flag)
+        var options7=getHandlerOpition(div[6],bigTitle[6],timeArray,smallTitle,days,flag)
+        var options8=getHandlerOpition(div[7],bigTitle[7],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
-         var mychart4 = new Highcharts.Chart(options4);
-         var mychart5 = new Highcharts.Chart(options5);
-         var mychart6 = new Highcharts.Chart(options6);
-         var mychart7 = new Highcharts.Chart(options7);
-         var mychart8 = new Highcharts.Chart(options8);
+        var mychart4 = new Highcharts.Chart(options4);
+        var mychart5 = new Highcharts.Chart(options5);
+        var mychart6 = new Highcharts.Chart(options6);
+        var mychart7 = new Highcharts.Chart(options7);
+        var mychart8 = new Highcharts.Chart(options8);
          mychart1.showLoading('Loading data from server...');
          mychart2.showLoading('Loading data from server...');
          mychart3.showLoading('Loading data from server...');
-         mychart4.showLoading('Loading data from server...');
-         mychart5.showLoading('Loading data from server...');
-         mychart6.showLoading('Loading data from server...');
-         mychart7.showLoading('Loading data from server...');
-         mychart8.showLoading('Loading data from server...');
+        mychart4.showLoading('Loading data from server...');
+        mychart5.showLoading('Loading data from server...');
+        mychart6.showLoading('Loading data from server...');
+        mychart7.showLoading('Loading data from server...');
+        mychart8.showLoading('Loading data from server...');
+
         $.getJSON(url, function (data) {
              var reObj = data;
-             var dataArray1 = getArray(reObj, orderSquence[0],null)
-             var dataArray2 = getArray(reObj, orderSquence[1],null)
-             var dataArray3 = getArray(reObj, orderSquence[2],null)
-             var dataArray4 = getArray(reObj, orderSquence[3],null)
-             var dataArray5 = getArray(reObj, orderSquence[4],null)
-             var dataArray6 = getArray(reObj, orderSquence[5],null)
-             var dataArray7 = getArray(reObj, orderSquence[6],null)
-             var dataArray8 = getArray(reObj, orderSquence[7],null)
-            for(var i=0;i<smallTitle.length;i++)
+            if(reObj.value.length<days*jsonCnt)
             {
-                mychart1.series[i].setData(dataArray1[i]);
-                mychart2.series[i].setData(dataArray2[i]);
-                mychart3.series[i].setData(dataArray3[i]);
-                mychart4.series[i].setData(dataArray4[i]);
-                mychart5.series[i].setData(dataArray5[i]);
-                mychart6.series[i].setData(dataArray6[i]);
-                mychart7.series[i].setData(dataArray7[i]);
-                mychart8.series[i].setData(dataArray8[i]);
+                 var dataArray1 = gethandlerDataArray(reObj,days-1, orderSquence[0],0,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days-1, orderSquence[1],0,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days-1, orderSquence[2],0,smallTitle.length)
+                var dataArray4 = gethandlerDataArray(reObj,days-1, orderSquence[3],0,smallTitle.length)
+                var dataArray5 = gethandlerDataArray(reObj,days-1, orderSquence[4],0,smallTitle.length)
+                var dataArray6 = gethandlerDataArray(reObj,days-1, orderSquence[5],0,smallTitle.length)
+                var dataArray7 = gethandlerDataArray(reObj,days-1, orderSquence[6],0,smallTitle.length)
+                var dataArray8 = gethandlerDataArray(reObj,days-1, orderSquence[7],0,smallTitle.length)
+
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                    mychart7.series[i].setData(dataArray7[i]);
+                    mychart8.series[i].setData(dataArray8[i]);
+                }
             }
+            else{
+                 var dataArray1 = gethandlerDataArray(reObj,days, orderSquence[0],1,smallTitle.length)
+                 var dataArray2 = gethandlerDataArray(reObj,days, orderSquence[1],1,smallTitle.length)
+                 var dataArray3 = gethandlerDataArray(reObj,days, orderSquence[2],1,smallTitle.length)
+                 var dataArray4 = gethandlerDataArray(reObj,days, orderSquence[3],1,smallTitle.length)
+                 var dataArray5 = gethandlerDataArray(reObj,days, orderSquence[4],1,smallTitle.length)
+                 var dataArray6 = gethandlerDataArray(reObj,days, orderSquence[5],1,smallTitle.length)
+                 var dataArray7 = gethandlerDataArray(reObj,days, orderSquence[6],1,smallTitle.length)
+                 var dataArray8 = gethandlerDataArray(reObj,days, orderSquence[7],1,smallTitle.length)
+                for(var i=0;i<smallTitle.length;i++)
+                {
+                    mychart1.series[i].setData(dataArray1[i]);
+                    mychart2.series[i].setData(dataArray2[i]);
+                    mychart3.series[i].setData(dataArray3[i]);
+                    mychart4.series[i].setData(dataArray4[i]);
+                    mychart5.series[i].setData(dataArray5[i]);
+                    mychart6.series[i].setData(dataArray6[i]);
+                    mychart7.series[i].setData(dataArray7[i]);
+                    mychart8.series[i].setData(dataArray8[i]);
+                }
+
+            }
+
 
             mychart1.hideLoading();
             mychart2.hideLoading();
@@ -890,20 +969,21 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
             mychart6.hideLoading();
             mychart7.hideLoading();
             mychart8.hideLoading();
+
         })
     }
     else if(pageid == 9)
     {
 
-         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days)
-         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days)
-         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days)
-        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days)
-        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days)
-        var options6=getHandlerOpition(div[5],bigTitle[5],timeArray,smallTitle,days)
-        var options7=getHandlerOpition(div[6],bigTitle[6],timeArray,smallTitle,days)
-        var options8=getHandlerOpition(div[7],bigTitle[7],timeArray,smallTitle,days)
-        var options9=getHandlerOpition(div[8],bigTitle[8],timeArray,smallTitle,days)
+         var options1=getHandlerOpition(div[0],bigTitle[0],timeArray,smallTitle,days,flag)
+         var options2=getHandlerOpition(div[1],bigTitle[1],timeArray,smallTitle,days,flag)
+         var options3=getHandlerOpition(div[2],bigTitle[2],timeArray,smallTitle,days,flag)
+        var options4=getHandlerOpition(div[3],bigTitle[3],timeArray,smallTitle,days,flag)
+        var options5=getHandlerOpition(div[4],bigTitle[4],timeArray,smallTitle,days,flag)
+        var options6=getHandlerOpition(div[5],bigTitle[5],timeArray,smallTitle,days,flag)
+        var options7=getHandlerOpition(div[6],bigTitle[6],timeArray,smallTitle,days,flag)
+        var options8=getHandlerOpition(div[7],bigTitle[7],timeArray,smallTitle,days,flag)
+        var options9=getHandlerOpition(div[8],bigTitle[8],timeArray,smallTitle,days,flag)
          var mychart1 = new Highcharts.Chart(options1);
          var mychart2 = new Highcharts.Chart(options2);
          var mychart3 = new Highcharts.Chart(options3);
@@ -1171,1265 +1251,2760 @@ function handlerCurve(url,div,bigTitle,smallTitle,timeArray,pageid,orderSquence,
 }
 
 
-function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days)
+function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag=0正常  flag=1  加上%
 {
   var options={};
     var data1 = {};var data2 = {};var data3 = {};var data4 = {};var data5 = {};var data6 = {};var data7 = {};var data8 = {};
     var data9 = {};var data10 = {};var data11 = {};var data12 = {};var data13 = {};var data14 = {};var data15 = {};var data16 = {};
-     if(smallTitle.length==1)
+    if(flag==0)
     {
-        options={
-            chart: {
+             if(smallTitle.length==1)
+            {
+                options={
+                    chart: {
 
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
 
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
                     }
                 },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
 
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
             }
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                   // itemHiddenStyle: {color: 'red'}
+             else if(smallTitle.length==2)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
                 },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                          tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                          tooltip: { valueSuffix: ' %' },
+                        tooltip: { valueSuffix: '' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
             }
-        };
+            else if(smallTitle.length==3)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        tooltip: { valueSuffix: '' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                            name:smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+             else if(smallTitle.length==4)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        tooltip: { valueSuffix: '' },
+                        name:  smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+            else if(smallTitle.length==5)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        tooltip: { valueSuffix: '' },
+                        name:  smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+              else  if(smallTitle.length==8)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+           else  if(smallTitle.length==10)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[8],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data9,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[9],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data10,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+            else if(smallTitle.length==16)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        color: '#FF0033',
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        tooltip: { valueSuffix: '' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        color: '#663366',
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[8],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data9,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name:smallTitle[9],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data10,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[10],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data11,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[11],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data12,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[12],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data13,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[13],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data14,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[14],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data15,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                            name: smallTitle[15],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data16,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
     }
-     else if(smallTitle.length==2)
+    else if(flag==1)
     {
-        options={
-            chart: {
+              if(smallTitle.length==1)
+            {
+                options={
+                    chart: {
 
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
 
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
                     }
                 },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
             }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
+             else if(smallTitle.length==2)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
                     }
                 },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                          tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                          tooltip: { valueSuffix: ' %' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
                     }
-                }
-            },
-            tooltip: {
 
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                backgroundColor: '#996666',
-            },
-            series: [{
-                  tooltip: { valueSuffix: ' %' },
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                  tooltip: { valueSuffix: ' %' },
-                tooltip: { valueSuffix: '' },
-                name: smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
             }
+            else if(smallTitle.length==3)
+            {
+                options={
+                    chart: {
 
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                   // itemHiddenStyle: {color: 'red'}
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
                 },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                         tooltip: { valueSuffix: ' %' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name:smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
             }
-        };
+             else if(smallTitle.length==4)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                        tooltip: { valueSuffix: ' %' },
+                        name:  smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+            else if(smallTitle.length==5)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                         tooltip: { valueSuffix: ' %' },
+                        name:  smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                           // itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+              else  if(smallTitle.length==8)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                         tooltip: { valueSuffix: ' %' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+               else  if(smallTitle.length==9)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                         tooltip: { valueSuffix: ' %' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[8],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data9,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+           else  if(smallTitle.length==10)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                         tooltip: { valueSuffix: ' %' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[8],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data9,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[9],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data10,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
+            else if(smallTitle.length==16)
+            {
+                options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        color: '#FF0033',
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+                         tooltip: { valueSuffix: ' %' },
+                        tooltip: { valueSuffix: '' },
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        color: '#663366',
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        } ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[6],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data7,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[7],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data8,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[8],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data9,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name:smallTitle[9],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data10,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[10],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data11,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[11],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data12,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[12],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data13,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[13],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data14,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[14],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data15,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+                             tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[15],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data16,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+            }
     }
-    else if(smallTitle.length==3)
-    {
-        options={
-            chart: {
 
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
-
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
-                    }
-                },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
-
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                tooltip: { valueSuffix: '' },
-                name: smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
-            },
-                {
-                    name:smallTitle[2],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data3,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                   // itemHiddenStyle: {color: 'red'}
-                },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
-            }
-        };
-    }
-     else if(smallTitle.length==4)
-    {
-        options={
-            chart: {
-
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
-
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
-                    }
-                },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
-
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                borderColor: '#663333',
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                tooltip: { valueSuffix: '' },
-                name:  smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
-            },
-                {
-                    name: smallTitle[2],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data3,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[3],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data4,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                   // itemHiddenStyle: {color: 'red'}
-                },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
-            }
-        };
-    }
-    else if(smallTitle.length==5)
-    {
-        options={
-            chart: {
-
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
-
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
-                    }
-                },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
-
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                borderColor: '#663333',
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                tooltip: { valueSuffix: '' },
-                name:  smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
-            },
-                {
-                    name: smallTitle[2],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data3,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[3],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data4,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[4],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data5,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                   // itemHiddenStyle: {color: 'red'}
-                },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
-            }
-        };
-    }
-      else  if(smallTitle.length==8)
-    {
-        options={
-            chart: {
-
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
-
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
-                    }
-                },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
-
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                borderColor: '#663333',
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                name: smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
-            },
-                {
-                    name: smallTitle[2],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data3,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[3],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data4,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[4],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data5,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[5],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data6,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                } ,
-                {
-                    name: smallTitle[6],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data7,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[7],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data8,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                    //itemHiddenStyle: {color: 'red'}
-                },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
-            }
-        };
-    }
-   else  if(smallTitle.length==10)
-    {
-        options={
-            chart: {
-
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
-
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
-                    }
-                },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
-
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                borderColor: '#663333',
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                name: smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
-            },
-                {
-                    name: smallTitle[2],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data3,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[3],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data4,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[4],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data5,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[5],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data6,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                } ,
-                {
-                    name: smallTitle[6],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data7,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[7],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data8,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[8],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data9,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[9],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data10,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                    //itemHiddenStyle: {color: 'red'}
-                },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
-            }
-        };
-    }
-    else if(smallTitle.length==16)
-    {
-        options={
-            chart: {
-
-                animation: Highcharts.svg,
-                renderTo: divId,
-                backgroundColor: '#FCFCFC',//黑色：#272727
-                borderColor: '#743A3A',
-                borderWidth: 1,
-                events: {
-
-                }
-            },
-            title: {
-                style: {
-                    fontSize: '18px',
-                    fontWeight: 'bold', //刻度字体加粗
-                    color: '#000000'
-                },
-                text: bigTitle  //大标题 如DP Offline 国内
-            },
-            subtitle: {
-                text: ''       //小标题省略
-            },
-            credits: {
-                text: '',
-                href: 'http://www.ctrip.com/'
-            },
-             plotOptions : {
-            line: {
-                lineWidth: 2.5,
-                states: {
-                    hover: {
-                        lineWidth: 2.7
-                    }
-                },
-                marker: {
-                    enabled: true,
-                    radius: 2.5,
-                },
-            }
-        },
-            xAxis: {
-                categories: timeArray,
-                //tickInterval: 5  ,   //也会导致误会
-                labels: {
-                    step:parseInt(days/6),
-                    staggerLines: 1 ,
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                },
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                min: 0,
-                labels: {
-                    style: {
-                        color: '#000000', //刻度字体颜色
-                        fontSize: '10px' //刻度字体大小
-                    }
-                }
-            },
-            tooltip: {
-
-                crosshairs: [{            // 设置准星线样式
-                            width:2,
-                            color: '#408080'
-                        }, {
-                            width: 1,
-                            color: "#006cee",
-                            dashStyle: 'longdashdot',
-                            zIndex: 100
-                            }],
-                shadow: false,
-                borderColor: '#663333',
-                backgroundColor: '#996666',
-            },
-            series: [{
-                name:smallTitle[0],
-                lineWidth: 1,
-                radius: 1,
-                data: data1,
-                color: '#FF0033',
-                visible: true,
-                shadow: false,
-                stickyTracking: false,
-            }, {
-                tooltip: { valueSuffix: '' },
-                name: smallTitle[1],
-                lineWidth: 1,
-                radius: 1,
-                data: data2,
-                color: '#663366',
-                visible: false,
-                shadow: true,
-                stickyTracking: false,
-            },
-                {
-                    name: smallTitle[2],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data3,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[3],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data4,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[4],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data5,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                  ,
-                {
-                    name: smallTitle[5],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data6,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                } ,
-                {
-                    name: smallTitle[6],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data7,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[7],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data8,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[8],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data9,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name:smallTitle[9],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data10,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[10],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data11,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[11],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data12,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[12],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data13,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[13],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data14,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[14],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data15,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-                 ,
-                {
-                    name: smallTitle[15],
-                    lineWidth: 1,
-                    radius: 1,
-                    data: data16,
-                    visible: false,
-                    shadow: true,
-                    stickyTracking: false,
-                }
-            ],
-                legend : {
-                    //layout: 'vertical',
-                    //borderWidth: 0.5,
-                    //itemHiddenStyle: {color: 'red'}
-                },
-            loading: {
-                style: {
-                    position: 'absolute',
-                    backgroundColor: 'black',
-                    opacity: 0.5,
-                    textAlign: 'center'
-                }
-            }
-        };
-    }
      return options;
 }
 
@@ -3335,52 +4910,52 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
             arr4[j]=retobj.value[6+19* j][3] ;//签证
             arr1[j]=arr2[j]+arr3[j]+ arr4[j];//总订单
          }
-          if(k==73)//度假 iphone分版本
+          if(k==73)//度假订单 iphone分版本
          {
               // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
-            arr1[j]=retobj.value[24+32* j][3] + retobj.value[25+ 32* j][3] + retobj.value[26+ 32* j][3]+ retobj.value[27 + 32* j][3];
-            arr2[j]=retobj.value[20+32* j][3] + retobj.value[21+ 32* j][3] + retobj.value[22+ 32* j][3]+ retobj.value[23 + 32* j][3];
-            arr3[j]=retobj.value[16+32* j][3] + retobj.value[17+ 32* j][3] + retobj.value[18+ 32* j][3]+ retobj.value[19 + 32* j][3];
-            arr4[j]=retobj.value[12+32* j][3] + retobj.value[13+ 32* j][3] + retobj.value[14+ 32* j][3]+ retobj.value[15+ 32* j][3];
-            arr5[j]=retobj.value[8+32* j][3] + retobj.value[9 + 32* j][3] + retobj.value[10 + 32* j][3]+ retobj.value[11 + 32* j][3];
-            arr6[j]=retobj.value[4+32* j][3] + retobj.value[5 + 32* j][3] + retobj.value[6 + 32* j][3]+ retobj.value[7 + 32* j][3];
-            arr7[j]=retobj.value[0+32* j][3] + retobj.value[1 + 32* j][3] + retobj.value[2 + 32* j][3]+ retobj.value[3 + 32* j][3];
-            arr8[j]=retobj.value[28+32* j][3] + retobj.value[29 + 32* j][3] + retobj.value[30 + 32* j][3]+ retobj.value[31 + 32* j][3];
+            arr1[j]=retobj.value[14+ 48* j][5] + retobj.value[30 + 48* j][5]+  retobj.value[46 + 48* j][5];
+            arr2[j]=retobj.value[13+ 48* j][5] + retobj.value[29 + 48* j][5]+  retobj.value[45 + 48* j][5];
+            arr3[j]=retobj.value[12+ 48* j][5] + retobj.value[28 + 48* j][5]+  retobj.value[44 + 48* j][5];
+            arr4[j]=retobj.value[11+ 48* j][5] + retobj.value[27 + 48* j][5]+  retobj.value[43 + 48* j][5];
+            arr5[j]=retobj.value[10+ 48* j][5] + retobj.value[26 + 48* j][5]+  retobj.value[42 + 48* j][5];
+            arr6[j]=retobj.value[9+ 48* j][5] + retobj.value[25 + 48* j][5]+  retobj.value[41 + 48* j][5];
+            arr7[j]=retobj.value[8+ 48* j][5] + retobj.value[24 + 48* j][5]+  retobj.value[40 + 48* j][5];
+            arr8[j]=retobj.value[15+ 48* j][5] + retobj.value[31 + 48* j][5]+  retobj.value[47 + 48* j][5];
          }
-          if(k==74)//自由行 iphone分版本
+          if(k==74)//自由行订单 iphone分版本
          {
-            arr1[j]=retobj.value[24+32* j][3] ;
-            arr2[j]=retobj.value[20+32* j][3] ;
-            arr3[j]=retobj.value[16+32* j][3] ;
-            arr4[j]=retobj.value[12+32* j][3] ;
-            arr5[j]=retobj.value[8+32* j][3];
-            arr6[j]=retobj.value[4+32* j][3] ;
-            arr7[j]=retobj.value[0+32* j][3] ;
-            arr8[j]=retobj.value[28+32* j][3];
+            arr1[j]=retobj.value[14+ 48* j][5];
+            arr2[j]=retobj.value[13+ 48* j][5];
+            arr3[j]=retobj.value[12+ 48* j][5];
+            arr4[j]=retobj.value[11+ 48* j][5];
+            arr5[j]=retobj.value[10+ 48* j][5];
+            arr6[j]=retobj.value[9+ 48* j][5] ;
+            arr7[j]=retobj.value[8+ 48* j][5] ;
+            arr8[j]=retobj.value[15+ 48* j][5];
          }
-          if(k==75)//团队游 iphone分版本
+          if(k==75)//团队游订单 iphone分版本
          {
                 // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
-            arr1[j]=retobj.value[25+ 32* j][3] + retobj.value[26+ 32* j][3];
-            arr2[j]= retobj.value[21+ 32* j][3] + retobj.value[22+ 32* j][3];
-            arr3[j]=retobj.value[17+ 32* j][3] + retobj.value[18+ 32* j][3];
-            arr4[j]= retobj.value[13+ 32* j][3] + retobj.value[14+ 32* j][3];
-            arr5[j]= retobj.value[9 + 32* j][3] + retobj.value[10 + 32* j][3];
-            arr6[j]= retobj.value[5 + 32* j][3] + retobj.value[6 + 32* j][3];
-            arr7[j]= retobj.value[1 + 32* j][3] + retobj.value[2 + 32* j][3];
-            arr8[j]= retobj.value[29 + 32* j][3] + retobj.value[30 + 32* j][3];
+            arr1[j]= retobj.value[30 + 48* j][5];
+            arr2[j]= retobj.value[29 + 48* j][5];
+            arr3[j]= retobj.value[28 + 48* j][5];
+            arr4[j]= retobj.value[27 + 48* j][5];
+            arr5[j]= retobj.value[26 + 48* j][5];
+            arr6[j]= retobj.value[25 + 48* j][5];
+            arr7[j]= retobj.value[24 + 48* j][5];
+            arr8[j]= retobj.value[31 + 48* j][5];
          }
-          if(k==76)//签证 iphone分版本
+          if(k==76)//签证订单 iphone分版本
          {
                  // 0.6.17   1.6.16   2. 6.15  3. 6.14  4.6.13   5. 6.12  6.6.11 7.others
-            arr1[j]= retobj.value[27 + 32* j][3];
-            arr2[j]=retobj.value[23 + 32* j][3];
-            arr3[j]= retobj.value[19 + 32* j][3];
-            arr4[j]=retobj.value[15+ 32* j][3];
-            arr5[j]= retobj.value[11 + 32* j][3];
-            arr6[j]=retobj.value[7 + 32* j][3];
-            arr7[j]=retobj.value[3 + 32* j][3];
-            arr8[j]=retobj.value[31 + 32* j][3];
+            arr1[j]= retobj.value[46 + 48* j][5];
+            arr2[j]= retobj.value[45 + 48* j][5];
+            arr3[j]= retobj.value[44 + 48* j][5];
+            arr4[j]= retobj.value[43 + 48* j][5];
+            arr5[j]= retobj.value[42 + 48* j][5];
+            arr6[j]=retobj.value[41 + 48* j][5];
+            arr7[j]=retobj.value[40 + 48* j][5];
+            arr8[j]= retobj.value[47 + 48* j][5];
          }
          if(k==77)//度假总金额
          {
@@ -3391,6 +4966,425 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              arr1[j]=arr2[j]+arr3[j]+arr4[j];
 
          }
+         if(k==78)//android 度假总订单
+         {
+
+            arr1[j]=retobj.value[6+ 48* j][5] + retobj.value[22 + 48* j][5]+  retobj.value[38 + 48* j][5];
+            arr2[j]=retobj.value[5+ 48* j][5] + retobj.value[21 + 48* j][5]+  retobj.value[37 + 48* j][5];
+            arr3[j]=retobj.value[4+ 48* j][5] + retobj.value[20 + 48* j][5]+  retobj.value[36 + 48* j][5];
+            arr4[j]=retobj.value[3+ 48* j][5] + retobj.value[19 + 48* j][5]+  retobj.value[35 + 48* j][5];
+            arr5[j]=retobj.value[2+ 48* j][5] + retobj.value[18 + 48* j][5]+  retobj.value[34 + 48* j][5];
+            arr6[j]=retobj.value[1+ 48* j][5] + retobj.value[17 + 48* j][5]+  retobj.value[33 + 48* j][5];
+            arr7[j]=retobj.value[0+ 48* j][5] + retobj.value[16 + 48* j][5]+  retobj.value[32 + 48* j][5];
+            arr8[j]=retobj.value[7+ 48* j][5] + retobj.value[23 + 48* j][5]+  retobj.value[39 + 48* j][5];
+
+         }
+         if(k==79)//android 度假自由行分版本订单
+         {
+
+            arr1[j]=retobj.value[6+ 48* j][5] ;
+            arr2[j]=retobj.value[5+ 48* j][5] ;
+            arr3[j]=retobj.value[4+ 48* j][5] ;
+            arr4[j]=retobj.value[3+ 48* j][5] ;
+            arr5[j]=retobj.value[2+ 48* j][5] ;
+            arr6[j]=retobj.value[1+ 48* j][5] ;
+            arr7[j]=retobj.value[0+ 48* j][5] ;
+            arr8[j]=retobj.value[7+ 48* j][5] ;
+
+         }
+         if(k==80)//android 度假团队游分版本订单
+         {
+
+            arr1[j]=retobj.value[22 + 48* j][5];
+            arr2[j]=retobj.value[21 + 48* j][5];
+            arr3[j]=retobj.value[20 + 48* j][5];
+            arr4[j]=retobj.value[19 + 48* j][5];
+            arr5[j]=retobj.value[18 + 48* j][5];
+            arr6[j]=retobj.value[17 + 48* j][5];
+            arr7[j]=retobj.value[16 + 48* j][5];
+            arr8[j]=retobj.value[23 + 48* j][5];
+
+         }
+         if(k==81)//android 度假签证分版本订单
+         {
+
+            arr1[j]= retobj.value[38 + 48* j][5];
+            arr2[j]= retobj.value[37 + 48* j][5];
+            arr3[j]= retobj.value[36 + 48* j][5];
+            arr4[j]= retobj.value[35 + 48* j][5];
+            arr5[j]= retobj.value[34 + 48* j][5];
+            arr6[j]= retobj.value[33 + 48* j][5];
+            arr7[j]= retobj.value[32 + 48* j][5];
+            arr8[j]= retobj.value[39 + 48* j][5];
+
+         }
+         if(k==82)//自由行iphone分版本转化率
+         {
+            if(retobj.value[14+ 48* j][4]==0)
+            {
+                arr1[j]=0;
+            }
+             else{
+                 arr1[j]= parseFloat((retobj.value[14+ 48* j][5]*100/retobj.value[14+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[13+ 48* j][4]==0)
+            {
+                arr2[j]=0;
+            }
+             else{
+                arr2[j]=parseFloat((retobj.value[13+ 48* j][5]*100/retobj.value[13+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[12+ 48* j][4]==0)
+            {
+                arr3[j]=0;
+            }
+             else{
+                arr3[j]=parseFloat((retobj.value[12+ 48* j][5]*100/retobj.value[12+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[11+ 48* j][4]==0)
+            {
+                arr4[j]=0;
+            }
+             else{
+                 arr4[j]=parseFloat((retobj.value[11+ 48* j][5]*100/retobj.value[11+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[10+ 48* j][4]==0)
+            {
+                arr5[j]=0;
+            }
+             else{
+                arr5[j]=parseFloat((retobj.value[10+ 48* j][5]*100/retobj.value[10+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[9+ 48* j][4]==0)
+            {
+                arr6[j]=0;
+            }
+             else{
+                 arr6[j]=parseFloat((retobj.value[9+ 48* j][5]*100/retobj.value[9+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[8+ 48* j][4]==0)
+            {
+                arr7[j]=0;
+            }
+             else{
+                 arr7[j]=parseFloat((retobj.value[8+ 48* j][5]*100/retobj.value[8+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[15+ 48* j][4]==0)
+            {
+                arr8[j]=0;
+            }
+             else{
+                 arr8[j]=parseFloat((retobj.value[15+ 48* j][5]*100/retobj.value[15+ 48* j][4]).toFixed(2));
+            }
+
+         }
+         if(k==83) //自由行android分版本转化率
+         {
+             if(retobj.value[6+ 48* j][4]==0)
+            {
+                arr1[j]=0;
+            }
+             else{
+                 arr1[j]= parseFloat((retobj.value[6+ 48* j][5]*100/retobj.value[6+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[5+ 48* j][4]==0)
+            {
+                arr2[j]=0;
+            }
+             else{
+                 arr2[j]=parseFloat((retobj.value[5+ 48* j][5]*100/retobj.value[5+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[4+ 48* j][4]==0)
+            {
+                arr3[j]=0;
+            }
+             else{
+                 arr3[j]=parseFloat((retobj.value[4+ 48* j][5]*100/retobj.value[4+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[3+ 48* j][4]==0)
+            {
+                arr4[j]=0;
+            }
+             else{
+                 arr4[j]=parseFloat((retobj.value[3+ 48* j][5]*100/retobj.value[3+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[2+ 48* j][4]==0)
+            {
+                arr5[j]=0;
+            }
+             else{
+                 arr5[j]=parseFloat((retobj.value[2+ 48* j][5]*100/retobj.value[2+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[1+ 48* j][4]==0)
+            {
+                arr6[j]=0;
+            }
+             else{
+                 arr6[j]=parseFloat((retobj.value[1+ 48* j][5]*100/retobj.value[1+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[0+ 48* j][4]==0)
+            {
+                arr7[j]=0;
+            }
+             else{
+                 arr7[j]=parseFloat((retobj.value[0+ 48* j][5]*100/retobj.value[0+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[7+ 48* j][4]==0)
+            {
+                arr8[j]=0;
+            }
+             else{
+                 arr8[j]=parseFloat((retobj.value[7+ 48* j][5]*100/retobj.value[7+ 48* j][4]).toFixed(2));
+            }
+
+
+
+         }
+         if(k==84)//团队游iphone分版本转化率
+         {
+
+             if(retobj.value[30+ 48* j][4]==0)
+            {
+                arr1[j]=0;
+            }
+             else{
+                  arr1[j]= parseFloat((retobj.value[30+ 48* j][5]*100/retobj.value[30+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[29+ 48* j][4]==0)
+            {
+                arr2[j]=0;
+            }
+             else{
+                arr2[j]=parseFloat((retobj.value[29+ 48* j][5]*100/retobj.value[29+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[28+ 48* j][4]==0)
+            {
+                arr3[j]=0;
+            }
+             else{
+                 arr3[j]=parseFloat((retobj.value[28+ 48* j][5]*100/retobj.value[28+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[27+ 48* j][4]==0)
+            {
+                arr4[j]=0;
+            }
+             else{
+                 arr4[j]=parseFloat((retobj.value[27+ 48* j][5]*100/retobj.value[27+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[26+ 48* j][4]==0)
+            {
+                arr5[j]=0;
+            }
+             else{
+                 arr5[j]=parseFloat((retobj.value[26+ 48* j][5]*100/retobj.value[26+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[25+ 48* j][4]==0)
+            {
+                arr6[j]=0;
+            }
+             else{
+                 arr6[j]=parseFloat((retobj.value[25+ 48* j][5]*100/retobj.value[25+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[24+ 48* j][4]==0)
+            {
+                arr7[j]=0;
+            }
+             else{
+                arr7[j]=parseFloat((retobj.value[24+ 48* j][5]*100/retobj.value[24+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[31+ 48* j][4]==0)
+            {
+                arr8[j]=0;
+            }
+             else{
+                 arr8[j]=parseFloat((retobj.value[31+ 48* j][5]*100/retobj.value[31+ 48* j][4]).toFixed(2));
+            }
+
+         }
+         if(k==85)//团队游android分版本转化率
+         {
+             if(retobj.value[22+ 48* j][4]==0)
+            {
+                arr1[j]=0;
+            }
+             else{
+                  arr1[j]= parseFloat((retobj.value[22+ 48* j][5]*100/retobj.value[22+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[21+ 48* j][4]==0)
+            {
+                arr2[j]=0;
+            }
+             else{
+                 arr2[j]=parseFloat((retobj.value[21+ 48* j][5]*100/retobj.value[21+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[20+ 48* j][4]==0)
+            {
+                arr3[j]=0;
+            }
+             else{
+                 arr3[j]=parseFloat((retobj.value[20+ 48* j][5]*100/retobj.value[20+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[19+ 48* j][4]==0)
+            {
+                arr4[j]=0;
+            }
+             else{
+                 arr4[j]=parseFloat((retobj.value[19+ 48* j][5]*100/retobj.value[19+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[18+ 48* j][4]==0)
+            {
+                arr5[j]=0;
+            }
+             else{
+                  arr5[j]=parseFloat((retobj.value[18+ 48* j][5]*100/retobj.value[18+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[17+ 48* j][4]==0)
+            {
+                arr6[j]=0;
+            }
+             else{
+                 arr6[j]=parseFloat((retobj.value[17+ 48* j][5]*100/retobj.value[17+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[16+ 48* j][4]==0)
+            {
+                arr7[j]=0;
+            }
+             else{
+                arr7[j]=parseFloat((retobj.value[16+ 48* j][5]*100/retobj.value[16+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[23+ 48* j][4]==0)
+            {
+                arr8[j]=0;
+            }
+             else{
+                 arr8[j]=parseFloat((retobj.value[23+ 48* j][5]*100/retobj.value[23+ 48* j][4]).toFixed(2));
+            }
+
+
+         }
+         if(k==86)//签证iphone分版本转化率
+         {
+
+              if(retobj.value[46+ 48* j][4]==0)
+            {
+                arr1[j]=0;
+            }
+             else{
+                  arr1[j]= parseFloat((retobj.value[46+ 48* j][5]*100/retobj.value[46+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[45+ 48* j][4]==0)
+            {
+                arr2[j]=0;
+            }
+             else{
+                 arr2[j]=parseFloat((retobj.value[45+ 48* j][5]*100/retobj.value[45+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[44+ 48* j][4]==0)
+            {
+                arr3[j]=0;
+            }
+             else{
+                 arr3[j]=parseFloat((retobj.value[44+ 48* j][5]*100/retobj.value[44+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[43+ 48* j][4]==0)
+            {
+                arr4[j]=0;
+            }
+             else{
+                arr4[j]=parseFloat((retobj.value[43+ 48* j][5]*100/retobj.value[43+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[42+ 48* j][4]==0)
+            {
+                arr5[j]=0;
+            }
+             else{
+                  arr5[j]=parseFloat((retobj.value[42+ 48* j][5]*100/retobj.value[42+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[41+ 48* j][4]==0)
+            {
+                arr6[j]=0;
+            }
+             else{
+                  arr6[j]=parseFloat((retobj.value[41+ 48* j][5]*100/retobj.value[41+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[40+ 48* j][4]==0)
+            {
+                arr7[j]=0;
+            }
+             else{
+                arr7[j]=parseFloat((retobj.value[40+ 48* j][5]*100/retobj.value[40+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[47+ 48* j][4]==0)
+            {
+                arr8[j]=0;
+            }
+             else{
+                 arr8[j]=parseFloat((retobj.value[47+ 48* j][5]*100/retobj.value[47+ 48* j][4]).toFixed(2));
+            }
+
+         }
+         if(k==87)//签证android分版本转化率
+         {
+             if(retobj.value[38+ 48* j][4]==0)
+            {
+                arr1[j]=0;
+            }
+             else{
+                   arr1[j]= parseFloat((retobj.value[38+ 48* j][5]*100/retobj.value[38+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[37+ 48* j][4]==0)
+            {
+                arr2[j]=0;
+            }
+             else{
+                 arr2[j]=parseFloat((retobj.value[37+ 48* j][5]*100/retobj.value[37+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[36+ 48* j][4]==0)
+            {
+                arr3[j]=0;
+            }
+             else{
+                 arr3[j]=parseFloat((retobj.value[36+ 48* j][5]*100/retobj.value[36+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[35+ 48* j][4]==0)
+            {
+                arr4[j]=0;
+            }
+             else{
+                arr4[j]=parseFloat((retobj.value[35+ 48* j][5]*100/retobj.value[35+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[34+ 48* j][4]==0)
+            {
+                arr5[j]=0;
+            }
+             else{
+                   arr5[j]=parseFloat((retobj.value[34+ 48* j][5]*100/retobj.value[34+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[33+ 48* j][4]==0)
+            {
+                arr6[j]=0;
+            }
+             else{
+                  arr6[j]=parseFloat((retobj.value[33+ 48* j][5]*100/retobj.value[33+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[32+ 48* j][4]==0)
+            {
+                arr7[j]=0;
+            }
+             else{
+               arr7[j]=parseFloat((retobj.value[32+ 48* j][5]*100/retobj.value[32+ 48* j][4]).toFixed(2));
+            }
+             if(retobj.value[39+ 48* j][4]==0)
+            {
+                arr8[j]=0;
+            }
+             else{
+                arr8[j]=parseFloat((retobj.value[39+ 48* j][5]*100/retobj.value[39+ 48* j][4]).toFixed(2));
+            }
+
+         }
+
+
 
 
 

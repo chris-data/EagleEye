@@ -55,6 +55,8 @@ orderurl = [
     url(r'^ajax/appvaallorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAllOrder),
     # 度假app订单
     url(r'^ajax/appvaorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPOrder),
+    # 度假分版本转化率 含android、ios个版本
+    url(r'^ajax/tourappor/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_tourapporderrate),
     # 度假金额
     url(r'^ajax/appvaamount/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAmount),
      # 度假订单版本饼形图

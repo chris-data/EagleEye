@@ -1175,7 +1175,7 @@ def get_APPOrder(request, sdt, edt):
     return JsonResponse(mapping)
 
 
-##度假app分版本订单
+##度假app分版本订单  不含android个版本，只有android总数
 def get_VacPieOrder(request, sdt, edt):
     """
     :param vdate: 日期
@@ -1186,6 +1186,22 @@ def get_VacPieOrder(request, sdt, edt):
     edt += ' 00:00:00'
     cursor = connection.cursor()
     cursor.execute(SQL.sqldict["pieOrder"], [sdt, edt])
+    queryset = cursor.fetchall()
+    mapping = {"key": sdt, "value": queryset}
+
+    return JsonResponse(mapping)
+
+##度假app分版本订单转化率   含android、ios个版本
+def get_tourapporderrate(request, sdt, edt):
+    """
+    :param vdate: 日期
+    :param bu: bu名称  如自由行、团队游、 邮轮
+    :param cnt 订单数
+    """
+    sdt += ' 00:00:00'
+    edt += ' 00:00:00'
+    cursor = connection.cursor()
+    cursor.execute(SQL.sqldict["tourapporderrate"], [sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 

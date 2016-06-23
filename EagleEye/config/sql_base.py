@@ -460,6 +460,12 @@ WHERE
     and channel in ('android','iphone','iphone_6.17','iphone_6.16','iphone_6.15','iphone_6.14','iphone_6.13','iphone_6.12','iphone_6.11','others')
     order by vdate,channel,bu
     """,
+##度假app分版本订单转化率  含ios android各版本
+     "tourapporderrate":"""
+    select vdate,bu,platform,version,uv,orderCnt from vacationVersionRate where
+    vdate   between  %s and %s
+    order by vdate,bu,platform,version,uv,orderCnt
+    """,
 
     #度假金额
      "appAmount":"""
