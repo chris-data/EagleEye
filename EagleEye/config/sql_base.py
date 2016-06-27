@@ -428,9 +428,19 @@ WHERE
     """,
     # app整体转化率
     "appCR": """
-    select vdate,type,cnt from APPVacationCR where
-    vdate between %s and %s
-    order by vdate,type
+    select
+    O.vdate,
+    O.type,
+    O.cnt
+    from
+     (
+      select vdate,type,cnt from APPVacationCR where
+        vdate between %s and %s
+        union all
+      select vdate,type,cnt from APPVacationCR where
+        vdate between %s and %s
+     )O
+     group by vdate,type,cnt
     """  ,
      #度假订单   app online h5
     "appAllOrder":"""

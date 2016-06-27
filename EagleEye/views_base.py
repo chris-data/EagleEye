@@ -1123,7 +1123,7 @@ def get_append_commit(request, channel='all', product='all', interval='10'):
 ##  度假app整体转化率
 
 ##离线可订检查接口  分资源-->酒店/X资源/单选项/当地玩乐
-def get_APPCR(request, sdt, edt):
+def get_APPCR(request, dimsdt, dimedt, sdt, edt):
     """
     :param vdate: 日期
     :param type: 总订单  自由行订单  团队定案  流量同
@@ -1132,7 +1132,7 @@ def get_APPCR(request, sdt, edt):
     sdt += ' 00:00:00'
     edt += ' 00:00:00'
     cursor = connection.cursor()
-    cursor.execute(SQL.sqldict["appCR"], [sdt, edt])
+    cursor.execute(SQL.sqldict["appCR"],  [dimsdt, dimedt, sdt, edt])
     queryset = cursor.fetchall()
     mapping = {"key": sdt, "value": queryset}
 

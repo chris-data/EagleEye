@@ -3153,6 +3153,169 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                     }
                 };
             }
+            else if(smallTitle.length==6)
+              {
+                  options={
+                    chart: {
+
+                        animation: Highcharts.svg,
+                        renderTo: divId,
+                        backgroundColor: '#FCFCFC',//黑色：#272727
+                        borderColor: '#743A3A',
+                        borderWidth: 1,
+                        events: {
+
+                        }
+                    },
+                    title: {
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold', //刻度字体加粗
+                            color: '#000000'
+                        },
+                        text: bigTitle  //大标题 如DP Offline 国内
+                    },
+                    subtitle: {
+                        text: ''       //小标题省略
+                    },
+                    credits: {
+                        text: '',
+                        href: 'http://www.ctrip.com/'
+                    },
+                     plotOptions : {
+                    line: {
+                        lineWidth: 2.5,
+                        states: {
+                            hover: {
+                                lineWidth: 2.7
+                            }
+                        },
+                        marker: {
+                            enabled: true,
+                            radius: 2.5,
+                        },
+                    }
+                },
+                    xAxis: {
+                        categories: timeArray,
+                        //tickInterval: 5  ,   //也会导致误会
+                        labels: {
+                            step:parseInt(days/6),
+                            staggerLines: 1 ,
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        },
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
+                        min: 0,
+                        labels: {
+                            style: {
+                                color: '#000000', //刻度字体颜色
+                                fontSize: '10px' //刻度字体大小
+                            }
+                        }
+                    },
+                    tooltip: {
+
+                        crosshairs: [{            // 设置准星线样式
+                                    width:2,
+                                    color: '#408080'
+                                }, {
+                                    width: 1,
+                                    color: "#006cee",
+                                    dashStyle: 'longdashdot',
+                                    zIndex: 100
+                                    }],
+                        shadow: false,
+                        borderColor: '#663333',
+                        backgroundColor: '#996666',
+                    },
+                    series: [{
+                         tooltip: { valueSuffix: ' %' },
+                        name:smallTitle[0],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data1,
+                        visible: true,
+                        shadow: false,
+                        stickyTracking: false,
+                    }, {
+
+                        name: smallTitle[1],
+                        lineWidth: 1,
+                        radius: 1,
+                        data: data2,
+                        visible: false,
+                        shadow: true,
+                        stickyTracking: false,
+                    },
+                        {
+
+                            name: smallTitle[2],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data3,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+                        tooltip: { valueSuffix: ' %' },
+                            name: smallTitle[3],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data4,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                         ,
+                        {
+
+                            name: smallTitle[4],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data5,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+                          ,
+                        {
+
+                            name: smallTitle[5],
+                            lineWidth: 1,
+                            radius: 1,
+                            data: data6,
+                            visible: false,
+                            shadow: true,
+                            stickyTracking: false,
+                        }
+
+                    ],
+                        legend : {
+                            //layout: 'vertical',
+                            //borderWidth: 0.5,
+                            //itemHiddenStyle: {color: 'red'}
+                        },
+                    loading: {
+                        style: {
+                            position: 'absolute',
+                            backgroundColor: 'black',
+                            opacity: 0.5,
+                            textAlign: 'center'
+                        }
+                    }
+                };
+
+
+              }
               else  if(smallTitle.length==8)
             {
                 options={
@@ -5381,6 +5544,84 @@ var resultThree = [];      //k=15 酒店全部  k=16 x资源; K=17单选项  ;k=
              else{
                 arr8[j]=parseFloat((retobj.value[39+ 48* j][5]*100/retobj.value[39+ 48* j][4]).toFixed(2));
             }
+
+         }
+         if(k==88) //APP总体转化率
+         {
+              if((parseInt(retobj.value.length/12)==retobj.value.length/12))
+             {
+                 //现在
+                arr1[j]=parseFloat((retobj.value[days*6+2+6* j][2]*100/retobj.value[days*6+5+6* j][2]).toFixed(2));
+                arr2[j]=retobj.value[days*6+2+6* j][2]; //ORDER
+                arr3[j]=retobj.value[days*6+5+6* j][2];//UV
+                 //历史同期
+                arr4[j]=parseFloat((retobj.value[2+6* j][2]*100/retobj.value[5+6* j][2]).toFixed(2));
+                arr5[j]=retobj.value[2+6* j][2]; //ORDER
+                arr6[j]=retobj.value[5+6* j][2];//UV
+             }
+             else{
+                   //现在
+                arr1[j]=parseFloat((retobj.value[days*6+6+2+6* j][2]*100/retobj.value[days*6+5+6* j][2]).toFixed(2));
+                arr2[j]=retobj.value[days*6+6+2+6* j][2]; //ORDER
+                arr3[j]=retobj.value[days*6+6+5+6* j][2];//UV
+               //历史
+                arr4[j]=parseFloat((retobj.value[2+6* j][2]*100/retobj.value[5+6* j][2]).toFixed(2));
+                arr5[j]=retobj.value[2+6* j][2]; //ORDER
+                arr6[j]=retobj.value[5+6* j][2];//UV
+
+             }
+
+         }
+         if(k==89) //自由行APP总体转化率
+         {
+              if((parseInt(retobj.value.length/12)==retobj.value.length/12))
+             {
+                 //现在
+                arr1[j]=parseFloat((retobj.value[days*6+0+6* j][2]*100/retobj.value[days*6+1+6* j][2]).toFixed(2));
+                arr2[j]=retobj.value[days*6+0+6* j][2]; //ORDER
+                arr3[j]=retobj.value[days*6+1+6* j][2];//UV
+                 //历史同期
+                arr4[j]=parseFloat((retobj.value[0+6* j][2]*100/retobj.value[1+6* j][2]).toFixed(2));
+                arr5[j]=retobj.value[0+6* j][2]; //ORDER
+                arr6[j]=retobj.value[1+6* j][2];//UV
+             }
+             else{
+                   //现在
+                arr1[j]=parseFloat((retobj.value[days*6+6+0+6* j][2]*100/retobj.value[days*6+1+6* j][2]).toFixed(2));
+                arr2[j]=retobj.value[days*6+6+0+6* j][2]; //ORDER
+                arr3[j]=retobj.value[days*6+6+1+6* j][2];//UV
+               //历史
+                arr4[j]=parseFloat((retobj.value[0+6* j][2]*100/retobj.value[1+6* j][2]).toFixed(2));
+                arr5[j]=retobj.value[0+6* j][2]; //ORDER
+                arr6[j]=retobj.value[1+6* j][2];//UV
+
+             }
+
+         }
+         if(k==90) //团队游APP总体转化率
+         {
+              if((parseInt(retobj.value.length/12)==retobj.value.length/12))
+             {
+                 //现在
+                arr1[j]=parseFloat((retobj.value[days*6+3+6* j][2]*100/retobj.value[days*6+4+6* j][2]).toFixed(2));
+                arr2[j]=retobj.value[days*6+3+6* j][2]; //ORDER
+                arr3[j]=retobj.value[days*6+4+6* j][2];//UV
+                 //历史同期
+                arr4[j]=parseFloat((retobj.value[3+6* j][2]*100/retobj.value[4+6* j][2]).toFixed(2));
+                arr5[j]=retobj.value[3+6* j][2]; //ORDER
+                arr6[j]=retobj.value[4+6* j][2];//UV
+             }
+             else{
+                   //现在
+                arr1[j]=parseFloat((retobj.value[days*6+6+3+6* j][2]*100/retobj.value[days*6+4+6* j][2]).toFixed(2));
+                arr2[j]=retobj.value[days*6+6+3+6* j][2]; //ORDER
+                arr3[j]=retobj.value[days*6+6+4+6* j][2];//UV
+               //历史
+                arr4[j]=parseFloat((retobj.value[3+6* j][2]*100/retobj.value[4+6* j][2]).toFixed(2));
+                arr5[j]=retobj.value[3+6* j][2]; //ORDER
+                arr6[j]=retobj.value[4+6* j][2];//UV
+
+             }
 
          }
 

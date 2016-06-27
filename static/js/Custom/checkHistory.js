@@ -1436,7 +1436,7 @@ function checkPlay()//当地玩乐
     }
 }
 
-//度假app 转化率
+//度假app 转化率   做成历史同期的数据
 function appVaCR()
 {
     //第一步  确定X轴   获取日历框选择的起始时间  将起始时间之内的时间塞进数据以备做成X轴横坐标
@@ -1455,18 +1455,17 @@ function appVaCR()
     else
     {
          //将选定的日期作为参数请求对应日期的数据
-     var url = '/EagleEye/ajax/appvacr/'+startDate+'/'+endDate ;
+     var url = '/EagleEye/ajax/appvacr/'+getLastYear(startDate)+'/'+getLastYear(endDate)+'/'+startDate+'/'+endDate;
      var days=getDays(startDate,endDate)+1;
      var bigTitle = [];
      bigTitle[0] = 'APP-总体转化率';bigTitle[1] = 'APP-自由行转化率';bigTitle[2] = 'APP-团队游转化率';
      var smallTitle=new Array();
-     smallTitle[0]='转化率';smallTitle[1]='订单';smallTitle[2]='流量(uv)'
+     smallTitle[0]='转化率';smallTitle[1]='订单';smallTitle[2]='流量(uv)';smallTitle[3]='历史同期转化率';smallTitle[4]='历史同期订单';smallTitle[5]='历史同期流量(uv)'
      var div=new Array();
      div[0]='total'; div[1]='diy'; div[2]='pkg';
      var orderSquence=new Array();
-     orderSquence[0]=1; orderSquence[1]=2; orderSquence[2]=3;
-     appcrCurve(url,div,bigTitle,smallTitle,choseTimeArray,3,orderSquence,days,6) //6代表每天json数据长度为6
-
+     orderSquence[0]=88; orderSquence[1]=89; orderSquence[2]=90;
+     handlerCurve(url, div, bigTitle, smallTitle, choseTimeArray,3, orderSquence, days, 6*2,1)
     }
 
 

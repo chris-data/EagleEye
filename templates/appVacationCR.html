@@ -7,10 +7,11 @@
         <section class="wrapper">
              <div class="alert alert-info alert-dismissable">
                 注意事项：
-               <li>度假APP转化率此处只含自由行含团队。</li>
+                 <li>度假APP转化率此处只含自由行含团队。</li>
                  <li>自由行：包含SDP APP和DP APP。</li>
                  <li>团队游：包含国内游APP、海外游APP、周边短途APP。国内游：产品形态为:跟团游,团队游,私家团,半自助游,当地参团,独立成团,产品类型为:国内旅游。海外游：产品形态为:跟团游,团队游,私家团,半自助游,当地参团,独立成团,产品类型为:出境旅游,境外N日游。周边短途：产品形态为:跟团游,团队游,私家团,半自助游,当地参团,独立成团,产品类型为:境内N日游,境内一日游。</li>
-               </div>
+                 <li>历史同期数据采用相同算法(2015-01-01~今天)，如有问题请联系va_data@Ctrip.com。</li>
+             </div>
 
             <!-- charts container-->
               <header id="pkg_header" class="panel-heading shadow" style="margin-bottom: 10px;max-height: 50px">
@@ -54,6 +55,8 @@
 
 {% block js %}
     <script src="/static/js/highcharts/themes/sand-signika.js"></script>
+    <script src="/static/js/Custom/performs.js"></script>
+    <script src="/static/js/Custom/appVacation.js"></script>
     <script src="/static/js/Custom/checkHistory.js"></script>
     <script type="application/javascript">
      $("#startdate").val(getNowDay()[1]);

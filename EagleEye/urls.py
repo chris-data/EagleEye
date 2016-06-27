@@ -50,7 +50,7 @@ orderurl = [
         r'^ajax/init/order5/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/(?P<channel>[a-z]+[0-9]?)/(?P<product>[a-z]+)/(?P<interval>[0-9]+)/(?P<history>False|True)$',
         views_base.get_orders_aggregate),
     # 度假app转化率
-    url(r'^ajax/appvacr/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPCR),
+    url(r'^ajax/appvacr/(?P<dimsdt>' + regex_date + ')/(?P<dimedt>' + regex_date + ')/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_APPCR),
     # 度假总订单 含app online 等
     url(r'^ajax/appvaallorder/(?P<sdt>' + regex_date + ')/(?P<edt>' + regex_date + ')/$', views_base.get_VacAllOrder),
     # 度假app订单
