@@ -152,10 +152,10 @@ function checkDP()
            var url = '/EagleEye/ajax/olddpcheckhis/' + startDate + '/' + endDate;
            var days = getDays(startDate, endDate) + 1;
            var bigTitle = [];
-           bigTitle[0] = 'SDP 机票';
-           bigTitle[1] = 'SDP 酒店';
-           bigTitle[2] = 'SDP 可选项';
-           bigTitle[3] = 'SDP 产品';
+           bigTitle[0] = 'DP 全部';
+           bigTitle[1] = 'DP Online';
+           bigTitle[2] = 'DP 无线';
+           bigTitle[3] = 'DP Offline';
            var smallTitle = new Array();
            smallTitle[0] = '失败率';
            smallTitle[1] = '失败数';
