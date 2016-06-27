@@ -805,7 +805,7 @@ function options(divId,type,bigTitle,timeArray,smallTitle,days)
                 }
             },
             tooltip: {
-
+                shared: true,
                 crosshairs: [{            // 设置准星线样式
                             width:2,
                             color: '#408080'
@@ -815,9 +815,9 @@ function options(divId,type,bigTitle,timeArray,smallTitle,days)
                             dashStyle: 'longdashdot',
                             zIndex: 100
                             }],
-                shadow: false,
+                shadow: true,
                 borderColor: '#663333',
-                backgroundColor: '#996666',
+
             },
             series: [{
                 tooltip: { valueSuffix: ' %' },

@@ -1326,7 +1326,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -1336,8 +1336,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        backgroundColor: '#996666',
+                        shadow: true
                     },
                     series: [{
                         name:smallTitle[0],
@@ -1432,7 +1431,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -1442,8 +1441,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        backgroundColor: '#996666',
+                        shadow: true,
                     },
                     series: [{
                           tooltip: { valueSuffix: ' %' },
@@ -1550,7 +1548,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -1560,8 +1558,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        backgroundColor: '#996666',
+                        shadow: true
                     },
                     series: [{
                         name:smallTitle[0],
@@ -1675,7 +1672,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -1685,9 +1682,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                         name:smallTitle[0],
@@ -1811,7 +1808,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -1821,9 +1818,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                         name:smallTitle[0],
@@ -1957,7 +1954,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -1967,9 +1964,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                         name:smallTitle[0],
@@ -2131,7 +2128,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -2141,9 +2138,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                         name:smallTitle[0],
@@ -2324,7 +2321,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -2334,9 +2331,8 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        borderColor: '#663333',
-                        backgroundColor: '#996666',
+                        shadow: true,
+
                     },
                     series: [{
                         name:smallTitle[0],
@@ -2690,7 +2686,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -2700,8 +2696,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        backgroundColor: '#996666',
+                        shadow: true,
                     },
                     series: [{
                           tooltip: { valueSuffix: ' %' },
@@ -2807,7 +2802,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -2817,8 +2812,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        backgroundColor: '#996666',
+                        shadow: true,
                     },
                     series: [{
                         name:smallTitle[0],
@@ -3221,7 +3215,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                         shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -3231,9 +3225,8 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
-                        borderColor: '#663333',
-                        backgroundColor: '#996666',
+                        shadow: true,
+                        borderColor: '#B22222',
                     },
                     series: [{
                          tooltip: { valueSuffix: ' %' },
@@ -3384,7 +3377,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -3394,9 +3387,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                          tooltip: { valueSuffix: ' %' },
@@ -3566,7 +3559,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -3576,9 +3569,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                          tooltip: { valueSuffix: ' %' },
@@ -3962,7 +3955,7 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                         }
                     },
                     tooltip: {
-
+                        shared: true,
                         crosshairs: [{            // 设置准星线样式
                                     width:2,
                                     color: '#408080'
@@ -3972,9 +3965,9 @@ function getHandlerOpition(divId,bigTitle,timeArray,smallTitle,days,flag) //flag
                                     dashStyle: 'longdashdot',
                                     zIndex: 100
                                     }],
-                        shadow: false,
+                        shadow: true,
                         borderColor: '#663333',
-                        backgroundColor: '#996666',
+
                     },
                     series: [{
                          tooltip: { valueSuffix: ' %' },
