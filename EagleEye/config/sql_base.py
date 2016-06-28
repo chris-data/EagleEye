@@ -438,7 +438,7 @@ WHERE
         vdate between %s and %s
         union all
       select vdate,type,cnt from APPVacationCR where
-        vdate between %s and %s
+        vdate between %s and %s and vdate!='2016-02-29'
      )O
      group by vdate,type,cnt
     """  ,
