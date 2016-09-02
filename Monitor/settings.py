@@ -157,17 +157,6 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 # send email
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_USE_TLS = False
-EMAIL_HOST = 'appmail.sh.ctriptravel.com'
-EMAIL_HOST_USER = 'appmail103'
-EMAIL_HOST_PASSWORD = 'Mbbnsvpjeni6mc8Ej'
-DEFAULT_FROM_EMAIL = 'wang.zy@ctrip.com'
-# EMAIL_PORT = 587
-
-ADMINS = (('chris', 'wang.zy@Ctrip.com'))
 # DEFAULT_INDEX_TABLESPACE=''
 
 # DEFAULT_CHARSET = 'utf-8'
