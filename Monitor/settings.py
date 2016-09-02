@@ -101,7 +101,7 @@ DATABASES = {
     'default': {
         'NAME': 'monitor',
         'ENGINE': 'mysql.connector.django',
-        'HOST': '10.8.77.165',
+        'HOST': '0.0.0.0',
         'PORT': '3306',
         'USER': 'deploy',
         'PASSWORD': "123456",
@@ -112,7 +112,7 @@ DATABASES = {
     'analysis': {
         'NAME': 'analysis',
         'ENGINE': 'mysql.connector.django',
-        'HOST': '10.8.77.165',
+        'HOST': '0.0.0.0',
         'PORT': '3306',
         'USER': 'deploy',
         'PASSWORD': "123456",
